@@ -101,7 +101,7 @@ function Proof() {
           Both sites are structured the same way SEOPage structures your pages:
           deep research, FAQ blocks, schema markup, direct-answer copy, and
           entity signals. AI search engines reward exactly that shape — and
-          your competitive landing pages should be built the same way.
+          your competitive SEO landing pages should be built the same way.
         </p>
       </div>
     </section>
@@ -215,10 +215,10 @@ function Hero() {
       </p>
 
       <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
-        Five competitive landing pages — comparison, alternatives, best-of, FAQ,
-        category — engineered with the schema, structure, and direct answers
-        that ChatGPT, Perplexity, and Google&apos;s AI Overviews actually pick up.
-        A real editor signs off every page before delivery.
+        Five competitive SEO landing pages — comparison, alternatives, best-of,
+        FAQ, category — engineered with the schema, structure, and direct
+        answers that ChatGPT, Perplexity, and Google&apos;s AI Overviews
+        actually pick up. A real editor signs off every page before delivery.
       </p>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

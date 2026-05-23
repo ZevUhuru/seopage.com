@@ -17,7 +17,7 @@ export const offer = {
   pitch:
     "Five competitive landing pages built to be cited by ChatGPT and ranked by Google. AI researches your site, your competitors, and the SERP. A human editor signs off every page before delivery.",
   includes: [
-    "Five competitive landing pages, drafted by AI from your URL",
+    "Five competitive SEO landing pages, drafted by AI from your URL",
     "Engineered for AI search — schema, direct answers, and entity signals ChatGPT, Perplexity, and Google AI Overviews pick up",
     "Built for Google too — title tags, meta, internal links, and SERP-shaped structure",
     "One human verification pass per page — facts, structure, and voice signed off",

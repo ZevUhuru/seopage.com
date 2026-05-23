@@ -4,24 +4,24 @@ import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { CHECKOUT_HREF, offer } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "SEO Page — Definition, Types, and How They Work in 2026",
+  title: "SEO Page (SEO Landing Page) — Definition, Types, and How They Work in 2026",
   description:
-    "An SEO Page is a structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query or buyer intent. Definition, types, anatomy, and the 2026 shift to AI search.",
+    "An SEO Page — also known as an SEO Landing Page — is a structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query or buyer intent. Definition, types, anatomy, and the 2026 shift to AI search.",
   alternates: {
     canonical: "https://seopage.com/seo-page",
   },
   openGraph: {
-    title: "SEO Page — Definition, Types, and How They Work in 2026",
+    title: "SEO Page (SEO Landing Page) — Definition, Types, and How They Work in 2026",
     description:
-      "The canonical reference for the term. Definition, types (comparison, alternatives, best-of, category, FAQ, definition), anatomy, history, and how SEO Pages earn citations from ChatGPT and rank on Google.",
+      "The canonical reference for the term. SEO Page and SEO Landing Page defined as synonyms. Types (comparison, alternatives, best-of, category, FAQ, definition), anatomy, history, and how these pages earn citations from ChatGPT and rank on Google.",
     url: "https://seopage.com/seo-page",
     type: "article",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEO Page — Definition, Types, and How They Work in 2026",
+    title: "SEO Page (SEO Landing Page) — Definition, Types, and How They Work in 2026",
     description:
-      "Canonical definition of the term, types of SEO Pages, anatomy, and the 2026 shift to AI search citation.",
+      "Canonical definition. SEO Page and SEO Landing Page as synonyms, the principal types, anatomy, and the 2026 shift to AI search citation.",
   },
 };
 
@@ -31,8 +31,12 @@ const faq = [
     a: "An SEO Page is a structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query or buyer intent. It is distinguished from a blog post by its conversion focus, and from a product page by its competitive, comparative, or category-level scope.",
   },
   {
+    q: "What is an SEO landing page?",
+    a: "An SEO landing page is the same thing as an SEO Page — the terms are interchangeable. Both refer to a structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query. SEOPage uses SEO Page as the canonical term and SEO Landing Page as a synonym; landing page SEO is the practitioner's shorthand for the same discipline.",
+  },
+  {
     q: "How is an SEO Page different from a landing page?",
-    a: "A landing page is any page designed to convert traffic, including paid traffic. An SEO Page is the subset of landing pages whose primary traffic source is organic search and AI citation, designed to satisfy a specific search query rather than an ad campaign.",
+    a: "A landing page is any page designed to convert traffic, including paid traffic. An SEO Page (also called an SEO Landing Page) is the subset of landing pages whose primary traffic source is organic search and AI citation, designed to satisfy a specific search query rather than an ad campaign.",
   },
   {
     q: "How long should an SEO Page be?",
@@ -161,7 +165,7 @@ const eras = [
 const disambiguation = [
   {
     term: "SEO Page vs Landing page",
-    body: "A landing page is any page designed to convert traffic — typically from paid sources, email campaigns, or ad targeting. An SEO Page is the subset of landing pages whose primary traffic source is organic search and AI citation, designed to satisfy specific search queries rather than ad campaigns.",
+    body: "A landing page is any page designed to convert traffic — typically from paid sources, email campaigns, or ad targeting. An SEO Page is the subset of landing pages whose primary traffic source is organic search and AI citation, designed to satisfy specific search queries rather than ad campaigns. When practitioners refer to an SEO Landing Page, they mean an SEO Page in this sense — the two terms are used interchangeably.",
   },
   {
     term: "SEO Page vs Blog post",
@@ -212,8 +216,9 @@ export default function SeoPageDefinitionPage() {
         "@type": "DefinedTerm",
         "@id": "https://seopage.com/seo-page#term",
         name: "SEO Page",
+        alternateName: ["SEO Landing Page", "Landing Page SEO"],
         description:
-          "A structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query or buyer intent.",
+          "A structured web page engineered to rank in search engines and earn citation in AI-generated answers for a specific query or buyer intent. Also known as an SEO Landing Page.",
         url: "https://seopage.com/seo-page",
         inDefinedTermSet: {
           "@type": "DefinedTermSet",
@@ -301,6 +306,11 @@ export default function SeoPageDefinitionPage() {
             </span>
             <span className="text-[var(--rule-strong)]">·</span>
             <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
+              Also known as{" "}
+              <span className="text-[var(--ink-soft)]">SEO Landing Page</span>
+            </span>
+            <span className="text-[var(--rule-strong)]">·</span>
+            <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
               Marketing &amp; Search
             </span>
             <span className="text-[var(--rule-strong)]">·</span>
@@ -313,14 +323,19 @@ export default function SeoPageDefinitionPage() {
         {/* Lead */}
         <section className="mx-auto max-w-3xl px-5 pt-16 sm:px-8">
           <p className="text-lg leading-9 text-[var(--ink-soft)]">
-            An <strong className="text-[var(--ink)]">SEO Page</strong> is a web
-            page built specifically to rank in search engine results, be cited
-            by AI-powered answer engines — including ChatGPT, Perplexity,
-            Claude, Copilot, Grok, and Google AI Overviews — and convert search
-            traffic into a defined business outcome. Unlike a blog post, an
-            SEO Page is conversion-oriented. Unlike a product page, it engages
-            competitive or comparative context. Unlike a generic landing page,
-            its primary traffic source is organic, not paid.
+            An <strong className="text-[var(--ink)]">SEO Page</strong> — also
+            known as an{" "}
+            <strong className="text-[var(--ink)]">SEO Landing Page</strong>, or
+            in practitioner shorthand,{" "}
+            <strong className="text-[var(--ink)]">landing page SEO</strong> —
+            is a web page built specifically to rank in search engine results,
+            be cited by AI-powered answer engines (including ChatGPT,
+            Perplexity, Claude, Copilot, Grok, and Google AI Overviews), and
+            convert search traffic into a defined business outcome. Unlike a
+            blog post, an SEO Page is conversion-oriented. Unlike a product
+            page, it engages competitive or comparative context. Unlike a
+            generic landing page, its primary traffic source is organic, not
+            paid.
           </p>
           <p className="mt-6 text-lg leading-9 text-[var(--ink-soft)]">
             The category includes comparison pages, alternatives pages,

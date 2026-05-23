@@ -25,34 +25,40 @@ const serif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
   title: {
-    default: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
+    default: "SEOPage — SEO Landing Pages Built to Get Cited by ChatGPT",
     template: "%s — SEOPage",
   },
   description:
-    "Five competitive landing pages engineered for AI search citation and Google rank. Researched by AI from your URL, signed off by a real editor. $497 per pack — no subscription.",
+    "Five competitive SEO landing pages engineered for AI search citation and Google rank. Researched by AI from your URL, signed off by a real editor. $497 per pack — no subscription.",
   keywords: [
+    "SEO landing page",
     "SEO landing pages",
+    "landing page SEO",
+    "what is an SEO landing page",
+    "SEO page",
+    "AI SEO landing page generator",
     "AI search optimization",
     "ChatGPT citation",
     "AEO answer engine optimization",
     "GEO generative engine optimization",
     "AI Overviews optimization",
-    "competitive SEO pages",
+    "competitive landing pages",
     "alternatives pages",
     "best-of pages",
+    "SaaS landing page SEO",
   ],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
+    title: "SEOPage — SEO Landing Pages Built to Get Cited by ChatGPT",
     description:
-      "Five competitive landing pages engineered for ChatGPT, Perplexity, and Google AI Overviews — researched by AI, signed off by a real editor.",
+      "Five competitive SEO landing pages engineered for ChatGPT, Perplexity, and Google AI Overviews — researched by AI, signed off by a real editor.",
     url: "https://seopage.com",
     siteName: "SEOPage",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
+    title: "SEOPage — SEO Landing Pages Built to Get Cited by ChatGPT",
     description:
       "Five SEO landing pages engineered for AI search citation and Google rank. Researched by AI, signed off by a human.",
   },

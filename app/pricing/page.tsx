@@ -4,9 +4,17 @@ import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { CHECKOUT_HREF, NOTIFY_HREF, offer } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Pricing",
+  title: "SEO Landing Page Pricing",
   description:
     "$497 for five competitive SEO landing pages — engineered for AI search citation and Google rank. Researched by AI, signed off by a real editor. One-time purchase, no subscription.",
+  alternates: { canonical: "https://seopage.com/pricing" },
+  openGraph: {
+    title: "SEO Landing Page Pricing — $497 for Five Pages",
+    description:
+      "One offer. Five competitive SEO landing pages engineered for ChatGPT citation and Google rank. AI-researched, human-verified, one-time purchase.",
+    url: "https://seopage.com/pricing",
+    type: "website",
+  },
 };
 
 const pricingFaq = [

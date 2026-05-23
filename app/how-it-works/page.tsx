@@ -4,9 +4,17 @@ import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { CHECKOUT_HREF, included, NOTIFY_HREF, offer, steps } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "How it works",
+  title: "How SEO Landing Pages Are Built",
   description:
-    "AI researches your site, your competitors, and the SERP — then drafts five competitive landing pages engineered to get cited by ChatGPT and rank on Google. A real editor signs off every page before delivery.",
+    "AI researches your site, your competitors, and the SERP — then drafts five competitive SEO landing pages engineered to get cited by ChatGPT and rank on Google. A real editor signs off every page before delivery.",
+  alternates: { canonical: "https://seopage.com/how-it-works" },
+  openGraph: {
+    title: "How SEO Landing Pages Are Built — SEOPage",
+    description:
+      "Four-step pipeline: URL in, AI research, drafted-and-verified SEO landing pages, clean export to any CMS.",
+    url: "https://seopage.com/how-it-works",
+    type: "website",
+  },
 };
 
 export default function HowItWorksPage() {
