@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import {
@@ -16,12 +17,98 @@ export default function Home() {
       <SiteHeader active="home" />
       <main>
         <Hero />
+        <Proof />
         <Included />
         <Process />
         <FAQ />
         <FinalCta />
       </main>
       <SiteFooter />
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Proof — esy.com Ahrefs data                                                */
+/* -------------------------------------------------------------------------- */
+
+function Proof() {
+  return (
+    <section className="border-t border-[var(--rule)]">
+      <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-24">
+        <div className="max-w-2xl">
+          <span className="eyebrow">Proof</span>
+          <h2 className="serif mt-4 text-balance text-3xl leading-[1.1] text-[var(--ink)] sm:text-4xl lg:text-[44px]">
+            esy.com — built with the same workflow — has been cited{" "}
+            <span className="italic text-[var(--ink-soft)]">37 times by ChatGPT.</span>
+          </h2>
+          <p className="mt-5 text-base leading-8 text-[var(--ink-soft)]">
+            While Google organic traffic was declining, AI citations grew.
+            That&apos;s the shift every B2B SaaS is feeling — and the exact
+            problem SEOPage is built to solve.
+          </p>
+        </div>
+
+        <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] sm:grid-cols-4">
+          <ProofStat term="ChatGPT citations" value="37" trend="+5 pages" />
+          <ProofStat term="Cited pages" value="20" trend="across ChatGPT" />
+          <ProofStat term="Other AI engines" value="3" trend="Perplexity · Copilot · Grok" />
+          <ProofStat term="Referring domains" value="186" trend="+125 last month" />
+        </dl>
+
+        <figure className="mt-10 overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--paper)] shadow-[0_20px_60px_-30px_rgba(11,13,14,0.25)]">
+          <Image
+            src="/proof/esy-ai-citations.png"
+            alt="Ahrefs Site Explorer overview for esy.com showing 37 ChatGPT citations across 20 pages, plus citations from Perplexity, Copilot, and Grok."
+            width={2048}
+            height={760}
+            priority={false}
+            className="h-auto w-full"
+          />
+          <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--rule)] bg-[var(--paper-soft)] px-5 py-3">
+            <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
+              Source · Ahrefs · esy.com Site Explorer · May 2026
+            </span>
+            <Link
+              href="https://esy.com"
+              className="text-xs text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
+              rel="noopener"
+              target="_blank"
+            >
+              esy.com →
+            </Link>
+          </figcaption>
+        </figure>
+
+        <p className="mt-8 max-w-2xl text-sm leading-7 text-[var(--ink-soft)]">
+          esy.com is structured the same way SEOPage structures your pages:
+          deep research, FAQ blocks, schema markup, direct-answer copy, and
+          entity signals. AI search engines reward exactly that shape — and
+          your competitive landing pages should be built the same way.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function ProofStat({
+  term,
+  value,
+  trend,
+}: {
+  term: string;
+  value: string;
+  trend: string;
+}) {
+  return (
+    <div className="bg-[var(--paper)] p-6">
+      <dt className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
+        {term}
+      </dt>
+      <dd className="serif mt-3 text-4xl leading-none text-[var(--ink)] sm:text-5xl">
+        {value}
+      </dd>
+      <p className="mt-3 text-xs leading-5 text-[var(--ink-soft)]">{trend}</p>
     </div>
   );
 }
