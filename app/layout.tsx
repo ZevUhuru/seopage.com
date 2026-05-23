@@ -25,35 +25,36 @@ const serif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
   title: {
-    default: "SEOPage — Generate Competitive SEO Landing Pages",
+    default: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
     template: "%s — SEOPage",
   },
   description:
-    "Generate competitive SEO landing pages for alternatives, comparison, best-of, FAQ, and category searches. Export the SEO landing page and publish it on your own site.",
+    "Five competitive landing pages engineered for AI search citation and Google rank. Researched by AI from your URL, signed off by a real editor. $497 per pack — no subscription.",
   keywords: [
     "SEO landing pages",
-    "programmatic SEO",
-    "alternative pages",
-    "vs pages",
-    "best of lists",
-    "AI SEO tool",
-    "SERP analysis",
-    "bottom of funnel SEO",
+    "AI search optimization",
+    "ChatGPT citation",
+    "AEO answer engine optimization",
+    "GEO generative engine optimization",
+    "AI Overviews optimization",
+    "competitive SEO pages",
+    "alternatives pages",
+    "best-of pages",
   ],
   alternates: { canonical: "/" },
   openGraph: {
-    title: "SEOPage — Generate Competitive SEO Landing Pages",
+    title: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
     description:
-      "Turn a website and competitor context into structured SEO landing pages you can export and publish.",
+      "Five competitive landing pages engineered for ChatGPT, Perplexity, and Google AI Overviews — researched by AI, signed off by a real editor.",
     url: "https://seopage.com",
     siteName: "SEOPage",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SEOPage — Generate Competitive SEO Landing Pages",
+    title: "SEOPage — SEO Pages Built to Get Cited by ChatGPT",
     description:
-      "Generate alternatives, comparison, best-of, FAQ, and category SEO landing pages from your website.",
+      "Five SEO landing pages engineered for AI search citation and Google rank. Researched by AI, signed off by a human.",
   },
   robots: { index: true, follow: true },
 };
