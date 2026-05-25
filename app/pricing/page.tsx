@@ -6,10 +6,10 @@ import { CHECKOUT_HREF, NOTIFY_HREF, offer } from "@/lib/data";
 export const metadata: Metadata = {
   title: "SEO Landing Page Pricing",
   description:
-    "$497 for five competitive SEO landing pages — engineered for AI search citation and Google rank. Researched by AI, signed off by a real editor. One-time purchase, no subscription.",
+    "$699 for five competitive SEO landing pages, or $150 per page — engineered for AI search citation and Google rank. Researched by AI, signed off by a real editor. One-time purchase, no subscription.",
   alternates: { canonical: "https://seopage.com/pricing" },
   openGraph: {
-    title: "SEO Landing Page Pricing — $497 for Five Pages",
+    title: "SEO Landing Page Pricing — $699 for Five Pages, or $150 per Page",
     description:
       "One offer. Five competitive SEO landing pages engineered for ChatGPT citation and Google rank. AI-researched, human-verified, one-time purchase.",
     url: "https://seopage.com/pricing",
@@ -24,7 +24,7 @@ const pricingFaq = [
   },
   {
     q: "Is this really a one-time purchase?",
-    a: "Yes. $497 buys five competitive landing pages. No subscription, no auto-renewal, no per-seat fee. Come back when you want another pack.",
+    a: "Yes. $699 buys the five-page pack, or $150 per page if you want fewer. No subscription, no auto-renewal, no per-seat fee. Come back when you want another pack.",
   },
   {
     q: "Is the content AI-generated?",
@@ -48,7 +48,7 @@ const pricingFaq = [
   },
   {
     q: "Do you do bigger packs or programmatic SEO?",
-    a: "Not yet. The launch offer is one pack at a time. Once we've shipped enough $497 packs to know the workflow holds up, we'll talk about larger volume.",
+    a: "Not yet. The launch offer is one pack at a time. Once we've shipped enough $699 packs to know the workflow holds up, we'll talk about larger volume.",
   },
 ];
 
