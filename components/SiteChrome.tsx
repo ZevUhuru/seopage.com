@@ -64,7 +64,7 @@ export function SiteFooter() {
         <div className="flex items-center gap-3 text-sm text-[var(--ink-soft)]">
           <Wordmark />
           <span className="text-[var(--muted)]">·</span>
-          <span>Five SEO landing pages, $497.</span>
+          <span>Five SEO landing pages, $699 — or $150 per page.</span>
         </div>
         <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--ink-soft)]">
           <Link href="/seo-page" className="transition hover:text-[var(--ink)]">

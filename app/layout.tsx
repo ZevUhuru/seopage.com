@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s — SEOPage",
   },
   description:
-    "Five competitive SEO landing pages engineered for AI search citation and Google rank. Researched by AI from your URL, signed off by a real editor. $497 per pack — no subscription.",
+    "Five competitive SEO landing pages engineered for AI search citation and Google rank. Researched by AI from your URL, signed off by a real editor. $699 per pack, or $150 per page — no subscription.",
   keywords: [
     "SEO landing page",
     "SEO landing pages",

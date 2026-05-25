@@ -10,10 +10,10 @@ export type PageType = {
 };
 
 export const offer = {
-  price: 497,
-  priceLabel: "$497",
+  price: 699,
+  priceLabel: "$699",
   pages: 5,
-  unit: "$99 per page",
+  unit: "$150 per page",
   pitch:
     "Five competitive landing pages built to be cited by ChatGPT and ranked by Google. AI researches your site, your competitors, and the SERP. A human editor signs off every page before delivery.",
   includes: [
@@ -30,7 +30,7 @@ export const offer = {
 // Until then, this falls back to a mailto so you can quote and invoice manually.
 export const CHECKOUT_HREF =
   process.env.NEXT_PUBLIC_CHECKOUT_URL ??
-  "mailto:zev@seopage.com?subject=SEOPage%20—%20I%20want%20to%20buy%20a%20%24497%20pack&body=Site%20URL%3A%20%0ACompetitors%20or%20keywords%3A%20%0APage%20types%20you%20want%20%28comparison%2C%20alternatives%2C%20best-of%2C%20FAQ%2C%20category%29%3A%20%0A";
+  "mailto:zev@seopage.com?subject=SEOPage%20—%20I%20want%20to%20buy%20a%20%24699%20pack&body=Site%20URL%3A%20%0ACompetitors%20or%20keywords%3A%20%0APage%20types%20you%20want%20%28comparison%2C%20alternatives%2C%20best-of%2C%20FAQ%2C%20category%29%3A%20%0A";
 
 export const NOTIFY_HREF =
   "mailto:zev@seopage.com?subject=SEOPage%20—%20notify%20me%20when%20self-serve%20launches&body=Email%20me%20when%20the%20self-serve%20app%20is%20ready.%20%0A%0AYou%20can%20add%20a%20note%20about%20your%20site%20or%20use%20case%20here%3A%20%0A";
@@ -154,7 +154,7 @@ export const faqHome = [
     a: "Because volume isn't the point — pages you can actually publish are. Cheap AI tools ship fast and most of what they produce is invisible to AI search and needs heavy editing before it goes live on Google. Five pages researched against your site, competitors, and the SERP, structured for AI citation, and verified end to end by a real editor, beat fifty pages you'd have to rewrite.",
   },
   {
-    q: "What's in the $497 pack?",
+    q: "What's in the $699 pack?",
     a: "Five competitive landing pages, researched and drafted by AI from your site, your competitors, and the SERP — engineered for AI search citation and Google rank, with one human verification pass per page. Each page includes title and meta tags, FAQ, schema, internal-link suggestions, and Markdown / MDX / HTML export.",
   },
   {
@@ -167,7 +167,7 @@ export const faqHome = [
   },
   {
     q: "Is this a subscription?",
-    a: "No. It's a one-time $497 pack of five pages. Use them, and come back when you want another pack.",
+    a: "No. It's a one-time $699 pack of five pages — or $150 per page if you want fewer. Use them, and come back when you want another pack.",
   },
   {
     q: "Does it publish to my site?",
