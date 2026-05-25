@@ -206,7 +206,7 @@ function Hero() {
       <span className="eyebrow">SEOPage · Public beta</span>
 
       <h1 className="serif mt-7 text-balance text-5xl leading-[1.04] text-[var(--ink)] sm:text-6xl lg:text-[72px] lg:leading-[1.02]">
-        SEO pages built to get cited by ChatGPT.
+        SEO landing pages built to get cited by ChatGPT.
         <span className="italic text-[var(--ink-soft)]"> And to rank on Google.</span>
       </h1>
 

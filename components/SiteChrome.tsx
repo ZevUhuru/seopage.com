@@ -4,7 +4,7 @@ import { CHECKOUT_HREF, offer } from "@/lib/data";
 type NavKey = "home" | "pricing" | "how" | "reference";
 
 const nav: { key: NavKey; label: string; href: string }[] = [
-  { key: "reference", label: "What is an SEO Page?", href: "/seo-page" },
+  { key: "reference", label: "What is an SEO Landing Page?", href: "/seo-page" },
   { key: "how", label: "How it works", href: "/how-it-works" },
   { key: "pricing", label: "Pricing", href: "/pricing" },
 ];
@@ -68,7 +68,7 @@ export function SiteFooter() {
         </div>
         <nav className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[var(--ink-soft)]">
           <Link href="/seo-page" className="transition hover:text-[var(--ink)]">
-            What is an SEO Page?
+            What is an SEO Landing Page?
           </Link>
           <Link href="/how-it-works" className="transition hover:text-[var(--ink)]">
             How it works
