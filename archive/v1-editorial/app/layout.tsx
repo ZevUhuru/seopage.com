@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Anton, Archivo, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
 const GTM_ID = "GTM-MBV8RKDD";
 
-const sans = Archivo({
+const sans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
 });
@@ -15,10 +15,11 @@ const mono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const display = Anton({
-  variable: "--font-display",
+const serif = Instrument_Serif({
+  variable: "--font-serif",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -72,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${display.variable} ${mono.variable} h-full antialiased`}
+      className={`${sans.variable} ${serif.variable} ${mono.variable} h-full antialiased`}
     >
       <head>
         <Script id="gtm" strategy="afterInteractive">

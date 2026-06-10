@@ -4,18 +4,23 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/seo-page",
+        destination: "/ai-page-ranking",
+        permanent: true,
+      },
+      {
         source: "/what-is-an-seo-page",
-        destination: "/seo-page",
+        destination: "/ai-page-ranking",
         permanent: true,
       },
       {
         source: "/seo-pages",
-        destination: "/seo-page",
+        destination: "/ai-page-ranking",
         permanent: true,
       },
       {
         source: "/glossary/seo-page",
-        destination: "/seo-page",
+        destination: "/ai-page-ranking",
         permanent: true,
       },
     ];

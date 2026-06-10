@@ -1,14 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import {
-  CHECKOUT_HREF,
+  CALL_HREF,
+  channels,
   faqHome,
   included,
-  NOTIFY_HREF,
   offer,
-  pageTypes,
+  sampleRows,
+  START_HREF,
   steps,
+  type SampleVerdict,
 } from "@/lib/data";
 
 export default function Home() {
@@ -17,7 +18,9 @@ export default function Home() {
       <SiteHeader active="home" />
       <main>
         <Hero />
-        <Proof />
+        <ReportSample />
+        <WhyItMatters />
+        <Channels />
         <Included />
         <Process />
         <FAQ />
@@ -29,262 +32,311 @@ export default function Home() {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Proof — esy.com Ahrefs data                                                */
+/* Hero — poster front page                                                   */
 /* -------------------------------------------------------------------------- */
 
-function Proof() {
+function Hero() {
   return (
-    <section className="border-t border-[var(--rule)]">
-      <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-24">
-        <div className="max-w-2xl">
-          <span className="eyebrow">Proof</span>
-          <h2 className="serif mt-4 text-balance text-3xl leading-[1.1] text-[var(--ink)] sm:text-4xl lg:text-[44px]">
-            Two products. The same workflow.{" "}
-            <span className="italic text-[var(--ink-soft)]">
-              Cited by ChatGPT, ranked on Google.
-            </span>
-          </h2>
-          <p className="mt-5 text-base leading-8 text-[var(--ink-soft)]">
-            esy.com and clip.art — both engineered with deep research, schema,
-            FAQ, direct answers, and entity signals — show up in AI search
-            results and Google. Live Ahrefs data, no anonymized case studies.
+    <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:px-8 lg:pb-24 lg:pt-20">
+      <p className="label">§ 00 · The question</p>
+
+      <h1 className="display mt-6 text-[15vw] text-[var(--ink)] sm:text-7xl lg:text-[110px]">
+        Does AI cite
+        <br />
+        your page —{" "}
+        <span className="text-[var(--red)]">or your competitor&apos;s?</span>
+      </h1>
+
+      <div className="mt-10 grid gap-8 border-t border-[var(--ink)] pt-8 lg:grid-cols-[1.2fr_1fr]">
+        <p className="max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
+          Paste a URL. SEOPage runs the {offer.promptsPerPage}{" "}buyer questions
+          that page should win across ChatGPT, Google AI Overviews, Perplexity,
+          and Claude — then reports where you&apos;re cited, who gets cited
+          instead, and exactly what to fix. Re-run every week.
+        </p>
+
+        <div className="flex flex-col items-start gap-4">
+          <Link
+            href={START_HREF}
+            className="hard mono border-2 border-[var(--ink)] bg-[var(--ink)] px-7 py-4 text-[13px] uppercase tracking-[0.18em] text-[var(--paper)] transition hover:bg-[var(--red)] hover:shadow-none"
+          >
+            Get your first report — free
+          </Link>
+          <p className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
+            No card · Then {offer.priceLabel}/mo · One plan ·{" "}
+            <Link
+              href="/pricing"
+              className="text-[var(--ink-soft)] underline underline-offset-4 hover:text-[var(--red)]"
+            >
+              Pricing
+            </Link>
           </p>
         </div>
+      </div>
 
-        <CaseStudy
-          eyebrow="Case study · esy.com · B2B platform · DR 27"
-          title={
-            <>
-              Cited <span className="italic text-[var(--ink-soft)]">37 times</span> by
-              ChatGPT, while Google organic was declining.
-            </>
-          }
-          subtitle="The shift every B2B SaaS is feeling: search is moving from blue links to AI answers. esy.com is winning the half that matters going forward."
-          stats={[
-            { term: "ChatGPT citations", value: "37", trend: "across 20 pages" },
-            { term: "Other AI engines", value: "3", trend: "Perplexity · Copilot · Grok" },
-            { term: "Referring domains", value: "186", trend: "+125 last month" },
-            { term: "Backlinks", value: "2K", trend: "+768 last month" },
-          ]}
-          image={{
-            src: "/proof/esy-ai-citations.png",
-            alt: "Ahrefs Site Explorer overview for esy.com showing 37 ChatGPT citations across 20 pages, plus citations from Perplexity, Copilot, and Grok.",
-          }}
-          siteHref="https://esy.com"
-          siteLabel="esy.com"
+      <div className="mt-10 grid grid-cols-2 border-2 border-[var(--ink)] sm:grid-cols-4">
+        {channels.map((c, i) => (
+          <div
+            key={c.key}
+            className={`px-4 py-3 ${i > 0 ? "border-l-0 sm:border-l-2 sm:border-[var(--ink)]" : ""} ${
+              i % 2 === 1 ? "border-l-2 border-[var(--ink)]" : ""
+            } ${i > 1 ? "border-t-2 border-[var(--ink)] sm:border-t-0" : ""}`}
+          >
+            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+              CH·{String(i + 1).padStart(2, "0")}
+            </span>
+            <p className="display mt-1 text-lg text-[var(--ink)]">{c.label}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* Report sample                                                              */
+/* -------------------------------------------------------------------------- */
+
+const verdictStamp: Record<SampleVerdict, { label: string; className: string }> = {
+  cited: { label: "Cited", className: "stamp stamp-cited" },
+  mentioned: { label: "Mention", className: "stamp stamp-mentioned" },
+  absent: { label: "Absent", className: "stamp stamp-absent" },
+};
+
+function ReportSample() {
+  return (
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+        <SectionHeader
+          number="01"
+          eyebrow="The report"
+          title="One page. Twenty prompts. Four channels."
+          copy="The heart of every AI Rank Report: a verdict for every buyer question on every channel — with the full AI answer saved as evidence, and the competitor URL that beat you when you lost."
         />
 
-        <CaseStudy
-          eyebrow="Case study · clip.art · Consumer product · DR 0.6"
-          title={
-            <>
-              <span className="italic text-[var(--ink-soft)]">Low DR.</span> Growing
-              on both Google and ChatGPT, every month.
-            </>
-          }
-          subtitle="Most SaaS founders have low domain authority. clip.art shows what's possible with structure alone — AI citations climbing, Google traffic +362 in one month."
-          stats={[
-            { term: "ChatGPT citations", value: "12", trend: "+9 last month" },
-            { term: "Organic traffic", value: "685", trend: "+362 last month" },
-            { term: "Organic keywords", value: "27", trend: "+19 · 5 in top 3" },
-            { term: "Referring domains", value: "130", trend: "+111 last month" },
-          ]}
-          image={{
-            src: "/proof/clipart-ai-citations.png",
-            alt: "Ahrefs Site Explorer overview for clip.art showing 12 ChatGPT citations growing by 9 last month, plus 685 organic traffic up 362 month-over-month.",
-          }}
-          siteHref="https://clip.art"
-          siteLabel="clip.art"
-        />
+        <div className="hard mt-12 border-2 border-[var(--ink)] bg-[var(--paper)]">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--ink)] bg-[var(--ink)] px-5 py-2.5">
+            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]">
+              AI Rank Report · clip.art/generate · Week of Jun 08 2026
+            </span>
+            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]/70">
+              Specimen · 4 of 20 prompts
+            </span>
+          </div>
 
-        <p className="mt-12 max-w-2xl text-sm leading-7 text-[var(--ink-soft)]">
-          Both sites are structured the same way SEOPage structures your pages:
-          deep research, FAQ blocks, schema markup, direct-answer copy, and
-          entity signals. AI search engines reward exactly that shape — and
-          your competitive SEO landing pages should be built the same way.
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[680px] border-collapse text-left">
+              <thead>
+                <tr className="border-b-2 border-[var(--ink)]">
+                  <th className="mono px-5 py-3 text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                    Buyer prompt
+                  </th>
+                  {channels.map((c) => (
+                    <th
+                      key={c.key}
+                      className="mono border-l border-[var(--rule)] px-3 py-3 text-center text-[10px] uppercase tracking-[0.18em] text-[var(--muted)]"
+                    >
+                      {c.label}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {sampleRows.map((row) => (
+                  <tr
+                    key={row.prompt}
+                    className="border-b border-[var(--rule)] last:border-b-0"
+                  >
+                    <td className="px-5 py-4 align-top">
+                      <span className="text-sm font-medium text-[var(--ink)]">
+                        “{row.prompt}”
+                      </span>
+                      {row.losesTo ? (
+                        <span className="mono mt-1.5 block text-[11px] uppercase tracking-[0.08em] text-[var(--red)]">
+                          → loses to {row.losesTo}
+                        </span>
+                      ) : null}
+                    </td>
+                    {channels.map((c) => {
+                      const v = verdictStamp[row.verdicts[c.key]];
+                      return (
+                        <td
+                          key={c.key}
+                          className="border-l border-[var(--rule)] px-3 py-4 text-center align-top"
+                        >
+                          <span className={v.className}>{v.label}</span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="grid border-t-2 border-[var(--ink)] sm:grid-cols-3">
+            {[
+              ["AI Rank", "11 / 20 prompts answered with you in them"],
+              ["Framing", "Recommended ×6 · Warned against ×0"],
+              ["AI-readiness", "62 / 100 — 7 fixes, ordered by impact"],
+            ].map(([label, value], i) => (
+              <div
+                key={label}
+                className={`px-5 py-4 ${i > 0 ? "border-t border-[var(--rule)] sm:border-l sm:border-t-0" : ""}`}
+              >
+                <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--red)]">
+                  {label}
+                </span>
+                <p className="mt-1.5 text-sm font-medium text-[var(--ink)]">
+                  {value}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className="mono mt-10 max-w-2xl text-[11px] uppercase leading-5 tracking-[0.14em] text-[var(--ink-soft)]">
+          Every verdict links to the full captured answer — the receipt. Every
+          lost prompt names the page that won. Every report ends with the fix
+          list.
         </p>
       </div>
     </section>
   );
 }
 
-function CaseStudy({
-  eyebrow,
-  title,
-  subtitle,
-  stats,
-  image,
-  siteHref,
-  siteLabel,
-}: {
-  eyebrow: string;
-  title: React.ReactNode;
-  subtitle: string;
-  stats: { term: string; value: string; trend: string }[];
-  image: { src: string; alt: string };
-  siteHref: string;
-  siteLabel: string;
-}) {
+/* -------------------------------------------------------------------------- */
+/* Why it matters                                                             */
+/* -------------------------------------------------------------------------- */
+
+function WhyItMatters() {
   return (
-    <div className="mt-14">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="max-w-2xl">
-          <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-            {eyebrow}
-          </span>
-          <h3 className="serif mt-3 text-balance text-2xl leading-[1.15] text-[var(--ink)] sm:text-3xl">
-            {title}
-          </h3>
-          <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-            {subtitle}
-          </p>
-        </div>
-      </div>
-
-      <dl className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] sm:grid-cols-4">
-        {stats.map((s) => (
-          <ProofStat key={s.term} term={s.term} value={s.value} trend={s.trend} />
-        ))}
-      </dl>
-
-      <figure className="mt-6 overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--paper)] shadow-[0_20px_60px_-30px_rgba(11,13,14,0.25)]">
-        <Image
-          src={image.src}
-          alt={image.alt}
-          width={2048}
-          height={760}
-          priority={false}
-          className="h-auto w-full"
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+        <SectionHeader
+          number="02"
+          eyebrow="Why now"
+          title="Your buyers ask AI before they ever see your page."
+          copy="AI answers aren't a side channel anymore. They're where consideration happens — and absence is invisible in your analytics until the pipeline dries up."
         />
-        <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-[var(--rule)] bg-[var(--paper-soft)] px-5 py-3">
-          <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-            Source · Ahrefs · {siteLabel} Site Explorer · May 2026
-          </span>
-          <Link
-            href={siteHref}
-            className="text-xs text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
-            rel="noopener"
-            target="_blank"
-          >
-            {siteLabel} →
-          </Link>
-        </figcaption>
-      </figure>
-    </div>
-  );
-}
 
-function ProofStat({
-  term,
-  value,
-  trend,
-}: {
-  term: string;
-  value: string;
-  trend: string;
-}) {
-  return (
-    <div className="bg-[var(--paper)] p-6">
-      <dt className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-        {term}
-      </dt>
-      <dd className="serif mt-3 text-4xl leading-none text-[var(--ink)] sm:text-5xl">
-        {value}
-      </dd>
-      <p className="mt-3 text-xs leading-5 text-[var(--ink-soft)]">{trend}</p>
-    </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Hero — single offer                                                        */
-/* -------------------------------------------------------------------------- */
-
-function Hero() {
-  return (
-    <section className="mx-auto max-w-3xl px-5 pb-20 pt-24 text-center sm:px-8 lg:pb-32 lg:pt-32">
-      <span className="eyebrow">SEOPage · Public beta</span>
-
-      <h1 className="serif mt-7 text-balance text-5xl leading-[1.04] text-[var(--ink)] sm:text-6xl lg:text-[72px] lg:leading-[1.02]">
-        SEO landing pages built to get cited by ChatGPT.
-        <span className="italic text-[var(--ink-soft)]"> And to rank on Google.</span>
-      </h1>
-
-      <p className="mono mt-6 text-[12px] uppercase tracking-[0.22em] text-[var(--ink-soft)]">
-        Built for AI search <span className="text-[var(--muted)]">·</span> Built for Google <span className="text-[var(--muted)]">·</span> Editor-finished
-      </p>
-
-      <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
-        Five competitive SEO landing pages — comparison, alternatives, best-of,
-        FAQ, category — engineered with the schema, structure, and direct
-        answers that ChatGPT, Perplexity, and Google&apos;s AI Overviews
-        actually pick up. A real editor signs off every page before delivery.
-      </p>
-
-      <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <Link
-          href={CHECKOUT_HREF}
-          className="rounded-full bg-[var(--ink)] px-6 py-3.5 text-sm font-medium text-[var(--paper)] transition hover:bg-[var(--accent)]"
-        >
-          Buy the pack — {offer.priceLabel}
-        </Link>
-        <Link
-          href={NOTIFY_HREF}
-          className="text-sm font-medium text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
-        >
-          Or get notified when self-serve launches →
-        </Link>
+        <dl className="mt-12 grid border-2 border-[var(--ink)] sm:grid-cols-3">
+          {[
+            {
+              value: "35–50%",
+              term: "High-intent queries intercepted",
+              body: "by AI engines before a single blue link gets clicked.",
+            },
+            {
+              value: "5–16%",
+              term: "Conversion from AI visitors",
+              body: "versus ~1.8% from organic search. AI-answer traffic converts 3–9× better.",
+            },
+            {
+              value: "<20%",
+              term: "Google ↔ AI overlap",
+              body: "down from 70% in two years. Ranking #1 no longer means you're in the answer.",
+            },
+          ].map((s, i) => (
+            <div
+              key={s.term}
+              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] sm:border-l-2 sm:border-t-0" : ""}`}
+            >
+              <dd className="display text-6xl text-[var(--ink)] lg:text-7xl">
+                {s.value}
+              </dd>
+              <dt className="mono mt-4 text-[10px] uppercase tracking-[0.22em] text-[var(--red)]">
+                {s.term}
+              </dt>
+              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
+                {s.body}
+              </p>
+            </div>
+          ))}
+        </dl>
       </div>
-
-      <p className="mono mt-8 text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-        {offer.pages} pages · {offer.unit} · One-time · No subscription
-      </p>
     </section>
   );
 }
 
 /* -------------------------------------------------------------------------- */
-/* What's in each page                                                        */
+/* Channels                                                                   */
+/* -------------------------------------------------------------------------- */
+
+function Channels() {
+  return (
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+        <SectionHeader
+          number="03"
+          eyebrow="The channels"
+          title="All four engines that decide what AI tells your buyers."
+          copy="Each engine selects sources differently — a page Perplexity loves can be invisible to Claude. Checking one channel and calling it done is how teams fool themselves."
+        />
+
+        <ul className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2">
+          {channels.map((c, i) => (
+            <li
+              key={c.key}
+              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
+                i % 2 === 1 ? "md:border-l-2 md:border-t-0" : ""
+              } ${i > 1 ? "md:border-t-2" : ""}`}
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="display text-3xl text-[var(--ink)]">{c.label}</h3>
+                <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                  {c.subtitle}
+                </span>
+              </div>
+              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
+                {c.description}
+              </p>
+              <p className="mono mt-4 text-[10px] uppercase tracking-[0.18em] text-[var(--red)]">
+                ▸ {c.behavior}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/* What's in the report                                                       */
 /* -------------------------------------------------------------------------- */
 
 function Included() {
   return (
-    <section className="border-t border-[var(--rule)]">
-      <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-24">
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
         <SectionHeader
-          eyebrow="What's in each page"
-          title="Six things every page gets."
-          copy="The value isn't generic AI prose. It's a complete page shape for a specific search intent, with the structure, copy, and SEO basics already in place — and a human pass on top."
+          number="04"
+          eyebrow="In every report"
+          title="Six findings. Zero interpretation required."
+          copy="Not a dashboard you have to decode. A report that answers the three questions that matter: where do I show up, who beats me, and what do I change."
         />
 
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-2">
+        <ul className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2">
           {included.map((f, i) => (
-            <li key={f.title} className="bg-[var(--paper)] p-8">
-              <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
+            <li
+              key={f.title}
+              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
+                i % 2 === 1 ? "md:border-l-2 md:border-t-0" : ""
+              } ${i > 1 ? "md:border-t-2" : ""}`}
+            >
+              <span className="display text-4xl text-[var(--paper-soft)] [-webkit-text-stroke:1.5px_var(--ink)]">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="serif mt-4 text-2xl leading-snug text-[var(--ink)]">
+              <h3 className="mt-3 text-lg font-semibold leading-snug text-[var(--ink)]">
                 {f.title}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
+              <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
                 {f.body}
               </p>
             </li>
           ))}
         </ul>
-
-        <div className="mt-10">
-          <p className="eyebrow">Page types</p>
-          <p className="mt-3 text-base leading-8 text-[var(--ink-soft)]">
-            Pick five from{" "}
-            {pageTypes.map((p, i) => (
-              <span key={p.key}>
-                <span className="text-[var(--ink)]">{p.label}</span>
-                {i < pageTypes.length - 1 ? " · " : "."}
-              </span>
-            ))}
-          </p>
-        </div>
       </div>
     </section>
   );
@@ -296,24 +348,30 @@ function Included() {
 
 function Process() {
   return (
-    <section className="border-t border-[var(--rule)]">
-      <div className="mx-auto max-w-5xl px-5 py-20 sm:px-8 lg:py-24">
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
         <SectionHeader
+          number="05"
           eyebrow="The pipeline"
-          title="Four steps. URL to published page."
-          copy="A focused loop. Submit a URL, pick five page ideas, we generate and revise, you export and publish."
+          title="URL in. Report out. Every week."
+          copy="No tracking setup, no prompt research, no spreadsheet of AI answers. The page is the input; the report is the output."
         />
 
-        <ol className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s) => (
-            <li key={s.number} className="bg-[var(--paper)] p-7">
-              <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                Step {s.number}
+        <ol className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((s, i) => (
+            <li
+              key={s.number}
+              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] md:border-t-0 md:border-l-2" : ""} ${
+                i === 2 ? "md:border-t-2 md:border-l-0 lg:border-l-2 lg:border-t-0" : ""
+              } ${i === 3 ? "md:border-t-2 lg:border-t-0" : ""}`}
+            >
+              <span className="display text-5xl text-[var(--red)]">
+                {s.number}
               </span>
-              <h3 className="serif mt-4 text-2xl leading-snug text-[var(--ink)]">
+              <h3 className="mt-4 text-lg font-semibold leading-snug text-[var(--ink)]">
                 {s.title}
               </h3>
-              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
+              <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
                 {s.body}
               </p>
             </li>
@@ -330,22 +388,25 @@ function Process() {
 
 function FAQ() {
   return (
-    <section className="border-t border-[var(--rule)]">
-      <div className="mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-24">
-        <p className="eyebrow text-center">FAQ</p>
-        <h2 className="serif mt-5 text-balance text-center text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
-          Common questions.
+    <section className="border-t-2 border-[var(--ink)]">
+      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 lg:py-24">
+        <p className="label">§ 06 · Questions</p>
+        <h2 className="display mt-5 text-5xl text-[var(--ink)] sm:text-6xl">
+          Asked &amp; answered.
         </h2>
 
-        <ul className="mt-12 divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
-          {faqHome.map((f) => (
-            <li key={f.q}>
-              <details className="group py-6">
-                <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-medium text-[var(--ink)] [&::-webkit-details-marker]:hidden">
+        <ul className="mt-12 border-2 border-[var(--ink)] bg-[var(--paper)]">
+          {faqHome.map((f, i) => (
+            <li
+              key={f.q}
+              className={i > 0 ? "border-t border-[var(--rule)]" : ""}
+            >
+              <details className="group px-6 py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-[var(--ink)] [&::-webkit-details-marker]:hidden">
                   <span>{f.q}</span>
                   <span
                     aria-hidden="true"
-                    className="grid h-6 w-6 shrink-0 place-items-center text-[var(--ink-soft)] transition group-open:rotate-45"
+                    className="mono grid h-6 w-6 shrink-0 place-items-center text-[var(--red)] transition group-open:rotate-45"
                   >
                     +
                   </span>
@@ -368,28 +429,34 @@ function FAQ() {
 
 function FinalCta() {
   return (
-    <section className="border-t border-[var(--rule)]">
-      <div className="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 lg:py-32">
-        <p className="eyebrow">The offer</p>
-        <h2 className="serif mt-5 text-balance text-5xl leading-[1.05] text-[var(--ink)] sm:text-6xl">
-          {offer.priceLabel} for {offer.pages} SEO landing pages.
-        </h2>
-        <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-[var(--ink-soft)]">
-          {offer.pitch} One-time purchase. Export as Markdown, MDX, or HTML and
-          publish wherever you already work.
+    <section className="border-t-2 border-[var(--ink)] bg-[var(--ink)]">
+      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+        <p className="mono text-[11px] uppercase tracking-[0.28em] text-[var(--paper)]/60">
+          § 07 · The offer
         </p>
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+        <h2 className="display mt-6 text-6xl text-[var(--paper)] sm:text-7xl lg:text-8xl">
+          First report free.
+          <br />
+          Then <span className="text-[var(--red)]">{offer.priceLabel}/mo.</span>
+        </h2>
+        <p className="mt-8 max-w-xl text-base leading-8 text-[var(--paper)]/80">
+          One plan, everything included: {offer.pages} pages,{" "}
+          {offer.promptsPerPage} prompts each, all 4 AI channels, weekly
+          re-runs, full answer evidence, and a fix list per page. Cancel
+          anytime.
+        </p>
+        <div className="mt-10 flex flex-wrap items-center gap-6">
           <Link
-            href={CHECKOUT_HREF}
-            className="rounded-full bg-[var(--ink)] px-6 py-3.5 text-sm font-medium text-[var(--paper)] transition hover:bg-[var(--accent)]"
+            href={START_HREF}
+            className="mono border-2 border-[var(--paper)] bg-[var(--paper)] px-7 py-4 text-[13px] uppercase tracking-[0.18em] text-[var(--ink)] transition hover:bg-[var(--red)] hover:text-[var(--paper)] hover:border-[var(--red)]"
           >
-            Buy the pack — {offer.priceLabel}
+            Get your first report — free
           </Link>
           <Link
-            href={NOTIFY_HREF}
-            className="text-sm font-medium text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
+            href={CALL_HREF}
+            className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--paper)]/70 underline underline-offset-8 transition hover:text-[var(--paper)]"
           >
-            Notify me when self-serve launches →
+            Prefer to talk it through? →
           </Link>
         </div>
       </div>
@@ -402,21 +469,27 @@ function FinalCta() {
 /* -------------------------------------------------------------------------- */
 
 function SectionHeader({
+  number,
   eyebrow,
   title,
   copy,
 }: {
+  number: string;
   eyebrow: string;
   title: string;
   copy: string;
 }) {
   return (
-    <div className="max-w-2xl">
-      <span className="eyebrow">{eyebrow}</span>
-      <h2 className="serif mt-4 text-balance text-3xl leading-[1.1] text-[var(--ink)] sm:text-4xl lg:text-[44px]">
+    <div className="max-w-3xl">
+      <p className="label">
+        § {number} · {eyebrow}
+      </p>
+      <h2 className="display mt-5 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
         {title}
       </h2>
-      <p className="mt-5 text-base leading-8 text-[var(--ink-soft)]">{copy}</p>
+      <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--ink-soft)]">
+        {copy}
+      </p>
     </div>
   );
 }
