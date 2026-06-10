@@ -1,17 +1,24 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import { CHECKOUT_HREF, included, NOTIFY_HREF, offer, steps } from "@/lib/data";
+import {
+  CALL_HREF,
+  channels,
+  included,
+  offer,
+  START_HREF,
+  steps,
+} from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "How SEO Landing Pages Are Built",
+  title: "How the AI Rank Report Works",
   description:
-    "AI researches your site, your competitors, and the SERP — then drafts five competitive SEO landing pages engineered to get cited by ChatGPT and rank on Google. A real editor signs off every page before delivery.",
+    "Paste a URL. SEOPage generates the buyer prompts the page should win, runs them across ChatGPT, Google AI Overviews, Perplexity, and Claude, and reports where you're cited, who beats you, and what to fix — every week.",
   alternates: { canonical: "https://seopage.com/how-it-works" },
   openGraph: {
-    title: "How SEO Landing Pages Are Built — SEOPage",
+    title: "How the AI Rank Report Works — SEOPage",
     description:
-      "Four-step pipeline: URL in, AI research, drafted-and-verified SEO landing pages, clean export to any CMS.",
+      "Four-step pipeline: URL in, prompt set generated, all 4 AI channels run, report out with evidence and a fix list — re-run weekly.",
     url: "https://seopage.com/how-it-works",
     type: "website",
   },
@@ -24,128 +31,193 @@ export default function HowItWorksPage() {
 
       <main>
         {/* Hero */}
-        <section className="mx-auto max-w-3xl px-5 pb-16 pt-20 text-center sm:px-8 lg:pt-28">
-          <span className="eyebrow">How it works</span>
-          <h1 className="serif mt-5 text-balance text-5xl leading-[1.05] text-[var(--ink)] sm:text-6xl lg:text-7xl">
-            Built for ChatGPT.{" "}
-            <span className="italic text-[var(--ink-soft)]">
-              And for Google.
-            </span>
+        <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:px-8 lg:pt-20">
+          <p className="label">§ 01 · How it works</p>
+          <h1 className="display mt-6 text-6xl text-[var(--ink)] sm:text-7xl lg:text-8xl">
+            URL in. <span className="text-[var(--red)]">Report out.</span>
           </h1>
-          <p className="mx-auto mt-7 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
-            AI scans your site, your competitors, and the SERP for each target
-            query. It drafts five competitive landing pages with the schema,
-            structure, and direct answers AI search engines reward — and the
-            metadata Google still wants. A real editor signs off every page
-            before delivery.
+          <p className="mt-8 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
+            No tracking setup, no prompt research, no spreadsheet of AI answers.
+            SEOPage reads your page, asks the questions your buyers ask, runs
+            them across the four AI channels that matter, and reports back with
+            evidence — every week.
           </p>
         </section>
 
         {/* Steps */}
-        <section className="mx-auto max-w-5xl border-t border-[var(--rule)] px-5 py-20 sm:px-8 lg:py-24">
-          <span className="eyebrow">The pipeline</span>
-          <h2 className="serif mt-4 max-w-2xl text-balance text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
-            Four steps. One loop.
-          </h2>
+        <section className="border-t-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <p className="label">§ 02 · The pipeline</p>
+            <h2 className="display mt-5 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
+              Four steps. One loop.
+            </h2>
 
-          <ol className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s) => (
-              <li key={s.number} className="bg-[var(--paper)] p-8">
-                <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                  Step {s.number}
-                </span>
-                <h3 className="serif mt-4 text-2xl leading-snug text-[var(--ink)]">
-                  {s.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                  {s.body}
-                </p>
-              </li>
-            ))}
-          </ol>
+            <ol className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2 lg:grid-cols-4">
+              {steps.map((s, i) => (
+                <li
+                  key={s.number}
+                  className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] md:border-t-0 md:border-l-2" : ""} ${
+                    i === 2 ? "md:border-t-2 md:border-l-0 lg:border-l-2 lg:border-t-0" : ""
+                  } ${i === 3 ? "md:border-t-2 lg:border-t-0" : ""}`}
+                >
+                  <span className="display text-5xl text-[var(--red)]">
+                    {s.number}
+                  </span>
+                  <h3 className="mt-4 text-lg font-semibold leading-snug text-[var(--ink)]">
+                    {s.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
+                    {s.body}
+                  </p>
+                </li>
+              ))}
+            </ol>
+          </div>
         </section>
 
-        {/* What's included */}
-        <section className="mx-auto max-w-5xl border-t border-[var(--rule)] px-5 py-20 sm:px-8 lg:py-24">
-          <span className="eyebrow">In each page</span>
-          <h2 className="serif mt-4 max-w-2xl text-balance text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
-            Six pieces every page gets.
-          </h2>
+        {/* Channels */}
+        <section className="border-t-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <p className="label">§ 03 · The channels</p>
+            <h2 className="display mt-5 max-w-3xl text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
+              Every prompt runs on all four engines.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-[var(--ink-soft)]">
+              Each engine selects sources differently. A page Perplexity cites
+              on every answer can be invisible to Claude. That&apos;s why a
+              verdict on one channel tells you almost nothing — and why every
+              report covers all four.
+            </p>
 
-          <ul className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-2">
-            {included.map((f, i) => (
-              <li key={f.title} className="bg-[var(--paper)] p-8">
-                <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="serif mt-4 text-2xl leading-snug text-[var(--ink)]">
-                  {f.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                  {f.body}
-                </p>
-              </li>
-            ))}
-          </ul>
+            <div className="mt-10 grid border-2 border-[var(--ink)] sm:grid-cols-2">
+              {channels.map((c, i) => (
+                <div
+                  key={c.key}
+                  className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
+                    i % 2 === 1 ? "sm:border-l-2 sm:border-t-0" : ""
+                  } ${i > 1 ? "sm:border-t-2" : ""}`}
+                >
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <h3 className="display text-2xl text-[var(--ink)]">
+                      {c.label}
+                    </h3>
+                    <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                      {c.subtitle}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
+                    {c.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
-        {/* Export */}
-        <section className="mx-auto max-w-5xl border-t border-[var(--rule)] px-5 py-20 sm:px-8 lg:py-24">
-          <span className="eyebrow">Export</span>
-          <h2 className="serif mt-4 max-w-2xl text-balance text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
-            Publish in any CMS.
-          </h2>
-          <p className="mt-5 max-w-xl text-base leading-8 text-[var(--ink-soft)]">
-            Markdown, MDX, and HTML come out of the workflow. Move each page
-            into the CMS or codebase you already use.
-          </p>
+        {/* What's in the report */}
+        <section className="border-t-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <p className="label">§ 04 · In every report</p>
+            <h2 className="display mt-5 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
+              Six pieces every report gets.
+            </h2>
 
-          <div className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] sm:grid-cols-4">
-            {[
-              ["Markdown", "Export"],
-              ["MDX", "Export"],
-              ["HTML", "Export"],
-              ["Copy", "Export"],
-              ["WordPress", "CMS-ready"],
-              ["Webflow", "CMS-ready"],
-              ["Framer", "CMS-ready"],
-              ["Next.js", "Code-ready"],
-            ].map(([label, status]) => (
-              <div
-                key={label}
-                className="flex items-center justify-between bg-[var(--paper)] px-5 py-4"
-              >
-                <span className="text-sm text-[var(--ink)]">{label}</span>
-                <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                  {status}
-                </span>
-              </div>
-            ))}
+            <ul className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2">
+              {included.map((f, i) => (
+                <li
+                  key={f.title}
+                  className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
+                    i % 2 === 1 ? "md:border-l-2 md:border-t-0" : ""
+                  } ${i > 1 ? "md:border-t-2" : ""}`}
+                >
+                  <span className="mono text-[11px] text-[var(--red)]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-3 text-lg font-semibold leading-snug text-[var(--ink)]">
+                    {f.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
+                    {f.body}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Delivery */}
+        <section className="border-t-2 border-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <p className="label">§ 05 · Delivery</p>
+            <h2 className="display mt-5 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
+              Built to be forwarded.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-[var(--ink-soft)]">
+              Every report ships as a shareable link and a PDF, with the
+              captured AI answers attached. Send it to a client, drop it in
+              Slack, or put it in the Monday deck — the evidence travels with
+              it.
+            </p>
+
+            <div className="mt-10 grid grid-cols-2 border-2 border-[var(--ink)] sm:grid-cols-4">
+              {[
+                ["Shareable link", "Every report"],
+                ["PDF export", "Client-ready"],
+                ["Answer evidence", "Attached"],
+                ["Weekly email", "Movement"],
+                ["Prompt editing", "Any time"],
+                ["URL swapping", "Any time"],
+                ["Fix list", "Per page"],
+                ["History", "Kept"],
+              ].map(([label, status], i) => (
+                <div
+                  key={label}
+                  className={`flex flex-col gap-1 px-5 py-4 ${
+                    i % 2 === 1 ? "border-l border-[var(--rule)]" : ""
+                  } ${i % 4 !== 0 ? "sm:border-l sm:border-[var(--rule)]" : ""} ${
+                    i > 1 ? "border-t border-[var(--rule)] sm:border-t-0" : ""
+                  } ${i > 3 ? "sm:border-t sm:border-[var(--rule)]" : ""}`}
+                >
+                  <span className="text-sm font-medium text-[var(--ink)]">
+                    {label}
+                  </span>
+                  <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
+                    {status}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* CTA */}
-        <section className="mx-auto max-w-3xl px-5 py-24 text-center sm:px-8 lg:py-32">
-          <p className="eyebrow">The offer</p>
-          <h2 className="serif mt-5 text-balance text-5xl leading-[1.05] text-[var(--ink)] sm:text-6xl">
-            {offer.priceLabel} for {offer.pages} SEO landing pages.
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-base leading-8 text-[var(--ink-soft)]">
-            See it run on your URL. One pack, no subscription.
-          </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href={CHECKOUT_HREF}
-              className="rounded-full bg-[var(--ink)] px-6 py-3.5 text-sm font-medium text-[var(--paper)] transition hover:bg-[var(--accent)]"
-            >
-              Buy the pack — {offer.priceLabel}
-            </Link>
-            <Link
-              href={NOTIFY_HREF}
-              className="text-sm font-medium text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
-            >
-              Notify me when self-serve launches →
-            </Link>
+        <section className="border-t-2 border-[var(--ink)] bg-[var(--ink)]">
+          <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
+            <p className="mono text-[11px] uppercase tracking-[0.28em] text-[var(--paper)]/60">
+              § 06 · The offer
+            </p>
+            <h2 className="display mt-6 text-5xl text-[var(--paper)] sm:text-6xl lg:text-7xl">
+              See it run on your own page —{" "}
+              <span className="text-[var(--red)]">before you pay anything.</span>
+            </h2>
+            <div className="mt-10 flex flex-wrap items-center gap-6">
+              <Link
+                href={START_HREF}
+                className="mono border-2 border-[var(--paper)] bg-[var(--paper)] px-7 py-4 text-[13px] uppercase tracking-[0.18em] text-[var(--ink)] transition hover:bg-[var(--red)] hover:text-[var(--paper)] hover:border-[var(--red)]"
+              >
+                Get your first report — free
+              </Link>
+              <Link
+                href={CALL_HREF}
+                className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--paper)]/70 underline underline-offset-8 transition hover:text-[var(--paper)]"
+              >
+                Prefer to talk it through? →
+              </Link>
+            </div>
+            <p className="mono mt-8 text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]/50">
+              First report free · Then {offer.priceLabel}/mo · One plan · Cancel
+              anytime
+            </p>
           </div>
         </section>
       </main>

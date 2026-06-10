@@ -58,14 +58,15 @@ export default function PricingPage() {
       <SiteHeader active="pricing" />
       <main>
         {/* Hero */}
-        <section className="mx-auto max-w-6xl px-5 pb-12 pt-14 sm:px-8 lg:pt-20">
-          <p className="label">§ 01 · Pricing</p>
-          <h1 className="display mt-6 text-6xl text-[var(--ink)] sm:text-7xl lg:text-8xl">
-            One plan.
-            <br />
-            <span className="text-[var(--red)]">Everything in it.</span>
+        <section className="mx-auto max-w-3xl px-5 pb-12 pt-20 text-center sm:px-8 lg:pt-28">
+          <span className="eyebrow">Pricing</span>
+          <h1 className="serif mt-5 text-balance text-5xl leading-[1.05] text-[var(--ink)] sm:text-6xl">
+            One plan.{" "}
+            <span className="italic text-[var(--ink-soft)]">
+              Everything in it.
+            </span>
           </h1>
-          <p className="mt-8 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
             Your first AI Rank Report is free — no card. After that,{" "}
             {offer.priceLabel}/month covers every page, every channel, every
             feature. Cancel anytime.
@@ -73,52 +74,58 @@ export default function PricingPage() {
         </section>
 
         {/* Offer card */}
-        <section className="mx-auto max-w-4xl px-5 pt-6 sm:px-8">
-          <article className="hard border-2 border-[var(--ink)] bg-[var(--paper)]">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-[var(--ink)] bg-[var(--ink)] px-6 py-3">
-              <h2 className="display text-2xl text-[var(--paper)]">
+        <section className="mx-auto max-w-3xl px-5 sm:px-8">
+          <article className="overflow-hidden rounded-3xl border border-[var(--rule)] bg-[var(--paper)] p-8 sm:p-12">
+            <div className="flex flex-wrap items-baseline justify-between gap-4">
+              <h2 className="serif text-3xl text-[var(--ink)]">
                 AI Rank Report
               </h2>
-              <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]/70">
+              <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
                 {offer.freeReportLabel}
               </span>
             </div>
 
-            <div className="flex flex-wrap items-baseline gap-3 px-6 pt-8 sm:px-10">
-              <span className="display text-8xl text-[var(--ink)]">
+            <div className="mt-6 flex items-baseline gap-3">
+              <span className="serif text-7xl leading-none text-[var(--ink)]">
                 {offer.priceLabel}
               </span>
-              <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--ink-soft)]">
+              <span className="text-base text-[var(--ink-soft)]">
                 /month · one plan · cancel anytime
               </span>
             </div>
 
-            <ul className="mt-8 border-t-2 border-[var(--ink)]">
-              {offer.includes.map((item, i) => (
-                <li
-                  key={item}
-                  className={`flex items-start gap-4 px-6 py-3.5 text-[15px] text-[var(--ink-soft)] sm:px-10 ${
-                    i > 0 ? "border-t border-[var(--rule)]" : ""
-                  }`}
-                >
-                  <span className="mono mt-0.5 text-[11px] text-[var(--red)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
+            <ul className="mt-10 space-y-4 border-t border-[var(--rule)] pt-8 text-base text-[var(--ink-soft)]">
+              {offer.includes.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 16 16"
+                    className="mt-1.5 h-3.5 w-3.5 shrink-0 text-[var(--ink)]"
+                    fill="none"
+                  >
+                    <path
+                      d="M3 8.5l3.5 3.5L13 4.5"
+                      stroke="currentColor"
+                      strokeWidth="1.75"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
                   <span>{item}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="flex flex-wrap items-center gap-6 border-t-2 border-[var(--ink)] px-6 py-7 sm:px-10">
+            <div className="mt-10 flex flex-wrap items-center gap-4">
               <Link
                 href={START_HREF}
-                className="mono border-2 border-[var(--ink)] bg-[var(--ink)] px-6 py-3.5 text-[12px] uppercase tracking-[0.18em] text-[var(--paper)] transition hover:bg-[var(--red)] hover:border-[var(--red)]"
+                className="rounded-full bg-[var(--ink)] px-6 py-3.5 text-sm font-medium text-[var(--paper)] transition hover:bg-[var(--accent)]"
               >
                 Get your first report — free
               </Link>
               <Link
                 href={CALL_HREF}
-                className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--ink-soft)] underline underline-offset-8 transition hover:text-[var(--red)]"
+                className="text-sm font-medium text-[var(--ink-soft)] underline-offset-4 transition hover:text-[var(--ink)] hover:underline"
               >
                 Prefer to talk it through? →
               </Link>
@@ -127,8 +134,8 @@ export default function PricingPage() {
         </section>
 
         {/* Reassurance row */}
-        <section className="mx-auto mt-20 max-w-6xl px-5 sm:px-8">
-          <div className="grid border-2 border-[var(--ink)] md:grid-cols-3">
+        <section className="mx-auto mt-20 max-w-5xl px-5 sm:px-8">
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-[var(--rule)] bg-[var(--rule)] md:grid-cols-3">
             {[
               {
                 title: "Page-level, not brand-level",
@@ -142,12 +149,9 @@ export default function PricingPage() {
                 title: "A fix list, not a dashboard",
                 body: "Every report ends with an ordered list of changes for the page: schema, direct answers, FAQ blocks, entity signals, crawler access. Make the changes; the weekly re-run shows whether they worked.",
               },
-            ].map((b, i) => (
-              <div
-                key={b.title}
-                className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] md:border-l-2 md:border-t-0" : ""}`}
-              >
-                <h3 className="display text-2xl text-[var(--ink)]">{b.title}</h3>
+            ].map((b) => (
+              <div key={b.title} className="bg-[var(--paper)] p-7">
+                <h3 className="serif text-xl text-[var(--ink)]">{b.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
                   {b.body}
                 </p>
@@ -157,24 +161,21 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="mx-auto max-w-4xl px-5 py-20 sm:px-8 lg:py-28">
-          <p className="label">§ 02 · Pricing questions</p>
-          <h2 className="display mt-5 text-5xl text-[var(--ink)] sm:text-6xl">
-            Asked &amp; answered.
+        <section className="mx-auto max-w-3xl px-5 py-20 sm:px-8 lg:py-28">
+          <p className="eyebrow text-center">Pricing FAQ</p>
+          <h2 className="serif mt-5 text-balance text-center text-4xl leading-tight text-[var(--ink)] sm:text-5xl">
+            Common questions.
           </h2>
 
-          <ul className="mt-12 border-2 border-[var(--ink)] bg-[var(--paper)]">
-            {pricingFaq.map((f, i) => (
-              <li
-                key={f.q}
-                className={i > 0 ? "border-t border-[var(--rule)]" : ""}
-              >
-                <details className="group px-6 py-5">
-                  <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-[var(--ink)] [&::-webkit-details-marker]:hidden">
+          <ul className="mt-12 divide-y divide-[var(--rule)] border-y border-[var(--rule)]">
+            {pricingFaq.map((f) => (
+              <li key={f.q}>
+                <details className="group py-6">
+                  <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-medium text-[var(--ink)] [&::-webkit-details-marker]:hidden">
                     <span>{f.q}</span>
                     <span
                       aria-hidden="true"
-                      className="mono grid h-6 w-6 shrink-0 place-items-center text-[var(--red)] transition group-open:rotate-45"
+                      className="grid h-6 w-6 shrink-0 place-items-center text-[var(--ink-soft)] transition group-open:rotate-45"
                     >
                       +
                     </span>

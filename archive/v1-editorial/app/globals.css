@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fafaf7;
+  --paper: #ffffff;
+  --paper-soft: #f4f3ee;
+  --foreground: #0b0d0e;
+  --ink: #0b0d0e;
+  --ink-soft: #3a4145;
+  --muted: #84898d;
+  --rule: rgba(11, 13, 14, 0.08);
+  --rule-strong: rgba(11, 13, 14, 0.18);
+  --accent: #0a2540;
+  --accent-soft: #eaf0f8;
+  --accent-ink: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-paper: var(--paper);
+  --color-paper-soft: var(--paper-soft);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Inter, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.serif {
+  font-family: var(--font-serif), "Iowan Old Style", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.012em;
+}
+
+.mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
