@@ -28,13 +28,16 @@ export const offer = {
     "A prioritized fix list, not a dashboard — what to change on the page, in order",
     "Weekly re-runs with movement vs last week",
     "Shareable report link + PDF export — client-ready for agencies",
+    "First paid month fully refundable — one email, no questions asked",
     "Cancel anytime",
   ],
 };
 
 export const START_HREF = "/start";
 
-// Replace with your Stripe Payment Link when ready.
+// Stripe Price for the $149/mo plan. Used when checkout is wired
+// (Payment Link or Checkout Session must reference this price).
+8
 // Until then, this falls back to a mailto so you can quote and invoice manually.
 export const CHECKOUT_HREF =
   process.env.NEXT_PUBLIC_CHECKOUT_URL ??
@@ -165,7 +168,7 @@ export const faqHome = [
   },
   {
     q: "Is this a one-time report or a subscription?",
-    a: "Your first report is free — one page, all 4 channels, no card. After that it's a subscription: $149/month, one plan, everything included, cancel anytime. AI answers change constantly as models update and competitors publish, so a one-time snapshot goes stale in weeks. Your pages re-run weekly and every report shows movement against the last one.",
+    a: "Your first report is free — one page, all 4 channels, no card. After that it's a subscription: $149/month, one plan, everything included, cancel anytime — and your first paid month is fully refundable, no questions asked. AI answers change constantly as models update and competitors publish, so a one-time snapshot goes stale in weeks. Your pages re-run weekly and every report shows movement against the last one.",
   },
   {
     q: "What's in the free first report?",

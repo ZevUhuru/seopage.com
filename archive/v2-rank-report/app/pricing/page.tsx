@@ -47,6 +47,10 @@ const pricingFaq = [
     a: "One URL. A landing page, product page, comparison page, pricing page, or post. The prompt set, the verdicts, the competitor gap, and the fix list are all scoped to that URL.",
   },
   {
+    q: "What's the refund policy?",
+    a: "Your first paid month is fully refundable — email zev@seopage.com and it's done, no questions asked. After that it's month to month: cancel anytime and keep access through the period you've paid for. We don't prorate refunds on later months — the free first report and the refundable first month exist so you never pay for something you haven't already seen work.",
+  },
+  {
     q: "Can I cancel anytime?",
     a: "Yes — it's month to month. Your reports remain accessible after you cancel; the weekly re-runs stop. Come back whenever you want the tracking again.",
   },

@@ -1,495 +1,529 @@
 import Link from "next/link";
-import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import {
-  CALL_HREF,
-  channels,
-  faqHome,
-  included,
-  offer,
-  sampleRows,
-  START_HREF,
-  steps,
-  type SampleVerdict,
-} from "@/lib/data";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { ExampleShowcase } from "@/components/ExampleShowcase";
+import { JsonLd } from "@/components/JsonLd";
+import { PRICE_LABEL, PRODUCT } from "@/lib/config";
+
+const CHANNELS = ["Google", "ChatGPT", "Google AI Overviews", "Perplexity"];
+
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "What is an SEO landing page?",
+    a: "It's a single page built to rank for one specific search, usually a service plus a place like “roof repair Denver,” and to turn that visitor into a call or a booking. A good SEO landing page pairs clear, persuasive copy with the on-page basics search engines read: the title tag, headings, meta description, and schema markup.",
+  },
+  {
+    q: "Do landing pages help SEO?",
+    a: "Yes, when they're built right. A focused landing page that targets one keyword and one location, with a clean structure and real content, gives Google a clear, relevant result to rank. The catch is that most landing pages skip the on-page SEO, so they look fine but rank for nothing. Ours are built to rank from the start.",
+  },
+  {
+    q: "What is a local SEO landing page?",
+    a: "It's an SEO landing page aimed at one city or service area. Instead of a generic page, you get one that speaks to customers in your town and targets searches like “[your service] [your city].” That local focus is what helps you show up when nearby customers search.",
+  },
+  {
+    q: "Can I build a page for each city or service I cover?",
+    a: "Yes. A lot of local businesses run a separate landing page for each city or service they offer, so every one targets its own keyword. Build them one at a time here. Each page is $29 and yours to keep.",
+  },
+  {
+    q: "How do I create an SEO-optimized landing page?",
+    a: "By hand it means researching the keyword, writing the copy, setting the title tag and meta description, structuring the headings, and adding schema markup. Or you tell us about your business and we do all of that in a couple of minutes, then hand you the finished HTML.",
+  },
+  {
+    q: "Will it actually rank on Google?",
+    a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, content written for your area, and valid structured data. How fast it climbs depends on your domain and competition, but the page itself won't be the thing holding you back.",
+  },
+  {
+    q: "How does it get found by ChatGPT or Perplexity?",
+    a: "AI tools tend to quote pages that answer questions clearly and use FAQ content and schema. We write your FAQ to be easy to quote and add matching FAQPage data, so an AI can point people to your business by name. The big SEO landing page searches already show an AI answer up top, so this matters.",
+  },
+  {
+    q: "What do I get for $29, and do I need a website?",
+    a: "One finished SEO landing page as a single HTML file: local copy, a responsive design, a title tag and meta description, and LocalBusiness, Service, and FAQPage schema. You don't need an existing site. Put the file on any host or paste it into your site builder. You preview the whole page free and only pay if you want to download it.",
+  },
+];
+
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://seopage.com/#organization",
+      name: "SEOPage",
+      url: "https://seopage.com",
+      description:
+        "SEOPage builds finished, SEO-optimized landing pages for local businesses, ready to rank on Google and get found by AI search.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://seopage.com/#website",
+      url: "https://seopage.com",
+      name: "SEOPage",
+      publisher: { "@id": "https://seopage.com/#organization" },
+    },
+    {
+      "@type": "Product",
+      name: "Local SEO Landing Page",
+      description:
+        "A finished local SEO landing page for a local business, exported as clean HTML with researched copy and schema.org structured data (LocalBusiness, Service, FAQPage).",
+      brand: { "@id": "https://seopage.com/#organization" },
+      offers: {
+        "@type": "Offer",
+        price: "29.00",
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+        url: "https://seopage.com/intake",
+      },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://seopage.com/#faq",
+      mainEntity: FAQS.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
-      <SiteHeader active="home" />
+    <>
+      <JsonLd data={SCHEMA} />
+      <SiteHeader />
       <main>
-        <Hero />
-        <ReportSample />
-        <WhyItMatters />
-        <Channels />
-        <Included />
-        <Process />
-        <FAQ />
-        <FinalCta />
-      </main>
-      <SiteFooter />
-    </div>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Hero — poster front page                                                   */
-/* -------------------------------------------------------------------------- */
-
-function Hero() {
-  return (
-    <section className="mx-auto max-w-6xl px-5 pb-16 pt-14 sm:px-8 lg:pb-24 lg:pt-20">
-      <p className="label">§ 00 · The question</p>
-
-      <h1 className="display mt-6 text-[15vw] text-[var(--ink)] sm:text-7xl lg:text-[110px]">
-        Does AI cite
-        <br />
-        your page —{" "}
-        <span className="text-[var(--red)]">or your competitor&apos;s?</span>
-      </h1>
-
-      <div className="mt-10 grid gap-8 border-t border-[var(--ink)] pt-8 lg:grid-cols-[1.2fr_1fr]">
-        <p className="max-w-xl text-lg leading-8 text-[var(--ink-soft)]">
-          Paste a URL. SEOPage runs the {offer.promptsPerPage}{" "}buyer questions
-          that page should win across ChatGPT, Google AI Overviews, Perplexity,
-          and Claude — then reports where you&apos;re cited, who gets cited
-          instead, and exactly what to fix. Re-run every week.
-        </p>
-
-        <div className="flex flex-col items-start gap-4">
-          <Link
-            href={START_HREF}
-            className="hard mono border-2 border-[var(--ink)] bg-[var(--ink)] px-7 py-4 text-[13px] uppercase tracking-[0.18em] text-[var(--paper)] transition hover:bg-[var(--red)] hover:shadow-none"
-          >
-            Get your first report — free
-          </Link>
-          <p className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
-            No card · Then {offer.priceLabel}/mo · One plan ·{" "}
-            <Link
-              href="/pricing"
-              className="text-[var(--ink-soft)] underline underline-offset-4 hover:text-[var(--red)]"
-            >
-              Pricing
-            </Link>
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-10 grid grid-cols-2 border-2 border-[var(--ink)] sm:grid-cols-4">
-        {channels.map((c, i) => (
-          <div
-            key={c.key}
-            className={`px-4 py-3 ${i > 0 ? "border-l-0 sm:border-l-2 sm:border-[var(--ink)]" : ""} ${
-              i % 2 === 1 ? "border-l-2 border-[var(--ink)]" : ""
-            } ${i > 1 ? "border-t-2 border-[var(--ink)] sm:border-t-0" : ""}`}
-          >
-            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-              CH·{String(i + 1).padStart(2, "0")}
-            </span>
-            <p className="display mt-1 text-lg text-[var(--ink)]">{c.label}</p>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Report sample                                                              */
-/* -------------------------------------------------------------------------- */
-
-const verdictStamp: Record<SampleVerdict, { label: string; className: string }> = {
-  cited: { label: "Cited", className: "stamp stamp-cited" },
-  mentioned: { label: "Mention", className: "stamp stamp-mentioned" },
-  absent: { label: "Absent", className: "stamp stamp-absent" },
-};
-
-function ReportSample() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-        <SectionHeader
-          number="01"
-          eyebrow="The report"
-          title="One page. Twenty prompts. Four channels."
-          copy="The heart of every AI Rank Report: a verdict for every buyer question on every channel — with the full AI answer saved as evidence, and the competitor URL that beat you when you lost."
-        />
-
-        <div className="hard mt-12 border-2 border-[var(--ink)] bg-[var(--paper)]">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b-2 border-[var(--ink)] bg-[var(--ink)] px-5 py-2.5">
-            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]">
-              AI Rank Report · clip.art/generate · Week of Jun 08 2026
-            </span>
-            <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--paper)]/70">
-              Specimen · 4 of 20 prompts
-            </span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[680px] border-collapse text-left">
-              <thead>
-                <tr className="border-b-2 border-[var(--ink)]">
-                  <th className="mono px-5 py-3 text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                    Buyer prompt
-                  </th>
-                  {channels.map((c) => (
-                    <th
-                      key={c.key}
-                      className="mono border-l border-[var(--rule)] px-3 py-3 text-center text-[10px] uppercase tracking-[0.18em] text-[var(--muted)]"
-                    >
-                      {c.label}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {sampleRows.map((row) => (
-                  <tr
-                    key={row.prompt}
-                    className="border-b border-[var(--rule)] last:border-b-0"
-                  >
-                    <td className="px-5 py-4 align-top">
-                      <span className="text-sm font-medium text-[var(--ink)]">
-                        “{row.prompt}”
-                      </span>
-                      {row.losesTo ? (
-                        <span className="mono mt-1.5 block text-[11px] uppercase tracking-[0.08em] text-[var(--red)]">
-                          → loses to {row.losesTo}
-                        </span>
-                      ) : null}
-                    </td>
-                    {channels.map((c) => {
-                      const v = verdictStamp[row.verdicts[c.key]];
-                      return (
-                        <td
-                          key={c.key}
-                          className="border-l border-[var(--rule)] px-3 py-4 text-center align-top"
-                        >
-                          <span className={v.className}>{v.label}</span>
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="grid border-t-2 border-[var(--ink)] sm:grid-cols-3">
-            {[
-              ["AI Rank", "11 / 20 prompts answered with you in them"],
-              ["Framing", "Recommended ×6 · Warned against ×0"],
-              ["AI-readiness", "62 / 100 — 7 fixes, ordered by impact"],
-            ].map(([label, value], i) => (
-              <div
-                key={label}
-                className={`px-5 py-4 ${i > 0 ? "border-t border-[var(--rule)] sm:border-l sm:border-t-0" : ""}`}
-              >
-                <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--red)]">
-                  {label}
+        {/* ───────────────────────── Hero ───────────────────────── */}
+        <section className="relative overflow-hidden">
+          <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
+          <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 lg:pb-24 lg:pt-24">
+            <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
+              <div>
+                <span className="kicker rise">
+                  Local SEO landing pages, done for you
                 </span>
-                <p className="mt-1.5 text-sm font-medium text-[var(--ink)]">
-                  {value}
+                <h1 className="display rise rise-1 mt-5 text-[2.55rem] leading-[1.03] text-ink sm:text-[3.4rem] lg:text-[3.9rem]">
+                  The local SEO landing page that gets you found on{" "}
+                  <span className="text-accent">Google and AI.</span>
+                </h1>
+                <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
+                  When someone nearby searches for what you do, or asks ChatGPT
+                  for a recommendation, you want to be the name that comes up.
+                  Tell us about your business and we&apos;ll build a local SEO
+                  landing page that gets you there.
                 </p>
+                <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
+                  <Link href="/intake" className="btn btn-accent btn-lg">
+                    Build my page
+                  </Link>
+                  <a href="#example" className="btn btn-ghost btn-lg">
+                    See a sample
+                  </a>
+                </div>
+                <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+                  <span className="inline-flex items-center gap-2">
+                    <Dot /> Preview it free
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Dot /> {PRICE_LABEL} once, no subscription
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Dot /> Clean HTML you own
+                  </span>
+                </div>
+              </div>
+
+              {/* Search-surface mock — Google AND AI, made concrete */}
+              <div className="rise rise-2">
+                <SearchPanel />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────── Credibility / capability strip ──────────── */}
+        <section className="border-y border-line bg-surface-2">
+          <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-line px-5 sm:px-8 md:grid-cols-4">
+            {[
+              ["4", "AI tools we write for"],
+              ["3", "schema types built in"],
+              ["~90s", "to a finished page"],
+              [PRICE_LABEL, "once, no subscription"],
+            ].map(([n, l], i) => (
+              <div
+                key={l}
+                className={`px-4 py-7 ${i === 2 ? "border-l-0 md:border-l" : ""}`}
+              >
+                <div className="display text-3xl text-ink">{n}</div>
+                <div className="mt-1 text-sm text-muted">{l}</div>
               </div>
             ))}
           </div>
-        </div>
+        </section>
 
-        <p className="mono mt-10 max-w-2xl text-[11px] uppercase leading-5 tracking-[0.14em] text-[var(--ink-soft)]">
-          Every verdict links to the full captured answer — the receipt. Every
-          lost prompt names the page that won. Every report ends with the fix
-          list.
-        </p>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Why it matters                                                             */
-/* -------------------------------------------------------------------------- */
-
-function WhyItMatters() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-        <SectionHeader
-          number="02"
-          eyebrow="Why now"
-          title="Your buyers ask AI before they ever see your page."
-          copy="AI answers aren't a side channel anymore. They're where consideration happens — and absence is invisible in your analytics until the pipeline dries up."
-        />
-
-        <dl className="mt-12 grid border-2 border-[var(--ink)] sm:grid-cols-3">
-          {[
-            {
-              value: "35–50%",
-              term: "High-intent queries intercepted",
-              body: "by AI engines before a single blue link gets clicked.",
-            },
-            {
-              value: "5–16%",
-              term: "Conversion from AI visitors",
-              body: "versus ~1.8% from organic search. AI-answer traffic converts 3–9× better.",
-            },
-            {
-              value: "<20%",
-              term: "Google ↔ AI overlap",
-              body: "down from 70% in two years. Ranking #1 no longer means you're in the answer.",
-            },
-          ].map((s, i) => (
-            <div
-              key={s.term}
-              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] sm:border-l-2 sm:border-t-0" : ""}`}
-            >
-              <dd className="display text-6xl text-[var(--ink)] lg:text-7xl">
-                {s.value}
-              </dd>
-              <dt className="mono mt-4 text-[10px] uppercase tracking-[0.22em] text-[var(--red)]">
-                {s.term}
-              </dt>
-              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                {s.body}
+        {/* ──────────────────────── Example ──────────────────────── */}
+        <section id="example" className="border-b border-line">
+          <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 lg:py-24">
+            <div className="max-w-2xl">
+              <span className="kicker">A sample page</span>
+              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
+                A finished SEO landing page, not a template.
+              </h2>
+              <p className="mt-4 text-lg text-ink-2">
+                Real copy written for your town. A clean design that works on
+                phones. And the technical SEO most landing pages skip: title
+                tags, meta descriptions, and the schema that Google and AI tools
+                actually read.
               </p>
             </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-  );
-}
+            <div className="mt-12">
+              <ExampleShowcase />
+            </div>
+            <div className="mt-12">
+              <Link href="/intake" className="btn btn-primary btn-lg">
+                Build mine
+              </Link>
+            </div>
+          </div>
+        </section>
 
-/* -------------------------------------------------------------------------- */
-/* Channels                                                                   */
-/* -------------------------------------------------------------------------- */
-
-function Channels() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-        <SectionHeader
-          number="03"
-          eyebrow="The channels"
-          title="All four engines that decide what AI tells your buyers."
-          copy="Each engine selects sources differently — a page Perplexity loves can be invisible to Claude. Checking one channel and calling it done is how teams fool themselves."
-        />
-
-        <ul className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2">
-          {channels.map((c, i) => (
-            <li
-              key={c.key}
-              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
-                i % 2 === 1 ? "md:border-l-2 md:border-t-0" : ""
-              } ${i > 1 ? "md:border-t-2" : ""}`}
-            >
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="display text-3xl text-[var(--ink)]">{c.label}</h3>
-                <span className="mono text-[10px] uppercase tracking-[0.22em] text-[var(--muted)]">
-                  {c.subtitle}
-                </span>
-              </div>
-              <p className="mt-3 text-sm leading-7 text-[var(--ink-soft)]">
-                {c.description}
-              </p>
-              <p className="mono mt-4 text-[10px] uppercase tracking-[0.18em] text-[var(--red)]">
-                ▸ {c.behavior}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* What's in the report                                                       */
-/* -------------------------------------------------------------------------- */
-
-function Included() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-        <SectionHeader
-          number="04"
-          eyebrow="In every report"
-          title="Six findings. Zero interpretation required."
-          copy="Not a dashboard you have to decode. A report that answers the three questions that matter: where do I show up, who beats me, and what do I change."
-        />
-
-        <ul className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2">
-          {included.map((f, i) => (
-            <li
-              key={f.title}
-              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)]" : ""} ${
-                i % 2 === 1 ? "md:border-l-2 md:border-t-0" : ""
-              } ${i > 1 ? "md:border-t-2" : ""}`}
-            >
-              <span className="display text-4xl text-[var(--paper-soft)] [-webkit-text-stroke:1.5px_var(--ink)]">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 text-lg font-semibold leading-snug text-[var(--ink)]">
-                {f.title}
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
-                {f.body}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* Process                                                                    */
-/* -------------------------------------------------------------------------- */
-
-function Process() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-        <SectionHeader
-          number="05"
-          eyebrow="The pipeline"
-          title="URL in. Report out. Every week."
-          copy="No tracking setup, no prompt research, no spreadsheet of AI answers. The page is the input; the report is the output."
-        />
-
-        <ol className="mt-12 grid border-2 border-[var(--ink)] md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((s, i) => (
-            <li
-              key={s.number}
-              className={`p-7 ${i > 0 ? "border-t-2 border-[var(--ink)] md:border-t-0 md:border-l-2" : ""} ${
-                i === 2 ? "md:border-t-2 md:border-l-0 lg:border-l-2 lg:border-t-0" : ""
-              } ${i === 3 ? "md:border-t-2 lg:border-t-0" : ""}`}
-            >
-              <span className="display text-5xl text-[var(--red)]">
-                {s.number}
-              </span>
-              <h3 className="mt-4 text-lg font-semibold leading-snug text-[var(--ink)]">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm leading-7 text-[var(--ink-soft)]">
-                {s.body}
-              </p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/* FAQ                                                                        */
-/* -------------------------------------------------------------------------- */
-
-function FAQ() {
-  return (
-    <section className="border-t-2 border-[var(--ink)]">
-      <div className="mx-auto max-w-4xl px-5 py-16 sm:px-8 lg:py-24">
-        <p className="label">§ 06 · Questions</p>
-        <h2 className="display mt-5 text-5xl text-[var(--ink)] sm:text-6xl">
-          Asked &amp; answered.
-        </h2>
-
-        <ul className="mt-12 border-2 border-[var(--ink)] bg-[var(--paper)]">
-          {faqHome.map((f, i) => (
-            <li
-              key={f.q}
-              className={i > 0 ? "border-t border-[var(--rule)]" : ""}
-            >
-              <details className="group px-6 py-5">
-                <summary className="flex cursor-pointer items-center justify-between gap-4 text-left text-base font-semibold text-[var(--ink)] [&::-webkit-details-marker]:hidden">
-                  <span>{f.q}</span>
-                  <span
-                    aria-hidden="true"
-                    className="mono grid h-6 w-6 shrink-0 place-items-center text-[var(--red)] transition group-open:rotate-45"
-                  >
-                    +
+        {/* ──────────────────────── How it works ─────────────────── */}
+        <section id="how" className="border-b border-line bg-surface-2">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <div className="max-w-2xl">
+              <span className="kicker">How it works</span>
+              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
+                Three steps, with real research in between.
+              </h2>
+            </div>
+            <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3">
+              {[
+                {
+                  n: "01",
+                  t: "Tell us about your business",
+                  d: "Your name, what you do, and where. Add a keyword or your website if you have one. If not, we'll figure out the rest.",
+                },
+                {
+                  n: "02",
+                  t: "We research and write the page",
+                  d: "We dig into your local market: the keywords, what buyers actually want, and the questions they ask. Then we write the page around it.",
+                },
+                {
+                  n: "03",
+                  t: "Preview, then download",
+                  d: "Look over the finished page for free. When you're happy with it, download clean HTML you can publish anywhere.",
+                },
+              ].map((s) => (
+                <div key={s.n} className="bg-surface p-7">
+                  <span className="mono text-sm font-semibold text-accent">
+                    {s.n}
                   </span>
-                </summary>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-[var(--ink-soft)]">
-                  {f.a}
+                  <h3 className="mt-3 text-lg font-semibold text-ink">{s.t}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-2">
+                    {s.d}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────── What's inside every page ──────────────── */}
+        <section className="border-b border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <div className="max-w-2xl">
+              <span className="kicker">What&apos;s inside every page</span>
+              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
+                Built on real SEO best practices.
+              </h2>
+            </div>
+            <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                [
+                  "Keyword-focused on-page SEO",
+                  "A precise title tag, meta description, and clean heading structure built around the keyword your customers actually search.",
+                ],
+                [
+                  "schema.org structured data",
+                  "Valid LocalBusiness, Service, and FAQPage markup: the data Google and AI tools read for rich results and citations.",
+                ],
+                [
+                  "Copy that sounds human",
+                  "Specific, local copy that reads like a person wrote it. No stock phrases, no filler, no obvious AI voice.",
+                ],
+                [
+                  "An FAQ built to be quoted",
+                  "Common questions answered clearly and structured so AI tools can quote your business directly, by name.",
+                ],
+                [
+                  "A clean, responsive design",
+                  "A modern layout that looks right on a phone and a desktop. Fast, accessible, and ready to publish.",
+                ],
+                [
+                  "HTML you own outright",
+                  "One self-contained file. No platform to log into, no monthly fee. Host it wherever you like.",
+                ],
+              ].map(([t, d]) => (
+                <div key={t} className="flex gap-3.5">
+                  <Check />
+                  <div>
+                    <h3 className="font-semibold text-ink">{t}</h3>
+                    <p className="mt-1.5 text-[0.93rem] leading-relaxed text-ink-2">
+                      {d}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────────────── AI angle ─────────────────────── */}
+        <section className="border-b border-line bg-ink text-white">
+          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:py-24">
+            <div>
+              <span className="mono text-[11px] uppercase tracking-[0.14em] text-white/45">
+                How people search now
+              </span>
+              <h2 className="display mt-3 text-[2rem] text-white sm:text-[2.5rem]">
+                Half your customers ask AI before they ask around.
+              </h2>
+              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/65">
+                Some people still Google you. More and more ask ChatGPT or
+                Perplexity, which answer by citing a few sources. Most local
+                pages aren&apos;t ready for either one. Yours will be: the
+                on-page SEO Google looks for, plus clear answers an AI can quote.
+              </p>
+              <div className="mt-7 flex flex-wrap gap-2">
+                {CHANNELS.map((c) => (
+                  <span
+                    key={c}
+                    className="rounded-md border border-white/15 px-3 py-1.5 text-sm text-white/75"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="grid gap-3 self-center">
+              {[
+                [
+                  "Easy for AI to quote",
+                  "FAQ content and schema written so an AI can lift a clear answer and credit your business by name.",
+                ],
+                [
+                  "On-page SEO done right",
+                  "Title tags, meta descriptions, heading structure, and LocalBusiness, Service, and FAQPage data, kept correct and consistent.",
+                ],
+                [
+                  "Written for your town",
+                  "Researched for your city and your service, not boilerplate that could belong to anyone and ranks for nothing.",
+                ],
+              ].map(([t, d]) => (
+                <div
+                  key={t}
+                  className="rounded-lg border border-white/12 bg-white/[0.03] p-5"
+                >
+                  <p className="font-semibold text-white">{t}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-white/60">
+                    {d}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────────────── Pricing ──────────────────────── */}
+        <section id="pricing" className="border-b border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+              <div>
+                <span className="kicker">Pricing</span>
+                <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
+                  One page. One price. No subscription.
+                </h2>
+                <p className="mt-4 max-w-md text-lg text-ink-2">
+                  Preview the whole page for free. You only pay the{" "}
+                  {PRICE_LABEL} if you decide to download it. After that, it&apos;s
+                  yours to keep.
                 </p>
-              </details>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
+                <p className="mt-4 max-w-md text-sm text-muted">
+                  {PRODUCT.satisfaction}
+                </p>
+              </div>
+
+              <div className="card overflow-hidden">
+                <div className="flex items-baseline justify-between border-b border-line px-7 py-6">
+                  <span className="font-semibold text-ink">
+                    SEO landing page
+                  </span>
+                  <div className="text-right">
+                    <span className="display text-4xl text-ink">
+                      {PRICE_LABEL}
+                    </span>
+                    <span className="ml-1 text-sm text-muted">once</span>
+                  </div>
+                </div>
+                <div className="p-7">
+                  <ul className="space-y-3 text-[0.95rem] text-ink-2">
+                    {[
+                      "One finished, SEO-optimized landing page",
+                      "Copy researched for your business and city",
+                      "Title tag, meta description, and schema markup",
+                      "Built to rank on Google and get found by AI",
+                      "Clean, self-contained HTML you own",
+                    ].map((f) => (
+                      <li key={f} className="flex items-start gap-3">
+                        <Check sm />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href="/intake"
+                    className="btn btn-accent btn-lg mt-7 w-full"
+                  >
+                    Build my page
+                  </Link>
+                  <p className="mt-3 text-center text-xs text-muted">
+                    Secure checkout by Stripe
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────────────── FAQ ──────────────────────────── */}
+        <section id="faq" className="border-b border-line bg-surface-2">
+          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
+            <div className="text-center">
+              <span className="kicker">Questions</span>
+              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
+                Questions people usually ask
+              </h2>
+            </div>
+            <div className="mt-10 divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
+              {FAQS.map((f) => (
+                <details key={f.q} className="group px-6 py-5">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-ink">
+                    {f.q}
+                    <span className="shrink-0 text-muted transition-transform group-open:rotate-45">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path
+                          d="M12 5v14M5 12h14"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </span>
+                  </summary>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">
+                    {f.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ──────────────────────── Final CTA ────────────────────── */}
+        <section>
+          <div className="mx-auto max-w-3xl px-5 py-18 text-center sm:px-8 lg:py-24">
+            <h2 className="display text-[2.1rem] text-ink sm:text-[2.8rem]">
+              Be the business people find.
+            </h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg text-ink-2">
+              Build a landing page that helps you show up on Google and AI. It
+              takes a couple of minutes, and the preview is free.
+            </p>
+            <Link href="/intake" className="btn btn-accent btn-lg mt-8">
+              Build my page
+            </Link>
+          </div>
+        </section>
+      </main>
+      <SiteFooter />
+    </>
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/* Final CTA                                                                  */
-/* -------------------------------------------------------------------------- */
+/* ─────────────────────────── pieces ─────────────────────────── */
 
-function FinalCta() {
+function Dot() {
+  return <span className="h-1.5 w-1.5 rounded-full bg-good" />;
+}
+
+function Check({ sm }: { sm?: boolean }) {
+  const s = sm ? "h-5 w-5" : "h-6 w-6";
   return (
-    <section className="border-t-2 border-[var(--ink)] bg-[var(--ink)]">
-      <div className="mx-auto max-w-6xl px-5 py-20 sm:px-8 lg:py-28">
-        <p className="mono text-[11px] uppercase tracking-[0.28em] text-[var(--paper)]/60">
-          § 07 · The offer
+    <span
+      className={`mt-0.5 grid ${s} shrink-0 place-items-center rounded-md bg-accent-soft text-accent`}
+    >
+      <svg width={sm ? 12 : 14} height={sm ? 12 : 14} viewBox="0 0 24 24" fill="none">
+        <path
+          d="M5 12.5 10 17l9-10"
+          stroke="currentColor"
+          strokeWidth="2.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
+  );
+}
+
+/** A clean mock of a search surface: a Google result + an AI answer. */
+function SearchPanel() {
+  return (
+    <div className="card overflow-hidden shadow-lg">
+      {/* Google organic result */}
+      <div className="border-b border-line p-5 sm:p-6">
+        <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
+          Google · organic result
+        </div>
+        <div className="flex items-center gap-1.5 text-xs text-ink-2">
+          <span className="grid h-5 w-5 place-items-center rounded-full bg-surface-3 text-[9px] font-bold">
+            S
+          </span>
+          summitroofingdenver.com
+        </div>
+        <a className="mt-1 block text-[1.05rem] font-medium leading-snug text-accent">
+          Emergency Roof Repair in Denver | Summit Roofing Co.
+        </a>
+        <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-2">
+          Same-day roof repair across Denver. Licensed, insured, 24/7 storm
+          response. Free inspection and no-pressure estimate.
         </p>
-        <h2 className="display mt-6 text-6xl text-[var(--paper)] sm:text-7xl lg:text-8xl">
-          First report free.
-          <br />
-          Then <span className="text-[var(--red)]">{offer.priceLabel}/mo.</span>
-        </h2>
-        <p className="mt-8 max-w-xl text-base leading-8 text-[var(--paper)]/80">
-          One plan, everything included: {offer.pages} pages,{" "}
-          {offer.promptsPerPage} prompts each, all 4 AI channels, weekly
-          re-runs, full answer evidence, and a fix list per page. Cancel
-          anytime.
-        </p>
-        <div className="mt-10 flex flex-wrap items-center gap-6">
-          <Link
-            href={START_HREF}
-            className="mono border-2 border-[var(--paper)] bg-[var(--paper)] px-7 py-4 text-[13px] uppercase tracking-[0.18em] text-[var(--ink)] transition hover:bg-[var(--red)] hover:text-[var(--paper)] hover:border-[var(--red)]"
-          >
-            Get your first report — free
-          </Link>
-          <Link
-            href={CALL_HREF}
-            className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--paper)]/70 underline underline-offset-8 transition hover:text-[var(--paper)]"
-          >
-            Prefer to talk it through? →
-          </Link>
+        <div className="mt-2 flex items-center gap-3 text-[0.78rem] text-muted">
+          <span className="text-amber-500">★★★★★</span>
+          <span>4.9 · 380 reviews</span>
+          <span className="text-line-strong">·</span>
+          <span>FAQ</span>
         </div>
       </div>
-    </section>
-  );
-}
 
-/* -------------------------------------------------------------------------- */
-/* Section header                                                             */
-/* -------------------------------------------------------------------------- */
-
-function SectionHeader({
-  number,
-  eyebrow,
-  title,
-  copy,
-}: {
-  number: string;
-  eyebrow: string;
-  title: string;
-  copy: string;
-}) {
-  return (
-    <div className="max-w-3xl">
-      <p className="label">
-        § {number} · {eyebrow}
-      </p>
-      <h2 className="display mt-5 text-4xl text-[var(--ink)] sm:text-5xl lg:text-6xl">
-        {title}
-      </h2>
-      <p className="mt-6 max-w-2xl text-base leading-8 text-[var(--ink-soft)]">
-        {copy}
-      </p>
+      {/* AI answer */}
+      <div className="bg-surface-2 p-5 sm:p-6">
+        <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
+          AI overview
+        </div>
+        <p className="text-[0.95rem] leading-relaxed text-ink-2">
+          For urgent roof repair in Denver, a strong option is{" "}
+          <span className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-2">
+            Summit Roofing Co.
+          </span>
+          , a licensed, insured crew offering 24/7 storm response and free
+          same-day inspections.
+        </p>
+        <div className="mt-4 flex items-center gap-2 border-t border-line pt-4">
+          <span className="mono text-[10px] uppercase tracking-wider text-muted">
+            Sources
+          </span>
+          <span className="pill text-[0.72rem]">summitroofingdenver.com</span>
+        </div>
+      </div>
     </div>
   );
 }

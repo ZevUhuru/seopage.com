@@ -1,126 +1,282 @@
 @import "tailwindcss";
 
+/* ============================================================
+   SEOPage design system — serious, editorial, high-trust.
+   Near-monochrome canvas, restrained cobalt accent used sparingly,
+   tight grotesque type, sharp corners. Authority over decoration.
+   ============================================================ */
 :root {
-  --background: #f0ece0;
-  --paper: #faf8f0;
-  --paper-soft: #e9e4d5;
-  --foreground: #161513;
-  --ink: #161513;
-  --ink-soft: #474336;
-  --muted: #8a8273;
-  --rule: rgba(22, 21, 19, 0.16);
-  --rule-strong: #161513;
-  --red: #cf2418;
-  --red-soft: #f4ded9;
-  --accent: #cf2418;
-  --accent-soft: #f4ded9;
-  --accent-ink: #faf8f0;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f6f8;
+  --surface-3: #eef0f3;
+  --ink: #0a0c11;
+  --ink-2: #353a44;
+  --muted: #646b78;
+  --line: #e6e8ec;
+  --line-strong: #d3d7dd;
+
+  /* Restrained, professional cobalt — used as an accent, never a wash. */
+  --accent: #1b46d4;
+  --accent-strong: #1434a8;
+  --accent-soft: #eef1fc;
+  --accent-ink: #ffffff;
+
+  --good: #15803d;
+  --good-soft: #e7f3ec;
+
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-xs: 0 1px 1px rgba(10, 12, 17, 0.04);
+  --shadow-sm: 0 1px 2px rgba(10, 12, 17, 0.06), 0 1px 3px rgba(10, 12, 17, 0.04);
+  --shadow: 0 6px 16px -6px rgba(10, 12, 17, 0.14);
+  --shadow-lg: 0 24px 48px -20px rgba(10, 12, 17, 0.22);
+  --ring: 0 0 0 3px rgba(27, 70, 212, 0.14);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-paper: var(--paper);
-  --color-paper-soft: var(--paper-soft);
-  --color-foreground: var(--foreground);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
   --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
+  --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
-  --color-rule: var(--rule);
-  --color-red: var(--red);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
+  --radius-card: var(--radius);
+}
+
+* {
+  border-color: var(--line);
 }
 
 html {
   scroll-behavior: smooth;
-  background: var(--background);
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.006em;
 }
 
 ::selection {
   background: var(--ink);
-  color: var(--paper);
+  color: #fff;
 }
 
-/* Display type — poster headlines, always uppercase. */
+/* Display headlines — tight neo-grotesque, never rounded/playful. */
 .display {
-  font-family: var(--font-display), "Arial Narrow", Impact, sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.005em;
-  line-height: 0.96;
+  font-family: var(--font-display), var(--font-sans), sans-serif;
+  font-weight: 680;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
 }
 
 .mono {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Section label — replaces the old eyebrow. */
-.label {
+/* Eyebrow / kicker — restrained, authoritative. */
+.kicker {
   font-family: var(--font-mono), ui-monospace, monospace;
   font-size: 11px;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--muted);
+  font-weight: 500;
 }
 
-/* Hard offset shadow — flat ink, never blurred. */
-.hard {
-  box-shadow: 8px 8px 0 0 var(--ink);
+/* Buttons — sharp corners, confident, low-ornament. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 560;
+  border-radius: var(--radius);
+  transition: background 0.15s ease, box-shadow 0.15s ease,
+    border-color 0.15s ease, color 0.15s ease, transform 0.05s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
 }
-
-.hard-sm {
-  box-shadow: 4px 4px 0 0 var(--ink);
+.btn:active {
+  transform: translateY(0.5px);
 }
-
-/* Double rule, broadsheet masthead style. */
-.rule-double {
-  border-top: 3px solid var(--ink);
-  position: relative;
-}
-
-.rule-double::after {
-  content: "";
-  position: absolute;
-  top: 5px;
-  left: 0;
-  right: 0;
-  border-top: 1px solid var(--ink);
-}
-
-/* Verdict stamps. */
-.stamp {
-  font-family: var(--font-mono), ui-monospace, monospace;
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  display: inline-block;
-  padding: 4px 8px;
-  border: 1px solid var(--ink);
-}
-
-.stamp-cited {
+.btn-primary {
   background: var(--ink);
-  color: var(--paper);
+  color: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary:hover {
+  background: #1c2230;
+}
+.btn-accent {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 1px 2px rgba(20, 52, 168, 0.3);
+}
+.btn-accent:hover {
+  background: var(--accent-strong);
+}
+.btn-ghost {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+.btn-ghost:hover {
+  border-color: var(--ink);
+}
+.btn-lg {
+  padding: 0.85rem 1.4rem;
+  font-size: 1rem;
+}
+.btn-md {
+  padding: 0.6rem 1.05rem;
+  font-size: 0.9rem;
 }
 
-.stamp-mentioned {
-  background: transparent;
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Inputs */
+.field {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 0.8rem 0.95rem;
+  font-size: 0.98rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field::placeholder {
+  color: var(--muted);
+}
+.field:focus {
+  border-color: var(--accent);
+  box-shadow: var(--ring);
+}
+.field-label {
+  font-weight: 560;
+  font-size: 0.88rem;
   color: var(--ink);
 }
 
-.stamp-absent {
-  border-color: var(--red);
-  color: var(--red);
-  background: transparent;
+/* Pill / tag */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  padding: 0.32rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+/* Hairline section divider with subtle inset */
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+/* Subtle grid backdrop for hero */
+.grid-backdrop {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(
+    ellipse 80% 55% at 50% 0%,
+    #000 5%,
+    transparent 70%
+  );
+  mask-image: radial-gradient(
+    ellipse 80% 55% at 50% 0%,
+    #000 5%,
+    transparent 70%
+  );
+  opacity: 0.6;
+}
+
+/* Animations */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.rise-1 {
+  animation-delay: 0.05s;
+}
+.rise-2 {
+  animation-delay: 0.12s;
+}
+.rise-3 {
+  animation-delay: 0.19s;
+}
+.rise-4 {
+  animation-delay: 0.26s;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise,
+  .spin {
+    animation: none;
+  }
+}
+
+/* Watermark overlay for the locked preview */
+.watermark::before {
+  content: "PREVIEW · SEOPAGE.COM";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 30;
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(20px, 5vw, 56px);
+  letter-spacing: 0.18em;
+  color: rgba(10, 12, 17, 0.06);
+  transform: rotate(-22deg);
 }
