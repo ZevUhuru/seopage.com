@@ -1,18 +1,13 @@
-import { NextResponse, after } from "next/server";
-import { runGeneration, initialSteps } from "@/lib/generate";
+import { NextResponse } from "next/server";
+import { initialSteps } from "@/lib/generate";
 import { saveGeneration } from "@/lib/store";
 import type { Generation, Intake } from "@/lib/types";
 
 export const runtime = "nodejs";
-// Generation can take 30–90+ seconds; give the background work room on Vercel.
-export const maxDuration = 300;
+export const maxDuration = 60;
 
 function newId(): string {
-  return (
-    "g_" +
-    Date.now().toString(36) +
-    Math.random().toString(36).slice(2, 8)
-  );
+  return "g_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
 }
 
 function str(v: unknown): string {
@@ -47,10 +42,7 @@ export async function POST(req: Request) {
 
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json(
-      {
-        error:
-          "The generator isn't configured yet (missing ANTHROPIC_API_KEY).",
-      },
+      { error: "The generator isn't configured yet (missing ANTHROPIC_API_KEY)." },
       { status: 503 },
     );
   }
@@ -66,10 +58,6 @@ export async function POST(req: Request) {
   };
   await saveGeneration(gen);
 
-  // Run the pipeline after the response is sent (kept alive up to maxDuration).
-  after(async () => {
-    await runGeneration(id);
-  });
-
+  // The client drives the two work phases (research, build) as separate requests.
   return NextResponse.json({ id });
 }

@@ -70,24 +70,36 @@ export function IntakeForm() {
     return Object.keys(next).length === 0;
   }
 
-  function startPolling(id: string) {
+  // Poll status only to animate the step list. Completion is driven by the
+  // awaited phase calls below, not by polling.
+  function startStepPolling(id: string) {
     pollRef.current = setInterval(async () => {
       try {
         const res = await fetch(`/api/status/${id}`, { cache: "no-store" });
         if (!res.ok) return;
         const view = (await res.json()) as GenerationView;
         setSteps(view.steps);
-        if (view.status === "complete") {
-          if (pollRef.current) clearInterval(pollRef.current);
-          router.push(`/preview/${id}`);
-        } else if (view.status === "error") {
-          if (pollRef.current) clearInterval(pollRef.current);
-          setGenError(view.error ?? "Something went wrong. Please try again.");
-        }
       } catch {
         // transient — keep polling
       }
     }, 1300);
+  }
+
+  function stopPolling() {
+    if (pollRef.current) clearInterval(pollRef.current);
+    pollRef.current = null;
+  }
+
+  async function runPhase(url: string, id: string) {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+    const data = (await res.json().catch(() => ({}))) as { error?: string };
+    if (!res.ok) {
+      throw new Error(data.error || "Generation failed. Please try again.");
+    }
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -97,6 +109,9 @@ export function IntakeForm() {
 
     setPhase("generating");
     setGenError(null);
+
+    // 1) Create the generation record.
+    let id: string;
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
@@ -107,11 +122,26 @@ export function IntakeForm() {
       if (!res.ok || !data.id) {
         throw new Error(data.error || "Could not start generation.");
       }
-      startPolling(data.id);
+      id = data.id;
     } catch (err) {
       setPhase("form");
       setSubmitError(
         err instanceof Error ? err.message : "Could not start generation.",
+      );
+      return;
+    }
+
+    // 2) Run the two work phases as separate requests, animating steps meanwhile.
+    startStepPolling(id);
+    try {
+      await runPhase("/api/research", id);
+      await runPhase("/api/build", id);
+      stopPolling();
+      router.push(`/preview/${id}`);
+    } catch (err) {
+      stopPolling();
+      setGenError(
+        err instanceof Error ? err.message : "Something went wrong. Please retry.",
       );
     }
   }
