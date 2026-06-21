@@ -64,7 +64,7 @@ const SCHEMA = {
       "@type": "Product",
       name: "Local SEO Landing Page",
       description:
-        "A finished local SEO landing page for a local business, exported as clean HTML with researched copy and schema.org structured data (LocalBusiness, Service, FAQPage).",
+        "A complete, designed local SEO landing page with researched copy, styling, and schema.org structured data (LocalBusiness, Service, FAQPage), delivered as one ready-to-publish file you own.",
       brand: { "@id": "https://seopage.com/#organization" },
       offers: {
         "@type": "Offer",
@@ -127,7 +127,7 @@ export default function Home() {
                     <Dot /> {PRICE_LABEL} once, no subscription
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> Clean HTML you own
+                    <Dot /> Yours to publish anywhere
                   </span>
                 </div>
               </div>
@@ -210,7 +210,7 @@ export default function Home() {
                 {
                   n: "03",
                   t: "Preview, then download",
-                  d: "Look over the finished page for free. When you're happy with it, download clean HTML you can publish anywhere.",
+                  d: "Look over the finished page for free. When you're happy with it, download the finished page as one file and publish it anywhere.",
                 },
               ].map((s) => (
                 <div key={s.n} className="bg-surface p-7">
@@ -259,8 +259,8 @@ export default function Home() {
                   "A modern layout that looks right on a phone and a desktop. Fast, accessible, and ready to publish.",
                 ],
                 [
-                  "HTML you own outright",
-                  "One self-contained file. No platform to log into, no monthly fee. Host it wherever you like.",
+                  "Yours to own, no lock-in",
+                  "One self-contained file with the copy, styling, and schema inside. No platform to log into, no monthly fee. Host it wherever you like.",
                 ],
               ].map(([t, d]) => (
                 <div key={t} className="flex gap-3.5">
@@ -371,7 +371,7 @@ export default function Home() {
                       "Copy researched for your business and city",
                       "Title tag, meta description, and schema markup",
                       "Built to rank on Google and get found by AI",
-                      "Clean, self-contained HTML you own",
+                      "A complete, styled page in one file you own",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-3">
                         <Check sm />

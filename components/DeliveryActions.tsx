@@ -35,7 +35,7 @@ export function DeliveryActions({ id }: { id: string }) {
             strokeLinejoin="round"
           />
         </svg>
-        Download HTML
+        Download page
       </a>
       <button onClick={copyCode} className="btn btn-ghost btn-lg flex-1">
         {copyState === "copied"

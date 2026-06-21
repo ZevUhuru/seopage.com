@@ -11,9 +11,9 @@ export const PRODUCT = {
   // Statement descriptor shown on the customer's card. Stripe limits this to
   // 22 chars; keep it recognizable.
   billingDescriptor: "SEOPAGE.COM",
-  productName: "SEO Landing Page (HTML export)",
+  productName: "SEO Landing Page",
   productDescription:
-    "One finished, SEO-optimized landing page exported as clean, ready-to-publish HTML you own.",
+    "A complete, designed SEO landing page with researched copy, styling, and schema markup, delivered as one ready-to-publish file you own.",
   satisfaction: "Not happy with it? Email hi@seopage.com and we'll make it right.",
   supportEmail: "hi@seopage.com",
 };
