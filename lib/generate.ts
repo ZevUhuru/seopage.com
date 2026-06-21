@@ -75,40 +75,52 @@ async function setStepActive(id: string, key: StepKey): Promise<void> {
 
 /* ------------------------------- pipeline -------------------------------- */
 
-export async function runGeneration(id: string): Promise<void> {
-  const gen = await getGeneration(id);
-  if (!gen) return;
+function errMessage(err: unknown): string {
+  return err instanceof Error ? err.message : "Generation failed. Please retry.";
+}
 
+/**
+ * The pipeline runs as two separate requests the client awaits in sequence, so
+ * each Claude call lives inside its own serverless invocation (and its own time
+ * budget) rather than fragile background work. Shared state lives in the store.
+ */
+
+// PHASE 1 — research → strategy
+export async function runResearch(id: string): Promise<void> {
+  const gen = await getGeneration(id);
+  if (!gen) throw new Error("Generation not found.");
   try {
     await updateGeneration(id, { status: "running", steps: initialSteps() });
-
-    // STEP 1 — research → strategy
     await setStepActive(id, "research");
     const strategy = await researchStep(gen.intake);
     await updateGeneration(id, { strategy });
-
     await setStepActive(id, "analysis");
-    // (analysis is the second half of the research phase; brief pause for UX honesty)
+  } catch (err) {
+    await updateGeneration(id, { status: "error", error: errMessage(err) });
+    throw err;
+  }
+}
 
-    // STEP 2 — copy + SEO + build → HTML (streamed)
+// PHASE 2 — copy + SEO + build → HTML (streamed)
+export async function runBuild(id: string): Promise<void> {
+  const gen = await getGeneration(id);
+  if (!gen) throw new Error("Generation not found.");
+  if (!gen.strategy) throw new Error("Research step has not run yet.");
+  try {
     await setStepActive(id, "copy");
-    const html = await buildStep(id, gen.intake, strategy);
-
-    const meta = deriveMeta(html, gen.intake, strategy);
-
-    const current = await getGeneration(id);
+    const html = await buildStep(id, gen.intake, gen.strategy);
+    const meta = deriveMeta(html, gen.intake, gen.strategy);
+    const current = (await getGeneration(id)) as Generation;
     await saveGeneration({
-      ...(current as Generation),
+      ...current,
       status: "complete",
       html,
       meta,
-      strategy,
-      steps: allDone((current as Generation).steps),
+      steps: allDone(current.steps),
     });
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "Generation failed. Please retry.";
-    await updateGeneration(id, { status: "error", error: message });
+    await updateGeneration(id, { status: "error", error: errMessage(err) });
+    throw err;
   }
 }
 
@@ -151,10 +163,10 @@ async function buildStep(
 ): Promise<string> {
   const stream = anthropic().messages.stream({
     model: ANTHROPIC_MODEL,
-    max_tokens: 32000,
+    max_tokens: 24000,
     thinking: { type: "adaptive" },
-    // Design + code quality benefit from higher effort; cost is negligible vs $29.
-    output_config: { effort: "xhigh" },
+    // "high" balances design quality against the serverless function time limit.
+    output_config: { effort: "high" },
     system: BUILD_SYSTEM,
     messages: [{ role: "user", content: buildUserPrompt(intake, strategy) }],
   });

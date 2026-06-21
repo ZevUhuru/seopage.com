@@ -1,64 +1,88 @@
 import { promises as fs } from "fs";
 import os from "os";
 import path from "path";
+import { Redis } from "@upstash/redis";
 import type { Generation, GenerationView, StepState } from "./types";
 
 /**
- * Minimal persistence for the MVP. No database required.
+ * Persistence for generations.
  *
- * Source of truth is an in-process Map (instant, survives across requests on a
- * warm server / local dev). Each record is ALSO mirrored to a temp file so the
- * pay → export handoff survives a process restart on the same instance. This is
- * deliberately the simplest thing that works; swap this module for Redis/Postgres
- * later without touching callers.
+ * In production (Vercel), serverless instances don't share memory, so we use a
+ * shared Redis store (Upstash / Vercel KV). When no Redis credentials are
+ * present (local dev), we fall back to an in-process map mirrored to a temp
+ * file. Same async interface either way — callers don't care which is active.
  *
- * Note for serverless (Vercel): in-memory state is per-instance. For a high-
- * traffic production deploy you'd move this to a shared store. For validating
- * the $29 funnel it is sufficient and documented in the README.
+ * Provision Redis: Vercel → Storage → Upstash (Redis). It injects the env vars
+ * automatically. Locally you can leave them unset and the file fallback runs.
  */
 
+const TTL_SECONDS = 60 * 60 * 24 * 7; // keep generations a week
+const KEY = (id: string) => `seopage:gen:${id}`;
+
+/* ------------------------------- redis path ------------------------------ */
+
+function redisClient(): Redis | null {
+  const url =
+    process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL;
+  const token =
+    process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN;
+  if (!url || !token) return null;
+  const g = globalThis as unknown as { __seopageRedis?: Redis };
+  if (!g.__seopageRedis) g.__seopageRedis = new Redis({ url, token });
+  return g.__seopageRedis;
+}
+
+/* ----------------------- local file/memory fallback ---------------------- */
+
 const DIR = path.join(os.tmpdir(), "seopage-generations");
+type Mem = { map: Map<string, Generation> };
+const gm = globalThis as unknown as { __seopageStore?: Mem };
+const mem: Mem = gm.__seopageStore ?? { map: new Map() };
+gm.__seopageStore = mem;
 
-type Store = { map: Map<string, Generation> };
-const g = globalThis as unknown as { __seopageStore?: Store };
-const store: Store = g.__seopageStore ?? { map: new Map() };
-g.__seopageStore = store;
-
-async function persist(gen: Generation): Promise<void> {
+async function fileSave(gen: Generation): Promise<void> {
+  mem.map.set(gen.id, gen);
   try {
     await fs.mkdir(DIR, { recursive: true });
-    await fs.writeFile(
-      path.join(DIR, `${gen.id}.json`),
-      JSON.stringify(gen),
-      "utf8",
-    );
+    await fs.writeFile(path.join(DIR, `${gen.id}.json`), JSON.stringify(gen), "utf8");
   } catch {
-    // Best-effort; the in-memory copy remains authoritative.
+    /* best effort */
   }
 }
 
-async function loadFromDisk(id: string): Promise<Generation | undefined> {
+async function fileGet(id: string): Promise<Generation | undefined> {
+  const inMem = mem.map.get(id);
+  if (inMem) return inMem;
   try {
     const raw = await fs.readFile(path.join(DIR, `${id}.json`), "utf8");
-    return JSON.parse(raw) as Generation;
+    const gen = JSON.parse(raw) as Generation;
+    mem.map.set(id, gen);
+    return gen;
   } catch {
     return undefined;
   }
 }
 
+/* ------------------------------- public API ------------------------------ */
+
 export async function getGeneration(
   id: string,
 ): Promise<Generation | undefined> {
-  const inMem = store.map.get(id);
-  if (inMem) return inMem;
-  const fromDisk = await loadFromDisk(id);
-  if (fromDisk) store.map.set(id, fromDisk);
-  return fromDisk;
+  const redis = redisClient();
+  if (redis) {
+    const gen = await redis.get<Generation>(KEY(id));
+    return gen ?? undefined;
+  }
+  return fileGet(id);
 }
 
 export async function saveGeneration(gen: Generation): Promise<void> {
-  store.map.set(gen.id, gen);
-  await persist(gen);
+  const redis = redisClient();
+  if (redis) {
+    await redis.set(KEY(gen.id), gen, { ex: TTL_SECONDS });
+    return;
+  }
+  await fileSave(gen);
 }
 
 export async function updateGeneration(
@@ -72,10 +96,7 @@ export async function updateGeneration(
   return next;
 }
 
-export async function setSteps(
-  id: string,
-  steps: StepState[],
-): Promise<void> {
+export async function setSteps(id: string, steps: StepState[]): Promise<void> {
   await updateGeneration(id, { steps });
 }
 
