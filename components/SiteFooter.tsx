@@ -16,6 +16,9 @@ export function SiteFooter() {
           <Link href="/intake" className="font-medium text-ink hover:text-accent">
             Build my page · {PRICE_LABEL}
           </Link>
+          <Link href="/seo-page" className="hover:text-ink">
+            What is an SEO landing page?
+          </Link>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-ink">
             {PRODUCT.supportEmail}
           </a>
