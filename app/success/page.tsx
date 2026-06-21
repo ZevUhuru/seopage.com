@@ -84,7 +84,7 @@ export default async function SuccessPage({
             <span className="font-semibold text-ink">
               {gen.intake.businessName}
             </span>
-            . Clean, watermark-free HTML, ready to publish.
+            . Your finished page, watermark-free and ready to publish.
           </p>
         </div>
 
@@ -94,7 +94,7 @@ export default async function SuccessPage({
           <div className="mt-6 rounded-xl bg-surface-2 p-4 text-sm text-ink-2">
             <p className="font-semibold text-ink">How to publish it</p>
             <ol className="mt-2 list-decimal space-y-1 pl-5 text-[0.92rem]">
-              <li>Download the HTML file above (or copy the code).</li>
+              <li>Download your page above (or copy the code).</li>
               <li>
                 Upload it to your host as{" "}
                 <code className="mono rounded bg-bg px-1.5 py-0.5 text-xs">

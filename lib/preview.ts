@@ -41,7 +41,7 @@ export function watermarkHtml(html: string): string {
     )
     .join("")}
 </div>
-<div id="seopage-wm-bar">Watermarked preview · get the clean HTML for $29</div>
+<div id="seopage-wm-bar">Watermarked preview · get the finished page for $29</div>
 `;
 
   if (/<\/body>/i.test(html)) {

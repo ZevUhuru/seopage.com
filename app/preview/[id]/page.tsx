@@ -80,7 +80,7 @@ function Ready({
         </h1>
         <p className="mt-3 text-ink-2">
           This is the real thing: researched, written, and built for your
-          business. Look it over below, then download the clean HTML when
+          business. Look it over below, then download the finished page when
           you&apos;re ready.
         </p>
       </div>
@@ -179,7 +179,7 @@ function Ready({
                 <span className="display text-3xl">{PRICE_LABEL}</span>
               </div>
               <p className="mt-1 text-sm text-white/65">
-                Download your finished page as clean, ready-to-publish HTML you
+                Download your finished page as one ready-to-publish file you
                 own.
               </p>
             </div>

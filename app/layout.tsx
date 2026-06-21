@@ -21,7 +21,7 @@ const display = Archivo({
 
 const TITLE = "Local SEO Landing Pages, Built to Rank | SEOPage";
 const DESCRIPTION =
-  "SEOPage builds local SEO landing pages that rank on Google and get found by AI. Researched copy, a clean design, and schema markup, exported as HTML you own for $29.";
+  "SEOPage builds local SEO landing pages that rank on Google and get found by AI. Researched copy, a clean design, and schema markup. Preview free, yours to publish for $29.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description:
-      "Local SEO landing pages that rank on Google and get found by AI. Researched copy, a clean design, and schema markup, exported as HTML you own for $29.",
+      "Local SEO landing pages that rank on Google and get found by AI. Researched copy, a clean design, and schema markup. Preview free, yours to publish for $29.",
     url: "https://seopage.com",
     siteName: "SEOPage",
     locale: "en_US",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description:
-      "Local SEO landing pages that rank on Google and get found by AI. Researched copy, clean design, schema markup, exported as HTML you own for $29.",
+      "Local SEO landing pages that rank on Google and get found by AI. Researched copy, a polished design, and schema markup. Preview free, yours to publish for $29.",
   },
   robots: {
     index: true,
