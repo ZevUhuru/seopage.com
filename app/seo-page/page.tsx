@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
-import { PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "What Is an SEO Landing Page? Definition, Types & How They Work",
@@ -466,9 +465,9 @@ export default function SeoPageReference() {
               {" "}
               {PRICE_LABEL} to download.
             </p>
-            <Link href="/intake" className="btn btn-accent btn-lg mt-8">
+            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-8">
               Build my page
-            </Link>
+            </a>
           </div>
         </section>
       </main>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 export function SiteFooter() {
   return (
@@ -13,9 +13,9 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="flex flex-col gap-1 text-sm text-muted sm:items-end">
-          <Link href="/intake" className="font-medium text-ink hover:text-accent">
+          <a href={CREATE_URL} className="font-medium text-ink hover:text-accent">
             Build my page · {PRICE_LABEL}
-          </Link>
+          </a>
           <Link href="/seo-page" className="hover:text-ink">
             What is an SEO landing page?
           </Link>

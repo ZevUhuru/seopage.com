@@ -26,3 +26,7 @@ export function getBaseUrl(): string {
 }
 
 export const ANTHROPIC_MODEL = "claude-opus-4-8";
+
+/** Where "Build my page" CTAs send people — the builder app. */
+export const CREATE_URL =
+  process.env.NEXT_PUBLIC_CREATE_URL || "https://create.seopage.com";
