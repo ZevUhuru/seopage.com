@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import type { StepState } from "@/lib/types";
+import { useEffect, useRef, useState } from "react";
+import type { StepKey, StepState } from "@/lib/types";
 
 const DEFAULT_STEPS: StepState[] = [
   { key: "research", label: "Researching your market", status: "active" },
@@ -10,6 +10,17 @@ const DEFAULT_STEPS: StepState[] = [
   { key: "seo", label: "Optimizing for Google & AI search", status: "waiting" },
   { key: "build", label: "Designing & building your page", status: "waiting" },
 ];
+
+// Each step owns a percentage band. The bar jumps to a step's floor when it
+// becomes active, then trickles up toward its ceiling so it never stalls.
+const ORDER: StepKey[] = ["research", "analysis", "copy", "seo", "build"];
+const BANDS: Record<StepKey, [number, number]> = {
+  research: [6, 26],
+  analysis: [26, 42],
+  copy: [42, 58],
+  seo: [58, 78],
+  build: [78, 95],
+};
 
 const REASSURANCE = [
   "We're actually researching your market, not filling in a template.",
@@ -30,13 +41,36 @@ export function GeneratingView({
   onRetry: () => void;
 }) {
   const list = steps.length ? steps : DEFAULT_STEPS;
-  const done = list.filter((s) => s.status === "done").length;
-  const progress = Math.min(
-    96,
-    Math.round(((done + (list.some((s) => s.status === "active") ? 0.5 : 0)) /
-      list.length) *
-      100),
-  );
+  const isComplete = list.every((s) => s.status === "done");
+  const activeKey = list.find((s) => s.status === "active")?.key;
+  const lastDone = [...list].reverse().find((s) => s.status === "done")?.key;
+  const frontier: StepKey = activeKey ?? lastDone ?? "research";
+  const [floor, ceil] = isComplete ? [100, 100] : BANDS[frontier];
+
+  // Smoothly-animated percentage. Trickles toward the ceiling continuously and
+  // is bumped to the floor the moment a new step starts.
+  const [pct, setPct] = useState(6);
+  const ceilRef = useRef(ceil);
+  ceilRef.current = ceil;
+
+  // Trickle: always moving, decelerating as it nears the band ceiling.
+  useEffect(() => {
+    if (error) return;
+    const t = setInterval(() => {
+      setPct((d) => {
+        const target = ceilRef.current;
+        if (d >= target) return d;
+        const next = d + Math.max((target - d) * 0.05, 0.12);
+        return Math.min(next, target);
+      });
+    }, 200);
+    return () => clearInterval(t);
+  }, [error]);
+
+  // Milestone jump: never go backward.
+  useEffect(() => {
+    setPct((d) => Math.max(d, floor));
+  }, [floor]);
 
   const [tip, setTip] = useState(0);
   useEffect(() => {
@@ -67,15 +101,15 @@ export function GeneratingView({
     );
   }
 
+  const shown = Math.round(pct);
+
   return (
     <div className="mx-auto max-w-lg px-5 py-16 sm:px-8 lg:py-20">
       <div className="text-center">
         <span className="kicker">Generating</span>
         <h2 className="display mt-3 text-3xl text-ink sm:text-4xl">
           Building{" "}
-          <span className="text-accent">
-            {businessName.trim() || "your"}
-          </span>
+          <span className="text-accent">{businessName.trim() || "your"}</span>
           {businessName.trim().endsWith("s") ? "'" : "’s"} page
         </h2>
         <p className="mt-3 text-ink-2">
@@ -83,26 +117,37 @@ export function GeneratingView({
         </p>
       </div>
 
-      {/* Progress bar */}
-      <div className="mt-8 h-2 w-full overflow-hidden rounded-full bg-surface-2">
-        <div
-          className="h-full rounded-full bg-accent transition-all duration-700 ease-out"
-          style={{ width: `${progress}%` }}
-        />
+      {/* Percentage + bar */}
+      <div className="mt-8">
+        <div className="mb-2 flex items-baseline justify-between">
+          <span className="mono text-xs uppercase tracking-wider text-muted">
+            {ORDER.includes(frontier)
+              ? list.find((s) => s.key === frontier)?.label
+              : "Working"}
+          </span>
+          <span className="display text-2xl tabular-nums text-ink">
+            {shown}
+            <span className="text-base text-muted">%</span>
+          </span>
+        </div>
+        <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface-2">
+          <div
+            className="h-full rounded-full bg-accent transition-[width] duration-200 ease-linear"
+            style={{ width: `${shown}%` }}
+          />
+        </div>
       </div>
 
       {/* Steps */}
       <ul className="card mt-6 divide-y divide-line p-2">
         {list.map((s) => (
-          <li key={s.key} className="flex items-center gap-4 px-4 py-4">
+          <li key={s.key} className="flex items-center gap-4 px-4 py-3.5">
             <StepIcon status={s.status} />
             <span
               className={`text-[0.97rem] ${
-                s.status === "done"
-                  ? "text-muted"
-                  : s.status === "active"
-                    ? "font-semibold text-ink"
-                    : "text-muted"
+                s.status === "active"
+                  ? "font-semibold text-ink"
+                  : "text-muted"
               }`}
             >
               {s.label}
