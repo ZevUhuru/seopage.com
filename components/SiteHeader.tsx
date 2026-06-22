@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { Logo } from "./Logo";
+import { CREATE_URL } from "@/lib/config";
 
 export function SiteHeader() {
   return (
@@ -17,9 +17,9 @@ export function SiteHeader() {
             Pricing
           </a>
         </nav>
-        <Link href="/intake" className="btn btn-primary btn-md">
+        <a href={CREATE_URL} className="btn btn-primary btn-md">
           Build my page
-        </Link>
+        </a>
       </div>
     </header>
   );

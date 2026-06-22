@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ExampleShowcase } from "@/components/ExampleShowcase";
 import { JsonLd } from "@/components/JsonLd";
-import { PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 const CHANNELS = ["Google", "ChatGPT", "Google AI Overviews", "Perplexity"];
 
@@ -71,7 +70,7 @@ const SCHEMA = {
         price: "29.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://seopage.com/intake",
+        url: "https://create.seopage.com",
       },
     },
     {
@@ -113,9 +112,9 @@ export default function Home() {
                   landing page that gets you there.
                 </p>
                 <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
-                  <Link href="/intake" className="btn btn-accent btn-lg">
+                  <a href={CREATE_URL} className="btn btn-accent btn-lg">
                     Build my page
-                  </Link>
+                  </a>
                   <a href="#example" className="btn btn-ghost btn-lg">
                     See a sample
                   </a>
@@ -180,9 +179,9 @@ export default function Home() {
               <ExampleShowcase />
             </div>
             <div className="mt-12">
-              <Link href="/intake" className="btn btn-primary btn-lg">
+              <a href={CREATE_URL} className="btn btn-primary btn-lg">
                 Build mine
-              </Link>
+              </a>
             </div>
           </div>
         </section>
@@ -380,12 +379,12 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <Link
-                    href="/intake"
+                  <a
+                    href={CREATE_URL}
                     className="btn btn-accent btn-lg mt-7 w-full"
                   >
                     Build my page
-                  </Link>
+                  </a>
                   <p className="mt-3 text-center text-xs text-muted">
                     Secure checkout by Stripe
                   </p>
@@ -439,9 +438,9 @@ export default function Home() {
               Build a landing page that helps you show up on Google and AI. It
               takes a couple of minutes, and the preview is free.
             </p>
-            <Link href="/intake" className="btn btn-accent btn-lg mt-8">
+            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-8">
               Build my page
-            </Link>
+            </a>
           </div>
         </section>
       </main>
