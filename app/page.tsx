@@ -102,8 +102,9 @@ export default function Home() {
                   Local SEO landing pages, done for you
                 </span>
                 <h1 className="display rise rise-1 mt-5 text-[2.55rem] leading-[1.03] text-ink sm:text-[3.4rem] lg:text-[3.9rem]">
-                  The local SEO landing page that gets you found on{" "}
-                  <span className="text-accent">Google and AI.</span>
+                  The local SEO landing page that gets you{" "}
+                  <span className="text-accent">cited by AI</span> and found on
+                  Google.
                 </h1>
                 <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
                   When someone nearby searches for what you do, or asks ChatGPT
