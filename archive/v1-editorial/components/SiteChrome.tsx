@@ -77,10 +77,10 @@ export function SiteFooter() {
             Pricing
           </Link>
           <Link
-            href="mailto:zev@seopage.com"
+            href="mailto:support@seopage.com"
             className="transition hover:text-[var(--ink)]"
           >
-            zev@seopage.com
+            support@seopage.com
           </Link>
           <span className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--muted)]">
             © {new Date().getFullYear()}

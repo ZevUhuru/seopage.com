@@ -38,13 +38,13 @@ export const START_HREF = "/start";
 // Until then, this falls back to a mailto so you can quote and invoice manually.
 export const CHECKOUT_HREF =
   process.env.NEXT_PUBLIC_CHECKOUT_URL ??
-  "mailto:zev@seopage.com?subject=SEOPage%20—%20subscribe%20at%20%24149%2Fmo&body=Page%20URL%28s%29%20to%20track%3A%20%0ACompetitors%3A%20%0AAnything%20else%3A%20%0A";
+  "mailto:support@seopage.com?subject=SEOPage%20—%20subscribe%20at%20%24149%2Fmo&body=Page%20URL%28s%29%20to%20track%3A%20%0ACompetitors%3A%20%0AAnything%20else%3A%20%0A";
 
 export const CALL_HREF =
-  "mailto:zev@seopage.com?subject=SEOPage%20—%2015-minute%20fit%20call&body=Page%20URL%3A%20%0AWhat%20you%20want%20to%20figure%20out%3A%20%0A";
+  "mailto:support@seopage.com?subject=SEOPage%20—%2015-minute%20fit%20call&body=Page%20URL%3A%20%0AWhat%20you%20want%20to%20figure%20out%3A%20%0A";
 
 export const FIRST_REPORT_HREF =
-  "mailto:zev@seopage.com?subject=SEOPage%20—%20run%20my%20first%20AI%20Rank%20Report&body=Page%20URL%3A%20%0AWhat%20the%20page%20sells%20or%20answers%3A%20%0ACompetitors%3A%20%0A";
+  "mailto:support@seopage.com?subject=SEOPage%20—%20run%20my%20first%20AI%20Rank%20Report&body=Page%20URL%3A%20%0AWhat%20the%20page%20sells%20or%20answers%3A%20%0ACompetitors%3A%20%0A";
 
 export const channels: Channel[] = [
   {

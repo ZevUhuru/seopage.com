@@ -32,7 +32,7 @@ export function StartFlow() {
     [form, siteName, prompts],
   );
 
-  const mailtoHref = `mailto:zev@seopage.com?subject=${encodeURIComponent(
+  const mailtoHref = `mailto:support@seopage.com?subject=${encodeURIComponent(
     "SEOPage — run my free AI Rank Report",
   )}&body=${encodeURIComponent(brief)}`;
 
