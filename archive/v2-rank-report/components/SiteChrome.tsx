@@ -105,10 +105,10 @@ export function SiteFooter() {
               </Link>
             ))}
             <Link
-              href="mailto:zev@seopage.com"
+              href="mailto:support@seopage.com"
               className="mono text-[11px] uppercase tracking-[0.22em] text-[var(--ink-soft)] transition hover:text-[var(--red)]"
             >
-              zev@seopage.com
+              support@seopage.com
             </Link>
           </nav>
         </div>

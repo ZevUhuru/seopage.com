@@ -48,7 +48,7 @@ const pricingFaq = [
   },
   {
     q: "What's the refund policy?",
-    a: "Your first paid month is fully refundable — email zev@seopage.com and it's done, no questions asked. After that it's month to month: cancel anytime and keep access through the period you've paid for. We don't prorate refunds on later months — the free first report and the refundable first month exist so you never pay for something you haven't already seen work.",
+    a: "Your first paid month is fully refundable — email support@seopage.com and it's done, no questions asked. After that it's month to month: cancel anytime and keep access through the period you've paid for. We don't prorate refunds on later months — the free first report and the refundable first month exist so you never pay for something you haven't already seen work.",
   },
   {
     q: "Can I cancel anytime?",

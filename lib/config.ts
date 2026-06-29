@@ -14,8 +14,8 @@ export const PRODUCT = {
   productName: "SEO Landing Page",
   productDescription:
     "A complete, designed SEO landing page with researched copy, styling, and schema markup, delivered as one ready-to-publish file you own.",
-  satisfaction: "Not happy with it? Email hi@seopage.com and we'll make it right.",
-  supportEmail: "hi@seopage.com",
+  satisfaction: "Not happy with it? Email support@seopage.com and we'll make it right.",
+  supportEmail: "support@seopage.com",
 };
 
 /** The site's public origin, used to build Stripe redirect URLs. */
