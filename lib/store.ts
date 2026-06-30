@@ -16,8 +16,17 @@ import type { Generation, GenerationView, StepState } from "./types";
  * automatically. Locally you can leave them unset and the file fallback runs.
  */
 
-const TTL_SECONDS = 60 * 60 * 24 * 7; // keep generations a week
+// Non-converting intakes are kept (in full, including the page they were shown)
+// for 90 days — that's demand data + the exact page that didn't convert. Paid
+// orders are kept forever.
+const TTL_SECONDS = 60 * 60 * 24 * 90;
 const KEY = (id: string) => `seopage:gen:${id}`;
+// Index of every intake ever started (leads), and of paid orders. Both let the
+// /admin view enumerate records without scanning keys. SESSION_KEY maps a Stripe
+// Checkout Session back to its generation for lookup-by-receipt.
+const LEADS_SET = "seopage:leads";
+const PAID_SET = "seopage:paid";
+const SESSION_KEY = (sessionId: string) => `seopage:session:${sessionId}`;
 
 /* ------------------------------- redis path ------------------------------ */
 
@@ -63,6 +72,28 @@ async function fileGet(id: string): Promise<Generation | undefined> {
   }
 }
 
+/** Read every persisted generation from the local fallback (dev only). */
+async function fileAll(): Promise<Generation[]> {
+  const byId = new Map<string, Generation>(mem.map);
+  try {
+    const files = await fs.readdir(DIR);
+    for (const f of files) {
+      if (!f.endsWith(".json")) continue;
+      const id = f.slice(0, -5);
+      if (byId.has(id)) continue;
+      try {
+        const raw = await fs.readFile(path.join(DIR, f), "utf8");
+        byId.set(id, JSON.parse(raw) as Generation);
+      } catch {
+        /* skip unreadable */
+      }
+    }
+  } catch {
+    /* no dir yet */
+  }
+  return [...byId.values()];
+}
+
 /* ------------------------------- public API ------------------------------ */
 
 export async function getGeneration(
@@ -79,10 +110,65 @@ export async function getGeneration(
 export async function saveGeneration(gen: Generation): Promise<void> {
   const redis = redisClient();
   if (redis) {
-    await redis.set(KEY(gen.id), gen, { ex: TTL_SECONDS });
+    // Every intake is a lead — index it so /admin can list non-converters too.
+    await redis.sadd(LEADS_SET, gen.id);
+    if (gen.paid) {
+      // Persist paid orders permanently (no TTL) and index them for auditing.
+      await redis.set(KEY(gen.id), gen);
+      await redis.sadd(PAID_SET, gen.id);
+      if (gen.stripeSessionId) {
+        await redis.set(SESSION_KEY(gen.stripeSessionId), gen.id);
+      }
+    } else {
+      // Non-converting intakes: keep the full record (incl. html) for 90 days.
+      await redis.set(KEY(gen.id), gen, { ex: TTL_SECONDS });
+    }
     return;
   }
   await fileSave(gen);
+}
+
+/** Fetch a set of generations by id, dropping any that have expired. */
+async function getMany(ids: string[]): Promise<Generation[]> {
+  if (!ids.length) return [];
+  const rows = await redisClient()!.mget<Generation[]>(...ids.map(KEY));
+  return rows.filter((g): g is Generation => Boolean(g));
+}
+
+/**
+ * Every intake ever started (paid or not), newest first — demand data plus the
+ * exact page each visitor saw. Non-converters drop off after the 90-day TTL.
+ */
+export async function listAllGenerations(): Promise<Generation[]> {
+  const redis = redisClient();
+  const gens = redis
+    ? await getMany(await redis.smembers(LEADS_SET))
+    : await fileAll();
+  return gens.sort((a, b) => b.createdAt - a.createdAt);
+}
+
+/**
+ * Every paid order, newest first. The durable audit trail of what customers
+ * actually received (each record carries the intake and the delivered html).
+ */
+export async function listPaidGenerations(): Promise<Generation[]> {
+  const redis = redisClient();
+  const gens = redis
+    ? await getMany(await redis.smembers(PAID_SET))
+    : (await fileAll()).filter((g) => g.paid);
+  return gens.sort((a, b) => b.createdAt - a.createdAt);
+}
+
+/** Look up an order by its Stripe Checkout Session id. */
+export async function getGenerationBySession(
+  sessionId: string,
+): Promise<Generation | undefined> {
+  const redis = redisClient();
+  if (redis) {
+    const id = await redis.get<string>(SESSION_KEY(sessionId));
+    return id ? getGeneration(id) : undefined;
+  }
+  return (await fileAll()).find((g) => g.stripeSessionId === sessionId);
 }
 
 export async function updateGeneration(

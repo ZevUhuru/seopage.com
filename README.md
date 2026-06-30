@@ -99,10 +99,32 @@ Use Stripe's test card `4242 4242 4242 4242`, any future expiry, any CVC.
 
 ## Persistence note (MVP)
 
-Generations are stored in an in-process map mirrored to a temp file
-(`lib/store.ts`) — **no database required**. This is fully reliable locally and
-on a single warm serverless instance. For a high-traffic production deploy,
-swap `lib/store.ts` for Redis/Postgres (the interface is small and isolated).
+Generations are stored in `lib/store.ts` — Upstash Redis in production, with an
+in-process map mirrored to a temp file as the local fallback (**no database
+required** to run). The interface is small and isolated; swap it for Postgres if
+you outgrow it.
+
+**Retention:**
+
+- **Paid orders are kept forever** — they're the audit trail of what each
+  customer received (the record carries the intake *and* the delivered HTML).
+- **Non-converting intakes are kept for 90 days** (full record, including the
+  page the visitor was shown), then auto-expire. They're demand data: what
+  people typed and what they saw before bouncing.
+
+Every intake is indexed (`seopage:leads`); paid orders are also indexed
+(`seopage:paid`) and reverse-indexed by Stripe session (`seopage:session:*`).
+
+---
+
+## Admin / order lookup
+
+`/admin?key=<ADMIN_TOKEN>` is an internal, no-index page to audit orders and
+intakes. Set `ADMIN_TOKEN` in the environment (it fails closed if unset). It
+lists every intake with its outcome (Paid / Previewed / Building / Error), shows
+conversion stats, and looks up a single record by **generation id or Stripe
+Checkout Session id** — including the exact page shown and a download of the
+delivered file for paid orders. See `app/admin/page.tsx`.
 
 ---
 
@@ -126,5 +148,6 @@ swap `lib/store.ts` for Redis/Postgres (the interface is small and isolated).
 | The model / provider | `lib/generate.ts` |
 | The homepage copy/design | `app/page.tsx`, `components/*`, `app/globals.css` |
 | The intake fields | `components/IntakeForm.tsx` |
-| Persistence backend | `lib/store.ts` |
+| Persistence backend / retention | `lib/store.ts` |
+| Admin order lookup | `app/admin/page.tsx`, `lib/admin.ts` |
 | Analytics backend | `lib/analytics.ts` |
