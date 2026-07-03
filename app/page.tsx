@@ -1,10 +1,16 @@
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
-import { ExampleShowcase } from "@/components/ExampleShowcase";
+import { ExampleShowcase, ANATOMY } from "@/components/ExampleShowcase";
+import { IntakeMock } from "@/components/ProductMock";
 import { JsonLd } from "@/components/JsonLd";
 import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
-const CHANNELS = ["Google", "ChatGPT", "Google AI Overviews", "Perplexity"];
+/* ================================================================
+   The homepage is written as an essay: a hook and thesis in the
+   hero, numbered chapters of supporting evidence, one rhetorical
+   turn, and a conclusion that calls back to the opening claim.
+   Every chapter ends with a hand-off sentence into the next.
+   ================================================================ */
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -21,23 +27,23 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Can I build a page for each city or service I cover?",
-    a: "Yes. A lot of local businesses run a separate landing page for each city or service they offer, so every one targets its own keyword. Build them one at a time here. Each page is $29 and yours to keep.",
-  },
-  {
-    q: "How do I create an SEO-optimized landing page?",
-    a: "By hand it means researching the keyword, writing the copy, setting the title tag and meta description, structuring the headings, and adding schema markup. Or you tell us about your business and we do all of that in a couple of minutes, then hand you the finished HTML.",
+    a: "Yes. A lot of local businesses run a separate landing page for each city or service they offer, so every one targets its own keyword. That one-page-per-city pattern is the standard local SEO playbook. Build them one at a time here. Each page is $29 and yours to keep.",
   },
   {
     q: "Will it actually rank on Google?",
-    a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, content written for your area, and valid structured data. How fast it climbs depends on your domain and competition, but the page itself won't be the thing holding you back.",
+    a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, content written for your area, and valid structured data. How fast it climbs depends on your domain and competition. Hyper-local searches with weak competition can move in weeks; harder markets take longer. Either way, the page itself won't be the thing holding you back.",
+  },
+  {
+    q: "Won't Google penalize a page written with AI?",
+    a: "No. Google's published position is that it rewards quality “rather than how content is produced.” What gets penalized is mass-produced spam churned out to game rankings. This is one researched page about your real business, your real service, and your real town, reviewed by you before you publish it.",
   },
   {
     q: "How does it get found by ChatGPT or Perplexity?",
-    a: "AI tools tend to quote pages that answer questions clearly and use FAQ content and schema. We write your FAQ to be easy to quote and add matching FAQPage data, so an AI can point people to your business by name. The big SEO landing page searches already show an AI answer up top, so this matters.",
+    a: "AI tools answer by reading and citing pages that answer questions clearly. We write your FAQ to be easy to quote and add matching FAQPage data, so an AI can point people to your business by name. The searches your customers make already show AI answers up top, so this matters now, not someday.",
   },
   {
     q: "What do I get for $29, and do I need a website?",
-    a: "One finished SEO landing page as a single HTML file: local copy, a responsive design, a title tag and meta description, and LocalBusiness, Service, and FAQPage schema. You don't need an existing site. Put the file on any host or paste it into your site builder. You preview the whole page free and only pay if you want to download it.",
+    a: "One finished SEO landing page as a single HTML file: local copy, a responsive design, a title tag and meta description, and LocalBusiness, Service, and FAQPage schema. You don't need an existing site. Put the file on any host or paste it into your site builder. You preview the whole page free and only pay if you want to publish it.",
   },
 ];
 
@@ -85,38 +91,81 @@ const SCHEMA = {
   ],
 };
 
+/* The essay's evidence base. Sources are linked in the footnote line. */
+const STATS: { n: string; l: string; s: string }[] = [
+  {
+    n: "45%",
+    l: "of consumers now ask AI tools for local business recommendations, up from 6% one year earlier",
+    s: "BrightLocal, 2026",
+  },
+  {
+    n: "68%",
+    l: "of local-intent Google searches now show an AI Overview above the results",
+    s: "Whitespark, 2025",
+  },
+  {
+    n: "8%",
+    l: "of searches end in a click on a regular result when an AI summary appears, down from 15%",
+    s: "Pew Research, 2025",
+  },
+  {
+    n: "~59%",
+    l: "of all Google searches already end without a single click on anything",
+    s: "Semrush, 2025",
+  },
+];
+
+const SOURCES: { name: string; href: string }[] = [
+  {
+    name: "BrightLocal Local Consumer Review Survey, 2026",
+    href: "https://www.brightlocal.com/research/lcrs-ai-trust/",
+  },
+  {
+    name: "Pew Research Center, 2025",
+    href: "https://www.pewresearch.org/short-reads/2025/07/22/google-users-are-less-likely-to-click-on-links-when-an-ai-summary-appears-in-the-results/",
+  },
+  {
+    name: "Whitespark AI Overviews study, 2025",
+    href: "https://whitespark.ca/blog/case-study-the-prevalence-of-ai-overviews-in-local-search/",
+  },
+  {
+    name: "Semrush zero-click study, 2025",
+    href: "https://www.semrush.com/blog/semrush-ai-overviews-study/",
+  },
+];
+
 export default function Home() {
   return (
     <>
       <JsonLd data={SCHEMA} />
       <SiteHeader />
       <main>
-        {/* ───────────────────────── Hero ───────────────────────── */}
+        {/* ============ 00 · HERO — the hook and the thesis ============ */}
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
-          <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 sm:px-8 lg:pb-24 lg:pt-24">
+          <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 lg:pb-28 lg:pt-24">
             <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
               <div>
                 <span className="kicker rise">
                   Local SEO landing pages, done for you
                 </span>
-                <h1 className="display rise rise-1 mt-5 text-[2.55rem] leading-[1.03] text-ink sm:text-[3.4rem] lg:text-[3.9rem]">
-                  The local SEO landing page that gets you{" "}
-                  <span className="text-accent">cited by AI</span> and found on
-                  Google.
+                <h1 className="display rise rise-1 mt-5 text-[2.5rem] leading-[1.03] text-ink sm:text-[3.35rem] lg:text-[3.8rem]">
+                  Your next customer just asked AI who to call.{" "}
+                  <span className="text-accent">Be the answer.</span>
                 </h1>
                 <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
-                  When someone nearby searches for what you do, or asks ChatGPT
-                  for a recommendation, you want to be the name that comes up.
-                  Tell us about your business and we&apos;ll build a local SEO
-                  landing page that gets you there.
+                  Google and ChatGPT answer that question the same way: they
+                  read a page and repeat the clearest one they find. We build
+                  that page for your business. Researched, written, and
+                  structured for your town, in about two minutes, for{" "}
+                  {PRICE_LABEL}.
                 </p>
                 <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
                   <a href={CREATE_URL} className="btn btn-accent btn-lg">
                     Build my page
                   </a>
-                  <a href="#example" className="btn btn-ghost btn-lg">
-                    See a sample
+                  <a href="#shift" className="btn btn-ghost btn-lg">
+                    Read why it matters
                   </a>
                 </div>
                 <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
@@ -132,7 +181,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Search-surface mock — Google AND AI, made concrete */}
+              {/* Evidence in the first viewport: both search surfaces, one page. */}
               <div className="rise rise-2">
                 <SearchPanel />
               </div>
@@ -140,214 +189,218 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ──────────────── Credibility / capability strip ──────────── */}
-        <section className="border-y border-line bg-surface-2">
-          <div className="mx-auto grid max-w-6xl grid-cols-2 divide-x divide-line px-5 sm:px-8 md:grid-cols-4">
-            {[
-              ["4", "AI tools we write for"],
-              ["3", "schema types built in"],
-              ["~90s", "to a finished page"],
-              [PRICE_LABEL, "once, no subscription"],
-            ].map(([n, l], i) => (
-              <div
-                key={l}
-                className={`px-4 py-7 ${i === 2 ? "border-l-0 md:border-l" : ""}`}
-              >
-                <div className="display text-3xl text-ink">{n}</div>
-                <div className="mt-1 text-sm text-muted">{l}</div>
+        {/* ============ 01 · THE SHIFT — context for the thesis ============ */}
+        <section id="shift" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="01" eyebrow="How people search now" />
+            <div className="mx-auto mt-12 max-w-3xl">
+              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                The search results page quietly stopped sending clicks.
+              </h2>
+              <div className="measure mt-8 space-y-6 text-[1.06rem] leading-[1.75] text-ink-2">
+                <p className="dropcap">
+                  For twenty years, being found meant one thing: show up in the
+                  blue links. That era is ending faster than most local
+                  businesses realize. Last year, 6% of consumers asked an AI
+                  tool to recommend a local business. This year it&apos;s 45%,
+                  which makes AI the third most-used source of local
+                  recommendations in America, ahead of Yelp.
+                </p>
+                <p>
+                  Google itself changed just as much. Two thirds of local
+                  searches now open with an AI-written answer above the
+                  results, and when that answer appears, clicks on the
+                  results below it nearly halve. Ask something specific, like
+                  what a roof repair costs in your city, and an AI answers
+                  first almost every time.
+                </p>
+                <p>
+                  Here is the part that matters: neither Google&apos;s AI nor
+                  ChatGPT invents those answers. They read pages, pick the
+                  clearest and most specific one, and repeat it with credit.
+                  The businesses being recommended aren&apos;t lucky. They have
+                  a page that&apos;s easy to quote.
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* The evidence block: oversized numerals, cited. */}
+            <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {STATS.map((s) => (
+                <div key={s.n} className="border-t border-line-strong pt-5">
+                  <div className="stat-num text-[2.6rem] text-ink">{s.n}</div>
+                  <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-2">
+                    {s.l}
+                  </p>
+                  <p className="mono mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-muted">
+                    {s.s}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mx-auto mt-16 max-w-3xl">
+              <p className="handoff">
+                So the only question that matters has changed. It&apos;s no
+                longer &ldquo;where do I rank,&rdquo; but: when a machine reads
+                about your trade in your town, is there a page about you worth
+                quoting?
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* ──────────────────────── Example ──────────────────────── */}
-        <section id="example" className="border-b border-line">
-          <div className="mx-auto max-w-5xl px-5 py-16 sm:px-8 lg:py-24">
-            <div className="max-w-2xl">
-              <span className="kicker">A sample page</span>
-              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
-                A finished SEO landing page, not a template.
+        {/* ============ 02 · THE PAGE — what "worth quoting" looks like ============ */}
+        <section id="example" className="border-t border-line bg-surface-2">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="02" eyebrow="What a citable page looks like" />
+            <div className="mt-12 max-w-2xl">
+              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                One page, built to be quoted.
               </h2>
-              <p className="mt-4 text-lg text-ink-2">
-                Real copy written for your town. A clean design that works on
-                phones. And the technical SEO most landing pages skip: title
-                tags, meta descriptions, and the schema that Google and AI tools
-                actually read.
+              <p className="mt-4 text-lg leading-relaxed text-ink-2">
+                This is the actual shape of what we deliver. Five things make
+                it work, and they&apos;re the same five things most landing
+                pages skip.
               </p>
             </div>
-            <div className="mt-12">
+
+            <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
               <ExampleShowcase />
-            </div>
-            <div className="mt-12">
-              <a href={CREATE_URL} className="btn btn-primary btn-lg">
-                Build mine
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* ──────────────────────── How it works ─────────────────── */}
-        <section id="how" className="border-b border-line bg-surface-2">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <div className="max-w-2xl">
-              <span className="kicker">How it works</span>
-              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
-                Three steps, with real research in between.
-              </h2>
-            </div>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-3">
-              {[
-                {
-                  n: "01",
-                  t: "Tell us about your business",
-                  d: "Your name, what you do, and where. Add a keyword or your website if you have one. If not, we'll figure out the rest.",
-                },
-                {
-                  n: "02",
-                  t: "We research and write the page",
-                  d: "We dig into your local market: the keywords, what buyers actually want, and the questions they ask. Then we write the page around it.",
-                },
-                {
-                  n: "03",
-                  t: "Preview, then download",
-                  d: "Look over the finished page for free. When you're happy with it, download the finished page as one file and publish it anywhere.",
-                },
-              ].map((s) => (
-                <div key={s.n} className="bg-surface p-7">
-                  <span className="mono text-sm font-semibold text-accent">
-                    {s.n}
-                  </span>
-                  <h3 className="mt-3 text-lg font-semibold text-ink">{s.t}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-2">
-                    {s.d}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ──────────────── What's inside every page ──────────────── */}
-        <section className="border-b border-line">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <div className="max-w-2xl">
-              <span className="kicker">What&apos;s inside every page</span>
-              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
-                Built on real SEO best practices.
-              </h2>
-            </div>
-            <div className="mt-12 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-              {[
-                [
-                  "Keyword-focused on-page SEO",
-                  "A precise title tag, meta description, and clean heading structure built around the keyword your customers actually search.",
-                ],
-                [
-                  "schema.org structured data",
-                  "Valid LocalBusiness, Service, and FAQPage markup: the data Google and AI tools read for rich results and citations.",
-                ],
-                [
-                  "Copy that sounds human",
-                  "Specific, local copy that reads like a person wrote it. No stock phrases, no filler, no obvious AI voice.",
-                ],
-                [
-                  "An FAQ built to be quoted",
-                  "Common questions answered clearly and structured so AI tools can quote your business directly, by name.",
-                ],
-                [
-                  "A clean, responsive design",
-                  "A modern layout that looks right on a phone and a desktop. Fast, accessible, and ready to publish.",
-                ],
-                [
-                  "Yours to own, no lock-in",
-                  "One self-contained file with the copy, styling, and schema inside. No platform to log into, no monthly fee. Host it wherever you like.",
-                ],
-              ].map(([t, d]) => (
-                <div key={t} className="flex gap-3.5">
-                  <Check />
-                  <div>
-                    <h3 className="font-semibold text-ink">{t}</h3>
-                    <p className="mt-1.5 text-[0.93rem] leading-relaxed text-ink-2">
-                      {d}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ──────────────────────── AI angle ─────────────────────── */}
-        <section className="border-b border-line bg-ink text-white">
-          <div className="mx-auto grid max-w-6xl gap-12 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:py-24">
-            <div>
-              <span className="mono text-[11px] uppercase tracking-[0.14em] text-white/45">
-                How people search now
-              </span>
-              <h2 className="display mt-3 text-[2rem] text-white sm:text-[2.5rem]">
-                Half your customers ask AI before they ask around.
-              </h2>
-              <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/65">
-                Some people still Google you. More and more ask ChatGPT or
-                Perplexity, which answer by citing a few sources. Most local
-                pages aren&apos;t ready for either one. Yours will be: the
-                on-page SEO Google looks for, plus clear answers an AI can quote.
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {CHANNELS.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded-md border border-white/15 px-3 py-1.5 text-sm text-white/75"
-                  >
-                    {c}
-                  </span>
+              <ol className="space-y-6 lg:pt-2">
+                {ANATOMY.map((a) => (
+                  <li key={a.n} className="flex gap-3.5">
+                    <span className="callout-dot mt-0.5">{a.n}</span>
+                    <div>
+                      <h3 className="font-semibold text-ink">{a.t}</h3>
+                      <p className="mt-1 text-[0.92rem] leading-relaxed text-ink-2">
+                        {a.d}
+                      </p>
+                    </div>
+                  </li>
                 ))}
+              </ol>
+            </div>
+
+            <div className="mx-auto mt-16 max-w-3xl">
+              <p className="handoff">
+                Nothing on that page is exotic. It&apos;s the standard local
+                SEO playbook, done completely instead of almost. The
+                interesting part is how it gets made.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 03 · THE METHOD — the product itself ============ */}
+        <section id="how" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="03" eyebrow="How it works" />
+            <div className="mt-12 grid items-center gap-14 lg:grid-cols-2">
+              <div>
+                <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                  Three details in. A finished page out.
+                </h2>
+                <div className="mt-10 space-y-8">
+                  {[
+                    {
+                      n: "01",
+                      t: "Tell us about your business",
+                      d: "Your name, what you do, and where. That's the whole form. Add a keyword or a website if you have one; if not, the research fills the gaps.",
+                    },
+                    {
+                      n: "02",
+                      t: "We research and write the page",
+                      d: "Your local market, the keyword worth targeting, what buyers in your city actually want, and the questions they ask. Then the page is written around it, with the title tag, schema, and design handled.",
+                    },
+                    {
+                      n: "03",
+                      t: "Preview free, publish for " + PRICE_LABEL,
+                      d: "Read the whole finished page before paying anything. Happy with it? " + PRICE_LABEL + " unlocks the file, and it's yours forever.",
+                    },
+                  ].map((s) => (
+                    <div key={s.n} className="flex gap-5">
+                      <span className="mono pt-0.5 text-sm font-semibold text-accent">
+                        {s.n}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-ink">
+                          {s.t}
+                        </h3>
+                        <p className="mt-1.5 max-w-md text-[0.95rem] leading-relaxed text-ink-2">
+                          {s.d}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* The real product: the intake screen from create.seopage.com */}
+              <div className="pb-8 pr-1 sm:pr-7">
+                <IntakeMock />
               </div>
             </div>
-            <div className="grid gap-3 self-center">
-              {[
-                [
-                  "Easy for AI to quote",
-                  "FAQ content and schema written so an AI can lift a clear answer and credit your business by name.",
-                ],
-                [
-                  "On-page SEO done right",
-                  "Title tags, meta descriptions, heading structure, and LocalBusiness, Service, and FAQPage data, kept correct and consistent.",
-                ],
-                [
-                  "Written for your town",
-                  "Researched for your city and your service, not boilerplate that could belong to anyone and ranks for nothing.",
-                ],
-              ].map(([t, d]) => (
-                <div
-                  key={t}
-                  className="rounded-lg border border-white/12 bg-white/[0.03] p-5"
-                >
-                  <p className="font-semibold text-white">{t}</p>
-                  <p className="mt-1 text-sm leading-relaxed text-white/60">
-                    {d}
-                  </p>
-                </div>
-              ))}
+
+            <div className="mx-auto mt-20 max-w-3xl">
+              <p className="handoff">
+                The research is real research and the writing is real writing.
+                What changed isn&apos;t the work. It&apos;s what the work
+                costs.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ──────────────────────── Pricing ──────────────────────── */}
+        {/* ============ 04 · THE TURN — the essay's pivot, its one dark moment ============ */}
+        <section className="bg-ink text-white">
+          <div className="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 lg:py-32">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] text-white/40">
+              The turn
+            </p>
+            <p className="display mt-6 text-[2rem] leading-[1.12] sm:text-[2.7rem]">
+              Being findable used to be a retainer.
+              <br />
+              <span className="text-[#8b93f8]">Now it&apos;s a page.</span>
+            </p>
+            <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
+              Agencies bill monthly for the outcome a well-built page mostly
+              delivers on its own. We&apos;d rather just sell you the page.
+            </p>
+          </div>
+        </section>
+
+        {/* ============ 05 · THE MATH — pricing, anchored ============ */}
         <section id="pricing" className="border-b border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+            <ChapterHead n="04" eyebrow="What it costs" />
+            <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
-                <span className="kicker">Pricing</span>
-                <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
-                  One page. One price. No subscription.
+                <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                  One page. One price. Once.
                 </h2>
-                <p className="mt-4 max-w-md text-lg text-ink-2">
-                  Preview the whole page for free. You only pay the{" "}
-                  {PRICE_LABEL} if you decide to download it. After that, it&apos;s
-                  yours to keep.
+                <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
+                  For context, here&apos;s what this exact deliverable costs
+                  everywhere else.
                 </p>
-                <p className="mt-4 max-w-md text-sm text-muted">
+
+                <div className="mt-8 max-w-md divide-y divide-line border-y border-line">
+                  {[
+                    ["SEO agency, per page", "$300–$1,000"],
+                    ["Freelance landing page, average", "~$350"],
+                    ["Landing page builder, and you still write it", "$768+/yr"],
+                  ].map(([l, p]) => (
+                    <div
+                      key={l}
+                      className="flex items-baseline justify-between gap-4 py-3.5 text-ink-2"
+                    >
+                      <span className="text-[0.95rem]">{l}</span>
+                      <span className="mono text-[0.95rem] text-muted">{p}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-6 max-w-md text-sm text-muted">
                   {PRODUCT.satisfaction}
                 </p>
               </div>
@@ -370,7 +423,7 @@ export default function Home() {
                       "One finished, SEO-optimized landing page",
                       "Copy researched for your business and city",
                       "Title tag, meta description, and schema markup",
-                      "Built to rank on Google and get found by AI",
+                      "An FAQ written to be quoted by AI search",
                       "A complete, styled page in one file you own",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-3">
@@ -386,7 +439,7 @@ export default function Home() {
                     Build my page
                   </a>
                   <p className="mt-3 text-center text-xs text-muted">
-                    Secure checkout by Stripe
+                    Preview free &middot; Secure checkout by Stripe
                   </p>
                 </div>
               </div>
@@ -394,15 +447,29 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ──────────────────────── FAQ ──────────────────────────── */}
-        <section id="faq" className="border-b border-line bg-surface-2">
-          <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
-            <div className="text-center">
-              <span className="kicker">Questions</span>
-              <h2 className="display mt-3 text-[2rem] text-ink sm:text-[2.5rem]">
-                Questions people usually ask
+        {/* ============ 06 · OBJECTIONS — the questions, answered ============ */}
+        <section id="faq" className="bg-surface-2">
+          <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 lg:pt-24">
+            <ChapterHead n="05" eyebrow="The questions, answered" />
+          </div>
+          <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8 lg:pb-24">
+            <div className="mt-12">
+              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                Fair questions before you spend {PRICE_LABEL}.
               </h2>
             </div>
+
+            {/* The biggest silent objection gets the pull quote. */}
+            <figure className="mt-10">
+              <blockquote className="pullquote">
+                Our focus on the quality of content, rather than how content
+                is produced, is a useful guide.
+              </blockquote>
+              <figcaption className="pullquote-attr mt-3 pl-[1.4rem]">
+                Google Search Central, on AI-assisted content
+              </figcaption>
+            </figure>
+
             <div className="mt-10 divide-y divide-line overflow-hidden rounded-lg border border-line bg-surface">
               {FAQS.map((f) => (
                 <details key={f.q} className="group px-6 py-5">
@@ -428,19 +495,47 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ──────────────────────── Final CTA ────────────────────── */}
-        <section>
-          <div className="mx-auto max-w-3xl px-5 py-18 text-center sm:px-8 lg:py-24">
-            <h2 className="display text-[2.1rem] text-ink sm:text-[2.8rem]">
-              Be the business people find.
+        {/* ============ 07 · THE CLOSE — conclusion, calling back to the thesis ============ */}
+        <section className="border-t border-line">
+          <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 lg:py-28">
+            <span className="kicker">In conclusion</span>
+            <h2 className="display mt-4 text-[2.1rem] leading-[1.05] text-ink sm:text-[2.8rem]">
+              Someone nearby is asking for a business like yours right now.{" "}
+              <span className="text-accent">Be the answer.</span>
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-lg text-ink-2">
-              Build a landing page that helps you show up on Google and AI. It
-              takes a couple of minutes, and the preview is free.
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
+              The way people search changed. The fix is still one well-built
+              page. Tell us about your business, read the finished page free,
+              and publish it for {PRICE_LABEL} if it earns it.
             </p>
-            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-8">
+            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-9">
               Build my page
             </a>
+            <p className="mt-4 text-sm text-muted">
+              About two minutes &middot; Preview free &middot; No subscription
+            </p>
+
+            {/* Footnotes — the essay cites its sources. */}
+            <div className="mt-16 border-t border-line pt-6 text-left">
+              <p className="mono text-[0.66rem] uppercase tracking-[0.14em] text-muted">
+                Sources
+              </p>
+              <p className="mt-2 text-[0.78rem] leading-relaxed text-muted">
+                {SOURCES.map((s, i) => (
+                  <span key={s.href}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-line-strong underline-offset-2 transition hover:text-ink-2"
+                    >
+                      {s.name}
+                    </a>
+                    {i < SOURCES.length - 1 && " · "}
+                  </span>
+                ))}
+              </p>
+            </div>
           </div>
         </section>
       </main>
@@ -450,6 +545,16 @@ export default function Home() {
 }
 
 /* ─────────────────────────── pieces ─────────────────────────── */
+
+function ChapterHead({ n, eyebrow }: { n: string; eyebrow: string }) {
+  return (
+    <div className="chapter-head">
+      <span className="chapter-num">{n}</span>
+      <span className="chapter-eyebrow">{eyebrow}</span>
+      <span className="chapter-line" />
+    </div>
+  );
+}
 
 function Dot() {
   return <span className="h-1.5 w-1.5 rounded-full bg-good" />;
@@ -474,14 +579,14 @@ function Check({ sm }: { sm?: boolean }) {
   );
 }
 
-/** A clean mock of a search surface: a Google result + an AI answer. */
+/** The hero's proof: a Google result and an AI answer, drawn from one page. */
 function SearchPanel() {
   return (
     <div className="card overflow-hidden shadow-lg">
       {/* Google organic result */}
       <div className="border-b border-line p-5 sm:p-6">
         <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
-          Google · organic result
+          Google &middot; organic result
         </div>
         <div className="flex items-center gap-1.5 text-xs text-ink-2">
           <span className="grid h-5 w-5 place-items-center rounded-full bg-surface-3 text-[9px] font-bold">
@@ -489,17 +594,17 @@ function SearchPanel() {
           </span>
           summitroofingdenver.com
         </div>
-        <a className="mt-1 block text-[1.05rem] font-medium leading-snug text-accent">
+        <span className="mt-1 block text-[1.05rem] font-medium leading-snug text-accent">
           Emergency Roof Repair in Denver | Summit Roofing Co.
-        </a>
+        </span>
         <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-2">
           Same-day roof repair across Denver. Licensed, insured, 24/7 storm
           response. Free inspection and no-pressure estimate.
         </p>
         <div className="mt-2 flex items-center gap-3 text-[0.78rem] text-muted">
           <span className="text-amber-500">★★★★★</span>
-          <span>4.9 · 380 reviews</span>
-          <span className="text-line-strong">·</span>
+          <span>4.9 &middot; 380 reviews</span>
+          <span className="text-line-strong">&middot;</span>
           <span>FAQ</span>
         </div>
       </div>
@@ -507,7 +612,7 @@ function SearchPanel() {
       {/* AI answer */}
       <div className="bg-surface-2 p-5 sm:p-6">
         <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
-          AI overview
+          AI answer
         </div>
         <p className="text-[0.95rem] leading-relaxed text-ink-2">
           For urgent roof repair in Denver, a strong option is{" "}
@@ -523,6 +628,13 @@ function SearchPanel() {
           </span>
           <span className="pill text-[0.72rem]">summitroofingdenver.com</span>
         </div>
+      </div>
+
+      {/* The connective caption: both surfaces, one source */}
+      <div className="border-t border-line px-5 py-3 sm:px-6">
+        <p className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
+          Two ways to be found &middot; one page behind both
+        </p>
       </div>
     </div>
   );
