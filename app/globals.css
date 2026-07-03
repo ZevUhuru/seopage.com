@@ -264,6 +264,132 @@ body {
   }
 }
 
+/* ============================================================
+   Essay primitives — the homepage reads as chapters of an
+   argument. Numbered rules, a drop cap, serif pull-quotes,
+   and one hard offset shadow for framed media.
+   ============================================================ */
+
+/* Chapter rule: hairline with the chapter number breaking the line. */
+.chapter-head {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.chapter-num {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.chapter-eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.chapter-line {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* Narrative measure — what makes a section read as prose, not a brochure. */
+.measure {
+  max-width: 65ch;
+}
+
+/* Drop cap for the essay's opening paragraph. One per page. */
+.dropcap::first-letter {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  float: left;
+  font-size: 3.3em;
+  line-height: 0.83;
+  padding-right: 0.14em;
+  color: var(--accent);
+}
+
+/* Editorial pull quote — the page's single serif moment. */
+.pullquote {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1.4rem;
+}
+.pullquote-attr {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Hand-off sentence: the transitional device that closes each chapter. */
+.handoff {
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* Hard editorial offset shadow — one strong move per image, no glows. */
+.frame-offset {
+  box-shadow: 10px 10px 0 var(--accent-soft);
+}
+
+/* Oversized evidence numerals. */
+.stat-num {
+  font-family: var(--font-display), sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* Numbered callout dot pinned to the annotated example. */
+.callout-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Subtle scroll-driven reveal for section theses only. */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 35%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    animation: none;
+  }
+}
+
 /* Watermark overlay for the locked preview */
 .watermark::before {
   content: "PREVIEW · SEOPAGE.COM";
