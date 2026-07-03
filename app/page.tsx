@@ -377,7 +377,7 @@ export default function Home() {
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                  One page. {PRICE_LABEL}. Once.
+                  One page. One price. Once.
                 </h2>
                 <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
                   For context, here&apos;s what this exact deliverable costs
@@ -389,22 +389,13 @@ export default function Home() {
                     ["SEO agency, per page", "$300–$1,000"],
                     ["Freelance landing page, average", "~$350"],
                     ["Landing page builder, and you still write it", "$768+/yr"],
-                    ["SEOPage, finished and yours", PRICE_LABEL + " once"],
-                  ].map(([l, p], i) => (
+                  ].map(([l, p]) => (
                     <div
                       key={l}
-                      className={`flex items-baseline justify-between gap-4 py-3.5 ${
-                        i === 3 ? "font-semibold text-ink" : "text-ink-2"
-                      }`}
+                      className="flex items-baseline justify-between gap-4 py-3.5 text-ink-2"
                     >
                       <span className="text-[0.95rem]">{l}</span>
-                      <span
-                        className={`mono text-[0.95rem] ${
-                          i === 3 ? "text-accent" : "text-muted"
-                        }`}
-                      >
-                        {p}
-                      </span>
+                      <span className="mono text-[0.95rem] text-muted">{p}</span>
                     </div>
                   ))}
                 </div>
