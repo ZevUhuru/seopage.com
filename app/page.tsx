@@ -198,7 +198,7 @@ export default function Home() {
               human-reviewed, in your inbox within {DELIVERY_HOURS} hours.
             </p>
             <div className="rise rise-3 mt-9 flex justify-center">
-              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
+              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
             </div>
             <p className="rise rise-4 mono mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-muted">
               Engineered to be cited &middot; {DELIVERY_HOURS}-hour delivery
@@ -270,7 +270,7 @@ export default function Home() {
 
             {/* CTA repeat: catch the reader at peak agitation. */}
             <div className="mt-10 flex flex-col items-center gap-3">
-              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
+              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
               <p className="text-sm text-muted">
                 One page. One keyword. Done in {DELIVERY_HOURS} hours.
               </p>
@@ -396,7 +396,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
+                  <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
                 </div>
               </div>
             </div>
@@ -486,7 +486,7 @@ export default function Home() {
                   </ul>
                   <div className="mt-7">
                     <BuyButton
-                      label={`Cite me in AI — ${PRICE_LABEL}`}
+                      label={`Get Me Cited in AI — ${PRICE_LABEL}`}
                       className="btn btn-accent btn-lg w-full"
                     />
                   </div>
@@ -576,7 +576,7 @@ export default function Home() {
               {DELIVERY_HOURS} hours.
             </p>
             <div className="mt-9 flex justify-center">
-              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
+              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
             </div>
             <p className="mt-4 text-sm text-muted">
               {PRICE_LABEL} once &middot; revise-or-refund guarantee &middot;
