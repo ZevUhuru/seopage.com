@@ -417,7 +417,7 @@ export default function Home() {
                     alt="Zev Uhuru, founder of SEOPage"
                     width={176}
                     height={176}
-                    className="h-full w-full scale-[1.35] translate-x-2 translate-y-1.5 object-cover"
+                    className="h-full w-full scale-[1.35] translate-x-2 translate-y-4 object-cover"
                   />
                 </div>
               </div>
