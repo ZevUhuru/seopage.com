@@ -49,64 +49,68 @@ export const metadata: Metadata = {
 
 /* The checklist. This is the page's real asset: the thing a reader can act on
    without buying anything, and the thing an assistant can quote. */
-const CHECKLIST: { group: string; note: string; items: string[] }[] = [
+const CHECKLIST: {
+  group: string;
+  note: string;
+  items: { k: string; d: string }[];
+}[] = [
   {
     group: "Intent and competition",
     note: "Most pages don't lose on technique. They lose because they answer a different question than the one being asked.",
     items: [
-      "The dominant intent behind the query, and whether your page delivers that or something adjacent",
-      "Format match against the pages currently ranking: guide, service page, comparison, tool, or listing",
-      "Coverage gaps: subtopics every ranking page treats that yours doesn't mention",
-      "Whether one page is trying to win two different searches at once",
-      "Keyword cannibalization: other pages on your site competing for the same term",
+      { k: "Search intent", d: "whether the page delivers the dominant intent behind the query, or something adjacent" },
+      { k: "Format match", d: "how the ranking pages are shaped: guide, service page, comparison, tool, listing" },
+      { k: "Coverage gaps", d: "subtopics every ranking page treats that yours never mentions" },
+      { k: "Split focus", d: "whether one page is trying to win two different searches at once" },
+      { k: "Cannibalization", d: "other pages on your own site competing for the same term" },
     ],
   },
   {
     group: "The elements search engines read first",
-    note: "The unglamorous layer. It is also the layer most often broken on pages that have had money spent on them.",
+    note: "The unglamorous layer, and the one most often broken on pages that have had money spent on them.",
     items: [
-      "Title tag: keyword position, character length, truncation risk, and whether Google is rewriting it",
-      "Meta description: written or auto-generated, length, and whether it earns the click",
-      "H1: present, singular, and matching the search rather than the brand",
-      "H2 and H3 outline: logical order, question-shaped, carrying real subtopics",
-      "URL slug: readable, keyword-bearing, free of dates and session junk",
-      "Image file names and alt text, including whether the page's main image is described at all",
-      "Canonical tag: present, self-referencing, and not pointing somewhere unintended",
+      { k: "Title tag", d: "keyword position, length, truncation risk, and whether Google is rewriting it" },
+      { k: "Meta description", d: "written or auto-generated, sized to display in full, and worth a click" },
+      { k: "H1", d: "present, singular, and matching the search rather than the brand" },
+      { k: "Heading outline", d: "H2s and H3s in logical order, question-shaped, carrying real subtopics" },
+      { k: "URL slug", d: "readable, keyword-bearing, free of dates and session junk" },
+      { k: "Images", d: "file names and alt text, including whether the main image is described at all" },
+      { k: "Canonical tag", d: "present, self-referencing, not pointing somewhere unintended" },
     ],
   },
   {
     group: "The content itself",
     note: "Word count is a symptom, not a metric. What matters is whether the page settles the question.",
     items: [
-      "Primary keyword in the first 100 words, in a sentence a human would actually write",
-      "Depth measured against the ranking set, by subtopic coverage rather than length",
-      "Answer-first structure: does the opening paragraph answer, or does it warm up",
-      "Entity clarity: business name, service, and service area stated unambiguously on the page",
-      "Freshness signals, including a dateModified that reflects reality",
-      "Internal links in and out, and whether the page is orphaned from the rest of the site",
+      { k: "Opening 100 words", d: "the primary keyword placed in a sentence a human would actually write" },
+      { k: "Depth", d: "subtopic coverage measured against the ranking set, not length" },
+      { k: "Answer-first structure", d: "whether the first paragraph answers, or merely warms up" },
+      { k: "Entity clarity", d: "business name, service, and service area stated unambiguously" },
+      { k: "Freshness", d: "a dateModified that reflects reality rather than a build timestamp" },
+      { k: "Internal links", d: "what points here, where it points, and whether the page is orphaned" },
     ],
   },
   {
     group: "AI citation readiness",
-    note: "The half of the audit most checklists still skip. Being crawlable by Google and being quotable by an assistant are not the same test.",
+    note: "The half most checklists still skip. Being crawlable by Google and being quotable by an assistant are not the same test.",
     items: [
-      "Self-contained passages: do individual paragraphs still make sense lifted out of the page",
-      "Specific, checkable facts and numbers rather than adjectives an assistant can't cite",
-      "An FAQ block with matching FAQPage structured data",
-      "Organization and Service schema, with sameAs links that tie the entity together",
-      "robots.txt access for GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, and Google-Extended",
-      "Whether the page is cited today for your query in AI Overviews, ChatGPT, or Perplexity",
+      { k: "Self-contained passages", d: "whether paragraphs still make sense lifted out of the page" },
+      { k: "Citable facts", d: "specific numbers and claims rather than adjectives nothing can quote" },
+      { k: "FAQ schema", d: "a question block with matching FAQPage structured data" },
+      { k: "Entity markup", d: "Organization and Service schema, with sameAs links that tie you together" },
+      { k: "Crawler access", d: "robots.txt rules for GPTBot, ClaudeBot, PerplexityBot, and Google-Extended" },
+      { k: "Current citations", d: "whether AI Overviews, ChatGPT, or Perplexity name you for your query today" },
     ],
   },
   {
     group: "Technical fundamentals",
     note: "Rare causes of failure, but total ones. Worth five minutes to rule out.",
     items: [
-      "Indexability: noindex tags, robots directives, and canonical conflicts",
-      "Core Web Vitals on mobile: LCP, INP, and CLS against Google's thresholds",
-      "Mobile rendering, tap-target spacing, and text that requires zooming",
-      "Content that only exists after JavaScript runs, and whether crawlers see it",
-      "Structured data validity errors, which silently disable rich results",
+      { k: "Indexability", d: "noindex tags, robots directives, and canonical conflicts" },
+      { k: "Core Web Vitals", d: "LCP, INP, and CLS on mobile against Google's thresholds" },
+      { k: "Mobile rendering", d: "tap-target spacing, and text that forces a pinch to read" },
+      { k: "JavaScript dependence", d: "content that exists only after render, and whether crawlers see it" },
+      { k: "Schema validity", d: "structured-data errors that silently disable rich results" },
     ],
   },
 ];
@@ -228,6 +232,32 @@ const SCHEMA = {
   ],
 };
 
+/**
+ * The list marker. A hollow-weight check rather than a dot: the section is a
+ * checklist, so the glyph should carry that meaning instead of decorating.
+ * Sized and offset to sit optically on the first line's x-height.
+ */
+function Tick() {
+  return (
+    <svg
+      width="13"
+      height="13"
+      viewBox="0 0 24 24"
+      fill="none"
+      className="mt-[0.42rem] shrink-0 text-accent"
+      aria-hidden
+    >
+      <path
+        d="M4 12.5 9.5 18 20 6"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function AuditPage() {
   return (
     <>
@@ -326,31 +356,33 @@ export default function AuditPage() {
               least likely to be why your page is losing.
             </p>
 
-            <div className="mt-10 space-y-10">
+            <div className="mt-12 space-y-12">
               {CHECKLIST.map((group, gi) => (
                 <div key={group.group}>
-                  <div className="flex items-baseline gap-3">
+                  <div className="flex items-baseline gap-3 border-b border-line pb-3">
                     <span className="mono text-[11px] text-accent">
                       {String(gi + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="text-[1.15rem] font-semibold text-ink">
+                    <h3 className="text-[1.1rem] font-semibold text-ink">
                       {group.group}
                     </h3>
+                    <span className="mono ml-auto text-[10px] uppercase tracking-wider text-muted">
+                      {group.items.length} checks
+                    </span>
                   </div>
-                  <p className="mt-2 pl-8 text-[0.92rem] leading-relaxed text-muted">
+                  <p className="mt-3 max-w-[58ch] text-[0.9rem] leading-relaxed text-muted">
                     {group.note}
                   </p>
-                  <ul className="mt-4 space-y-2.5 border-l border-line pl-8">
+                  <ul className="mt-5 max-w-[64ch] space-y-2">
                     {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="relative text-[0.95rem] leading-relaxed text-ink-2"
-                      >
-                        <span
-                          className="absolute -left-[2.05rem] top-[0.6rem] h-1.5 w-1.5 rounded-full bg-line-strong"
-                          aria-hidden
-                        />
-                        {item}
+                      <li key={item.k} className="flex gap-2.5">
+                        <Tick />
+                        <p className="text-[0.95rem] leading-[1.55] text-ink-2">
+                          <span className="font-semibold text-ink">
+                            {item.k}
+                          </span>
+                          : {item.d}
+                        </p>
                       </li>
                     ))}
                   </ul>
