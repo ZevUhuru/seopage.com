@@ -28,9 +28,9 @@ const serif = Newsreader({
   style: ["normal", "italic"],
 });
 
-const TITLE = "Get Cited by AI Search — Done-For-You SEO Pages | SEOPage";
+const TITLE = "SEO Pages That Get Cited by AI and Rank on Google | SEOPage";
 const DESCRIPTION =
-  "AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI Overviews, and to rank on Google. $99 per page, delivered within 3 hours.";
+  "An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. $99 per page, delivered within 3 hours.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),

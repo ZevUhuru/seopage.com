@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ExampleShowcase, ANATOMY } from "@/components/ExampleShowcase";
 import { JsonLd } from "@/components/JsonLd";
 import { BuyButton } from "@/components/BuyButton";
+import AnswerConsole from "@/components/AnswerConsole";
 import { EmailCapture } from "@/components/EmailCapture";
 import {
   DELIVERY_HOURS,
@@ -23,15 +24,19 @@ import {
    ================================================================ */
 
 export const metadata: Metadata = {
-  title: `Get Cited by AI Search — Done-For-You SEO Pages, ${PRICE_LABEL} in ${DELIVERY_HOURS} Hours`,
-  description: `AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`,
+  // Primary keyword ("SEO pages") front-loaded per title-tag guidance;
+  // the template appends "| SEOPage".
+  title: {
+    absolute: `SEO Pages That Get Cited by AI and Rank on Google | SEOPage`,
+  },
+  description: `An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
 };
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What is a done-for-you SEO page?",
-    a: `A done-for-you SEO page is a finished web page built to rank for one target keyword and get cited by AI search, delivered ready to publish. You tell us the search you want to win; we research the results, write the page, structure it for search engines, and review it by hand. You receive one complete HTML file — copy, title tag, meta description, headings, FAQ, and schema markup included — not a draft you still have to fix.`,
+    q: "What is an SEO page?",
+    a: `An SEO page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. Ours are done for you: you name the search, we research the results, write the page, review it by hand, and deliver one complete ready-to-publish HTML file — not a draft you still have to fix.`,
   },
   {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
@@ -56,6 +61,14 @@ const FAQS: { q: string; a: string }[] = [
   {
     q: "Does it help me show up in ChatGPT and AI search?",
     a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote.",
+  },
+  {
+    q: "Do you do llms.txt?",
+    a: "Yes — every order includes an llms.txt file for your page, and we'll also tell you the truth about it. As of 2026 no major AI company has committed to reading llms.txt in production, and Google's own AI-optimization guidance says it isn't used for AI Overviews or AI Mode. It costs nothing to ship and it's there the day that changes, but anyone selling it to you as the reason you'll get cited is selling you a meta keywords tag. What actually earns a citation is duller: specific facts an assistant can quote, answers that still make sense lifted out of the page, valid structured data, and a site that isn't accidentally blocking the AI crawlers in robots.txt. We build for those.",
+  },
+  {
+    q: "Is this AEO or GEO — answer engine optimization?",
+    a: "Those are the names people are giving to the same job: getting your business named inside an AI answer instead of a blue link. We do it at the page level. In practice that means writing self-contained, quotable passages rather than long build-up; putting specific, checkable facts and numbers on the page, because generative engines lean on sources they can quote precisely; matching structured data to the content so the page is machine-readable; making the entity clear and consistent, so the assistant knows who you are; and confirming GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers can actually reach your site. It's the same craft as good SEO, aimed at a surface that quotes instead of links.",
   },
   {
     q: "What if I don't like the page?",
@@ -169,6 +182,8 @@ const DELIVERABLE: { t: string; d: string }[] = [
   { t: "Full written page", d: "Structured H1–H3, copy matched to search intent" },
   { t: "FAQ section", d: "Written to be quoted by Google and AI assistants" },
   { t: "Schema markup", d: "Valid structured data, matched to the content" },
+  { t: "llms.txt file", d: "A plain-text index of your page, ready for the crawlers that read it" },
+  { t: "AI-crawler access check", d: "We confirm GPTBot, ClaudeBot, and PerplexityBot aren't blocked from your site" },
   { t: "Internal-link suggestions", d: "Where the page should link, and what should link to it" },
   { t: "Human review", d: "A person reads every page before it ships" },
   { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
@@ -184,19 +199,23 @@ export default function Home() {
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
           <div className="mx-auto max-w-4xl px-5 pb-16 pt-20 text-center sm:px-8 lg:pb-20 lg:pt-28">
-            <span className="kicker rise">
-              AI is already answering for your market
-            </span>
+            {/* The kicker is the real H1: primary keyword near the front, small
+                by design — heading weight comes from the tag, not the font size.
+                The fear line stays visually dominant below it. */}
+            <h1 className="kicker rise">
+              SEO pages that get cited by AI
+            </h1>
             {/* The threat is red; blue stays reserved for the rescue (CTA). */}
-            <h1 className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
+            <p className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
               Customers are asking AI who to hire.{" "}
               <span className="text-[#d92d20]">
                 It&apos;s recommending your competitor.
               </span>
-            </h1>
+            </p>
             <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              We build the page that puts you in the answer — researched,
-              human-reviewed, in your inbox within {DELIVERY_HOURS} hours.
+              We build the SEO page that gets you recommended instead. The most
+              powerful AI available does the research, I review every line
+              myself, and it lands in your inbox within {DELIVERY_HOURS} hours.
             </p>
             <div className="rise rise-3 mt-9 flex justify-center">
               <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
@@ -242,9 +261,13 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* The mechanism, shown once instead of explained three times. */}
+            {/* The mechanism, performed rather than asserted: the reader flips
+                the switch and watches the answer change hands. */}
             <div className="mx-auto mt-12 max-w-2xl">
-              <SearchPanel />
+              <AnswerConsole />
+              <p className="mono mt-4 text-center text-[10px] uppercase tracking-[0.14em] text-muted">
+                The answer only has room for one name &middot; make it yours
+              </p>
             </div>
 
             <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -305,7 +328,7 @@ export default function Home() {
             <ChapterHead n="02" eyebrow="The fix" />
             <div className="mt-12 max-w-2xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                One page, built to be the answer.
+                One SEO page, built to be the answer.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
                 Five things make a page quotable. Most websites skip all five.
@@ -426,19 +449,28 @@ export default function Home() {
                 <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
                   A note from the founder
                 </p>
-                <p className="mt-4 text-[1.25rem] leading-[1.6] text-ink [font-family:Georgia,'Times_New_Roman',serif] sm:text-[1.4rem]">
+                <p className="note mt-5">
                   I&apos;ve built landing pages professionally for over a
-                  decade — for Vroom.com, fubo.tv, and my own products.
-                  SEOPage is that craft turned into a service: research-first
-                  workflows do the heavy lifting, and I personally review
-                  every page before it ships. If it isn&apos;t a page
-                  I&apos;d publish myself, it doesn&apos;t go out.
+                  decade, for{" "}
+                  <span className="font-semibold text-[#0b2c5b]">vroom.com</span>,{" "}
+                  <span className="font-semibold text-[#c2560c]">fubo.tv</span>,{" "}
+                  <span className="font-semibold text-[#00786a]">esy.com</span>,
+                  and my own products.
+                  SEOPage is that craft turned into a service. AI does in an
+                  hour what used to take me a week of research and drafting,
+                  though it still doesn&apos;t know which page is worth
+                  publishing. That part is the decade, and I bring it to every
+                  page before it ships.{" "}
+                  <span className="note-close">
+                    If it isn&apos;t a page I&apos;d publish myself, it
+                    doesn&apos;t go out.
+                  </span>
                 </p>
                 <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
                   <div>
                     <p className="font-semibold text-ink">Zev Uhuru</p>
                     <p className="text-sm text-muted">
-                      Founder &middot; reviews every page
+                      Founder &middot; Marketing Engineer
                     </p>
                   </div>
                   <a
@@ -465,7 +497,7 @@ export default function Home() {
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                  One page. One price. Once.
+                  One SEO page. One price. Once.
                 </h2>
                 <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
                   For context, here&apos;s what this exact deliverable costs
@@ -626,16 +658,17 @@ export default function Home() {
               <span className="text-accent">Put your name in it.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
-              Tell us the search you want to win. A researched, human-reviewed
-              page — engineered to be cited — is in your inbox within{" "}
+              Tell us the search you want to win. The most powerful AI
+              available does the research and builds the page, I review every
+              line and sign it off, and it&apos;s in your inbox within{" "}
               {DELIVERY_HOURS} hours.
             </p>
             <div className="mt-9 flex justify-center">
               <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
             </div>
             <p className="mt-4 text-sm text-muted">
-              {PRICE_LABEL} once &middot; revise-or-refund guarantee &middot;
-              no subscription
+              {PRICE_LABEL}{" "}
+              once &middot; revise-or-refund guarantee &middot; no subscription
             </p>
 
             {/* Footnotes — the page cites its sources. */}
@@ -686,9 +719,6 @@ function ChapterHead({ n, eyebrow }: { n: string; eyebrow: string }) {
   );
 }
 
-function Dot() {
-  return <span className="h-1.5 w-1.5 rounded-full bg-good" />;
-}
 
 function Check({ sm }: { sm?: boolean }) {
   const s = sm ? "h-5 w-5" : "h-6 w-6";
@@ -709,67 +739,3 @@ function Check({ sm }: { sm?: boolean }) {
   );
 }
 
-/**
- * The hero's proof, loss-framed: the AI answer as it reads today (citing the
- * competitor, your business absent) and the same answer after your page is
- * live. The answer only has room for one name.
- */
-function SearchPanel() {
-  return (
-    <div className="card overflow-hidden shadow-lg">
-      {/* Today: the competitor holds the citation */}
-      <div className="border-b border-line p-5 sm:p-6">
-        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#e0584b]" />
-          The AI answer in your market &middot; today
-        </div>
-        <p className="text-[0.95rem] leading-relaxed text-ink-2">
-          &ldquo;Who does emergency roof repair in Denver?&rdquo; — For urgent
-          roof repair in Denver, most sources point to{" "}
-          <span className="font-semibold text-ink underline decoration-[#e0584b] decoration-2 underline-offset-2">
-            Apex Roofing
-          </span>
-          , a licensed crew offering 24/7 storm response and free inspections.
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
-          <span className="mono text-[10px] uppercase tracking-wider text-muted">
-            Sources
-          </span>
-          <span className="pill text-[0.72rem]">apexroofingdenver.com</span>
-          <span className="mono ml-auto text-[10px] uppercase tracking-wider text-[#b42318]">
-            summitroofing.com — not cited
-          </span>
-        </div>
-      </div>
-
-      {/* After: the page takes the answer back */}
-      <div className="bg-surface-2 p-5 sm:p-6">
-        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-good" />
-          The same answer &middot; with your SEOPage live
-        </div>
-        <p className="text-[0.95rem] leading-relaxed text-ink-2">
-          For urgent roof repair in Denver, a strong option is{" "}
-          <span className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-2">
-            Summit Roofing Co.
-          </span>
-          , a licensed, insured crew offering 24/7 storm response and free
-          same-day inspections.
-        </p>
-        <div className="mt-4 flex items-center gap-2 border-t border-line pt-4">
-          <span className="mono text-[10px] uppercase tracking-wider text-muted">
-            Sources
-          </span>
-          <span className="pill text-[0.72rem]">summitroofing.com</span>
-        </div>
-      </div>
-
-      {/* The connective caption */}
-      <div className="border-t border-line px-5 py-3 sm:px-6">
-        <p className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
-          The answer only has room for one name &middot; make it yours
-        </p>
-      </div>
-    </div>
-  );
-}
