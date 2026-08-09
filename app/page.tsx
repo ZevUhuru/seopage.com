@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -14,9 +15,11 @@ import {
 } from "@/lib/config";
 
 /* ================================================================
-   Offer-first homepage. The essay DNA stays — numbered chapters,
-   hand-offs, one dark turn — but the offer leads: one researched,
-   human-reviewed SEO page, $99, in your inbox within 3 hours.
+   Direct-response PAS structure, one goal (buy the page):
+   Problem (hero) → Agitate (the compounding loss) → the Turn
+   (tools diagnose, we cure) → Solution (the page + deliverable)
+   → Proof (real AI-citation receipts) → Offer (price + guarantee)
+   → FAQ → Close. The CTA repeats after every persuasion block.
    ================================================================ */
 
 export const metadata: Metadata = {
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
 const FAQS: { q: string; a: string }[] = [
   {
     q: "What is a done-for-you SEO page?",
-    a: `A done-for-you SEO page is a finished web page built to rank for one target keyword, delivered ready to publish. You tell us the search you want to win; we research the results, write the page, structure it for search engines, and review it by hand. You receive one complete HTML file — copy, title tag, meta description, headings, FAQ, and schema markup included — not a draft you still have to fix.`,
+    a: `A done-for-you SEO page is a finished web page built to rank for one target keyword and get cited by AI search, delivered ready to publish. You tell us the search you want to win; we research the results, write the page, structure it for search engines, and review it by hand. You receive one complete HTML file — copy, title tag, meta description, headings, FAQ, and schema markup included — not a draft you still have to fix.`,
   },
   {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
@@ -43,17 +46,21 @@ const FAQS: { q: string; a: string }[] = [
     a: "The research and drafting run on a workflow we've spent months building for exactly this job: search-intent research, competitor analysis, structured writing, and SEO checks. A person reviews every page before it's sent. That's why delivery takes hours, not seconds — instant AI drafts are easy; pages worth publishing take a process.",
   },
   {
+    q: "How is this different from an AI visibility tool?",
+    a: "AI visibility tools monitor whether ChatGPT, Perplexity, and Google AI mention your brand — they diagnose the problem, usually for a monthly subscription, and leave the fixing to you. We're the other half: we build the page those systems can actually cite. No dashboard, no subscription. One finished page, engineered to be quoted.",
+  },
+  {
     q: "Will it actually rank on Google?",
     a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, real content matched to search intent, and valid structured data. How fast it climbs depends on your domain and your competition — specific, lower-competition searches can move in weeks; harder markets take longer. Either way, the page itself won't be the thing holding you back.",
   },
   {
     q: "Does it help me show up in ChatGPT and AI search?",
-    a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote.",
+    a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote, and our own sites carry dozens of AI citations built the same way.",
   },
   {
     q: "What if I don't like the page?",
     a: PRODUCT.satisfaction +
-      " Reply to your delivery email with what you'd change and we'll revise it.",
+      " Reply to your delivery email with what you'd change and we'll revise it — and if it's still not right, we'll refund you in full.",
   },
   {
     q: "Do I need a website? How do I publish it?",
@@ -75,7 +82,7 @@ const SCHEMA = {
       url: "https://seopage.com",
       email: PRODUCT.supportEmail,
       description:
-        "SEOPage builds done-for-you SEO pages: researched, written, human-reviewed, and engineered for Google and AI search, delivered within hours.",
+        "SEOPage builds done-for-you SEO pages: researched, written, human-reviewed, and engineered to be cited by AI search and rank on Google, delivered within hours.",
     },
     {
       "@type": "WebSite",
@@ -90,7 +97,7 @@ const SCHEMA = {
       serviceType: "SEO page creation",
       name: "Done-for-you SEO page",
       provider: { "@id": "https://seopage.com/#organization" },
-      description: `One researched, written, and human-reviewed SEO page built around a target keyword, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
+      description: `One researched, written, and human-reviewed SEO page built around a target keyword, engineered to be cited by AI search, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
       offers: {
         "@type": "Offer",
         price: `${PRICE_USD}.00`,
@@ -111,7 +118,7 @@ const SCHEMA = {
   ],
 };
 
-/* The evidence base. Sources are linked in the footnote line. */
+/* The agitation's evidence base. Sources are linked in the footnote line. */
 const STATS: { n: string; l: string; s: string }[] = [
   {
     n: "45%",
@@ -167,13 +174,34 @@ const DELIVERABLE: { t: string; d: string }[] = [
   { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
 ];
 
+/* Real receipts: Ahrefs AI-citation reports for our own sites. */
+const RECEIPTS: {
+  src: string;
+  alt: string;
+  site: string;
+  stat: string;
+}[] = [
+  {
+    src: "/proof/esy-ai-citations.png",
+    alt: "Ahrefs AI citations report for esy.com showing 37 ChatGPT citations across 20 pages",
+    site: "esy.com",
+    stat: "37 ChatGPT citations across 20 pages",
+  },
+  {
+    src: "/proof/clipart-ai-citations.png",
+    alt: "Ahrefs AI citations report for clip.art showing 12 ChatGPT citations",
+    site: "clip.art",
+    stat: "12 ChatGPT citations, growing month over month",
+  },
+];
+
 export default function Home() {
   return (
     <>
       <JsonLd data={SCHEMA} />
       <SiteHeader />
       <main>
-        {/* ============ 00 · HERO — the offer ============ */}
+        {/* ============ 00 · PROBLEM — the hero ============ */}
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
           <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 lg:pb-28 lg:pt-24">
@@ -198,8 +226,8 @@ export default function Home() {
                 </p>
                 <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
                   <BuyButton label={`Take back the answer — ${PRICE_LABEL}`} />
-                  <a href="#what-you-get" className="btn btn-ghost btn-lg">
-                    See what&apos;s in it
+                  <a href="#why" className="btn btn-ghost btn-lg">
+                    See what&apos;s happening
                   </a>
                 </div>
                 <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
@@ -215,7 +243,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Evidence in the first viewport: both search surfaces, one page. */}
+              {/* Loss-framed proof in the first viewport. */}
               <div className="rise rise-2">
                 <SearchPanel />
               </div>
@@ -223,25 +251,119 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 01 · WHAT YOU GET — the receipt ============ */}
-        <section id="what-you-get" className="border-t border-line bg-surface-2">
+        {/* ============ 01 · AGITATE — the compounding loss ============ */}
+        <section id="why" className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="01" eyebrow="What you get" />
-            <div className="mt-12 grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-              <div>
-                <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                  Not an AI draft. A finished page.
-                </h2>
-                <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
-                  Plenty of tools will generate you some words. What lands in
-                  your inbox is the whole job — the research, the writing, the
-                  SEO structure, and a person&apos;s judgment — as one file you
-                  can publish immediately.
+            <ChapterHead n="01" eyebrow="What it's costing you" />
+            <div className="mx-auto mt-12 max-w-3xl">
+              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                Every day the answer isn&apos;t you, the customer calls someone
+                else.
+              </h2>
+              <div className="measure mt-8 space-y-6 text-[1.06rem] leading-[1.75] text-ink-2">
+                <p className="dropcap">
+                  This isn&apos;t coming — it already happened. Last year, 6% of
+                  consumers asked an AI tool to recommend a business. This year
+                  it&apos;s 45%. Two thirds of local searches on Google now open
+                  with an AI-written answer, and when that answer appears,
+                  clicks on everything below it nearly halve. The blue links
+                  your website was built for are being read less every month.
                 </p>
-                <p className="mt-4 max-w-md text-sm text-muted">
-                  {PRODUCT.satisfaction}
+                <p>
+                  Here&apos;s the part that compounds: AI assistants don&apos;t
+                  invent answers. They read pages and repeat the clearest one
+                  they find — and once a system starts citing a page, it tends
+                  to keep citing it. Every week your competitor holds the
+                  citation, their claim on your market hardens, and the
+                  customers who never scrolled past the answer never knew you
+                  existed.
+                </p>
+                <p>
+                  You are not losing to a better business. You&apos;re losing
+                  to a better page.
                 </p>
               </div>
+            </div>
+
+            <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              {STATS.map((s) => (
+                <div key={s.n} className="border-t border-line-strong pt-5">
+                  <div className="stat-num text-[2.6rem] text-ink">{s.n}</div>
+                  <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-2">
+                    {s.l}
+                  </p>
+                  <p className="mono mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-muted">
+                    {s.s}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA repeat: catch the reader at peak agitation. */}
+            <div className="mt-14 flex flex-col items-center gap-3">
+              <BuyButton label={`Fix it — ${PRICE_LABEL}, done in ${DELIVERY_HOURS} hours`} />
+              <p className="text-sm text-muted">
+                One page. One keyword. Yours forever.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 02 · THE TURN — tools diagnose, we cure ============ */}
+        <section className="bg-ink text-white">
+          <div className="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 lg:py-32">
+            <p className="mono text-[11px] uppercase tracking-[0.16em] text-white/40">
+              The turn
+            </p>
+            <p className="display mt-6 text-[2rem] leading-[1.12] sm:text-[2.7rem]">
+              AI visibility tools tell you you&apos;re losing.
+              <br />
+              <span className="text-[#8b93f8]">
+                We build the page that wins it back.
+              </span>
+            </p>
+            <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
+              A wave of dashboards now charges a monthly subscription to
+              monitor how invisible you are in AI answers. The diagnosis
+              isn&apos;t the hard part. The cure is one well-built page — so
+              that&apos;s what we sell.
+            </p>
+          </div>
+        </section>
+
+        {/* ============ 03 · SOLUTION — the page, and what's in it ============ */}
+        <section id="the-fix" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="02" eyebrow="The fix" />
+            <div className="mt-12 max-w-2xl">
+              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                One page, built to be the answer.
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-ink-2">
+                This is the shape of what lands in your inbox. Five things make
+                a page quotable — the same five things most websites skip.
+              </p>
+            </div>
+
+            <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+              <ExampleShowcase />
+              <ol className="space-y-6 lg:pt-2">
+                {ANATOMY.map((a) => (
+                  <li key={a.n} className="flex gap-3.5">
+                    <span className="callout-dot mt-0.5">{a.n}</span>
+                    <div>
+                      <h3 className="font-semibold text-ink">{a.t}</h3>
+                      <p className="mt-1 text-[0.92rem] leading-relaxed text-ink-2">
+                        {a.d}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            {/* The deliverable receipt + the process, side by side. */}
+            <div className="mt-16 grid items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
               <div className="card overflow-hidden">
                 <div className="flex items-baseline justify-between border-b border-line px-6 py-4">
                   <span className="mono text-[11px] uppercase tracking-[0.14em] text-muted">
@@ -267,181 +389,99 @@ export default function Home() {
                   ))}
                 </ul>
               </div>
-            </div>
-            <div className="mx-auto mt-16 max-w-3xl">
-              <p className="handoff">
-                That&apos;s the deliverable. Here&apos;s the process that turns
-                your keyword into it — and why it takes hours, not seconds.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 02 · HOW IT WORKS ============ */}
-        <section id="how" className="border-t border-line">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="02" eyebrow="How it works" />
-            <div className="mt-12 max-w-2xl">
-              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                Order. Brief. {DELIVERY_HOURS} hours later, it&apos;s in your
-                inbox.
-              </h2>
-            </div>
-            <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  n: "01",
-                  t: "Place your order",
-                  d: `${PRICE_LABEL} through Stripe. No account, no subscription, no sales call.`,
-                },
-                {
-                  n: "02",
-                  t: "Tell us the page you need",
-                  d: "A 3-minute brief: your business, your target keyword, your competitors, what the page should achieve.",
-                },
-                {
-                  n: "03",
-                  t: "We research, write, and review",
-                  d: "Search-intent research, competitor analysis, structured writing, SEO checks — then a person reviews the finished page.",
-                },
-                {
-                  n: "04",
-                  t: "Delivered to your inbox",
-                  d: `Within ${DELIVERY_HOURS} hours: the finished page as ready-to-publish HTML, with publishing instructions.`,
-                },
-              ].map((s) => (
-                <div key={s.n} className="border-t border-line-strong pt-5">
-                  <span className="mono text-sm font-semibold text-accent">
-                    {s.n}
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold text-ink">{s.t}</h3>
-                  <p className="mt-1.5 text-[0.92rem] leading-relaxed text-ink-2">
-                    {s.d}
-                  </p>
+              <div className="lg:pt-2">
+                <h3 className="text-lg font-semibold text-ink">
+                  Order to inbox in {DELIVERY_HOURS} hours
+                </h3>
+                <div className="mt-6 space-y-7">
+                  {[
+                    {
+                      n: "01",
+                      t: "Place your order",
+                      d: `${PRICE_LABEL} through Stripe. No account, no subscription, no sales call.`,
+                    },
+                    {
+                      n: "02",
+                      t: "Tell us the search you want to win",
+                      d: "A 3-minute brief: your business, your target keyword, your competitors.",
+                    },
+                    {
+                      n: "03",
+                      t: "We research, write, and review",
+                      d: "Search-intent research, competitor analysis, structured writing — then a person reviews the finished page.",
+                    },
+                    {
+                      n: "04",
+                      t: "It lands in your inbox",
+                      d: "Ready-to-publish HTML with publishing instructions. Upload it anywhere.",
+                    },
+                  ].map((s) => (
+                    <div key={s.n} className="flex gap-4">
+                      <span className="mono pt-0.5 text-sm font-semibold text-accent">
+                        {s.n}
+                      </span>
+                      <div>
+                        <h4 className="font-semibold text-ink">{s.t}</h4>
+                        <p className="mt-1 max-w-sm text-[0.92rem] leading-relaxed text-ink-2">
+                          {s.d}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            <div className="mx-auto mt-16 max-w-3xl">
-              <p className="handoff">
-                Why a page at all? Because the way people find businesses just
-                changed — and one well-built page is still the answer to it.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 03 · THE SHIFT — why this matters now ============ */}
-        <section id="shift" className="border-t border-line bg-surface-2">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="03" eyebrow="How people search now" />
-            <div className="mx-auto mt-12 max-w-3xl">
-              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                The search results page quietly stopped sending clicks.
-              </h2>
-              <div className="measure mt-8 space-y-6 text-[1.06rem] leading-[1.75] text-ink-2">
-                <p className="dropcap">
-                  For twenty years, being found meant one thing: show up in the
-                  blue links. That era is ending faster than most businesses
-                  realize. Last year, 6% of consumers asked an AI tool to
-                  recommend a local business. This year it&apos;s 45%.
-                </p>
-                <p>
-                  Google itself changed just as much. Two thirds of local
-                  searches now open with an AI-written answer above the
-                  results, and when that answer appears, clicks on the results
-                  below it nearly halve.
-                </p>
-                <p>
-                  Here is the part that matters: neither Google&apos;s AI nor
-                  ChatGPT invents those answers. They read pages, pick the
-                  clearest and most specific one, and repeat it with credit.
-                  The businesses being recommended aren&apos;t lucky. They have
-                  a page that&apos;s easy to quote.
-                </p>
+                <div className="mt-8">
+                  <BuyButton label={`Get my page — ${PRICE_LABEL}`} />
+                </div>
               </div>
             </div>
-
-            <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-              {STATS.map((s) => (
-                <div key={s.n} className="border-t border-line-strong pt-5">
-                  <div className="stat-num text-[2.6rem] text-ink">{s.n}</div>
-                  <p className="mt-2 text-[0.88rem] leading-relaxed text-ink-2">
-                    {s.l}
-                  </p>
-                  <p className="mono mt-2 text-[0.68rem] uppercase tracking-[0.12em] text-muted">
-                    {s.s}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mx-auto mt-16 max-w-3xl">
-              <p className="handoff">
-                So when a machine reads about your trade, is there a page about
-                you worth quoting? Here&apos;s what one looks like.
-              </p>
-            </div>
           </div>
         </section>
 
-        {/* ============ 04 · THE PAGE — what "worth quoting" looks like ============ */}
-        <section id="example" className="border-t border-line">
+        {/* ============ 04 · PROOF — receipts, not promises ============ */}
+        <section id="proof" className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="04" eyebrow="What a citable page looks like" />
+            <ChapterHead n="03" eyebrow="Receipts, not promises" />
             <div className="mt-12 max-w-2xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                One page, built to be quoted.
+                We eat this cooking. AI already cites our pages.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
-                This is the actual shape of what we deliver. Five things make
-                it work, and they&apos;re the same five things most pages skip.
+                These are Ahrefs AI-citation reports for two sites we run
+                ourselves — built with the same research-first workflow that
+                builds your page. Not client mockups. Our own receipts.
               </p>
             </div>
 
-            <div className="mt-14 grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-              <ExampleShowcase />
-              <ol className="space-y-6 lg:pt-2">
-                {ANATOMY.map((a) => (
-                  <li key={a.n} className="flex gap-3.5">
-                    <span className="callout-dot mt-0.5">{a.n}</span>
-                    <div>
-                      <h3 className="font-semibold text-ink">{a.t}</h3>
-                      <p className="mt-1 text-[0.92rem] leading-relaxed text-ink-2">
-                        {a.d}
-                      </p>
-                    </div>
-                  </li>
-                ))}
-              </ol>
+            <div className="mt-12 grid gap-8 lg:grid-cols-2">
+              {RECEIPTS.map((r) => (
+                <figure key={r.site} className="card overflow-hidden">
+                  <div className="frame-offset overflow-hidden border-b border-line">
+                    <Image
+                      src={r.src}
+                      alt={r.alt}
+                      width={1024}
+                      height={403}
+                      className="w-full"
+                    />
+                  </div>
+                  <figcaption className="flex items-baseline justify-between gap-4 px-6 py-4">
+                    <span className="font-semibold text-ink">{r.site}</span>
+                    <span className="text-sm text-ink-2">{r.stat}</span>
+                  </figcaption>
+                </figure>
+              ))}
             </div>
-          </div>
-        </section>
-
-        {/* ============ 05 · THE TURN — the one dark moment ============ */}
-        <section className="bg-ink text-white">
-          <div className="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 lg:py-32">
-            <p className="mono text-[11px] uppercase tracking-[0.16em] text-white/40">
-              The turn
-            </p>
-            <p className="display mt-6 text-[2rem] leading-[1.12] sm:text-[2.7rem]">
-              Not an instant AI draft.
-              <br />
-              <span className="text-[#8b93f8]">
-                A researched page, reviewed by a person.
-              </span>
-            </p>
-            <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
-              Instant output is easy, and it reads that way. We take{" "}
-              {DELIVERY_HOURS} hours because research, structure, and review
-              are the difference between content and a page worth publishing.
+            <p className="mono mt-6 text-[0.68rem] uppercase tracking-[0.12em] text-muted">
+              Source: Ahrefs Site Explorer, AI citations panel · our own
+              properties
             </p>
           </div>
         </section>
 
-        {/* ============ 06 · THE MATH — pricing, anchored ============ */}
-        <section id="pricing" className="border-b border-line">
+        {/* ============ 05 · OFFER — price, anchored, de-risked ============ */}
+        <section id="pricing" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="05" eyebrow="What it costs" />
+            <ChapterHead n="04" eyebrow="The offer" />
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
@@ -456,7 +496,7 @@ export default function Home() {
                   {[
                     ["SEO agency, per page", "$300–$1,000"],
                     ["Freelance SEO writer, researched piece", "$175–$350"],
-                    ["Landing page builder, and you still write it", "$768+/yr"],
+                    ["AI visibility dashboard (tells you, doesn't fix it)", "$25–$500/mo"],
                   ].map(([l, p]) => (
                     <div
                       key={l}
@@ -466,6 +506,19 @@ export default function Home() {
                       <span className="mono text-[0.95rem] text-muted">{p}</span>
                     </div>
                   ))}
+                </div>
+
+                {/* Risk reversal: the guarantee carries the fear's counterweight. */}
+                <div className="card mt-8 max-w-md p-6">
+                  <p className="mono text-[11px] uppercase tracking-[0.14em] text-good">
+                    The make-it-right guarantee
+                  </p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">
+                    Read the finished page. If anything&apos;s off, reply to
+                    the delivery email and we&apos;ll revise it until
+                    it&apos;s right. Still not happy? Full refund. You risk an
+                    email; we risk the work.
+                  </p>
                 </div>
 
                 <p className="mt-6 max-w-md text-sm text-muted">
@@ -494,9 +547,9 @@ export default function Home() {
                   <ul className="space-y-3 text-[0.95rem] text-ink-2">
                     {[
                       "One finished page for one target keyword",
+                      "Engineered to be cited by AI search",
                       "Search-intent + competitor research",
                       "Title tag, meta description, and schema markup",
-                      "An FAQ written to be quoted by AI search",
                       "Human-reviewed before it ships",
                       `Delivered within ${DELIVERY_HOURS} hours, yours forever`,
                     ].map((f) => (
@@ -508,12 +561,13 @@ export default function Home() {
                   </ul>
                   <div className="mt-7">
                     <BuyButton
-                      label={`Get my SEO page — ${PRICE_LABEL}`}
+                      label={`Take back the answer — ${PRICE_LABEL}`}
                       className="btn btn-accent btn-lg w-full"
                     />
                   </div>
                   <p className="mt-3 text-center text-xs text-muted">
                     Secure checkout by Stripe &middot; brief takes 3 minutes
+                    &middot; revise-or-refund guarantee
                   </p>
                 </div>
               </div>
@@ -521,10 +575,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 07 · OBJECTIONS — the questions, answered ============ */}
+        {/* ============ 06 · OBJECTIONS — the questions, answered ============ */}
         <section id="faq" className="bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 lg:pt-24">
-            <ChapterHead n="06" eyebrow="The questions, answered" />
+            <ChapterHead n="05" eyebrow="The questions, answered" />
           </div>
           <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8 lg:pb-24">
             <div className="mt-12">
@@ -583,28 +637,28 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 08 · THE CLOSE ============ */}
+        {/* ============ 07 · THE CLOSE ============ */}
         <section className="border-t border-line">
           <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 lg:py-28">
             <span className="kicker">In conclusion</span>
             <h2 className="display mt-4 text-[2.1rem] leading-[1.05] text-ink sm:text-[2.8rem]">
-              Someone is searching for what you sell right now.{" "}
-              <span className="text-accent">Be the answer.</span>
+              The answer in your market is being written right now.{" "}
+              <span className="text-accent">Put your name in it.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
-              The way people search changed. The fix is still one well-built
-              page. Tell us the search you want to win — the finished page is
-              in your inbox within {DELIVERY_HOURS} hours.
+              Tell us the search you want to win. A researched, human-reviewed
+              page — engineered to be cited — is in your inbox within{" "}
+              {DELIVERY_HOURS} hours.
             </p>
             <div className="mt-9 flex justify-center">
-              <BuyButton label={`Get my SEO page — ${PRICE_LABEL}`} />
+              <BuyButton label={`Take back the answer — ${PRICE_LABEL}`} />
             </div>
             <p className="mt-4 text-sm text-muted">
-              {PRICE_LABEL} once &middot; researched &amp; human-reviewed
-              &middot; no subscription
+              {PRICE_LABEL} once &middot; revise-or-refund guarantee &middot;
+              no subscription
             </p>
 
-            {/* Footnotes — the essay cites its sources. */}
+            {/* Footnotes — the page cites its sources. */}
             <div className="mt-16 border-t border-line pt-6 text-left">
               <p className="mono text-[0.66rem] uppercase tracking-[0.14em] text-muted">
                 Sources
@@ -628,7 +682,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ Pre-footer — the email capture ============ */}
+        {/* ============ Pre-footer — the AI-verdict capture ============ */}
         <section className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8">
             <EmailCapture />
