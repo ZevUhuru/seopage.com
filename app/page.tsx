@@ -63,6 +63,14 @@ const FAQS: { q: string; a: string }[] = [
     a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote.",
   },
   {
+    q: "Do you do llms.txt?",
+    a: "Yes — every order includes an llms.txt file for your page, and we'll also tell you the truth about it. As of 2026 no major AI company has committed to reading llms.txt in production, and Google's own AI-optimization guidance says it isn't used for AI Overviews or AI Mode. It costs nothing to ship and it's there the day that changes, but anyone selling it to you as the reason you'll get cited is selling you a meta keywords tag. What actually earns a citation is duller: specific facts an assistant can quote, answers that still make sense lifted out of the page, valid structured data, and a site that isn't accidentally blocking the AI crawlers in robots.txt. We build for those.",
+  },
+  {
+    q: "Is this AEO or GEO — answer engine optimization?",
+    a: "Those are the names people are giving to the same job: getting your business named inside an AI answer instead of a blue link. We do it at the page level. In practice that means writing self-contained, quotable passages rather than long build-up; putting specific, checkable facts and numbers on the page, because generative engines lean on sources they can quote precisely; matching structured data to the content so the page is machine-readable; making the entity clear and consistent, so the assistant knows who you are; and confirming GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers can actually reach your site. It's the same craft as good SEO, aimed at a surface that quotes instead of links.",
+  },
+  {
     q: "What if I don't like the page?",
     a: PRODUCT.satisfaction +
       " Reply to your delivery email with what you'd change and we'll revise it — and if it's still not right, we'll refund you in full.",
@@ -174,6 +182,8 @@ const DELIVERABLE: { t: string; d: string }[] = [
   { t: "Full written page", d: "Structured H1–H3, copy matched to search intent" },
   { t: "FAQ section", d: "Written to be quoted by Google and AI assistants" },
   { t: "Schema markup", d: "Valid structured data, matched to the content" },
+  { t: "llms.txt file", d: "A plain-text index of your page, ready for the crawlers that read it" },
+  { t: "AI-crawler access check", d: "We confirm GPTBot, ClaudeBot, and PerplexityBot aren't blocked from your site" },
   { t: "Internal-link suggestions", d: "Where the page should link, and what should link to it" },
   { t: "Human review", d: "A person reads every page before it ships" },
   { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
