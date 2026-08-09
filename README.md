@@ -1,17 +1,27 @@
-# SEOPage — AI SEO Landing Page Builder (MVP)
+# SEOPage — Done-For-You SEO Pages
 
-Generate a single, world-class, SEO-optimized landing page for a local business
-from a short intake form. The user fills out a minimal intake, watches the page
-get generated with real research-backed copy, sees a watermarked preview, and
-pays **$29** via Stripe to unlock and export the finished page as clean HTML.
+SEOPage sells **finished SEO pages as a service**: pay **$99** up front, fill
+out a detailed brief, and receive a researched, written, human-reviewed page by
+email **within 3 hours**. The $29 instant-builder validated that strangers will
+pay for a generated page; this iteration tests the real commercial price with
+service positioning (researched + reviewed, not instant AI output).
 
-The whole point of this MVP is to validate one thing: **will strangers pay $29
-for a generated SEO page?** So three things are held to a high bar — the
-homepage, the intake → generation experience, and the quality of the generated
-page itself.
+### Primary funnel (pay-first)
 
 ```
-land (/) → try (/intake) → generate → preview (/preview/[id]) → pay (Stripe) → export (/success)
+land (/ or /on-page-seo-services) → pay $99 (Stripe) → /order?session_id=… (brief)
+  → confirmation ("inbox within 3 hours") → operator fulfills from /admin
+  → "Send delivery email" → buyer downloads via /api/export/[id]
+```
+
+Fulfillment is human-driven: run the brief through `/intake` (the legacy
+self-serve pipeline, kept as internal tooling), review the result, attach the
+generation id to the order in `/admin`, and hit **Send delivery email**.
+
+### Legacy funnel (kept, unlinked)
+
+```
+/intake → generate → preview (/preview/[id]) → pay (Stripe) → export (/success)
 ```
 
 ---
@@ -40,6 +50,9 @@ All config lives in `.env.local` (gitignored). See `.env.example`.
 | `STRIPE_PUBLISHABLE_KEY` | for checkout | Public Stripe key. |
 | `STRIPE_WEBHOOK_SECRET` | optional locally | Verifies webhook events. |
 | `NEXT_PUBLIC_BASE_URL` | recommended | Origin for Stripe redirect URLs. |
+| `RESEND_API_KEY` | for email | Order confirmation, operator alerts, delivery email (Resend). Without it, emails are skipped and logged. |
+| `EMAIL_FROM` | for email | From address, on the Resend-verified domain. |
+| `ORDER_ALERT_TO` | for email | Inbox that receives "new paid order" alerts. |
 
 The provider call is isolated in **`lib/generate.ts`** and is the only place
 that talks to Anthropic — swap models/providers there. The price is set once in
@@ -143,11 +156,16 @@ delivered file for paid orders. See `app/admin/page.tsx`.
 
 | I want to change… | Edit |
 |---|---|
-| The price | `lib/config.ts` (`PRICE_USD`) |
+| The price / delivery promise | `lib/config.ts` (`PRICE_USD`, `DELIVERY_HOURS`) |
 | The generation prompts / quality | `lib/prompts.ts` |
 | The model / provider | `lib/generate.ts` |
 | The homepage copy/design | `app/page.tsx`, `components/*`, `app/globals.css` |
-| The intake fields | `components/IntakeForm.tsx` |
+| The money page (on-page SEO services) | `app/on-page-seo-services/page.tsx` |
+| The post-payment brief fields | `components/OrderIntakeForm.tsx`, `app/api/order/route.ts`, `lib/types.ts` (`Order`) |
+| The legacy self-serve intake | `components/IntakeForm.tsx` |
+| Email templates (confirmation / alert / delivery) | `lib/email.ts` |
+| Rate limits | `lib/ratelimit.ts` |
 | Persistence backend / retention | `lib/store.ts` |
-| Admin order lookup | `app/admin/page.tsx`, `lib/admin.ts` |
+| Admin queue / fulfillment | `app/admin/page.tsx`, `app/api/admin/order/route.ts`, `lib/admin.ts` |
+| SEO/GEO files | `app/robots.ts`, `app/sitemap.ts`, `public/llms.txt`, `app/opengraph-image.tsx` |
 | Analytics backend | `lib/analytics.ts` |

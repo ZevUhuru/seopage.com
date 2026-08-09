@@ -1,67 +1,49 @@
-import type { Metadata } from "next";
-import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ExampleShowcase, ANATOMY } from "@/components/ExampleShowcase";
+import { IntakeMock } from "@/components/ProductMock";
 import { JsonLd } from "@/components/JsonLd";
-import { BuyButton } from "@/components/BuyButton";
-import { EmailCapture } from "@/components/EmailCapture";
-import {
-  DELIVERY_HOURS,
-  PRICE_LABEL,
-  PRICE_USD,
-  PRODUCT,
-} from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 /* ================================================================
-   Offer-first homepage. The essay DNA stays — numbered chapters,
-   hand-offs, one dark turn — but the offer leads: one researched,
-   human-reviewed SEO page, $99, in your inbox within 3 hours.
+   The homepage is written as an essay: a hook and thesis in the
+   hero, numbered chapters of supporting evidence, one rhetorical
+   turn, and a conclusion that calls back to the opening claim.
+   Every chapter ends with a hand-off sentence into the next.
    ================================================================ */
-
-export const metadata: Metadata = {
-  title: `Done-For-You SEO Pages — ${PRICE_LABEL}, Delivered in ${DELIVERY_HOURS} Hours`,
-  description: `Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`,
-  alternates: { canonical: "/" },
-};
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What is a done-for-you SEO page?",
-    a: `A done-for-you SEO page is a finished web page built to rank for one target keyword, delivered ready to publish. You tell us the search you want to win; we research the results, write the page, structure it for search engines, and review it by hand. You receive one complete HTML file — copy, title tag, meta description, headings, FAQ, and schema markup included — not a draft you still have to fix.`,
+    q: "What is an SEO landing page?",
+    a: "It's a single page built to rank for one specific search, usually a service plus a place like “roof repair Denver,” and to turn that visitor into a call or a booking. A good SEO landing page pairs clear, persuasive copy with the on-page basics search engines read: the title tag, headings, meta description, and schema markup.",
   },
   {
-    q: `What exactly do I get for ${PRICE_LABEL}?`,
-    a: "One finished SEO page: research into the search results for your keyword, a keyword-focused title tag and meta description, a clean heading structure, the full written page, an FAQ section written to be quoted, schema markup, internal-link suggestions, and a responsive design — delivered as a single ready-to-publish HTML file that's yours forever.",
+    q: "Do landing pages help SEO?",
+    a: "Yes, when they're built right. A focused landing page that targets one keyword and one location, with a clean structure and real content, gives Google a clear, relevant result to rank. The catch is that most landing pages skip the on-page SEO, so they look fine but rank for nothing. Ours are built to rank from the start.",
   },
   {
-    q: `How does ${DELIVERY_HOURS}-hour delivery work?`,
-    a: `After checkout you fill out a short brief — your business, your target keyword, your competitors. Then we research the search results, write and structure the page, and a person reviews everything before it goes out. The finished page arrives in your inbox within ${DELIVERY_HOURS} hours of your order.`,
+    q: "What is a local SEO landing page?",
+    a: "It's an SEO landing page aimed at one city or service area. Instead of a generic page, you get one that speaks to customers in your town and targets searches like “[your service] [your city].” That local focus is what helps you show up when nearby customers search.",
   },
   {
-    q: "Who actually writes the page?",
-    a: "The research and drafting run on a workflow we've spent months building for exactly this job: search-intent research, competitor analysis, structured writing, and SEO checks. A person reviews every page before it's sent. That's why delivery takes hours, not seconds — instant AI drafts are easy; pages worth publishing take a process.",
+    q: "Can I build a page for each city or service I cover?",
+    a: "Yes. A lot of local businesses run a separate landing page for each city or service they offer, so every one targets its own keyword. That one-page-per-city pattern is the standard local SEO playbook. Build them one at a time here. Each page is $29 and yours to keep.",
   },
   {
     q: "Will it actually rank on Google?",
-    a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, real content matched to search intent, and valid structured data. How fast it climbs depends on your domain and your competition — specific, lower-competition searches can move in weeks; harder markets take longer. Either way, the page itself won't be the thing holding you back.",
+    a: "The page is built on the fundamentals Google rewards: a keyword-focused title and description, clean headings, content written for your area, and valid structured data. How fast it climbs depends on your domain and competition. Hyper-local searches with weak competition can move in weeks; harder markets take longer. Either way, the page itself won't be the thing holding you back.",
   },
   {
-    q: "Does it help me show up in ChatGPT and AI search?",
-    a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote.",
+    q: "Won't Google penalize a page written with AI?",
+    a: "No. Google's published position is that it rewards quality “rather than how content is produced.” What gets penalized is mass-produced spam churned out to game rankings. This is one researched page about your real business, your real service, and your real town, reviewed by you before you publish it.",
   },
   {
-    q: "What if I don't like the page?",
-    a: PRODUCT.satisfaction +
-      " Reply to your delivery email with what you'd change and we'll revise it.",
+    q: "How does it get found by ChatGPT or Perplexity?",
+    a: "AI tools answer by reading and citing pages that answer questions clearly. We write your FAQ to be easy to quote and add matching FAQPage data, so an AI can point people to your business by name. The searches your customers make already show AI answers up top, so this matters now, not someday.",
   },
   {
-    q: "Do I need a website? How do I publish it?",
-    a: "You don't need an existing site. The page arrives as one self-contained HTML file — upload it to any host, point a domain at it, or paste it into your site builder's custom-HTML block. The delivery email includes step-by-step publishing instructions.",
-  },
-  {
-    q: "Can I order pages for multiple keywords, or for clients?",
-    a: `Yes. Each order covers one page for one target keyword — many customers order a page per service or per city. If you're an agency or need pages in volume, email ${PRODUCT.supportEmail} and we'll set you up directly.`,
+    q: "What do I get for $29, and do I need a website?",
+    a: "One finished SEO landing page as a single HTML file: local copy, a responsive design, a title tag and meta description, and LocalBusiness, Service, and FAQPage schema. You don't need an existing site. Put the file on any host or paste it into your site builder. You preview the whole page free and only pay if you want to publish it.",
   },
 ];
 
@@ -73,9 +55,8 @@ const SCHEMA = {
       "@id": "https://seopage.com/#organization",
       name: "SEOPage",
       url: "https://seopage.com",
-      email: PRODUCT.supportEmail,
       description:
-        "SEOPage builds done-for-you SEO pages: researched, written, human-reviewed, and engineered for Google and AI search, delivered within hours.",
+        "SEOPage builds finished, SEO-optimized landing pages for local businesses, ready to rank on Google and get found by AI search.",
     },
     {
       "@type": "WebSite",
@@ -85,18 +66,17 @@ const SCHEMA = {
       publisher: { "@id": "https://seopage.com/#organization" },
     },
     {
-      "@type": "Service",
-      "@id": "https://seopage.com/#service",
-      serviceType: "SEO page creation",
-      name: "Done-for-you SEO page",
-      provider: { "@id": "https://seopage.com/#organization" },
-      description: `One researched, written, and human-reviewed SEO page built around a target keyword, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
+      "@type": "Product",
+      name: "Local SEO Landing Page",
+      description:
+        "A complete, designed local SEO landing page with researched copy, styling, and schema.org structured data (LocalBusiness, Service, FAQPage), delivered as one ready-to-publish file you own.",
+      brand: { "@id": "https://seopage.com/#organization" },
       offers: {
         "@type": "Offer",
-        price: `${PRICE_USD}.00`,
+        price: "29.00",
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://seopage.com",
+        url: "https://create.seopage.com",
       },
     },
     {
@@ -111,7 +91,7 @@ const SCHEMA = {
   ],
 };
 
-/* The evidence base. Sources are linked in the footnote line. */
+/* The essay's evidence base. Sources are linked in the footnote line. */
 const STATS: { n: string; l: string; s: string }[] = [
   {
     n: "45%",
@@ -154,59 +134,49 @@ const SOURCES: { name: string; href: string }[] = [
   },
 ];
 
-/* The deliverable, itemized like a receipt. This is the product. */
-const DELIVERABLE: { t: string; d: string }[] = [
-  { t: "Search-intent research", d: "What the results for your keyword reward, and why" },
-  { t: "Competitor analysis", d: "What the pages that currently win have in common" },
-  { t: "Title tag + meta description", d: "Written around your keyword, sized to fit" },
-  { t: "Full written page", d: "Structured H1–H3, copy matched to search intent" },
-  { t: "FAQ section", d: "Written to be quoted by Google and AI assistants" },
-  { t: "Schema markup", d: "Valid structured data, matched to the content" },
-  { t: "Internal-link suggestions", d: "Where the page should link, and what should link to it" },
-  { t: "Human review", d: "A person reads every page before it ships" },
-  { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
-];
-
 export default function Home() {
   return (
     <>
       <JsonLd data={SCHEMA} />
       <SiteHeader />
       <main>
-        {/* ============ 00 · HERO — the offer ============ */}
+        {/* ============ 00 · HERO — the hook and the thesis ============ */}
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
           <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 lg:pb-28 lg:pt-24">
             <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
               <div>
                 <span className="kicker rise">
-                  Done-for-you SEO pages
+                  Local SEO landing pages, done for you
                 </span>
                 <h1 className="display rise rise-1 mt-5 text-[2.5rem] leading-[1.03] text-ink sm:text-[3.35rem] lg:text-[3.8rem]">
-                  Give us a keyword.{" "}
-                  <span className="text-accent">Get a page built to rank.</span>
+                  Your next customer just asked AI who to call.{" "}
+                  <span className="text-accent">Be the answer.</span>
                 </h1>
                 <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
-                  Tell us the search you want to win. We research the results,
-                  write the page, and a person reviews it — engineered for
-                  Google and AI search, delivered to your inbox within{" "}
-                  {DELIVERY_HOURS} hours. {PRICE_LABEL}, once.
+                  Google and ChatGPT answer that question the same way: they
+                  read a page and repeat the clearest one they find. We build
+                  that page for your business. Researched, written, and
+                  structured for your town, in about two minutes, for{" "}
+                  {PRICE_LABEL}.
                 </p>
                 <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
-                  <BuyButton label={`Get my SEO page — ${PRICE_LABEL}`} />
-                  <a href="#what-you-get" className="btn btn-ghost btn-lg">
-                    See what&apos;s in it
+                  <a href={CREATE_URL} className="btn btn-accent btn-lg">
+                    Build my page
+                  </a>
+                  <a href="#shift" className="btn btn-ghost btn-lg">
+                    Read why it matters
                   </a>
                 </div>
                 <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> Researched &amp; human-reviewed
+                    <Dot /> Preview it free
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> In your inbox within {DELIVERY_HOURS} hours
+                    <Dot /> {PRICE_LABEL} once, no subscription
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> Ready-to-publish HTML, yours forever
+                    <Dot /> Yours to publish anywhere
                   </span>
                 </div>
               </div>
@@ -219,117 +189,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 01 · WHAT YOU GET — the receipt ============ */}
-        <section id="what-you-get" className="border-t border-line bg-surface-2">
+        {/* ============ 01 · THE SHIFT — context for the thesis ============ */}
+        <section id="shift" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="01" eyebrow="What you get" />
-            <div className="mt-12 grid items-start gap-12 lg:grid-cols-[0.9fr_1.1fr]">
-              <div>
-                <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                  Not an AI draft. A finished page.
-                </h2>
-                <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
-                  Plenty of tools will generate you some words. What lands in
-                  your inbox is the whole job — the research, the writing, the
-                  SEO structure, and a person&apos;s judgment — as one file you
-                  can publish immediately.
-                </p>
-                <p className="mt-4 max-w-md text-sm text-muted">
-                  {PRODUCT.satisfaction}
-                </p>
-              </div>
-              <div className="card overflow-hidden">
-                <div className="flex items-baseline justify-between border-b border-line px-6 py-4">
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                    Every order includes
-                  </span>
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                    {PRICE_LABEL}
-                  </span>
-                </div>
-                <ul className="divide-y divide-line">
-                  {DELIVERABLE.map((d) => (
-                    <li key={d.t} className="flex items-start gap-3.5 px-6 py-3.5">
-                      <Check sm />
-                      <div>
-                        <span className="text-[0.95rem] font-semibold text-ink">
-                          {d.t}
-                        </span>
-                        <span className="block text-[0.85rem] leading-relaxed text-muted">
-                          {d.d}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            <div className="mx-auto mt-16 max-w-3xl">
-              <p className="handoff">
-                That&apos;s the deliverable. Here&apos;s the process that turns
-                your keyword into it — and why it takes hours, not seconds.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 02 · HOW IT WORKS ============ */}
-        <section id="how" className="border-t border-line">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="02" eyebrow="How it works" />
-            <div className="mt-12 max-w-2xl">
-              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                Order. Brief. {DELIVERY_HOURS} hours later, it&apos;s in your
-                inbox.
-              </h2>
-            </div>
-            <div className="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  n: "01",
-                  t: "Place your order",
-                  d: `${PRICE_LABEL} through Stripe. No account, no subscription, no sales call.`,
-                },
-                {
-                  n: "02",
-                  t: "Tell us the page you need",
-                  d: "A 3-minute brief: your business, your target keyword, your competitors, what the page should achieve.",
-                },
-                {
-                  n: "03",
-                  t: "We research, write, and review",
-                  d: "Search-intent research, competitor analysis, structured writing, SEO checks — then a person reviews the finished page.",
-                },
-                {
-                  n: "04",
-                  t: "Delivered to your inbox",
-                  d: `Within ${DELIVERY_HOURS} hours: the finished page as ready-to-publish HTML, with publishing instructions.`,
-                },
-              ].map((s) => (
-                <div key={s.n} className="border-t border-line-strong pt-5">
-                  <span className="mono text-sm font-semibold text-accent">
-                    {s.n}
-                  </span>
-                  <h3 className="mt-2 text-lg font-semibold text-ink">{s.t}</h3>
-                  <p className="mt-1.5 text-[0.92rem] leading-relaxed text-ink-2">
-                    {s.d}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <div className="mx-auto mt-16 max-w-3xl">
-              <p className="handoff">
-                Why a page at all? Because the way people find businesses just
-                changed — and one well-built page is still the answer to it.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 03 · THE SHIFT — why this matters now ============ */}
-        <section id="shift" className="border-t border-line bg-surface-2">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="03" eyebrow="How people search now" />
+            <ChapterHead n="01" eyebrow="How people search now" />
             <div className="mx-auto mt-12 max-w-3xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
                 The search results page quietly stopped sending clicks.
@@ -337,15 +200,19 @@ export default function Home() {
               <div className="measure mt-8 space-y-6 text-[1.06rem] leading-[1.75] text-ink-2">
                 <p className="dropcap">
                   For twenty years, being found meant one thing: show up in the
-                  blue links. That era is ending faster than most businesses
-                  realize. Last year, 6% of consumers asked an AI tool to
-                  recommend a local business. This year it&apos;s 45%.
+                  blue links. That era is ending faster than most local
+                  businesses realize. Last year, 6% of consumers asked an AI
+                  tool to recommend a local business. This year it&apos;s 45%,
+                  which makes AI the third most-used source of local
+                  recommendations in America, ahead of Yelp.
                 </p>
                 <p>
                   Google itself changed just as much. Two thirds of local
                   searches now open with an AI-written answer above the
-                  results, and when that answer appears, clicks on the results
-                  below it nearly halve.
+                  results, and when that answer appears, clicks on the
+                  results below it nearly halve. Ask something specific, like
+                  what a roof repair costs in your city, and an AI answers
+                  first almost every time.
                 </p>
                 <p>
                   Here is the part that matters: neither Google&apos;s AI nor
@@ -357,6 +224,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* The evidence block: oversized numerals, cited. */}
             <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
               {STATS.map((s) => (
                 <div key={s.n} className="border-t border-line-strong pt-5">
@@ -373,24 +241,27 @@ export default function Home() {
 
             <div className="mx-auto mt-16 max-w-3xl">
               <p className="handoff">
-                So when a machine reads about your trade, is there a page about
-                you worth quoting? Here&apos;s what one looks like.
+                So the only question that matters has changed. It&apos;s no
+                longer &ldquo;where do I rank,&rdquo; but: when a machine reads
+                about your trade in your town, is there a page about you worth
+                quoting?
               </p>
             </div>
           </div>
         </section>
 
-        {/* ============ 04 · THE PAGE — what "worth quoting" looks like ============ */}
-        <section id="example" className="border-t border-line">
+        {/* ============ 02 · THE PAGE — what "worth quoting" looks like ============ */}
+        <section id="example" className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="04" eyebrow="What a citable page looks like" />
+            <ChapterHead n="02" eyebrow="What a citable page looks like" />
             <div className="mt-12 max-w-2xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
                 One page, built to be quoted.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
                 This is the actual shape of what we deliver. Five things make
-                it work, and they&apos;re the same five things most pages skip.
+                it work, and they&apos;re the same five things most landing
+                pages skip.
               </p>
             </div>
 
@@ -410,34 +281,99 @@ export default function Home() {
                 ))}
               </ol>
             </div>
+
+            <div className="mx-auto mt-16 max-w-3xl">
+              <p className="handoff">
+                Nothing on that page is exotic. It&apos;s the standard local
+                SEO playbook, done completely instead of almost. The
+                interesting part is how it gets made.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* ============ 05 · THE TURN — the one dark moment ============ */}
+        {/* ============ 03 · THE METHOD — the product itself ============ */}
+        <section id="how" className="border-t border-line">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="03" eyebrow="How it works" />
+            <div className="mt-12 grid items-center gap-14 lg:grid-cols-2">
+              <div>
+                <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+                  Three details in. A finished page out.
+                </h2>
+                <div className="mt-10 space-y-8">
+                  {[
+                    {
+                      n: "01",
+                      t: "Tell us about your business",
+                      d: "Your name, what you do, and where. That's the whole form. Add a keyword or a website if you have one; if not, the research fills the gaps.",
+                    },
+                    {
+                      n: "02",
+                      t: "We research and write the page",
+                      d: "Your local market, the keyword worth targeting, what buyers in your city actually want, and the questions they ask. Then the page is written around it, with the title tag, schema, and design handled.",
+                    },
+                    {
+                      n: "03",
+                      t: "Preview free, publish for " + PRICE_LABEL,
+                      d: "Read the whole finished page before paying anything. Happy with it? " + PRICE_LABEL + " unlocks the file, and it's yours forever.",
+                    },
+                  ].map((s) => (
+                    <div key={s.n} className="flex gap-5">
+                      <span className="mono pt-0.5 text-sm font-semibold text-accent">
+                        {s.n}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-ink">
+                          {s.t}
+                        </h3>
+                        <p className="mt-1.5 max-w-md text-[0.95rem] leading-relaxed text-ink-2">
+                          {s.d}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* The real product: the intake screen from create.seopage.com */}
+              <div className="pb-8 pr-1 sm:pr-7">
+                <IntakeMock />
+              </div>
+            </div>
+
+            <div className="mx-auto mt-20 max-w-3xl">
+              <p className="handoff">
+                The research is real research and the writing is real writing.
+                What changed isn&apos;t the work. It&apos;s what the work
+                costs.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 04 · THE TURN — the essay's pivot, its one dark moment ============ */}
         <section className="bg-ink text-white">
           <div className="mx-auto max-w-4xl px-5 py-24 text-center sm:px-8 lg:py-32">
             <p className="mono text-[11px] uppercase tracking-[0.16em] text-white/40">
               The turn
             </p>
             <p className="display mt-6 text-[2rem] leading-[1.12] sm:text-[2.7rem]">
-              Not an instant AI draft.
+              Being findable used to be a retainer.
               <br />
-              <span className="text-[#8b93f8]">
-                A researched page, reviewed by a person.
-              </span>
+              <span className="text-[#8b93f8]">Now it&apos;s a page.</span>
             </p>
             <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
-              Instant output is easy, and it reads that way. We take{" "}
-              {DELIVERY_HOURS} hours because research, structure, and review
-              are the difference between content and a page worth publishing.
+              Agencies bill monthly for the outcome a well-built page mostly
+              delivers on its own. We&apos;d rather just sell you the page.
             </p>
           </div>
         </section>
 
-        {/* ============ 06 · THE MATH — pricing, anchored ============ */}
+        {/* ============ 05 · THE MATH — pricing, anchored ============ */}
         <section id="pricing" className="border-b border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="05" eyebrow="What it costs" />
+            <ChapterHead n="04" eyebrow="What it costs" />
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
@@ -451,7 +387,7 @@ export default function Home() {
                 <div className="mt-8 max-w-md divide-y divide-line border-y border-line">
                   {[
                     ["SEO agency, per page", "$300–$1,000"],
-                    ["Freelance SEO writer, researched piece", "$175–$350"],
+                    ["Freelance landing page, average", "~$350"],
                     ["Landing page builder, and you still write it", "$768+/yr"],
                   ].map(([l, p]) => (
                     <div
@@ -465,20 +401,15 @@ export default function Home() {
                 </div>
 
                 <p className="mt-6 max-w-md text-sm text-muted">
-                  Ordering for an agency or in volume? Email{" "}
-                  <a
-                    href={`mailto:${PRODUCT.supportEmail}`}
-                    className="underline hover:text-ink"
-                  >
-                    {PRODUCT.supportEmail}
-                  </a>
-                  .
+                  {PRODUCT.satisfaction}
                 </p>
               </div>
 
               <div className="card overflow-hidden">
                 <div className="flex items-baseline justify-between border-b border-line px-7 py-6">
-                  <span className="font-semibold text-ink">SEO page</span>
+                  <span className="font-semibold text-ink">
+                    SEO landing page
+                  </span>
                   <div className="text-right">
                     <span className="display text-4xl text-ink">
                       {PRICE_LABEL}
@@ -489,12 +420,11 @@ export default function Home() {
                 <div className="p-7">
                   <ul className="space-y-3 text-[0.95rem] text-ink-2">
                     {[
-                      "One finished page for one target keyword",
-                      "Search-intent + competitor research",
+                      "One finished, SEO-optimized landing page",
+                      "Copy researched for your business and city",
                       "Title tag, meta description, and schema markup",
                       "An FAQ written to be quoted by AI search",
-                      "Human-reviewed before it ships",
-                      `Delivered within ${DELIVERY_HOURS} hours, yours forever`,
+                      "A complete, styled page in one file you own",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-3">
                         <Check sm />
@@ -502,14 +432,14 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  <div className="mt-7">
-                    <BuyButton
-                      label={`Get my SEO page — ${PRICE_LABEL}`}
-                      className="btn btn-accent btn-lg w-full"
-                    />
-                  </div>
+                  <a
+                    href={CREATE_URL}
+                    className="btn btn-accent btn-lg mt-7 w-full"
+                  >
+                    Build my page
+                  </a>
                   <p className="mt-3 text-center text-xs text-muted">
-                    Secure checkout by Stripe &middot; brief takes 3 minutes
+                    Preview free &middot; Secure checkout by Stripe
                   </p>
                 </div>
               </div>
@@ -517,10 +447,10 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 07 · OBJECTIONS — the questions, answered ============ */}
+        {/* ============ 06 · OBJECTIONS — the questions, answered ============ */}
         <section id="faq" className="bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 lg:pt-24">
-            <ChapterHead n="06" eyebrow="The questions, answered" />
+            <ChapterHead n="05" eyebrow="The questions, answered" />
           </div>
           <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8 lg:pb-24">
             <div className="mt-12">
@@ -562,42 +492,27 @@ export default function Home() {
                 </details>
               ))}
             </div>
-            <p className="mt-8 text-sm text-muted">
-              Curious what an SEO page actually is?{" "}
-              <Link href="/seo-page" className="underline hover:text-ink">
-                Read the full reference
-              </Link>{" "}
-              or see{" "}
-              <Link
-                href="/on-page-seo-services"
-                className="underline hover:text-ink"
-              >
-                how our on-page SEO service compares
-              </Link>
-              .
-            </p>
           </div>
         </section>
 
-        {/* ============ 08 · THE CLOSE ============ */}
+        {/* ============ 07 · THE CLOSE — conclusion, calling back to the thesis ============ */}
         <section className="border-t border-line">
           <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 lg:py-28">
             <span className="kicker">In conclusion</span>
             <h2 className="display mt-4 text-[2.1rem] leading-[1.05] text-ink sm:text-[2.8rem]">
-              Someone is searching for what you sell right now.{" "}
+              Someone nearby is asking for a business like yours right now.{" "}
               <span className="text-accent">Be the answer.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
               The way people search changed. The fix is still one well-built
-              page. Tell us the search you want to win — the finished page is
-              in your inbox within {DELIVERY_HOURS} hours.
+              page. Tell us about your business, read the finished page free,
+              and publish it for {PRICE_LABEL} if it earns it.
             </p>
-            <div className="mt-9 flex justify-center">
-              <BuyButton label={`Get my SEO page — ${PRICE_LABEL}`} />
-            </div>
+            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-9">
+              Build my page
+            </a>
             <p className="mt-4 text-sm text-muted">
-              {PRICE_LABEL} once &middot; researched &amp; human-reviewed
-              &middot; no subscription
+              About two minutes &middot; Preview free &middot; No subscription
             </p>
 
             {/* Footnotes — the essay cites its sources. */}
@@ -621,13 +536,6 @@ export default function Home() {
                 ))}
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* ============ Pre-footer — the email capture ============ */}
-        <section className="border-t border-line bg-surface-2">
-          <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8">
-            <EmailCapture />
           </div>
         </section>
       </main>

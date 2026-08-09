@@ -62,6 +62,37 @@ export type Generation = {
   stripeSessionId?: string;
 };
 
+/** Lifecycle of a paid done-for-you order. */
+export type OrderStatus = "awaiting_intake" | "in_progress" | "delivered";
+
+/**
+ * A paid pay-first order: created when Stripe confirms payment, enriched by
+ * the /order intake form, fulfilled by hand from /admin.
+ */
+export type Order = {
+  id: string;
+  stripeSessionId: string;
+  email: string;
+  status: OrderStatus;
+  createdAt: number;
+  deliveredAt?: number;
+  // The high-value intake, filled in after payment:
+  businessName?: string;
+  websiteUrl?: string;
+  targetKeyword?: string;
+  service?: string;
+  location?: string;
+  competitors?: string;
+  audience?: string;
+  goal?: "rank" | "leads" | "sales";
+  internalLinks?: string;
+  brandColor?: string;
+  phone?: string;
+  notes?: string;
+  // Fulfillment: the generation whose reviewed HTML gets delivered.
+  generationId?: string;
+};
+
 /** Public-facing view of a generation (never leaks full HTML until paid). */
 export type GenerationView = {
   id: string;

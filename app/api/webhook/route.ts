@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import type Stripe from "stripe";
 import { getStripe } from "@/lib/stripe";
-import { getGeneration, updateGeneration } from "@/lib/store";
+import {
+  getGeneration,
+  getOrderBySession,
+  newOrderId,
+  saveOrder,
+  updateGeneration,
+} from "@/lib/store";
+import { sendOrderAlert } from "@/lib/email";
 import { track } from "@/lib/analytics";
 
 export const runtime = "nodejs";
@@ -27,6 +34,26 @@ export async function POST(req: Request) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
+
+    // Pay-first orders: record the payment immediately so the order exists
+    // even if the buyer never returns to fill the intake form.
+    if (session.metadata?.kind === "direct-order") {
+      const existing = await getOrderBySession(session.id);
+      if (!existing) {
+        const order = {
+          id: newOrderId(),
+          stripeSessionId: session.id,
+          email: session.customer_details?.email || "",
+          status: "awaiting_intake" as const,
+          createdAt: Date.now(),
+        };
+        await saveOrder(order);
+        await track("payment_completed", { id: order.id, source: "webhook-direct" });
+        await sendOrderAlert(order);
+      }
+      return NextResponse.json({ received: true });
+    }
+
     const id = session.metadata?.generationId;
     if (id) {
       const gen = await getGeneration(id);

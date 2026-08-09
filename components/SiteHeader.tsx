@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Logo } from "./Logo";
-import { CREATE_URL } from "@/lib/config";
+import { BuyButton } from "./BuyButton";
+import { PRICE_LABEL } from "@/lib/config";
 
 export function SiteHeader() {
   return (
@@ -7,22 +9,23 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Logo />
         <nav className="hidden items-center gap-8 text-sm text-ink-2 md:flex">
-          <a href="/#shift" className="transition hover:text-ink">
-            Why now
-          </a>
-          <a href="/#example" className="transition hover:text-ink">
-            The page
-          </a>
-          <a href="/#how" className="transition hover:text-ink">
+          <Link href="/#what-you-get" className="transition hover:text-ink">
+            What you get
+          </Link>
+          <Link href="/#how" className="transition hover:text-ink">
             How it works
-          </a>
-          <a href="/#pricing" className="transition hover:text-ink">
+          </Link>
+          <Link href="/#pricing" className="transition hover:text-ink">
             Pricing
-          </a>
+          </Link>
+          <Link href="/#faq" className="transition hover:text-ink">
+            FAQ
+          </Link>
         </nav>
-        <a href={CREATE_URL} className="btn btn-primary btn-md">
-          Build my page
-        </a>
+        <BuyButton
+          label={`Get my page — ${PRICE_LABEL}`}
+          className="btn btn-primary btn-md"
+        />
       </div>
     </header>
   );

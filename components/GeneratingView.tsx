@@ -51,26 +51,30 @@ export function GeneratingView({
   // is bumped to the floor the moment a new step starts.
   const [pct, setPct] = useState(6);
   const ceilRef = useRef(ceil);
-  ceilRef.current = ceil;
+  useEffect(() => {
+    ceilRef.current = ceil;
+  }, [ceil]);
 
-  // Trickle: always moving, decelerating as it nears the band ceiling.
+  // Trickle: always moving, decelerating as it nears the band ceiling. The
+  // interval also enforces the milestone floor so progress never sits below
+  // the current band after a step advances.
+  const floorRef = useRef(floor);
+  useEffect(() => {
+    floorRef.current = floor;
+  }, [floor]);
   useEffect(() => {
     if (error) return;
     const t = setInterval(() => {
       setPct((d) => {
+        const base = Math.max(d, floorRef.current);
         const target = ceilRef.current;
-        if (d >= target) return d;
-        const next = d + Math.max((target - d) * 0.05, 0.12);
+        if (base >= target) return base;
+        const next = base + Math.max((target - base) * 0.05, 0.12);
         return Math.min(next, target);
       });
     }, 200);
     return () => clearInterval(t);
   }, [error]);
-
-  // Milestone jump: never go backward.
-  useEffect(() => {
-    setPct((d) => Math.max(d, floor));
-  }, [floor]);
 
   const [tip, setTip] = useState(0);
   useEffect(() => {
