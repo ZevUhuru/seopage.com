@@ -240,7 +240,10 @@ export default function AuditPage() {
           <div className="mx-auto max-w-3xl px-5 pb-14 pt-16 text-center sm:px-8 lg:pb-16 lg:pt-24">
             <h1 className="kicker rise">SEO page audit</h1>
             <p className="display rise rise-1 mx-auto mt-5 text-balance text-[2.2rem] leading-[1.05] text-ink sm:text-[3rem]">
-              Find out why your page isn&apos;t the answer.
+              Find out why{" "}
+              <span className="text-[#d92d20]">
+                your page isn&apos;t being cited.
+              </span>
             </p>
             <p className="rise rise-2 mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
               Send us one page and the search you want it to win. A person reads
