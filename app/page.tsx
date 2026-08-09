@@ -182,11 +182,15 @@ export default function Home() {
                 <span className="kicker rise">
                   AI is already answering for your market
                 </span>
-                <h1 className="display rise rise-1 mt-5 text-[2.5rem] leading-[1.03] text-ink sm:text-[3.35rem] lg:text-[3.8rem]">
-                  Customers are asking AI who to hire.{" "}
-                  {/* The threat is red; blue stays reserved for the rescue (CTA). */}
+                {/* Forced 4-line shape on sm+ (natural wrap on mobile).
+                    The threat is red; blue stays reserved for the rescue (CTA). */}
+                <h1 className="display rise rise-1 mt-5 text-[2.5rem] leading-[1.03] text-ink sm:text-[3.2rem] lg:text-[3.5rem]">
+                  Customers are asking <br className="hidden sm:inline" />
+                  AI who to hire.{" "}
                   <span className="text-[#d92d20]">
-                    It&apos;s recommending your competitor.
+                    <br className="hidden sm:inline" />
+                    It&apos;s recommending <br className="hidden sm:inline" />
+                    your competitor.
                   </span>
                 </h1>
                 <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
