@@ -250,7 +250,12 @@ export default function AuditPage() {
               it against the results that are beating you and emails you what
               is actually wrong, within {AUDIT_HOURS} hours. Free.
             </p>
-            <p className="rise rise-3 mono mt-6 text-[0.72rem] uppercase tracking-[0.14em] text-muted">
+            <div className="rise rise-3 mt-9 flex justify-center">
+              <a href="#free-audit" className="btn btn-accent btn-lg">
+                Get My Free SEO Page Audit
+              </a>
+            </div>
+            <p className="rise rise-4 mono mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-muted">
               {CHECK_COUNT}-point audit &middot; human-reviewed &middot; no
               account, no card
             </p>
