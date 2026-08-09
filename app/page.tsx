@@ -369,7 +369,7 @@ export default function Home() {
                     {
                       n: "02",
                       t: "Tell us the search you want to win",
-                      d: "A 3-minute brief: your business, your target keyword, your competitors.",
+                      d: "A 5-minute brief: your business, your market, your goal, and what a customer should do on the page.",
                     },
                     {
                       n: "03",
@@ -491,7 +491,7 @@ export default function Home() {
                     />
                   </div>
                   <p className="mt-3 text-center text-xs text-muted">
-                    Secure checkout by Stripe &middot; brief takes 3 minutes
+                    Secure checkout by Stripe &middot; brief takes 5 minutes
                     &middot; revise-or-refund guarantee
                   </p>
                 </div>

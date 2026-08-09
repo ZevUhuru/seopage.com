@@ -17,7 +17,13 @@ export async function POST(req: Request) {
     );
   }
 
-  let body: { email?: string; websiteUrl?: string; targetKeyword?: string };
+  let body: {
+    email?: string;
+    websiteUrl?: string;
+    targetKeyword?: string;
+    businessName?: string;
+    location?: string;
+  };
   try {
     body = await req.json();
   } catch {
@@ -33,6 +39,8 @@ export async function POST(req: Request) {
     email,
     websiteUrl: body.websiteUrl?.trim().slice(0, 500) || undefined,
     targetKeyword: body.targetKeyword?.trim().slice(0, 200) || undefined,
+    businessName: body.businessName?.trim().slice(0, 200) || undefined,
+    location: body.location?.trim().slice(0, 200) || undefined,
     createdAt: Date.now(),
   });
   await track("intake_started", { source: "email_capture", email });

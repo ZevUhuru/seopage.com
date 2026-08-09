@@ -79,12 +79,24 @@ export type Order = {
   // The high-value intake, filled in after payment:
   businessName?: string;
   websiteUrl?: string;
+  industry?: string;
+  usp?: string;
   targetKeyword?: string;
   service?: string;
   location?: string;
+  serviceArea?: string;
   competitors?: string;
   audience?: string;
-  goal?: "rank" | "leads" | "sales";
+  goal?: "rank" | "leads" | "sales" | "authority";
+  conversionAction?:
+    | "call"
+    | "book"
+    | "form"
+    | "email_optin"
+    | "buy"
+    | "visit";
+  conversionTarget?: string;
+  tone?: string;
   internalLinks?: string;
   brandColor?: string;
   phone?: string;

@@ -12,6 +12,8 @@ export function EmailCapture() {
   const [email, setEmail] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [targetKeyword, setTargetKeyword] = useState("");
+  const [businessName, setBusinessName] = useState("");
+  const [location, setLocation] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -28,7 +30,13 @@ export function EmailCapture() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, websiteUrl, targetKeyword }),
+        body: JSON.stringify({
+          email,
+          websiteUrl,
+          targetKeyword,
+          businessName,
+          location,
+        }),
       });
       const data = (await res.json().catch(() => ({}))) as { error?: string };
       if (!res.ok) throw new Error(data.error || "Something went wrong.");
@@ -84,6 +92,20 @@ export function EmailCapture() {
           placeholder="emergency roof repair Denver"
           value={targetKeyword}
           onChange={setTargetKeyword}
+        />
+        <Field
+          label="Business name"
+          badge="Optional"
+          placeholder="Summit Roofing Co."
+          value={businessName}
+          onChange={setBusinessName}
+        />
+        <Field
+          label="City / area you serve"
+          badge="Optional"
+          placeholder="Denver, CO"
+          value={location}
+          onChange={setLocation}
         />
       </div>
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
