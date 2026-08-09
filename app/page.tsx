@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -55,7 +54,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Does it help me show up in ChatGPT and AI search?",
-    a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote, and our own sites carry dozens of AI citations built the same way.",
+    a: "Every page is engineered for Google and AI search: clear, quotable answers, an FAQ section with matching FAQPage schema, and specific facts AI assistants can cite. Nobody can honestly guarantee a placement inside an AI answer — what we can do is build the kind of page those systems read and quote.",
   },
   {
     q: "What if I don't like the page?",
@@ -172,27 +171,6 @@ const DELIVERABLE: { t: string; d: string }[] = [
   { t: "Internal-link suggestions", d: "Where the page should link, and what should link to it" },
   { t: "Human review", d: "A person reads every page before it ships" },
   { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
-];
-
-/* Real receipts: Ahrefs AI-citation reports for our own sites. */
-const RECEIPTS: {
-  src: string;
-  alt: string;
-  site: string;
-  stat: string;
-}[] = [
-  {
-    src: "/proof/esy-ai-citations.png",
-    alt: "Ahrefs AI citations report for esy.com showing 37 ChatGPT citations across 20 pages",
-    site: "esy.com",
-    stat: "37 ChatGPT citations across 20 pages",
-  },
-  {
-    src: "/proof/clipart-ai-citations.png",
-    alt: "Ahrefs AI citations report for clip.art showing 12 ChatGPT citations",
-    site: "clip.art",
-    stat: "12 ChatGPT citations, growing month over month",
-  },
 ];
 
 export default function Home() {
@@ -437,48 +415,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 04 · PROOF — receipts, not promises ============ */}
-        <section id="proof" className="border-t border-line bg-surface-2">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="03" eyebrow="Receipts, not promises" />
-            <div className="mt-12 max-w-2xl">
-              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                We eat this cooking. AI already cites our pages.
-              </h2>
-              <p className="mt-4 text-lg leading-relaxed text-ink-2">
-                These are Ahrefs AI-citation reports for two sites we run
-                ourselves — built with the same research-first workflow that
-                builds your page. Not client mockups. Our own receipts.
-              </p>
-            </div>
-
-            <div className="mt-12 grid gap-8 lg:grid-cols-2">
-              {RECEIPTS.map((r) => (
-                <figure key={r.site} className="card overflow-hidden">
-                  <div className="frame-offset overflow-hidden border-b border-line">
-                    <Image
-                      src={r.src}
-                      alt={r.alt}
-                      width={1024}
-                      height={403}
-                      className="w-full"
-                    />
-                  </div>
-                  <figcaption className="flex items-baseline justify-between gap-4 px-6 py-4">
-                    <span className="font-semibold text-ink">{r.site}</span>
-                    <span className="text-sm text-ink-2">{r.stat}</span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-            <p className="mono mt-6 text-[0.68rem] uppercase tracking-[0.12em] text-muted">
-              Source: Ahrefs Site Explorer, AI citations panel · our own
-              properties
-            </p>
-          </div>
-        </section>
-
-        {/* ============ 05 · OFFER — price, anchored, de-risked ============ */}
+        {/* ============ 04 · OFFER — price, anchored, de-risked ============ */}
         <section id="pricing" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
             <ChapterHead n="04" eyebrow="The offer" />
@@ -575,7 +512,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 06 · OBJECTIONS — the questions, answered ============ */}
+        {/* ============ 05 · OBJECTIONS — the questions, answered ============ */}
         <section id="faq" className="bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 lg:pt-24">
             <ChapterHead n="05" eyebrow="The questions, answered" />
@@ -637,7 +574,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 07 · THE CLOSE ============ */}
+        {/* ============ 06 · THE CLOSE ============ */}
         <section className="border-t border-line">
           <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 lg:py-28">
             <span className="kicker">In conclusion</span>
