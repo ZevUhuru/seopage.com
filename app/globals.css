@@ -407,6 +407,11 @@ body {
   color: var(--line-strong);
   font-variant-numeric: tabular-nums;
 }
+/* The significant digit. The leading zero is padding and stays quiet; this is
+   the part a reader actually counts with. */
+.folio-n {
+  color: var(--accent);
+}
 
 /* The stage's opening note, in the reading serif. */
 .stage-note {

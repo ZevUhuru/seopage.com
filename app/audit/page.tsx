@@ -382,8 +382,10 @@ export default function AuditPage() {
 
                 <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,21rem)_1fr] lg:gap-16">
                   <div className="lg:sticky lg:top-24 lg:self-start">
+                    {/* The padding zero stays at line weight; the digit that
+                        actually counts takes the accent. */}
                     <span className="folio block" aria-hidden>
-                      {String(gi + 1).padStart(2, "0")}
+                      0<span className="folio-n">{gi + 1}</span>
                     </span>
                     <h3 className="display mt-4 text-balance text-[1.55rem] leading-[1.12] text-ink sm:text-[1.85rem]">
                       {group.group}
