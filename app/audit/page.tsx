@@ -244,7 +244,7 @@ function Tick() {
       height="13"
       viewBox="0 0 24 24"
       fill="none"
-      className="mt-[0.42rem] shrink-0 text-accent"
+      className="mt-[0.42rem] shrink-0 text-good"
       aria-hidden
     >
       <path
