@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -403,7 +404,57 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ 04 · OFFER — price, anchored, de-risked ============ */}
+        {/* ============ 04 · THE PERSON — who reviews your page ============ */}
+        <section id="founder" className="border-t border-line bg-surface-2">
+          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
+            <ChapterHead n="03" eyebrow="Who's behind it" />
+            <div className="mx-auto mt-12 grid max-w-4xl items-center gap-10 sm:grid-cols-[auto_1fr]">
+              <div className="mx-auto text-center">
+                <Image
+                  src="/founder-zev-uhuru.png"
+                  alt="Zev Uhuru, founder of SEOPage"
+                  width={176}
+                  height={176}
+                  className="h-44 w-44 rounded-full border-2 border-accent object-cover"
+                />
+              </div>
+              <div>
+                <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
+                  A note from the founder
+                </p>
+                <p className="mt-4 text-[1.25rem] leading-[1.6] text-ink [font-family:Georgia,'Times_New_Roman',serif] sm:text-[1.4rem]">
+                  I&apos;ve built landing pages professionally for over a
+                  decade — for Vroom.com, fubo.tv, and my own products.
+                  SEOPage is that craft turned into a service: research-first
+                  workflows do the heavy lifting, and I personally review
+                  every page before it ships. If it isn&apos;t a page
+                  I&apos;d publish myself, it doesn&apos;t go out.
+                </p>
+                <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
+                  <div>
+                    <p className="font-semibold text-ink">Zev Uhuru</p>
+                    <p className="text-sm text-muted">
+                      Founder &middot; reviews every page
+                    </p>
+                  </div>
+                  <a
+                    href="https://linkedin.com/in/zevuhuru"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Zev Uhuru on LinkedIn"
+                    className="grid h-10 w-10 place-items-center rounded-lg border border-line text-ink-2 transition hover:border-accent hover:text-accent"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ 05 · OFFER — price, anchored, de-risked ============ */}
         <section id="pricing" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
             <ChapterHead n="04" eyebrow="The offer" />
