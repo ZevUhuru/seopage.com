@@ -420,6 +420,7 @@ export default function Home() {
                     className="h-full w-full scale-[1.35] translate-x-2 translate-y-4 object-cover"
                   />
                 </div>
+                <p className="mt-3 text-sm text-muted">Building in NYC</p>
               </div>
               <div>
                 <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
