@@ -10,6 +10,13 @@ export const PRICE_LABEL = `$${PRICE_USD}`;
 export const DELIVERY_HOURS = 3;
 export const DELIVERY_LABEL = `within ${DELIVERY_HOURS} hours`;
 
+/**
+ * The free page audit is the top of the funnel, not the product. It gets a
+ * slower promise than a paid order on purpose: paying customers own the
+ * 3-hour queue, and a free audit must never be the reason one slips.
+ */
+export const AUDIT_HOURS = 24;
+
 export const PRODUCT = {
   name: "SEOPage",
   // Statement descriptor shown on the customer's card. Stripe limits this to

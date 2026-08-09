@@ -23,6 +23,7 @@ export async function POST(req: Request) {
     targetKeyword?: string;
     businessName?: string;
     location?: string;
+    source?: string;
   };
   try {
     body = await req.json();
@@ -35,15 +36,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Enter a valid email." }, { status: 400 });
   }
 
+  const source = body.source?.trim().slice(0, 40) || "email_capture";
+
   await addEmailLead({
     email,
     websiteUrl: body.websiteUrl?.trim().slice(0, 500) || undefined,
     targetKeyword: body.targetKeyword?.trim().slice(0, 200) || undefined,
     businessName: body.businessName?.trim().slice(0, 200) || undefined,
     location: body.location?.trim().slice(0, 200) || undefined,
+    source,
     createdAt: Date.now(),
   });
-  await track("intake_started", { source: "email_capture", email });
+  await track("intake_started", { source, email });
 
   return NextResponse.json({ ok: true });
 }

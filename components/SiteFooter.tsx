@@ -20,6 +20,9 @@ export function SiteFooter() {
           >
             Get my SEO page · {PRICE_LABEL}
           </Link>
+          <Link href="/audit" className="hover:text-ink">
+            Free SEO page audit
+          </Link>
           <Link href="/on-page-seo-services" className="hover:text-ink">
             On-page SEO services
           </Link>
