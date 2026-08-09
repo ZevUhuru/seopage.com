@@ -256,8 +256,10 @@ export default function Home() {
             <ChapterHead n="01" eyebrow="What it's costing you" />
             <div className="mx-auto mt-12 max-w-2xl text-center">
               <h2 className="display reveal text-balance text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                Every day the answer isn&apos;t you, the customer calls someone
-                else.
+                Every day the answer isn&apos;t you,{" "}
+                <span className="text-[#d92d20]">
+                  your customer calls someone else.
+                </span>
               </h2>
             </div>
 
@@ -288,7 +290,7 @@ export default function Home() {
             <p className="display mx-auto mt-16 max-w-3xl text-balance text-center text-[1.6rem] leading-[1.2] text-ink sm:text-[2rem]">
               You&apos;re not losing to a better business.{" "}
               <span className="text-[#d92d20]">
-                You&apos;re losing to a better page.
+                You&apos;re losing to a better SEO page.
               </span>
             </p>
 
