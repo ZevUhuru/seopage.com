@@ -239,22 +239,20 @@ const SCHEMA = {
  */
 function Tick() {
   return (
-    <svg
-      width="13"
-      height="13"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="mt-[0.42rem] shrink-0 text-good"
+    <span
+      className="mt-[0.12rem] grid h-[1.35rem] w-[1.35rem] shrink-0 place-items-center rounded-full border border-line bg-surface text-good shadow-xs"
       aria-hidden
     >
-      <path
-        d="M4 12.5 9.5 18 20 6"
-        stroke="currentColor"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path
+          d="M4 12.5 9.5 18 20 6"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </span>
   );
 }
 
@@ -373,9 +371,9 @@ export default function AuditPage() {
                   <p className="mt-3 max-w-[58ch] text-[0.9rem] leading-relaxed text-muted">
                     {group.note}
                   </p>
-                  <ul className="mt-5 max-w-[64ch] space-y-2">
+                  <ul className="mt-5 max-w-[64ch] space-y-2.5">
                     {group.items.map((item) => (
-                      <li key={item.k} className="flex gap-2.5">
+                      <li key={item.k} className="flex gap-3">
                         <Tick />
                         <p className="text-[0.95rem] leading-[1.55] text-ink-2">
                           <span className="font-semibold text-ink">
