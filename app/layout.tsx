@@ -19,7 +19,7 @@ const display = Archivo({
   weight: ["600", "700", "800"],
 });
 
-const TITLE = "SEO Pages, Done For You — Built to Rank on Google & Get Cited by AI | SEOPage";
+const TITLE = "SEO Pages That Get Cited by AI and Rank on Google | SEOPage";
 const DESCRIPTION =
   "An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. $99 per page, delivered within 3 hours.";
 

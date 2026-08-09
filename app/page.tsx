@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   // Primary keyword ("SEO pages") front-loaded per title-tag guidance;
   // the template appends "| SEOPage".
   title: {
-    absolute: `SEO Pages, Done For You — Built to Rank on Google & Get Cited by AI | SEOPage`,
+    absolute: `SEO Pages That Get Cited by AI and Rank on Google | SEOPage`,
   },
   description: `An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
@@ -192,7 +192,7 @@ export default function Home() {
                 by design — heading weight comes from the tag, not the font size.
                 The fear line stays visually dominant below it. */}
             <h1 className="kicker rise">
-              SEO pages, done for you — built to be cited by AI
+              SEO pages that get cited by AI
             </h1>
             {/* The threat is red; blue stays reserved for the rescue (CTA). */}
             <p className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
