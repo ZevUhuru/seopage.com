@@ -1,32 +1,98 @@
 # SEOPage
 
-> SEOPage (seopage.com) sells done-for-you SEO pages. A customer gives us a
-> target keyword; we research the search results, write the page, structure it
-> for search engines, review it by hand, and deliver one ready-to-publish HTML
-> file — within 3 hours, for $99 per page.
+> SEOPage (seopage.com) builds done-for-you SEO pages. You name the search you
+> want to win; we research the results, write the page, structure it for search
+> engines and AI assistants, review it by hand, and deliver one ready-to-publish
+> HTML file. $99 per page, in your inbox within 3 hours. We also run a free,
+> human-reviewed SEO page audit of a page you already have.
 
-Key facts:
-- Product: one finished SEO page per order (not software, not an audit, not a draft)
-- Price: $99 per page, one-time; no subscription
-- Delivery: emailed within 3 hours of ordering
-- Every page includes: search-intent research, competitor analysis, title tag,
-  meta description, H1–H3 structure, full written copy, an FAQ section,
-  schema markup, internal-link recommendations, and human review
-- Pages are engineered for both Google rankings and AI search citations
-  (ChatGPT, Perplexity, Google AI Overviews)
-- Audience: local businesses, small businesses, SaaS, and agencies (white-label
-  and volume orders via support@seopage.com)
+## Definitions
+
+**What is an SEO page?** An SEO page is a web page engineered to win one
+specific search. It targets a single keyword with a matching title tag, meta
+description, heading structure, content written for the search intent, and
+schema markup, so search engines can rank it and AI assistants can cite it.
+
+**What is an SEO page audit?** An SEO page audit is a review of one web page
+against the specific search it is trying to win: whether it matches the intent
+behind the query, whether it covers what the ranking pages cover, whether the
+title tag, meta description, headings, URL, and schema are correct, and whether
+search engines and AI assistants can crawl, understand, and quote it. A site
+audit looks at hundreds of pages shallowly; a page audit looks at one page
+properly.
+
+**What is on-page SEO?** On-page SEO covers the elements that live on the page
+itself: content, title tag, meta description, headings, internal links, images,
+URL structure, and structured data. Off-page SEO covers signals from other
+sites, chiefly backlinks.
+
+## Services
+
+- **Done-for-you SEO page** — $99 per page, one-time, no subscription.
+  Delivered within 3 hours as a single self-contained HTML file that is yours
+  forever. Includes search-intent research, competitor analysis, a
+  keyword-focused title tag and meta description, H1–H3 structure, the full
+  written page, an FAQ section written to be quoted, schema markup,
+  internal-link recommendations, an llms.txt file, an AI-crawler access check,
+  and human review by the founder. Revise-or-refund guarantee.
+- **Free SEO page audit** — one page, one target search, reviewed by a person,
+  emailed within 24 hours. No account, no card. 29 checks across search intent,
+  the elements search engines read, the content, AI citation readiness, and
+  technical fundamentals.
 
 ## Pages
 
-- [Home — Done-for-you SEO pages](https://seopage.com/): the offer, what's
-  included, how it works, pricing, and FAQ
+- [Home — SEO pages that get cited by AI](https://seopage.com/): the offer,
+  what a finished SEO page includes, how it works, pricing, and FAQ
+- [SEO page audit — free, human-reviewed](https://seopage.com/audit): what an
+  SEO page audit is, the full 29-point checklist we run, plus how to do an
+  on-page SEO audit yourself in five steps, and a free audit request
 - [On-page SEO services](https://seopage.com/on-page-seo-services): what
-  on-page SEO services include, what they cost, and how a done-for-you page
-  compares to audits and tools
-- [What is an SEO landing page?](https://seopage.com/seo-page): reference
-  guide — anatomy, types, history, and how AI search changed SEO pages
+  on-page SEO services include, what agencies and freelancers charge, and how a
+  done-for-you page compares to audits and monitoring tools
+- [What is an SEO landing page?](https://seopage.com/seo-page): reference guide
+  — anatomy, types, history, and how AI search changed SEO landing pages
+
+## Also known as
+
+People search for this work under many names. All of them describe what SEOPage
+does:
+
+- SEO page
+- SEO pages
+- SEO landing page
+- SEO page audit
+- on-page SEO audit
+- on-page SEO audit checklist
+- on-page SEO services
+- done-for-you SEO page
+- SEO page creation
+- answer engine optimization (AEO)
+- generative engine optimization (GEO)
+
+## Approach
+
+- Pages are built for two surfaces at once: ranking on Google, and being quoted
+  by AI assistants (ChatGPT, Perplexity, Google AI Overviews, Claude).
+- What earns an AI citation: self-contained passages that still make sense
+  lifted out of the page, specific checkable facts rather than adjectives, an
+  FAQ block with matching FAQPage structured data, clear entity markup, and a
+  robots.txt that does not block GPTBot, ClaudeBot, PerplexityBot, or
+  Google-Extended.
+- On llms.txt specifically: we ship one with every page because it costs
+  nothing, but as of 2026 no major AI company has committed to reading llms.txt
+  in production, and Google's own guidance says it is not used for AI Overviews
+  or AI Mode. Anyone selling llms.txt as the reason you will get cited is
+  overselling it.
+- Every page is reviewed by Zev Uhuru, who has built landing pages
+  professionally for over a decade for vroom.com, fubo.tv, and esy.com.
+
+## Audience
+
+Local and small businesses, service businesses, SaaS companies, and agencies.
+White-label and volume orders are available: email support@seopage.com.
 
 ## Contact
 
 - support@seopage.com
+- https://seopage.com
