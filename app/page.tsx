@@ -256,8 +256,10 @@ export default function Home() {
             <ChapterHead n="01" eyebrow="What it's costing you" />
             <div className="mx-auto mt-12 max-w-2xl text-center">
               <h2 className="display reveal text-balance text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                Every day the answer isn&apos;t you, the customer calls someone
-                else.
+                Every day the answer isn&apos;t you,{" "}
+                <span className="text-[#d92d20]">
+                  your customer calls someone else.
+                </span>
               </h2>
             </div>
 
