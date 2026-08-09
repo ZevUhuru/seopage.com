@@ -242,7 +242,7 @@ export default function AuditPage() {
             <p className="display rise rise-1 mx-auto mt-5 text-balance text-[2.2rem] leading-[1.05] text-ink sm:text-[3rem]">
               Find out why{" "}
               <span className="text-[#d92d20]">
-                your page isn&apos;t being cited.
+                your page isn&apos;t being cited by AI.
               </span>
             </p>
             <p className="rise rise-2 mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-2">
