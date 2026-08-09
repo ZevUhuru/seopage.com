@@ -23,15 +23,19 @@ import {
    ================================================================ */
 
 export const metadata: Metadata = {
-  title: `Get Cited by AI Search — Done-For-You SEO Pages, ${PRICE_LABEL} in ${DELIVERY_HOURS} Hours`,
-  description: `AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`,
+  // Primary keyword ("SEO pages") front-loaded per title-tag guidance;
+  // the template appends "| SEOPage".
+  title: {
+    absolute: `SEO Pages, Done For You — Built to Rank on Google & Get Cited by AI | SEOPage`,
+  },
+  description: `An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
 };
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What is a done-for-you SEO page?",
-    a: `A done-for-you SEO page is a finished web page built to rank for one target keyword and get cited by AI search, delivered ready to publish. You tell us the search you want to win; we research the results, write the page, structure it for search engines, and review it by hand. You receive one complete HTML file — copy, title tag, meta description, headings, FAQ, and schema markup included — not a draft you still have to fix.`,
+    q: "What is an SEO page?",
+    a: `An SEO page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. Ours are done for you: you name the search, we research the results, write the page, review it by hand, and deliver one complete ready-to-publish HTML file — not a draft you still have to fix.`,
   },
   {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
@@ -184,18 +188,21 @@ export default function Home() {
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
           <div className="mx-auto max-w-4xl px-5 pb-16 pt-20 text-center sm:px-8 lg:pb-20 lg:pt-28">
-            <span className="kicker rise">
-              AI is already answering for your market
-            </span>
+            {/* The kicker is the real H1: primary keyword near the front, small
+                by design — heading weight comes from the tag, not the font size.
+                The fear line stays visually dominant below it. */}
+            <h1 className="kicker rise">
+              SEO pages, done for you — built to be cited by AI
+            </h1>
             {/* The threat is red; blue stays reserved for the rescue (CTA). */}
-            <h1 className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
+            <p className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
               Customers are asking AI who to hire.{" "}
               <span className="text-[#d92d20]">
                 It&apos;s recommending your competitor.
               </span>
-            </h1>
+            </p>
             <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              We build the page that puts you in the answer — researched,
+              We build the SEO page that puts you in the answer — researched,
               human-reviewed, in your inbox within {DELIVERY_HOURS} hours.
             </p>
             <div className="rise rise-3 mt-9 flex justify-center">
@@ -305,7 +312,7 @@ export default function Home() {
             <ChapterHead n="02" eyebrow="The fix" />
             <div className="mt-12 max-w-2xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                One page, built to be the answer.
+                One SEO page, built to be the answer.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
                 Five things make a page quotable. Most websites skip all five.
@@ -464,7 +471,7 @@ export default function Home() {
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                  One page. One price. Once.
+                  One SEO page. One price. Once.
                 </h2>
                 <p className="mt-4 max-w-md text-lg leading-relaxed text-ink-2">
                   For context, here&apos;s what this exact deliverable costs
