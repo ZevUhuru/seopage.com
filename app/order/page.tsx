@@ -111,7 +111,7 @@ export default async function OrderPage({
                 Tell us about the page you need.
               </h1>
               <p className="mt-3 text-lg text-ink-2">
-                This brief takes about 3 minutes. The more you give us, the
+                This brief takes about 5 minutes. The more you give us, the
                 stronger the page — then research, writing, and review start
                 immediately.
               </p>

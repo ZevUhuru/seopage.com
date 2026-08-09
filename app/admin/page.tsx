@@ -230,12 +230,22 @@ function PayFirstOrderDetail({
           <Field label="Email" value={order.email || "—"} />
           <Field label="Stripe session" value={order.stripeSessionId} mono />
           {order.targetKeyword && <Field label="Target keyword" value={order.targetKeyword} />}
+          {order.industry && <Field label="Industry" value={order.industry} />}
           {order.service && <Field label="Offer" value={order.service} />}
+          {order.usp && <Field label="USP" value={order.usp} />}
           {order.websiteUrl && <Field label="Website" value={order.websiteUrl} />}
           {order.location && <Field label="Location" value={order.location} />}
+          {order.serviceArea && <Field label="Service area" value={order.serviceArea} />}
           {order.competitors && <Field label="Competitors" value={order.competitors} />}
           {order.audience && <Field label="Audience" value={order.audience} />}
           {order.goal && <Field label="Goal" value={order.goal} />}
+          {order.conversionAction && (
+            <Field label="Conversion" value={order.conversionAction} />
+          )}
+          {order.conversionTarget && (
+            <Field label="Conv. target" value={order.conversionTarget} />
+          )}
+          {order.tone && <Field label="Tone" value={order.tone} />}
           {order.internalLinks && <Field label="Link to pages" value={order.internalLinks} />}
           {order.brandColor && <Field label="Brand color" value={order.brandColor} />}
           {order.phone && <Field label="Phone" value={order.phone} />}

@@ -47,32 +47,52 @@ export async function POST(req: Request) {
 
   const email = clean(body.email);
   const businessName = clean(body.businessName);
+  const industry = clean(body.industry);
   const targetKeyword = clean(body.targetKeyword);
   const service = clean(body.service);
   if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
     return NextResponse.json({ error: "A valid delivery email is required." }, { status: 400 });
   }
-  if (!businessName || !targetKeyword || !service) {
+  if (!businessName || !industry || !targetKeyword || !service) {
     return NextResponse.json(
-      { error: "Business name, target keyword, and offer are required." },
+      { error: "Business name, industry, target keyword, and offer are required." },
       { status: 400 },
     );
   }
 
   const goalRaw = clean(body.goal);
+  const conversionRaw = clean(body.conversionAction);
+  const GOALS = ["rank", "leads", "sales", "authority"] as const;
+  const CONVERSIONS = [
+    "call",
+    "book",
+    "form",
+    "email_optin",
+    "buy",
+    "visit",
+  ] as const;
   const updated = await updateOrder(order.id, {
     email,
     businessName,
+    industry,
     targetKeyword,
     service,
+    usp: clean(body.usp),
     websiteUrl: clean(body.websiteUrl),
     location: clean(body.location),
+    serviceArea: clean(body.serviceArea),
     competitors: clean(body.competitors),
     audience: clean(body.audience),
-    goal:
-      goalRaw === "rank" || goalRaw === "leads" || goalRaw === "sales"
-        ? goalRaw
-        : undefined,
+    goal: GOALS.includes(goalRaw as (typeof GOALS)[number])
+      ? (goalRaw as (typeof GOALS)[number])
+      : undefined,
+    conversionAction: CONVERSIONS.includes(
+      conversionRaw as (typeof CONVERSIONS)[number],
+    )
+      ? (conversionRaw as (typeof CONVERSIONS)[number])
+      : undefined,
+    conversionTarget: clean(body.conversionTarget),
+    tone: clean(body.tone),
     internalLinks: clean(body.internalLinks),
     brandColor: clean(body.brandColor),
     phone: clean(body.phone),

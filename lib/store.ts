@@ -306,6 +306,8 @@ export type EmailLead = {
   email: string;
   websiteUrl?: string;
   targetKeyword?: string;
+  businessName?: string;
+  location?: string;
   createdAt: number;
 };
 

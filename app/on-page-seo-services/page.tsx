@@ -100,7 +100,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How fast is delivery?",
-    a: `Within ${DELIVERY_HOURS} hours of your order. After checkout you fill out a 3-minute brief; research and writing start immediately, a person reviews the result, and the finished page lands in your inbox.`,
+    a: `Within ${DELIVERY_HOURS} hours of your order. After checkout you fill out a 5-minute brief; research and writing start immediately, a person reviews the result, and the finished page lands in your inbox.`,
   },
   {
     q: "Does on-page SEO still matter for AI search?",
