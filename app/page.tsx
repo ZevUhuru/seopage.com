@@ -202,8 +202,9 @@ export default function Home() {
               </span>
             </p>
             <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              We build the SEO page that puts you in the answer — researched,
-              human-reviewed, in your inbox within {DELIVERY_HOURS} hours.
+              We build the SEO page that gets you recommended instead. The most
+              powerful AI available does the research, I review every line
+              myself, and it lands in your inbox within {DELIVERY_HOURS} hours.
             </p>
             <div className="rise rise-3 mt-9 flex justify-center">
               <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
