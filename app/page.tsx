@@ -673,8 +673,10 @@ export default function Home() {
           <div className="mx-auto max-w-3xl px-5 py-20 text-center sm:px-8 lg:py-28">
             <span className="kicker">In conclusion</span>
             <h2 className="display mt-4 text-[2.1rem] leading-[1.05] text-ink sm:text-[2.8rem]">
-              The answer in your market is being written right now.{" "}
-              <span className="text-accent">Put your name in it.</span>
+              Right now, your next customer is asking AI for help.{" "}
+              <span className="text-accent">
+                Let&apos;s make your business the answer.
+              </span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
               Tell us the search you want to win. The most powerful AI
