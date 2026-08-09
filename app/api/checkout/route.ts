@@ -5,16 +5,22 @@ import { PRICE_CENTS, PRODUCT, getBaseUrl } from "@/lib/config";
 
 export const runtime = "nodejs";
 
+/**
+ * Two checkout modes:
+ *  - Direct (no body / no id): the pay-first funnel. Pay $PRICE up front,
+ *    then land on /order to fill the intake. Stripe collects the email.
+ *  - Legacy (id): unlock a completed self-serve generation (preview paywall).
+ */
 export async function POST(req: Request) {
-  let body: { id?: string };
+  let body: { id?: string } = {};
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    // No body — treat as a direct purchase.
   }
   const id = body.id?.trim();
   if (!id) {
-    return NextResponse.json({ error: "Missing generation id." }, { status: 400 });
+    return createDirectSession();
   }
 
   const gen = await getGeneration(id);
@@ -62,6 +68,50 @@ export async function POST(req: Request) {
       cancel_url: `${base}/preview/${id}?canceled=1`,
     });
 
+    if (!session.url) {
+      throw new Error("Stripe did not return a checkout URL.");
+    }
+    return NextResponse.json({ url: session.url });
+  } catch (err) {
+    const message =
+      err instanceof Error ? err.message : "Could not start checkout.";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+/** Pay-first purchase from the marketing site: pay now, intake after. */
+async function createDirectSession() {
+  if (!process.env.STRIPE_SECRET_KEY) {
+    return NextResponse.json(
+      { error: "Payments aren't configured yet (missing STRIPE_SECRET_KEY)." },
+      { status: 503 },
+    );
+  }
+  try {
+    const base = getBaseUrl();
+    const session = await getStripe().checkout.sessions.create({
+      mode: "payment",
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          quantity: 1,
+          price_data: {
+            currency: "usd",
+            unit_amount: PRICE_CENTS,
+            product_data: {
+              name: PRODUCT.productName,
+              description: PRODUCT.productDescription,
+            },
+          },
+        },
+      ],
+      payment_intent_data: {
+        statement_descriptor_suffix: PRODUCT.billingDescriptor,
+      },
+      metadata: { kind: "direct-order" },
+      success_url: `${base}/order?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${base}/?canceled=1`,
+    });
     if (!session.url) {
       throw new Error("Stripe did not return a checkout URL.");
     }

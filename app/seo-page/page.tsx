@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { JsonLd } from "@/components/JsonLd";
-import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
+import { DELIVERY_HOURS, PRICE_LABEL } from "@/lib/config";
+import { BuyButton } from "@/components/BuyButton";
 
 export const metadata: Metadata = {
   title: "What Is an SEO Landing Page? Definition, Types & How They Work",
@@ -173,6 +174,10 @@ const faq = [
   {
     q: "Which types of SEO landing pages convert best for local businesses?",
     a: "Service-plus-city pages and “near me” pages tend to convert best, because they catch people who are ready to call. Best-of and comparison pages catch earlier-stage research.",
+  },
+  {
+    q: "How do you do SEO for a landing page?",
+    a: "Work through six steps: 1) pick one target keyword and match the page to its search intent; 2) write a keyword-focused title tag and meta description; 3) structure the page with one clear H1 and logical H2/H3 headings; 4) write content that answers the searcher's actual questions, including an FAQ; 5) add matching schema markup (Service, LocalBusiness, or FAQPage as appropriate); 6) link to the page from your site's navigation or related pages so it gets crawled. Skipping any one of these is why most landing pages never rank.",
   },
   {
     q: "Can AI build a good SEO landing page?",
@@ -460,14 +465,13 @@ export default function SeoPageReference() {
               Want one built for your business?
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-lg text-ink-2">
-              Tell us what you do and where. We&apos;ll research your market and
-              build a local SEO landing page you can publish. Preview it free,
-              {" "}
-              {PRICE_LABEL} to download.
+              Tell us the search you want to win. We&apos;ll research it, write
+              the page, review it by hand, and deliver it to your inbox within{" "}
+              {DELIVERY_HOURS} hours — ready to publish.
             </p>
-            <a href={CREATE_URL} className="btn btn-accent btn-lg mt-8">
-              Build my page
-            </a>
+            <div className="mt-8 flex justify-center">
+              <BuyButton label={`Get my SEO page — ${PRICE_LABEL}`} />
+            </div>
           </div>
         </section>
       </main>

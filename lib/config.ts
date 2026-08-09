@@ -2,18 +2,22 @@
  * Central config. Edit the price here (one place) and it flows to the
  * homepage, the paywall, and the Stripe Checkout Session.
  */
-export const PRICE_USD = 29;
+export const PRICE_USD = 99;
 export const PRICE_CENTS = PRICE_USD * 100;
 export const PRICE_LABEL = `$${PRICE_USD}`;
+
+/** The delivery promise shown everywhere. Only promise what we can hit. */
+export const DELIVERY_HOURS = 3;
+export const DELIVERY_LABEL = `within ${DELIVERY_HOURS} hours`;
 
 export const PRODUCT = {
   name: "SEOPage",
   // Statement descriptor shown on the customer's card. Stripe limits this to
   // 22 chars; keep it recognizable.
   billingDescriptor: "SEOPAGE.COM",
-  productName: "SEO Landing Page",
+  productName: "SEO Page",
   productDescription:
-    "A complete, designed SEO landing page with researched copy, styling, and schema markup, delivered as one ready-to-publish file you own.",
+    "One researched, written, and human-reviewed SEO page built around your target keyword — delivered ready to publish, engineered for Google and AI search.",
   satisfaction: "Not happy with it? Email support@seopage.com and we'll make it right.",
   supportEmail: "support@seopage.com",
 };
@@ -26,7 +30,3 @@ export function getBaseUrl(): string {
 }
 
 export const ANTHROPIC_MODEL = "claude-opus-4-8";
-
-/** Where "Build my page" CTAs send people — the builder app. */
-export const CREATE_URL =
-  process.env.NEXT_PUBLIC_CREATE_URL || "https://create.seopage.com";

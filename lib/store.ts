@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import os from "os";
 import path from "path";
 import { Redis } from "@upstash/redis";
-import type { Generation, GenerationView, StepState } from "./types";
+import type { Generation, GenerationView, Order, StepState } from "./types";
 
 /**
  * Persistence for generations.
@@ -27,6 +27,15 @@ const KEY = (id: string) => `seopage:gen:${id}`;
 const LEADS_SET = "seopage:leads";
 const PAID_SET = "seopage:paid";
 const SESSION_KEY = (sessionId: string) => `seopage:session:${sessionId}`;
+// Pay-first orders (paid up front, so never expired) and their session index.
+const ORDER_KEY = (id: string) => `seopage:order:${id}`;
+const ORDERS_SET = "seopage:orders";
+const ORDER_SESSION_KEY = (sessionId: string) =>
+  `seopage:order-session:${sessionId}`;
+// Pre-purchase email capture ("free page plan" form). Each entry is a JSON
+// string {email, websiteUrl, targetKeyword, createdAt} — a set dedupes exact
+// resubmits for free.
+const EMAIL_LEADS_SET = "seopage:email-leads";
 
 /* ------------------------------- redis path ------------------------------ */
 
@@ -184,6 +193,168 @@ export async function updateGeneration(
 
 export async function setSteps(id: string, steps: StepState[]): Promise<void> {
   await updateGeneration(id, { steps });
+}
+
+/* --------------------------- pay-first orders ---------------------------- */
+
+const ORDER_DIR = path.join(os.tmpdir(), "seopage-orders");
+type OrderMem = { map: Map<string, Order> };
+const om = globalThis as unknown as { __seopageOrders?: OrderMem };
+const orderMem: OrderMem = om.__seopageOrders ?? { map: new Map() };
+om.__seopageOrders = orderMem;
+
+async function orderFileSave(order: Order): Promise<void> {
+  orderMem.map.set(order.id, order);
+  try {
+    await fs.mkdir(ORDER_DIR, { recursive: true });
+    await fs.writeFile(
+      path.join(ORDER_DIR, `${order.id}.json`),
+      JSON.stringify(order),
+      "utf8",
+    );
+  } catch {
+    /* best effort */
+  }
+}
+
+async function orderFileAll(): Promise<Order[]> {
+  const byId = new Map<string, Order>(orderMem.map);
+  try {
+    const files = await fs.readdir(ORDER_DIR);
+    for (const f of files) {
+      if (!f.endsWith(".json") || byId.has(f.slice(0, -5))) continue;
+      try {
+        const raw = await fs.readFile(path.join(ORDER_DIR, f), "utf8");
+        const order = JSON.parse(raw) as Order;
+        byId.set(order.id, order);
+      } catch {
+        /* skip unreadable */
+      }
+    }
+  } catch {
+    /* no dir yet */
+  }
+  return [...byId.values()];
+}
+
+/** Mint an order id (same shape as generation ids, "o_" prefix). */
+export function newOrderId(): string {
+  return `o_${Math.random().toString(36).slice(2, 10)}${Date.now().toString(36)}`;
+}
+
+/** Orders are paid before they exist, so every record persists forever. */
+export async function saveOrder(order: Order): Promise<void> {
+  const redis = redisClient();
+  if (redis) {
+    await redis.set(ORDER_KEY(order.id), order);
+    await redis.sadd(ORDERS_SET, order.id);
+    await redis.set(ORDER_SESSION_KEY(order.stripeSessionId), order.id);
+    return;
+  }
+  await orderFileSave(order);
+}
+
+export async function getOrder(id: string): Promise<Order | undefined> {
+  const redis = redisClient();
+  if (redis) {
+    const order = await redis.get<Order>(ORDER_KEY(id));
+    return order ?? undefined;
+  }
+  const inMem = orderMem.map.get(id);
+  if (inMem) return inMem;
+  return (await orderFileAll()).find((o) => o.id === id);
+}
+
+export async function getOrderBySession(
+  sessionId: string,
+): Promise<Order | undefined> {
+  const redis = redisClient();
+  if (redis) {
+    const id = await redis.get<string>(ORDER_SESSION_KEY(sessionId));
+    return id ? getOrder(id) : undefined;
+  }
+  return (await orderFileAll()).find((o) => o.stripeSessionId === sessionId);
+}
+
+export async function listOrders(): Promise<Order[]> {
+  const redis = redisClient();
+  if (redis) {
+    const ids = await redis.smembers(ORDERS_SET);
+    if (!ids.length) return [];
+    const rows = await redis.mget<Order[]>(...ids.map(ORDER_KEY));
+    return rows
+      .filter((o): o is Order => Boolean(o))
+      .sort((a, b) => b.createdAt - a.createdAt);
+  }
+  return (await orderFileAll()).sort((a, b) => b.createdAt - a.createdAt);
+}
+
+export async function updateOrder(
+  id: string,
+  patch: Partial<Order>,
+): Promise<Order | undefined> {
+  const current = await getOrder(id);
+  if (!current) return undefined;
+  const next = { ...current, ...patch };
+  await saveOrder(next);
+  return next;
+}
+
+/* ---------------------------- email capture ------------------------------ */
+
+export type EmailLead = {
+  email: string;
+  websiteUrl?: string;
+  targetKeyword?: string;
+  createdAt: number;
+};
+
+export async function addEmailLead(lead: EmailLead): Promise<void> {
+  const redis = redisClient();
+  if (redis) {
+    await redis.sadd(EMAIL_LEADS_SET, JSON.stringify(lead));
+    return;
+  }
+  try {
+    await fs.mkdir(ORDER_DIR, { recursive: true });
+    await fs.appendFile(
+      path.join(ORDER_DIR, "email-leads.jsonl"),
+      JSON.stringify(lead) + "\n",
+      "utf8",
+    );
+  } catch {
+    /* best effort */
+  }
+}
+
+export async function listEmailLeads(): Promise<EmailLead[]> {
+  const redis = redisClient();
+  if (redis) {
+    const rows = await redis.smembers(EMAIL_LEADS_SET);
+    return rows
+      .map((r) => {
+        try {
+          return (typeof r === "string" ? JSON.parse(r) : r) as EmailLead;
+        } catch {
+          return null;
+        }
+      })
+      .filter((l): l is EmailLead => Boolean(l))
+      .sort((a, b) => b.createdAt - a.createdAt);
+  }
+  try {
+    const raw = await fs.readFile(
+      path.join(ORDER_DIR, "email-leads.jsonl"),
+      "utf8",
+    );
+    return raw
+      .split("\n")
+      .filter(Boolean)
+      .map((l) => JSON.parse(l) as EmailLead)
+      .sort((a, b) => b.createdAt - a.createdAt);
+  } catch {
+    return [];
+  }
 }
 
 /** Strip private fields (full HTML) for status polling. */

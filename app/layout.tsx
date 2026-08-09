@@ -19,9 +19,9 @@ const display = Archivo({
   weight: ["600", "700", "800"],
 });
 
-const TITLE = "Generate Local SEO Landing Pages That Get Cited by AI | SEOPage";
+const TITLE = "Get Cited by AI Search — Done-For-You SEO Pages | SEOPage";
 const DESCRIPTION =
-  "Generate a local SEO landing page that gets cited by AI search (ChatGPT, Perplexity, AI Overviews) and ranks on Google. Preview free, yours to publish for $29.";
+  "AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI Overviews, and to rank on Google. $99 per page, delivered within 3 hours.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
@@ -36,24 +36,24 @@ export const metadata: Metadata = {
   publisher: "SEOPage",
   category: "technology",
   keywords: [
-    "seo landing pages",
+    "seo page",
+    "done for you seo pages",
     "seo landing page",
-    "local seo landing pages",
-    "seo for landing pages",
-    "landing pages for seo",
-    "best seo landing pages",
-    "seo optimized landing pages",
-    "local seo city landing pages",
-    "do landing pages help seo",
-    "seo best practices for landing pages",
-    "local landing pages",
     "landing page seo",
+    "on page seo services",
+    "on page seo service",
+    "seo optimized landing pages",
+    "local seo landing pages",
+    "seo page writing service",
+    "buy seo page",
+    "seo content service",
+    "one page seo",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     title: TITLE,
     description:
-      "Generate local SEO landing pages that get cited by AI search and rank on Google. Researched copy, a clean design, and real schema. Preview free, yours to publish for $29.",
+      "Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. $99 per page, delivered within 3 hours.",
     url: "https://seopage.com",
     siteName: "SEOPage",
     locale: "en_US",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TITLE,
     description:
-      "Generate local SEO landing pages that get cited by AI search and rank on Google. A polished design and real schema. Preview free, yours to publish for $29.",
+      "Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. $99 per page, delivered within 3 hours.",
   },
   robots: {
     index: true,

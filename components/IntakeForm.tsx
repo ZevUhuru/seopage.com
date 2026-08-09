@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { GenerationView, StepState } from "@/lib/types";
+import { Field } from "./Field";
 import { GeneratingView } from "./GeneratingView";
 
 type Phase = "form" | "generating";
@@ -304,51 +305,6 @@ export function IntakeForm() {
           Preview free · takes ~60 seconds · $29 to export
         </p>
       </form>
-    </div>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  placeholder,
-  error,
-  hint,
-  badge,
-  autoFocus,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-  error?: string;
-  hint?: string;
-  badge?: string;
-  autoFocus?: boolean;
-}) {
-  return (
-    <div>
-      <div className="flex items-center justify-between">
-        <label className="field-label">{label}</label>
-        {badge && (
-          <span className="mono text-[10px] uppercase tracking-wider text-muted">
-            {badge}
-          </span>
-        )}
-      </div>
-      <input
-        className={`field mt-2 ${error ? "border-[#e0584b]" : ""}`}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        autoFocus={autoFocus}
-      />
-      {error ? (
-        <p className="mt-1.5 text-sm text-[#b42318]">{error}</p>
-      ) : hint ? (
-        <p className="mt-1.5 text-sm text-muted">{hint}</p>
-      ) : null}
     </div>
   );
 }

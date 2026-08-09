@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { DELIVERY_HOURS, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 export function SiteFooter() {
   return (
@@ -9,13 +9,20 @@ export function SiteFooter() {
         <div className="flex flex-col gap-2">
           <Logo />
           <p className="text-sm text-muted">
-            Local SEO landing pages, built to rank on Google and get found by AI.
+            Done-for-you SEO pages — researched, human-reviewed, delivered
+            within {DELIVERY_HOURS} hours.
           </p>
         </div>
         <div className="flex flex-col gap-1 text-sm text-muted sm:items-end">
-          <a href={CREATE_URL} className="font-medium text-ink hover:text-accent">
-            Build my page · {PRICE_LABEL}
-          </a>
+          <Link
+            href="/#pricing"
+            className="font-medium text-ink hover:text-accent"
+          >
+            Get my SEO page · {PRICE_LABEL}
+          </Link>
+          <Link href="/on-page-seo-services" className="hover:text-ink">
+            On-page SEO services
+          </Link>
           <Link href="/seo-page" className="hover:text-ink">
             What is an SEO landing page?
           </Link>

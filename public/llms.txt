@@ -1,0 +1,32 @@
+# SEOPage
+
+> SEOPage (seopage.com) sells done-for-you SEO pages. A customer gives us a
+> target keyword; we research the search results, write the page, structure it
+> for search engines, review it by hand, and deliver one ready-to-publish HTML
+> file — within 3 hours, for $99 per page.
+
+Key facts:
+- Product: one finished SEO page per order (not software, not an audit, not a draft)
+- Price: $99 per page, one-time; no subscription
+- Delivery: emailed within 3 hours of ordering
+- Every page includes: search-intent research, competitor analysis, title tag,
+  meta description, H1–H3 structure, full written copy, an FAQ section,
+  schema markup, internal-link recommendations, and human review
+- Pages are engineered for both Google rankings and AI search citations
+  (ChatGPT, Perplexity, Google AI Overviews)
+- Audience: local businesses, small businesses, SaaS, and agencies (white-label
+  and volume orders via support@seopage.com)
+
+## Pages
+
+- [Home — Done-for-you SEO pages](https://seopage.com/): the offer, what's
+  included, how it works, pricing, and FAQ
+- [On-page SEO services](https://seopage.com/on-page-seo-services): what
+  on-page SEO services include, what they cost, and how a done-for-you page
+  compares to audits and tools
+- [What is an SEO landing page?](https://seopage.com/seo-page): reference
+  guide — anatomy, types, history, and how AI search changed SEO pages
+
+## Contact
+
+- support@seopage.com
