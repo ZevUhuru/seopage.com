@@ -288,7 +288,7 @@ export default function Home() {
             <p className="display mx-auto mt-16 max-w-3xl text-balance text-center text-[1.6rem] leading-[1.2] text-ink sm:text-[2rem]">
               You&apos;re not losing to a better business.{" "}
               <span className="text-[#d92d20]">
-                You&apos;re losing to a better page.
+                You&apos;re losing to a better SEO page.
               </span>
             </p>
 
