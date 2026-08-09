@@ -13,7 +13,7 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
         <Logo />
         <BuyButton
-          label={`Get my page — ${PRICE_LABEL}`}
+          label={`Cite me in AI — ${PRICE_LABEL}`}
           className="btn btn-primary btn-md"
         />
       </div>

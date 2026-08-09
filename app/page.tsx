@@ -179,88 +179,71 @@ export default function Home() {
       <JsonLd data={SCHEMA} />
       <SiteHeader />
       <main>
-        {/* ============ 00 · PROBLEM — the hero ============ */}
+        {/* ============ 00 · PROBLEM — bold, centered, minimal ============ */}
         <section className="relative overflow-hidden">
           <div className="grid-backdrop absolute inset-0 -z-10" aria-hidden />
-          <div className="mx-auto max-w-6xl px-5 pb-20 pt-16 sm:px-8 lg:pb-28 lg:pt-24">
-            <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
-              <div>
-                <span className="kicker rise">
-                  AI is already answering for your market
-                </span>
-                {/* The threat is red; blue stays reserved for the rescue (CTA). */}
-                <h1 className="display rise rise-1 mt-5 text-balance text-[2.5rem] leading-[1.03] text-ink sm:text-[3.2rem] lg:text-[3.5rem]">
-                  Customers are asking AI who to hire.{" "}
-                  <span className="text-[#d92d20]">
-                    It&apos;s recommending your competitor.
-                  </span>
-                </h1>
-                <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
-                  When someone asks ChatGPT or Google AI who to call, it quotes
-                  one page and sends them there. Today that page belongs to
-                  someone else. We build the page that takes the answer back —
-                  researched, human-reviewed, engineered to be cited — in your
-                  inbox within {DELIVERY_HOURS} hours.
-                </p>
-                <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
-                  <BuyButton label={`Take back the answer — ${PRICE_LABEL}`} />
-                  <a href="#why" className="btn btn-ghost btn-lg">
-                    See what&apos;s happening
-                  </a>
-                </div>
-                <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
-                  <span className="inline-flex items-center gap-2">
-                    <Dot /> Built to be cited by AI
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Dot /> In your inbox within {DELIVERY_HOURS} hours
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Dot /> Researched &amp; human-reviewed
-                  </span>
-                </div>
-              </div>
-
-              {/* Loss-framed proof in the first viewport. */}
-              <div className="rise rise-2">
-                <SearchPanel />
-              </div>
+          <div className="mx-auto max-w-4xl px-5 pb-16 pt-20 text-center sm:px-8 lg:pb-20 lg:pt-28">
+            <span className="kicker rise">
+              AI is already answering for your market
+            </span>
+            {/* The threat is red; blue stays reserved for the rescue (CTA). */}
+            <h1 className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
+              Customers are asking AI who to hire.{" "}
+              <span className="text-[#d92d20]">
+                It&apos;s recommending your competitor.
+              </span>
+            </h1>
+            <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
+              We build the page that puts you in the answer — researched,
+              human-reviewed, in your inbox within {DELIVERY_HOURS} hours.
+            </p>
+            <div className="rise rise-3 mt-9 flex justify-center">
+              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
+            </div>
+            <p className="rise rise-4 mono mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-muted">
+              Engineered to be cited &middot; {DELIVERY_HOURS}-hour delivery
+              &middot; human-reviewed
+            </p>
+            <div className="rise rise-4 mt-14">
+              <a
+                href="#why"
+                className="inline-flex flex-col items-center gap-2 text-sm text-muted transition hover:text-ink"
+              >
+                See what&apos;s happening in your market
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="motion-safe:animate-bounce"
+                >
+                  <path
+                    d="M12 4v16m0 0 6-6m-6 6-6-6"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
         </section>
 
-        {/* ============ 01 · AGITATE — the compounding loss ============ */}
+        {/* ============ 01 · AGITATE — show it, don't essay it ============ */}
         <section id="why" className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
             <ChapterHead n="01" eyebrow="What it's costing you" />
-            <div className="mx-auto mt-12 max-w-3xl">
-              <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
+            <div className="mx-auto mt-12 max-w-2xl text-center">
+              <h2 className="display reveal text-balance text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
                 Every day the answer isn&apos;t you, the customer calls someone
                 else.
               </h2>
-              <div className="measure mt-8 space-y-6 text-[1.06rem] leading-[1.75] text-ink-2">
-                <p className="dropcap">
-                  This isn&apos;t coming — it already happened. Last year, 6% of
-                  consumers asked an AI tool to recommend a business. This year
-                  it&apos;s 45%. Two thirds of local searches on Google now open
-                  with an AI-written answer, and when that answer appears,
-                  clicks on everything below it nearly halve. The blue links
-                  your website was built for are being read less every month.
-                </p>
-                <p>
-                  Here&apos;s the part that compounds: AI assistants don&apos;t
-                  invent answers. They read pages and repeat the clearest one
-                  they find — and once a system starts citing a page, it tends
-                  to keep citing it. Every week your competitor holds the
-                  citation, their claim on your market hardens, and the
-                  customers who never scrolled past the answer never knew you
-                  existed.
-                </p>
-                <p>
-                  You are not losing to a better business. You&apos;re losing
-                  to a better page.
-                </p>
-              </div>
+            </div>
+
+            {/* The mechanism, shown once instead of explained three times. */}
+            <div className="mx-auto mt-12 max-w-2xl">
+              <SearchPanel />
             </div>
 
             <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -277,11 +260,19 @@ export default function Home() {
               ))}
             </div>
 
+            {/* The section's one takeaway, at display size. */}
+            <p className="display mx-auto mt-16 max-w-3xl text-balance text-center text-[1.6rem] leading-[1.2] text-ink sm:text-[2rem]">
+              You&apos;re not losing to a better business.{" "}
+              <span className="text-[#d92d20]">
+                You&apos;re losing to a better page.
+              </span>
+            </p>
+
             {/* CTA repeat: catch the reader at peak agitation. */}
-            <div className="mt-14 flex flex-col items-center gap-3">
-              <BuyButton label={`Fix it — ${PRICE_LABEL}, done in ${DELIVERY_HOURS} hours`} />
+            <div className="mt-10 flex flex-col items-center gap-3">
+              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
               <p className="text-sm text-muted">
-                One page. One keyword. Yours forever.
+                One page. One keyword. Done in {DELIVERY_HOURS} hours.
               </p>
             </div>
           </div>
@@ -301,10 +292,8 @@ export default function Home() {
               </span>
             </p>
             <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
-              A wave of dashboards now charges a monthly subscription to
-              monitor how invisible you are in AI answers. The diagnosis
-              isn&apos;t the hard part. The cure is one well-built page — so
-              that&apos;s what we sell.
+              Dashboards charge monthly to tell you you&apos;re invisible.
+              The cure is one well-built page — that&apos;s what we sell.
             </p>
           </div>
         </section>
@@ -318,8 +307,7 @@ export default function Home() {
                 One page, built to be the answer.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
-                This is the shape of what lands in your inbox. Five things make
-                a page quotable — the same five things most websites skip.
+                Five things make a page quotable. Most websites skip all five.
               </p>
             </div>
 
@@ -408,7 +396,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <BuyButton label={`Get my page — ${PRICE_LABEL}`} />
+                  <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
                 </div>
               </div>
             </div>
@@ -498,7 +486,7 @@ export default function Home() {
                   </ul>
                   <div className="mt-7">
                     <BuyButton
-                      label={`Take back the answer — ${PRICE_LABEL}`}
+                      label={`Cite me in AI — ${PRICE_LABEL}`}
                       className="btn btn-accent btn-lg w-full"
                     />
                   </div>
@@ -588,7 +576,7 @@ export default function Home() {
               {DELIVERY_HOURS} hours.
             </p>
             <div className="mt-9 flex justify-center">
-              <BuyButton label={`Take back the answer — ${PRICE_LABEL}`} />
+              <BuyButton label={`Cite me in AI — ${PRICE_LABEL}`} />
             </div>
             <p className="mt-4 text-sm text-muted">
               {PRICE_LABEL} once &middot; revise-or-refund guarantee &middot;
