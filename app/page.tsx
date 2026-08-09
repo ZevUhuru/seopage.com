@@ -410,13 +410,16 @@ export default function Home() {
             <ChapterHead n="03" eyebrow="Who's behind it" />
             <div className="mx-auto mt-12 grid max-w-4xl items-center gap-10 sm:grid-cols-[auto_1fr]">
               <div className="mx-auto text-center">
-                <Image
-                  src="/founder-zev-uhuru.png"
-                  alt="Zev Uhuru, founder of SEOPage"
-                  width={176}
-                  height={176}
-                  className="h-44 w-44 rounded-full border-2 border-accent object-cover"
-                />
+                {/* Wrapper clips; the image is zoomed and nudged right within it. */}
+                <div className="h-44 w-44 overflow-hidden rounded-full border-2 border-accent">
+                  <Image
+                    src="/founder-zev-uhuru.png"
+                    alt="Zev Uhuru, founder of SEOPage"
+                    width={176}
+                    height={176}
+                    className="h-full w-full scale-[1.35] translate-x-2 object-cover"
+                  />
+                </div>
               </div>
               <div>
                 <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
