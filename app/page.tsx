@@ -657,16 +657,17 @@ export default function Home() {
               <span className="text-accent">Put your name in it.</span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
-              Tell us the search you want to win. A researched, human-reviewed
-              page — engineered to be cited — is in your inbox within{" "}
+              Tell us the search you want to win. The most powerful AI
+              available does the research and builds the page, I review every
+              line and sign it off, and it&apos;s in your inbox within{" "}
               {DELIVERY_HOURS} hours.
             </p>
             <div className="mt-9 flex justify-center">
               <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
             </div>
             <p className="mt-4 text-sm text-muted">
-              {PRICE_LABEL} once &middot; revise-or-refund guarantee &middot;
-              no subscription
+              {PRICE_LABEL}{" "}
+              once &middot; revise-or-refund guarantee &middot; no subscription
             </p>
 
             {/* Footnotes — the page cites its sources. */}
