@@ -19,9 +19,9 @@ const display = Archivo({
   weight: ["600", "700", "800"],
 });
 
-const TITLE = "Done-For-You SEO Pages, Built to Rank on Google & AI Search | SEOPage";
+const TITLE = "Get Cited by AI Search — Done-For-You SEO Pages | SEOPage";
 const DESCRIPTION =
-  "Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search (ChatGPT, Perplexity, AI Overviews). $99 per page, delivered within 3 hours.";
+  "AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI Overviews, and to rank on Google. $99 per page, delivered within 3 hours.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),

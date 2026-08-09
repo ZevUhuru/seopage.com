@@ -20,8 +20,8 @@ import {
    ================================================================ */
 
 export const metadata: Metadata = {
-  title: `Done-For-You SEO Pages — ${PRICE_LABEL}, Delivered in ${DELIVERY_HOURS} Hours`,
-  description: `Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`,
+  title: `Get Cited by AI Search — Done-For-You SEO Pages, ${PRICE_LABEL} in ${DELIVERY_HOURS} Hours`,
+  description: `AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
 };
 
@@ -180,33 +180,37 @@ export default function Home() {
             <div className="grid items-center gap-12 lg:grid-cols-[1.04fr_0.96fr]">
               <div>
                 <span className="kicker rise">
-                  Done-for-you SEO pages
+                  AI is already answering for your market
                 </span>
                 <h1 className="display rise rise-1 mt-5 text-[2.5rem] leading-[1.03] text-ink sm:text-[3.35rem] lg:text-[3.8rem]">
-                  Give us a keyword.{" "}
-                  <span className="text-accent">Get a page built to rank.</span>
+                  Customers are asking AI who to hire.{" "}
+                  {/* The threat is red; blue stays reserved for the rescue (CTA). */}
+                  <span className="text-[#d92d20]">
+                    It&apos;s recommending your competitor.
+                  </span>
                 </h1>
                 <p className="rise rise-2 mt-6 max-w-xl text-[1.075rem] leading-relaxed text-ink-2">
-                  Tell us the search you want to win. We research the results,
-                  write the page, and a person reviews it — engineered for
-                  Google and AI search, delivered to your inbox within{" "}
-                  {DELIVERY_HOURS} hours. {PRICE_LABEL}, once.
+                  When someone asks ChatGPT or Google AI who to call, it quotes
+                  one page and sends them there. Today that page belongs to
+                  someone else. We build the page that takes the answer back —
+                  researched, human-reviewed, engineered to be cited — in your
+                  inbox within {DELIVERY_HOURS} hours.
                 </p>
                 <div className="rise rise-3 mt-8 flex flex-wrap items-center gap-3">
-                  <BuyButton label={`Get my SEO page — ${PRICE_LABEL}`} />
+                  <BuyButton label={`Take back the answer — ${PRICE_LABEL}`} />
                   <a href="#what-you-get" className="btn btn-ghost btn-lg">
                     See what&apos;s in it
                   </a>
                 </div>
                 <div className="rise rise-4 mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> Researched &amp; human-reviewed
+                    <Dot /> Built to be cited by AI
                   </span>
                   <span className="inline-flex items-center gap-2">
                     <Dot /> In your inbox within {DELIVERY_HOURS} hours
                   </span>
                   <span className="inline-flex items-center gap-2">
-                    <Dot /> Ready-to-publish HTML, yours forever
+                    <Dot /> Researched &amp; human-reviewed
                   </span>
                 </div>
               </div>
@@ -671,40 +675,44 @@ function Check({ sm }: { sm?: boolean }) {
   );
 }
 
-/** The hero's proof: a Google result and an AI answer, drawn from one page. */
+/**
+ * The hero's proof, loss-framed: the AI answer as it reads today (citing the
+ * competitor, your business absent) and the same answer after your page is
+ * live. The answer only has room for one name.
+ */
 function SearchPanel() {
   return (
     <div className="card overflow-hidden shadow-lg">
-      {/* Google organic result */}
+      {/* Today: the competitor holds the citation */}
       <div className="border-b border-line p-5 sm:p-6">
-        <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
-          Google &middot; organic result
+        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#e0584b]" />
+          The AI answer in your market &middot; today
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-ink-2">
-          <span className="grid h-5 w-5 place-items-center rounded-full bg-surface-3 text-[9px] font-bold">
-            S
+        <p className="text-[0.95rem] leading-relaxed text-ink-2">
+          &ldquo;Who does emergency roof repair in Denver?&rdquo; — For urgent
+          roof repair in Denver, most sources point to{" "}
+          <span className="font-semibold text-ink underline decoration-[#e0584b] decoration-2 underline-offset-2">
+            Apex Roofing
           </span>
-          summitroofingdenver.com
-        </div>
-        <span className="mt-1 block text-[1.05rem] font-medium leading-snug text-accent">
-          Emergency Roof Repair in Denver | Summit Roofing Co.
-        </span>
-        <p className="mt-1 text-[0.85rem] leading-relaxed text-ink-2">
-          Same-day roof repair across Denver. Licensed, insured, 24/7 storm
-          response. Free inspection and no-pressure estimate.
+          , a licensed crew offering 24/7 storm response and free inspections.
         </p>
-        <div className="mt-2 flex items-center gap-3 text-[0.78rem] text-muted">
-          <span className="text-amber-500">★★★★★</span>
-          <span>4.9 &middot; 380 reviews</span>
-          <span className="text-line-strong">&middot;</span>
-          <span>FAQ</span>
+        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
+          <span className="mono text-[10px] uppercase tracking-wider text-muted">
+            Sources
+          </span>
+          <span className="pill text-[0.72rem]">apexroofingdenver.com</span>
+          <span className="mono ml-auto text-[10px] uppercase tracking-wider text-[#b42318]">
+            summitroofing.com — not cited
+          </span>
         </div>
       </div>
 
-      {/* AI answer */}
+      {/* After: the page takes the answer back */}
       <div className="bg-surface-2 p-5 sm:p-6">
-        <div className="mono mb-3 text-[10px] uppercase tracking-[0.14em] text-muted">
-          AI answer
+        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
+          <span className="h-1.5 w-1.5 rounded-full bg-good" />
+          The same answer &middot; with your SEOPage live
         </div>
         <p className="text-[0.95rem] leading-relaxed text-ink-2">
           For urgent roof repair in Denver, a strong option is{" "}
@@ -718,14 +726,14 @@ function SearchPanel() {
           <span className="mono text-[10px] uppercase tracking-wider text-muted">
             Sources
           </span>
-          <span className="pill text-[0.72rem]">summitroofingdenver.com</span>
+          <span className="pill text-[0.72rem]">summitroofing.com</span>
         </div>
       </div>
 
-      {/* The connective caption: both surfaces, one source */}
+      {/* The connective caption */}
       <div className="border-t border-line px-5 py-3 sm:px-6">
         <p className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
-          Two ways to be found &middot; one page behind both
+          The answer only has room for one name &middot; make it yours
         </p>
       </div>
     </div>

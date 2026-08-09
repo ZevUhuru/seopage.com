@@ -58,26 +58,26 @@ export default function OgImage() {
           <div
             style={{
               display: "flex",
-              fontSize: 76,
+              fontSize: 68,
               fontWeight: 800,
               color: "#0a0c11",
               lineHeight: 1.05,
               letterSpacing: -2,
             }}
           >
-            Give us a keyword.
+            Customers are asking AI who to hire.
           </div>
           <div
             style={{
               display: "flex",
-              fontSize: 76,
+              fontSize: 68,
               fontWeight: 800,
               color: "#1b46d4",
               lineHeight: 1.05,
               letterSpacing: -2,
             }}
           >
-            Get a page built to rank.
+            Make it recommend you.
           </div>
         </div>
 
