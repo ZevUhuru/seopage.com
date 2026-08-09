@@ -373,6 +373,56 @@ body {
   color: var(--accent);
 }
 
+/* ============================================================
+   Bound-document primitives. A long checklist read as a scroll;
+   these make it read as a printed thing: a running head telling
+   you where you are, a folio numbering the stage, a serif note
+   opening each one, and one shared vertical beat under all of it.
+   ============================================================ */
+
+/* Running head: the line at the top of every stage, as a magazine
+   repeats the publication and section across a spread. */
+.running-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line-strong);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Folio: the stage number, set large and quiet. It marks position
+   rather than demanding attention, so it sits at line weight. */
+.folio {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(3.4rem, 7vw, 5rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--line-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The stage's opening note, in the reading serif. */
+.stage-note {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+/* Shared vertical beat: every line in a stage lands on a 0.4rem grid,
+   so the two columns agree even though their type sizes don't. */
+.beat {
+  line-height: 1.6;
+}
+
 /* The founder's voice. Every other block on this page is engineered to sell;
    this one is a person talking, so it is set lighter, looser, and quieter than
    its size would suggest. */
@@ -464,8 +514,31 @@ body {
   }
 }
 
+/* Checklist rows enter from the left as they scroll in. Each row carries its
+   own view() timeline, so the stagger comes from the reading order itself
+   rather than from hand-tuned delays. */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .slide-in {
+    animation: slide-in-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .slide-in {
     animation: none;
   }
 }

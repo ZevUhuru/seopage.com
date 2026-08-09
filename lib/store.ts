@@ -308,6 +308,8 @@ export type EmailLead = {
   targetKeyword?: string;
   businessName?: string;
   location?: string;
+  /** Which form produced the lead, so audit requests can be worked separately. */
+  source?: string;
   createdAt: number;
 };
 
