@@ -607,7 +607,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ============ Pre-footer — the AI-verdict capture ============ */}
+        {/* ============ Pre-footer — who-does-AI-recommend capture ============ */}
         <section className="border-t border-line bg-surface-2">
           <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8">
             <EmailCapture />

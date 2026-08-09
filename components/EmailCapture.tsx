@@ -5,7 +5,7 @@ import { Field } from "./Field";
 
 /**
  * Pre-footer lead capture for visitors who aren't ready to buy: leave a site,
- * a keyword, and an email — get your market's AI verdict plus the plan for
+ * a keyword, and an email — see who AI recommends in their market, plus the plan for
  * the page we'd build. High-intent context beats a bare newsletter signup.
  */
 export function EmailCapture() {
@@ -63,8 +63,8 @@ export function EmailCapture() {
           ) : (
             "your market"
           )}{" "}
-          today and email you the verdict — who&apos;s being cited, and the
-          page we&apos;d build to change it.
+          today and email you what we find — who&apos;s getting recommended,
+          and the page we&apos;d build to change it.
         </p>
       </div>
     );
@@ -73,12 +73,12 @@ export function EmailCapture() {
   return (
     <form onSubmit={onSubmit} className="card p-6 sm:p-8">
       <p className="text-lg font-semibold text-ink">
-        Not ready? Get your market&apos;s AI verdict — free.
+        Not ready? See who AI recommends in your market — free.
       </p>
       <p className="mt-1 text-ink-2">
         Tell us your site and target keyword. We&apos;ll check how AI answers
-        your market today and email you the verdict — who&apos;s being cited,
-        and the page we&apos;d build to change it. No commitment.
+        your market today and email you what we find — who&apos;s getting
+        recommended, and the page we&apos;d build to change it. No commitment.
       </p>
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
         <Field
@@ -124,7 +124,7 @@ export function EmailCapture() {
           disabled={busy}
           className="btn btn-primary btn-md shrink-0 disabled:opacity-60"
         >
-          {busy ? "Sending…" : "Send my AI verdict"}
+          {busy ? "Checking…" : "Check my market"}
         </button>
       </div>
     </form>
