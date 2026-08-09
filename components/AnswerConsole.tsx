@@ -26,33 +26,82 @@ type Variant = {
   label: string;
 };
 
-const QUESTION = "Who does emergency roof repair in Denver?";
+type Script = { question: string; before: Variant; after: Variant };
 
-const BEFORE: Variant = {
-  label: "The AI answer in your market · today",
-  answer: [
-    { t: "For urgent roof repair in Denver, most sources point to " },
-    { t: "Apex Roofing", mark: true },
-    {
-      t: ", a licensed crew offering 24/7 storm response and free inspections.",
-    },
-  ],
-  sources: ["apexroofingdenver.com"],
-  missing: "summitroofing.com — not cited",
+/** Who the visitor is, once they've told us. Optional the whole way through. */
+type Biz = { name: string; trade: string; city: string };
+
+const DEMO: Script = {
+  question: "Who does emergency roof repair in Denver?",
+  before: {
+    label: "The AI answer in your market · today",
+    answer: [
+      { t: "For urgent roof repair in Denver, most sources point to " },
+      { t: "Apex Roofing", mark: true },
+      {
+        t: ", a licensed crew offering 24/7 storm response and free inspections.",
+      },
+    ],
+    sources: ["apexroofingdenver.com"],
+    missing: "summitroofing.com — not cited",
+  },
+  after: {
+    label: "The same answer · with your SEOPage live",
+    answer: [
+      { t: "For urgent roof repair in Denver, a strong option is " },
+      { t: "Summit Roofing Co.", mark: true },
+      {
+        t: ", a licensed, insured crew offering 24/7 storm response and free same-day inspections.",
+      },
+    ],
+    sources: ["summitroofing.com"],
+    missing: null,
+  },
 };
 
-const AFTER: Variant = {
-  label: "The same answer · with your SEOPage live",
-  answer: [
-    { t: "For urgent roof repair in Denver, a strong option is " },
-    { t: "Summit Roofing Co.", mark: true },
-    {
-      t: ", a licensed, insured crew offering 24/7 storm response and free same-day inspections.",
+/** "Emergency Plumbing" mid-sentence reads like a brand. Lower it unless the
+    visitor meant the capitals (HVAC, IT support). */
+function sentenceCase(s: string) {
+  if (!s) return s;
+  const first = s.slice(0, 2);
+  if (first === first.toUpperCase() && /[A-Z]{2}/.test(first)) return s;
+  return s[0].toLowerCase() + s.slice(1);
+}
+
+/**
+ * The visitor's own version. The competitor is never given a name: inventing
+ * one inside somebody's real market could land on a real business, and the
+ * argument doesn't need it. The line that has to land is their own name in
+ * the "not cited" slot.
+ */
+function scriptFor(biz: Biz | null): Script {
+  if (!biz) return DEMO;
+  const trade = sentenceCase(biz.trade);
+  const where = `${trade} in ${biz.city}`;
+  return {
+    question: `Who does ${where}?`,
+    before: {
+      label: "The AI answer in your market · today",
+      answer: [
+        { t: `For ${where}, most sources point to ` },
+        { t: "a competitor down the road", mark: true },
+        { t: ", whose page answers this exact question." },
+      ],
+      sources: ["a competitor's site"],
+      missing: `${biz.name} — not cited`,
     },
-  ],
-  sources: ["summitroofing.com"],
-  missing: null,
-};
+    after: {
+      label: "The same answer · with your SEOPage live",
+      answer: [
+        { t: `For ${where}, a strong option is ` },
+        { t: biz.name, mark: true },
+        { t: ", the one with the clearest page on exactly this question." },
+      ],
+      sources: [biz.name],
+      missing: null,
+    },
+  };
+}
 
 /** Beat timings, in ms. The pauses carry as much as the motion does. */
 const T = {
@@ -101,6 +150,7 @@ type Run = {
  */
 function openingFrame(
   key: string,
+  question: string,
   variant: Variant,
   started: boolean,
   reduced: boolean,
@@ -108,7 +158,7 @@ function openingFrame(
   if (started && reduced) {
     return {
       key,
-      chars: QUESTION.length,
+      chars: question.length,
       thinking: false,
       words: tokenize(variant.answer).length,
       chips: variant.sources.length,
@@ -147,18 +197,27 @@ export default function AnswerConsole() {
     () => false,
   );
 
-  const variant = published ? AFTER : BEFORE;
+  // Personalization is a second act, never a gate: the console plays the
+  // worked example first, and only a reader already leaning in spends three
+  // fields to see their own name in it.
+  const [biz, setBiz] = useState<Biz | null>(null);
+  const [editing, setEditing] = useState(false);
+
+  const script = useMemo(() => scriptFor(biz), [biz]);
+  const variant = published ? script.after : script.before;
   const tokens = useMemo(() => tokenize(variant.answer), [variant]);
 
   // A run is identified by everything that should restart it. When any of them
   // changes, the run is reset during render rather than in an effect, so the
   // console never paints a frame of the old answer under the new state.
-  const runKey = `${published ? "after" : "before"}:${started}:${reduced}`;
+  const runKey = `${published ? "after" : "before"}:${started}:${reduced}:${
+    biz ? `${biz.name}|${biz.trade}|${biz.city}` : "demo"
+  }`;
   const [run, setRun] = useState<Run>(() =>
-    openingFrame(runKey, variant, started, reduced),
+    openingFrame(runKey, script.question, variant, started, reduced),
   );
   if (run.key !== runKey) {
-    setRun(openingFrame(runKey, variant, started, reduced));
+    setRun(openingFrame(runKey, script.question, variant, started, reduced));
   }
 
   const advance = useCallback(
@@ -208,7 +267,7 @@ export default function AnswerConsole() {
     const settledText = plain(variant.answer);
 
     (async () => {
-      for (let i = 1; i <= QUESTION.length; i++) {
+      for (let i = 1; i <= script.question.length; i++) {
         await wait(T.charType);
         if (cancelled) return;
         advance(key, { chars: i });
@@ -250,10 +309,10 @@ export default function AnswerConsole() {
       cancelled = true;
       timers.forEach((id) => clearTimeout(id));
     };
-  }, [started, reduced, runKey, tokens, variant, advance]);
+  }, [started, reduced, runKey, tokens, variant, script, advance]);
 
   const { chars, thinking, words, chips, missing, settled } = run;
-  const typing = started && chars < QUESTION.length && !reduced;
+  const typing = started && chars < script.question.length && !reduced;
 
   return (
     <div ref={rootRef}>
@@ -279,14 +338,23 @@ export default function AnswerConsole() {
             possible state and never shifts the page under the reader. */}
         <div className="grid px-5 py-6 sm:px-6">
           <div className="invisible col-start-1 row-start-1" aria-hidden>
-            <Thread variant={BEFORE} tokens={tokenize(BEFORE.answer)} />
+            <Thread
+              question={script.question}
+              variant={script.before}
+              tokens={tokenize(script.before.answer)}
+            />
           </div>
           <div className="invisible col-start-1 row-start-1" aria-hidden>
-            <Thread variant={AFTER} tokens={tokenize(AFTER.answer)} />
+            <Thread
+              question={script.question}
+              variant={script.after}
+              tokens={tokenize(script.after.answer)}
+            />
           </div>
 
           <div className="col-start-1 row-start-1">
             <Thread
+              question={script.question}
               variant={variant}
               tokens={tokens}
               chars={chars}
@@ -333,10 +401,54 @@ export default function AnswerConsole() {
           </span>
         </div>
 
+        {/* Second act. Nothing here is required to understand the section. */}
+        <div className="border-t border-line px-5 py-3 sm:px-6">
+          {editing ? (
+            <BizForm
+              initial={biz}
+              onCancel={() => setEditing(false)}
+              onApply={(next) => {
+                setBiz(next);
+                setPublished(false);
+                setEditing(false);
+              }}
+            />
+          ) : (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <button
+                type="button"
+                onClick={() => setEditing(true)}
+                className="text-[0.85rem] font-semibold text-accent underline underline-offset-4 hover:text-accent-strong"
+              >
+                {biz ? "Change your details" : "Try it with your business"}
+              </button>
+              {biz && (
+                <>
+                  <span className="text-[0.85rem] text-muted">
+                    Showing {biz.name}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setBiz(null);
+                      setPublished(false);
+                    }}
+                    className="text-[0.85rem] text-muted underline underline-offset-4 hover:text-ink"
+                  >
+                    Use the example instead
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+
         {/* The demo is more persuasive for being plainly a demo. */}
         <div className="border-t border-line px-5 py-2.5 sm:px-6">
           <p className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
-            Illustrative example &middot; not a recorded AI response
+            {biz
+              ? "Simulated · we haven't checked your actual citations"
+              : "Illustrative example · not a recorded AI response"}
           </p>
         </div>
       </div>
@@ -353,15 +465,17 @@ export default function AnswerConsole() {
  * hidden as a height reservation — the defaults fill everything in.
  */
 function Thread({
+  question,
   variant,
   tokens,
-  chars = QUESTION.length,
+  chars = Number.MAX_SAFE_INTEGER,
   typing = false,
   thinking = false,
   words,
   chips,
   missing = true,
 }: {
+  question: string;
   variant: Variant;
   tokens: Token[];
   chars?: number;
@@ -379,7 +493,7 @@ function Thread({
       {/* The customer's question. */}
       <div className="flex justify-end">
         <p className="max-w-[85%] rounded-xl rounded-br-sm bg-surface-3 px-4 py-2.5 text-[0.92rem] leading-relaxed text-ink">
-          {QUESTION.slice(0, chars) || "​"}
+          {question.slice(0, chars) || "​"}
           {typing && <span className="caret" aria-hidden />}
         </p>
       </div>
@@ -431,6 +545,111 @@ function Thread({
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * Three fields, all required, because a name without a trade and a city
+ * produces a dentist being recommended for emergency roof repair. Capped
+ * lengths keep a long paste from breaking the answer's line.
+ */
+function BizForm({
+  initial,
+  onApply,
+  onCancel,
+}: {
+  initial: Biz | null;
+  onApply: (b: Biz) => void;
+  onCancel: () => void;
+}) {
+  const [name, setName] = useState(initial?.name ?? "");
+  const [trade, setTrade] = useState(initial?.trade ?? "");
+  const [city, setCity] = useState(initial?.city ?? "");
+
+  const clean = (v: string) => v.trim().replace(/\s+/g, " ").slice(0, 48);
+  const ready = clean(name) && clean(trade) && clean(city);
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!ready) return;
+        onApply({
+          name: clean(name),
+          trade: clean(trade),
+          city: clean(city),
+        });
+      }}
+    >
+      <div className="grid gap-2 sm:grid-cols-3">
+        <MiniField
+          label="Business name"
+          placeholder="Summit Roofing Co."
+          value={name}
+          onChange={setName}
+          autoFocus
+        />
+        <MiniField
+          label="What you do"
+          placeholder="emergency roof repair"
+          value={trade}
+          onChange={setTrade}
+        />
+        <MiniField
+          label="City"
+          placeholder="Denver"
+          value={city}
+          onChange={setCity}
+        />
+      </div>
+      <div className="mt-3 flex items-center gap-3">
+        <button
+          type="submit"
+          disabled={!ready}
+          className="btn btn-accent btn-md disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          Run it with my name
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="text-[0.85rem] text-muted underline underline-offset-4 hover:text-ink"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
+}
+
+function MiniField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  autoFocus,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  autoFocus?: boolean;
+}) {
+  return (
+    <label className="block">
+      <span className="mono text-[9px] uppercase tracking-[0.14em] text-muted">
+        {label}
+      </span>
+      <input
+        type="text"
+        value={value}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        maxLength={48}
+        onChange={(e) => onChange(e.target.value)}
+        className="field mt-1 !py-2 text-[0.9rem]"
+      />
+    </label>
   );
 }
 
