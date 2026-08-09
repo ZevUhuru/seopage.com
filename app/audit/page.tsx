@@ -353,42 +353,55 @@ export default function AuditPage() {
               published online stop at the technical layer, which is the layer
               least likely to be why your page is losing.
             </p>
-
-            <div className="mt-12 space-y-12">
-              {CHECKLIST.map((group, gi) => (
-                <div key={group.group}>
-                  <div className="flex items-baseline gap-3 border-b border-line pb-3">
-                    <span className="mono text-[11px] text-accent">
-                      {String(gi + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-[1.1rem] font-semibold text-ink">
-                      {group.group}
-                    </h3>
-                    <span className="mono ml-auto text-[10px] uppercase tracking-wider text-muted">
-                      {group.items.length} checks
-                    </span>
-                  </div>
-                  <p className="mt-3 max-w-[58ch] text-[0.9rem] leading-relaxed text-muted">
-                    {group.note}
-                  </p>
-                  <ul className="mt-5 max-w-[64ch] space-y-2.5">
-                    {group.items.map((item) => (
-                      <li key={item.k} className="slide-in flex gap-3">
-                        <Tick />
-                        <p className="text-[0.95rem] leading-[1.55] text-ink-2">
-                          <span className="font-semibold text-ink">
-                            {item.k}
-                          </span>
-                          : {item.d}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            <p className="mono mt-8 text-[10px] uppercase tracking-[0.14em] text-muted">
+              {CHECKLIST.length} stages &middot; {CHECK_COUNT} checks &middot;
+              keep scrolling
+            </p>
           </div>
         </section>
+
+        {/* Each stage takes the full width and its own screen. The header
+            column stays put while its checks scroll past it, so the reader
+            always knows which stage they're inside. */}
+        {CHECKLIST.map((group, gi) => (
+          <section
+            key={group.group}
+            className={`border-b border-line ${
+              gi % 2 === 0 ? "bg-surface-2" : "bg-surface-3"
+            }`}
+          >
+            <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16 lg:py-24">
+              <div className="lg:sticky lg:top-24 lg:self-start">
+                <div className="flex items-baseline gap-3">
+                  <span className="mono text-[11px] text-accent">
+                    {String(gi + 1).padStart(2, "0")}
+                  </span>
+                  <span className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
+                    {group.items.length} checks
+                  </span>
+                </div>
+                <h3 className="display mt-3 text-balance text-[1.55rem] leading-[1.12] text-ink sm:text-[1.9rem]">
+                  {group.group}
+                </h3>
+                <p className="mt-4 max-w-[46ch] text-[0.95rem] leading-relaxed text-ink-2">
+                  {group.note}
+                </p>
+              </div>
+
+              <ul className="space-y-3 lg:pt-1">
+                {group.items.map((item) => (
+                  <li key={item.k} className="slide-in flex gap-3">
+                    <Tick />
+                    <p className="max-w-[62ch] text-[1rem] leading-[1.55] text-ink-2">
+                      <span className="font-semibold text-ink">{item.k}</span>:{" "}
+                      {item.d}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        ))}
 
         {/* ============ HOW TO DO IT YOURSELF ============ */}
         <section className="border-b border-line">
