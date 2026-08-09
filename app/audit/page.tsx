@@ -8,25 +8,25 @@ import { AuditRequestForm } from "@/components/AuditRequestForm";
 import { AUDIT_HOURS, DELIVERY_HOURS, PRICE_LABEL } from "@/lib/config";
 
 /* ================================================================
-   Money page for the "seo page audit" cluster.
+   Money page for "seo page audit". That is the primary term, and it
+   owns the title tag, the H1, the canonical, and every section
+   heading that can carry it naturally.
 
-   The keyword research decided the shape of this page. "seo page
-   audit" is KD 84 with ~455 referring domains needed for the top
-   ten, and every result on page one is an automated scoring tool
-   (Semrush, Ahrefs, SEOptimer, HOTH, AIOSEO, Backlinko). We are not
-   out-linking Semrush this year. But the same cluster contains
-   "on page seo audit" at KD 38 (1.3k/mo) and, crucially,
-   "on page seo audit checklist" at KD 15 (300/mo) and
-   "on-page seo audit checklist" at KD 12 (150/mo).
+   Ahrefs puts the term at KD 84, but KD is a backlink proxy: it
+   estimates referring domains, it does not measure what ranks.
+   seopage.com/audit is an exact-match signal for this query, the
+   page satisfies the intent behind it directly, and on-page SEO is
+   the thing this business actually does. That combination is the bet.
 
-   So the page IS the checklist. Publishing the real thing wins the
-   low-difficulty terms now, earns the links that make the head term
-   reachable later, and gives AI assistants something specific to
-   quote. The free audit converts the traffic that arrives.
+   The secondary cluster is "on page seo audit" (1.3k/mo) and its
+   checklist variants, which the body copy and FAQ pick up without
+   competing with the primary. The 29-point checklist stays because
+   it is genuinely useful, it earns links, and it gives assistants
+   something specific to quote. The free audit converts the traffic.
    ================================================================ */
 
 const TITLE = `SEO Page Audit: Free, Human-Reviewed, in ${AUDIT_HOURS} Hours | SEOPage`;
-const DESCRIPTION = `An SEO page audit checks one page against the search it is trying to win. Get a free, human-reviewed audit of your page in ${AUDIT_HOURS} hours, plus the full 29-point on-page SEO audit checklist we run.`;
+const DESCRIPTION = `An SEO page audit checks one page against the search it is trying to win. Get a free, human-reviewed audit of your page in ${AUDIT_HOURS} hours, plus the full 29-point SEO page audit checklist we run.`;
 
 export const metadata: Metadata = {
   title: { absolute: TITLE },
@@ -317,7 +317,7 @@ export default function AuditPage() {
           <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
             <span className="kicker">The checklist</span>
             <h2 className="display mt-4 text-balance text-[1.9rem] leading-[1.1] text-ink sm:text-[2.3rem]">
-              The {CHECK_COUNT}-point on-page SEO audit checklist we run
+              The {CHECK_COUNT}-point SEO page audit checklist we run
             </h2>
             <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-ink-2">
               This is the whole thing, in the order we work through it. Take it
@@ -365,7 +365,7 @@ export default function AuditPage() {
           <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-24">
             <span className="kicker">Do it yourself</span>
             <h2 className="display mt-4 text-balance text-[1.9rem] leading-[1.1] text-ink sm:text-[2.3rem]">
-              How to do an on-page SEO audit in five steps
+              How to do an SEO page audit in five steps
             </h2>
             <p className="mt-5 max-w-2xl text-[1.05rem] leading-relaxed text-ink-2">
               You do not need a subscription to any of this. You need an
