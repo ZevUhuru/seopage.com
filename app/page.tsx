@@ -450,7 +450,7 @@ export default function Home() {
                   A note from the founder
                 </p>
                 <p className="note mt-5">
-                  I&apos;ve built landing pages professionally for over a
+                  I&apos;ve built SEO landing pages professionally for over a
                   decade, for{" "}
                   <span className="font-semibold text-[#0b2c5b]">vroom.com</span>,{" "}
                   <span className="font-semibold text-[#c2560c]">fubo.tv</span>,{" "}
