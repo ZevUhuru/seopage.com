@@ -373,7 +373,7 @@ export default function AuditPage() {
                   </p>
                   <ul className="mt-5 max-w-[64ch] space-y-2.5">
                     {group.items.map((item) => (
-                      <li key={item.k} className="flex gap-3">
+                      <li key={item.k} className="slide-in flex gap-3">
                         <Tick />
                         <p className="text-[0.95rem] leading-[1.55] text-ink-2">
                           <span className="font-semibold text-ink">

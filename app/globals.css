@@ -384,8 +384,31 @@ body {
   }
 }
 
+/* Checklist rows enter from the left as they scroll in. Each row carries its
+   own view() timeline, so the stagger comes from the reading order itself
+   rather than from hand-tuned delays. */
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .slide-in {
+    animation: slide-in-left 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .slide-in {
     animation: none;
   }
 }
