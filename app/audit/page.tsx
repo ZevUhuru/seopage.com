@@ -92,7 +92,7 @@ const CHECKLIST: {
   },
   {
     group: "AI citation readiness",
-    note: "The half most checklists still skip. Being crawlable by Google and being quotable by an assistant are not the same test.",
+    note: "The half most checklists still skip, and the half that decides whether an assistant can name you at all.",
     items: [
       { k: "Self-contained passages", d: "whether paragraphs still make sense lifted out of the page" },
       { k: "Citable facts", d: "specific numbers and claims rather than adjectives nothing can quote" },
@@ -360,47 +360,74 @@ export default function AuditPage() {
           </div>
         </section>
 
-        {/* Each stage takes the full width and its own screen. The header
-            column stays put while its checks scroll past it, so the reader
-            always knows which stage they're inside. */}
+        {/* Each stage is a spread: a running head telling you where you are,
+            a folio numbering it, a serif note opening it, and the checks
+            arriving from the left. The header column stays put while its
+            checks scroll past, the way a running head holds across a page. */}
         {CHECKLIST.map((group, gi) => (
-          <section
-            key={group.group}
-            className={`border-b border-line ${
-              gi % 2 === 0 ? "bg-surface-2" : "bg-surface-3"
-            }`}
-          >
-            <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[minmax(0,20rem)_1fr] lg:gap-16 lg:py-24">
-              <div className="lg:sticky lg:top-24 lg:self-start">
-                <div className="flex items-baseline gap-3">
-                  <span className="mono text-[11px] text-accent">
-                    {String(gi + 1).padStart(2, "0")}
+          <div key={group.group}>
+            <section
+              className={`border-b border-line ${
+                gi % 2 === 0 ? "bg-surface-2" : "bg-surface-3"
+              }`}
+            >
+              <div className="mx-auto max-w-6xl px-5 pb-16 pt-10 sm:px-8 lg:pb-24 lg:pt-12">
+                <p className="running-head">
+                  <span>SEO page audit checklist</span>
+                  <span>
+                    Stage {String(gi + 1).padStart(2, "0")} of{" "}
+                    {String(CHECKLIST.length).padStart(2, "0")}
                   </span>
-                  <span className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
-                    {group.items.length} checks
-                  </span>
-                </div>
-                <h3 className="display mt-3 text-balance text-[1.55rem] leading-[1.12] text-ink sm:text-[1.9rem]">
-                  {group.group}
-                </h3>
-                <p className="mt-4 max-w-[46ch] text-[0.95rem] leading-relaxed text-ink-2">
-                  {group.note}
                 </p>
-              </div>
 
-              <ul className="space-y-3 lg:pt-1">
-                {group.items.map((item) => (
-                  <li key={item.k} className="slide-in flex gap-3">
-                    <Tick />
-                    <p className="max-w-[62ch] text-[1rem] leading-[1.55] text-ink-2">
-                      <span className="font-semibold text-ink">{item.k}</span>:{" "}
-                      {item.d}
+                <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,21rem)_1fr] lg:gap-16">
+                  <div className="lg:sticky lg:top-24 lg:self-start">
+                    <span className="folio block" aria-hidden>
+                      {String(gi + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="display mt-4 text-balance text-[1.55rem] leading-[1.12] text-ink sm:text-[1.85rem]">
+                      {group.group}
+                    </h3>
+                    <p className="stage-note mt-4 max-w-[42ch]">{group.note}</p>
+                    <p className="mono mt-5 text-[10px] uppercase tracking-[0.16em] text-muted">
+                      {group.items.length} checks in this stage
                     </p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </section>
+                  </div>
+
+                  <ul className="space-y-3 lg:pt-3">
+                    {group.items.map((item) => (
+                      <li key={item.k} className="slide-in flex gap-3">
+                        <Tick />
+                        <p className="beat max-w-[62ch] text-[1rem] text-ink-2">
+                          <span className="font-semibold text-ink">
+                            {item.k}
+                          </span>
+                          : {item.d}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* The turn of the argument, set as the page's one pull quote.
+                It lands where the checklist stops being about Google. */}
+            {gi === 2 && (
+              <section className="border-b border-line bg-surface">
+                <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8 lg:py-20">
+                  <blockquote className="pullquote">
+                    Google decides whether to rank you. An assistant decides
+                    whether to repeat you. Those are two different tests, and
+                    most pages have only ever been built for the first.
+                  </blockquote>
+                  <p className="pullquote-attr mt-4 pl-[1.5rem]">
+                    Stage 04 &middot; AI citation readiness
+                  </p>
+                </div>
+              </section>
+            )}
+          </div>
         ))}
 
         {/* ============ HOW TO DO IT YOURSELF ============ */}
