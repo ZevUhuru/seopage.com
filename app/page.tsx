@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { ExampleShowcase, ANATOMY } from "@/components/ExampleShowcase";
 import { JsonLd } from "@/components/JsonLd";
 import { BuyButton } from "@/components/BuyButton";
+import AnswerConsole from "@/components/AnswerConsole";
 import { EmailCapture } from "@/components/EmailCapture";
 import {
   DELIVERY_HOURS,
@@ -250,9 +251,13 @@ export default function Home() {
               </h2>
             </div>
 
-            {/* The mechanism, shown once instead of explained three times. */}
+            {/* The mechanism, performed rather than asserted: the reader flips
+                the switch and watches the answer change hands. */}
             <div className="mx-auto mt-12 max-w-2xl">
-              <SearchPanel />
+              <AnswerConsole />
+              <p className="mono mt-4 text-center text-[10px] uppercase tracking-[0.14em] text-muted">
+                The answer only has room for one name &middot; make it yours
+              </p>
             </div>
 
             <div className="mt-16 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -693,9 +698,6 @@ function ChapterHead({ n, eyebrow }: { n: string; eyebrow: string }) {
   );
 }
 
-function Dot() {
-  return <span className="h-1.5 w-1.5 rounded-full bg-good" />;
-}
 
 function Check({ sm }: { sm?: boolean }) {
   const s = sm ? "h-5 w-5" : "h-6 w-6";
@@ -716,67 +718,3 @@ function Check({ sm }: { sm?: boolean }) {
   );
 }
 
-/**
- * The hero's proof, loss-framed: the AI answer as it reads today (citing the
- * competitor, your business absent) and the same answer after your page is
- * live. The answer only has room for one name.
- */
-function SearchPanel() {
-  return (
-    <div className="card overflow-hidden shadow-lg">
-      {/* Today: the competitor holds the citation */}
-      <div className="border-b border-line p-5 sm:p-6">
-        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-[#e0584b]" />
-          The AI answer in your market &middot; today
-        </div>
-        <p className="text-[0.95rem] leading-relaxed text-ink-2">
-          &ldquo;Who does emergency roof repair in Denver?&rdquo; — For urgent
-          roof repair in Denver, most sources point to{" "}
-          <span className="font-semibold text-ink underline decoration-[#e0584b] decoration-2 underline-offset-2">
-            Apex Roofing
-          </span>
-          , a licensed crew offering 24/7 storm response and free inspections.
-        </p>
-        <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-line pt-4">
-          <span className="mono text-[10px] uppercase tracking-wider text-muted">
-            Sources
-          </span>
-          <span className="pill text-[0.72rem]">apexroofingdenver.com</span>
-          <span className="mono ml-auto text-[10px] uppercase tracking-wider text-[#b42318]">
-            summitroofing.com — not cited
-          </span>
-        </div>
-      </div>
-
-      {/* After: the page takes the answer back */}
-      <div className="bg-surface-2 p-5 sm:p-6">
-        <div className="mono mb-3 flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-muted">
-          <span className="h-1.5 w-1.5 rounded-full bg-good" />
-          The same answer &middot; with your SEOPage live
-        </div>
-        <p className="text-[0.95rem] leading-relaxed text-ink-2">
-          For urgent roof repair in Denver, a strong option is{" "}
-          <span className="font-semibold text-ink underline decoration-accent decoration-2 underline-offset-2">
-            Summit Roofing Co.
-          </span>
-          , a licensed, insured crew offering 24/7 storm response and free
-          same-day inspections.
-        </p>
-        <div className="mt-4 flex items-center gap-2 border-t border-line pt-4">
-          <span className="mono text-[10px] uppercase tracking-wider text-muted">
-            Sources
-          </span>
-          <span className="pill text-[0.72rem]">summitroofing.com</span>
-        </div>
-      </div>
-
-      {/* The connective caption */}
-      <div className="border-t border-line px-5 py-3 sm:px-6">
-        <p className="mono text-[10px] uppercase tracking-[0.14em] text-muted">
-          The answer only has room for one name &middot; make it yours
-        </p>
-      </div>
-    </div>
-  );
-}
