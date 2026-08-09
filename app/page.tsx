@@ -448,19 +448,28 @@ export default function Home() {
                 <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
                   A note from the founder
                 </p>
-                <p className="mt-4 text-[1.25rem] leading-[1.6] text-ink [font-family:Georgia,'Times_New_Roman',serif] sm:text-[1.4rem]">
+                <p className="note mt-5">
                   I&apos;ve built landing pages professionally for over a
-                  decade — for Vroom.com, fubo.tv, and my own products.
-                  SEOPage is that craft turned into a service: research-first
-                  workflows do the heavy lifting, and I personally review
-                  every page before it ships. If it isn&apos;t a page
-                  I&apos;d publish myself, it doesn&apos;t go out.
+                  decade, for{" "}
+                  <span className="font-semibold text-[#0b2c5b]">vroom.com</span>,{" "}
+                  <span className="font-semibold text-[#c2560c]">fubo.tv</span>,{" "}
+                  <span className="font-semibold text-[#00786a]">esy.com</span>,
+                  and my own products.
+                  SEOPage is that craft turned into a service. AI does in an
+                  hour what used to take me a week of research and drafting,
+                  though it still doesn&apos;t know which page is worth
+                  publishing. That part is the decade, and I bring it to every
+                  page before it ships.{" "}
+                  <span className="note-close">
+                    If it isn&apos;t a page I&apos;d publish myself, it
+                    doesn&apos;t go out.
+                  </span>
                 </p>
                 <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
                   <div>
                     <p className="font-semibold text-ink">Zev Uhuru</p>
                     <p className="text-sm text-muted">
-                      Founder &middot; reviews every page
+                      Founder &middot; Marketing Engineer
                     </p>
                   </div>
                   <a

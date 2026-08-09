@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Archivo } from "next/font/google";
+import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const sans = Geist({
@@ -17,6 +17,15 @@ const display = Archivo({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["600", "700", "800"],
+});
+
+// The page's one soft voice. Newsreader is a reading serif with a low-contrast
+// stroke and a genuinely warm italic — used only where a person is speaking.
+const serif = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
 });
 
 const TITLE = "SEO Pages That Get Cited by AI and Rank on Google | SEOPage";
@@ -84,7 +93,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${display.variable} ${mono.variable} h-full antialiased`}
+      className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-bg text-ink">{children}</body>
     </html>

@@ -373,9 +373,32 @@ body {
   color: var(--accent);
 }
 
+/* The founder's voice. Every other block on this page is engineered to sell;
+   this one is a person talking, so it is set lighter, looser, and quieter than
+   its size would suggest. */
+.note {
+  font-family: var(--font-serif), Georgia, serif;
+  font-weight: 300;
+  font-size: 1.16rem;
+  line-height: 1.75;
+  letter-spacing: 0.004em;
+  color: var(--ink-2);
+}
+@media (min-width: 640px) {
+  .note {
+    font-size: 1.3rem;
+  }
+}
+/* The closing promise, in the italic — the one line he'd say to your face. */
+.note-close {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--ink);
+}
+
 /* Editorial pull quote — the page's single serif moment. */
 .pullquote {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-style: italic;
   font-size: clamp(1.25rem, 2.6vw, 1.6rem);
   line-height: 1.45;
@@ -395,7 +418,7 @@ body {
 
 /* Hand-off sentence: the transitional device that closes each chapter. */
 .handoff {
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
   font-style: italic;
   font-size: 1.12rem;
   line-height: 1.6;
