@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Archivo } from "next/font/google";
+import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
 import "./globals.css";
 
 const sans = Geist({
@@ -19,9 +19,18 @@ const display = Archivo({
   weight: ["600", "700", "800"],
 });
 
-const TITLE = "Get Cited by AI Search — Done-For-You SEO Pages | SEOPage";
+// The page's one soft voice. Newsreader is a reading serif with a low-contrast
+// stroke and a genuinely warm italic — used only where a person is speaking.
+const serif = Newsreader({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
+});
+
+const TITLE = "SEO Pages That Get Cited by AI and Rank on Google | SEOPage";
 const DESCRIPTION =
-  "AI is already recommending someone in your market. We build the page that makes it you — researched, human-reviewed, engineered to be cited by ChatGPT, Perplexity, and Google AI Overviews, and to rank on Google. $99 per page, delivered within 3 hours.";
+  "An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. $99 per page, delivered within 3 hours.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
@@ -84,7 +93,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${display.variable} ${mono.variable} h-full antialiased`}
+      className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-bg text-ink">{children}</body>
     </html>
