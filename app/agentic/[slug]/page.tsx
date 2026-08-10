@@ -143,9 +143,11 @@ export default async function ArticlePage({
               {duration && <span>{duration}</span>}
             </div>
 
-            {/* The video, once there is one. Mux's hosted player keeps this
-                dependency-free until the UX justifies mux-player-react. */}
-            {article.muxPlaybackId && (
+            {/* The video slot. Mux's hosted player once a playback id exists —
+                which keeps this dependency-free until the UX justifies
+                mux-player-react. Until then, a placeholder frame so the page
+                reads as an issue with a video pending, not a broken embed. */}
+            {article.muxPlaybackId ? (
               <div className="mt-8 overflow-hidden rounded-lg border border-line bg-ink">
                 <div className="relative aspect-video">
                   <iframe
@@ -157,6 +159,23 @@ export default async function ArticlePage({
                   />
                 </div>
               </div>
+            ) : (
+              article.durationSeconds != null && (
+                <div className="relative mt-8 aspect-video overflow-hidden rounded-lg border border-line bg-surface-3">
+                  <div className="grid-backdrop absolute inset-0 grid place-items-center">
+                    <div className="text-center">
+                      <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-line-strong bg-surface text-accent shadow-sm">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+                        </svg>
+                      </span>
+                      <p className="mono mt-4 text-[10px] uppercase tracking-[0.14em] text-muted">
+                        Video in production
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )
             )}
 
             <p className="mt-8 max-w-[64ch] text-[1.15rem] leading-relaxed text-ink-2">

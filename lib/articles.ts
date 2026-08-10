@@ -1,16 +1,18 @@
 /**
- * /agentic articles, served headless from api.esy.com.
+ * /agentic articles: a static registry checked into git, merged with articles
+ * published from Compose via api.esy.com.
  *
- * Unlike esy.com there is no static registry here — every article is authored
- * in Compose and published to the `seopage` publication. That makes the API the
- * only source, which raises the stakes on one thing: a transient API failure
- * must never be cached as an empty list.
+ * The registry is the curated source of record and wins slug collisions; the
+ * API adds net-new articles. That means the hub has real content with no API
+ * dependency, and keeps rendering if api.esy.com is unreachable.
  *
  * Cache model is event-driven. The publish/unpublish webhook hits
  * /api/revalidate, which purges these tags, so a change lands in ~1s. The
  * 1-hour revalidate below is a backstop for a missed webhook, not the primary
  * freshness mechanism.
  */
+
+import { seedArticles } from "@/data/agentic-articles";
 
 const API_URL = process.env.ESY_API_URL ?? "https://api.esy.com";
 
@@ -76,25 +78,44 @@ async function fetchPublished(): Promise<Article[]> {
   return (body.items ?? []) as Article[];
 }
 
-export async function getArticles(): Promise<Article[]> {
-  try {
-    const items = await fetchPublished();
-    return [...items].sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    );
-  } catch (err) {
-    if (mayDegradeToEmpty()) {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(
-          `[articles] ${PUBLICATION_SLUG}: API unavailable, rendering empty.`,
-          err,
-        );
-      }
-      return [];
-    }
-    throw err;
+/** Registry wins slug collisions; everything sorts newest-first. */
+function mergeBySlug(registry: Article[], api: Article[]): Article[] {
+  const seen = new Set(registry.map((a) => a.slug));
+  const merged = [...registry];
+  for (const a of api) {
+    if (seen.has(a.slug)) continue;
+    seen.add(a.slug);
+    merged.push(a);
   }
+  return merged.sort(
+    (a, b) =>
+      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
+}
+
+export async function getArticles(): Promise<Article[]> {
+  let published: Article[] = [];
+  try {
+    published = await fetchPublished();
+  } catch (err) {
+    if (!mayDegradeToEmpty()) throw err;
+    if (process.env.NODE_ENV === "development") {
+      console.warn(
+        `[articles] ${PUBLICATION_SLUG}: API unavailable, registry only.`,
+        err,
+      );
+    }
+  }
+  return mergeBySlug(seedArticles, published);
+}
+
+/** Distinct categories present, in first-seen order. */
+export function categoriesOf(articles: Article[]) {
+  const seen = new Map<string, string>();
+  for (const a of articles) {
+    if (!seen.has(a.category)) seen.set(a.category, a.categoryLabel);
+  }
+  return [...seen].map(([category, label]) => ({ category, label }));
 }
 
 export async function findArticle(slug: string): Promise<Article | undefined> {
