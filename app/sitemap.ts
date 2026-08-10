@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getBaseUrl } from "@/lib/config";
+import { VERTICALS } from "@/lib/verticals";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = getBaseUrl();
@@ -11,6 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
+    ...VERTICALS.map((v) => ({
+      url: `${base}/${v.slug}`,
+      lastModified,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })),
     {
       url: `${base}/audit`,
       lastModified,
