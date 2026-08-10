@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   // Primary keyword ("SEO pages") front-loaded per title-tag guidance;
   // the template appends "| SEOPage".
   title: {
-    absolute: `SEO Pages That Get Cited by AI and Rank on Google | SEOPage`,
+    absolute: `SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage`,
   },
   description: `An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
