@@ -28,7 +28,7 @@ const serif = Newsreader({
   style: ["normal", "italic"],
 });
 
-const TITLE = "SEO Pages That Get Cited by AI and Rank on Google | SEOPage";
+const TITLE = "SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage";
 const DESCRIPTION =
   "An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. $99 per page, delivered within 3 hours.";
 
