@@ -26,9 +26,6 @@ export function SiteFooter() {
           <Link href="/on-page-seo-services" className="hover:text-ink">
             On-page SEO services
           </Link>
-          <Link href="/seo-page" className="hover:text-ink">
-            What is an SEO landing page?
-          </Link>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-ink">
             {PRODUCT.supportEmail}
           </a>
