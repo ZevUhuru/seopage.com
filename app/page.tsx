@@ -24,19 +24,21 @@ import {
    ================================================================ */
 
 export const metadata: Metadata = {
-  // Primary keyword ("SEO pages") front-loaded per title-tag guidance;
-  // the template appends "| SEOPage".
+  // Primary keyword ("SEO landing page") front-loaded. "seo landing page" is
+  // its own parent topic at KD 7; "seo page" is a fragment of "seo" at KD 90,
+  // whose SERP is starter guides rather than buyers. This page targets the
+  // former and absorbs the latter as a secondary term.
   title: {
     absolute: `SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage`,
   },
-  description: `An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
+  description: `An SEO landing page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
   alternates: { canonical: "/" },
 };
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "What is an SEO page?",
-    a: `An SEO page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. Ours are done for you: you name the search, we research the results, write the page, review it by hand, and deliver one complete ready-to-publish HTML file — not a draft you still have to fix.`,
+    q: "What is an SEO landing page?",
+    a: `An SEO landing page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. Ours are done for you: you name the search, we research the results, write the page, review it by hand, and deliver one complete ready-to-publish HTML file — not a draft you still have to fix.`,
   },
   {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
@@ -95,7 +97,7 @@ const SCHEMA = {
       url: "https://seopage.com",
       email: PRODUCT.supportEmail,
       description:
-        "SEOPage builds done-for-you SEO pages: researched, written, human-reviewed, and engineered to be cited by AI search and rank on Google, delivered within hours.",
+        "SEOPage builds done-for-you SEO landing pages: researched, written, human-reviewed, and engineered to be cited by AI search and rank on Google, delivered within hours.",
     },
     {
       "@type": "WebSite",
@@ -107,10 +109,10 @@ const SCHEMA = {
     {
       "@type": "Service",
       "@id": "https://seopage.com/#service",
-      serviceType: "SEO page creation",
-      name: "Done-for-you SEO page",
+      serviceType: "SEO landing page creation",
+      name: "Done-for-you SEO landing page",
       provider: { "@id": "https://seopage.com/#organization" },
-      description: `One researched, written, and human-reviewed SEO page built around a target keyword, engineered to be cited by AI search, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
+      description: `One researched, written, and human-reviewed SEO landing page built around a target keyword, engineered to be cited by AI search, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
       offers: {
         "@type": "Offer",
         price: `${PRICE_USD}.00`,
@@ -203,7 +205,7 @@ export default function Home() {
                 by design — heading weight comes from the tag, not the font size.
                 The fear line stays visually dominant below it. */}
             <h1 className="kicker rise">
-              SEO pages that get cited by AI
+              SEO landing pages that get cited by AI
             </h1>
             {/* The threat is red; blue stays reserved for the rescue (CTA). */}
             <p className="display rise rise-1 mx-auto mt-6 text-balance text-[2.75rem] leading-[1.02] text-ink sm:text-[3.8rem] lg:text-[4.4rem]">
@@ -213,7 +215,7 @@ export default function Home() {
               </span>
             </p>
             <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              We build the SEO page that gets you recommended instead. The most
+              We build the SEO landing page that gets you recommended instead. The most
               powerful AI available does the research, I review every line
               myself, and it lands in your inbox within {DELIVERY_HOURS} hours.
             </p>
@@ -330,7 +332,7 @@ export default function Home() {
             <ChapterHead n="02" eyebrow="The fix" />
             <div className="mt-12 max-w-2xl">
               <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
-                One SEO page, built to be the answer.
+                One SEO landing page, built to be the answer.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-ink-2">
                 Five things make a page quotable. Most websites skip all five.
@@ -653,7 +655,7 @@ export default function Home() {
             </div>
             <p className="mt-8 text-sm text-muted">
               Curious what an SEO page actually is?{" "}
-              <Link href="/seo-page" className="underline hover:text-ink">
+              <Link href="/audit" className="underline hover:text-ink">
                 Read the full reference
               </Link>{" "}
               or see{" "}

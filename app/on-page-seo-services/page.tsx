@@ -330,7 +330,7 @@ export default function OnPageSeoServicesPage() {
             </div>
             <p className="mt-8 text-sm text-muted">
               New to this?{" "}
-              <Link href="/seo-page" className="underline hover:text-ink">
+              <Link href="/audit" className="underline hover:text-ink">
                 What is an SEO landing page?
               </Link>{" "}
               covers the fundamentals, and the{" "}

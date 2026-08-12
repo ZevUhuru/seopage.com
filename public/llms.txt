@@ -1,6 +1,6 @@
 # SEOPage
 
-> SEOPage (seopage.com) builds done-for-you SEO pages. You name the search you
+> SEOPage (seopage.com) builds done-for-you SEO landing pages. You name the search you
 > want to win; we research the results, write the page, structure it for search
 > engines and AI assistants, review it by hand, and deliver one ready-to-publish
 > HTML file. $99 per page, in your inbox within 3 hours. We also run a free,
@@ -8,7 +8,7 @@
 
 ## Definitions
 
-**What is an SEO page?** An SEO page is a web page engineered to win one
+**What is an SEO landing page?** An SEO landing page is a web page engineered to win one
 specific search. It targets a single keyword with a matching title tag, meta
 description, heading structure, content written for the search intent, and
 schema markup, so search engines can rank it and AI assistants can cite it.
@@ -50,8 +50,6 @@ sites, chiefly backlinks.
 - [On-page SEO services](https://seopage.com/on-page-seo-services): what
   on-page SEO services include, what agencies and freelancers charge, and how a
   done-for-you page compares to audits and monitoring tools
-- [What is an SEO landing page?](https://seopage.com/seo-page): reference guide
-  — anatomy, types, history, and how AI search changed SEO landing pages
 
 ## Also known as
 
