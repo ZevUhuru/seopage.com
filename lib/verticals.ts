@@ -15,6 +15,8 @@
  * it is the line where Google stops reading this as content.
  */
 
+import { DELIVERY_HOURS, DELIVERY_LABEL, PRICE_LABEL } from "@/lib/config";
+
 export type Vertical = {
   /** URL slug. seopage.com/<slug> */
   slug: string;
@@ -51,7 +53,7 @@ export const VERTICALS: Vertical[] = [
     ],
     title: "Roofing SEO: One Page Built to Win the Search That Pays",
     description:
-      "Roofing SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the roofer an AI assistant names. $99, in your inbox within 3 hours.",
+      `Roofing SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the roofer an AI assistant names. ${PRICE_LABEL}, in your inbox ${DELIVERY_LABEL}.`,
     headline: {
       lead: "A storm hits and the calls go out within the hour.",
       loss: "They go to whoever the search finds first.",
@@ -94,7 +96,7 @@ export const VERTICALS: Vertical[] = [
       },
       {
         q: "How is this different from a roofing SEO agency?",
-        a: "An agency sells a monthly retainer and reports on progress. We sell one finished page for $99, delivered in 3 hours, and then we are done. If you need a page for emergency repair, one for replacement, and one for each city you serve, that is separate orders — not a contract.",
+        a: `An agency sells a monthly retainer and reports on progress. We sell one finished page for ${PRICE_LABEL}, delivered in ${DELIVERY_HOURS} hours, and then we are done. If you need a page for emergency repair, one for replacement, and one for each city you serve, that is separate orders — not a contract.`,
       },
       {
         q: "Which page should a roofer order first?",
@@ -113,7 +115,7 @@ export const VERTICALS: Vertical[] = [
     ],
     title: "HVAC SEO: One Page Built to Win the Search That Pays",
     description:
-      "HVAC SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the company an AI assistant names. $99, in your inbox within 3 hours.",
+      `HVAC SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the company an AI assistant names. ${PRICE_LABEL}, in your inbox ${DELIVERY_LABEL}.`,
     headline: {
       lead: "The AC dies on the first hot day and nobody shops around.",
       loss: "They call whoever the search answers with.",
@@ -160,7 +162,7 @@ export const VERTICALS: Vertical[] = [
       },
       {
         q: "How is this different from an HVAC marketing agency?",
-        a: "An agency sells a monthly retainer. We sell one finished page for $99, delivered in 3 hours, with no contract. Order a page for AC repair now and a furnace page before winter, or order twelve. There is nothing to cancel.",
+        a: `An agency sells a monthly retainer. We sell one finished page for ${PRICE_LABEL}, delivered in ${DELIVERY_HOURS} hours, with no contract. Order a page for AC repair now and a furnace page before winter, or order twelve. There is nothing to cancel.`,
       },
     ],
   },

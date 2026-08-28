@@ -2,7 +2,7 @@
  * Central config. Edit the price here (one place) and it flows to the
  * homepage, the paywall, and the Stripe Checkout Session.
  */
-export const PRICE_USD = 99;
+export const PRICE_USD = 199;
 export const PRICE_CENTS = PRICE_USD * 100;
 export const PRICE_LABEL = `$${PRICE_USD}`;
 

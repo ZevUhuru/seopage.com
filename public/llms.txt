@@ -3,7 +3,7 @@
 > SEOPage (seopage.com) builds done-for-you SEO landing pages. You name the search you
 > want to win; we research the results, write the page, structure it for search
 > engines and AI assistants, review it by hand, and deliver one ready-to-publish
-> HTML file. $99 per page, in your inbox within 3 hours. We also run a free,
+> HTML file. $199 per page, in your inbox within 3 hours. We also run a free,
 > human-reviewed SEO page audit of a page you already have.
 
 ## Definitions
@@ -28,7 +28,7 @@ sites, chiefly backlinks.
 
 ## Services
 
-- **Done-for-you SEO page** — $99 per page, one-time, no subscription.
+- **Done-for-you SEO page** — $199 per page, one-time, no subscription.
   Delivered within 3 hours as a single self-contained HTML file that is yours
   forever. Includes search-intent research, competitor analysis, a
   keyword-focused title tag and meta description, H1–H3 structure, the full
