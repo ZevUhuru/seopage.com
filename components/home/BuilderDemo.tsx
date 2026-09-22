@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useVisitor } from "./Personalize";
+import { funnelDisplay } from "./fonts";
 
 /**
  * A replay of the real builder at create.seopage.com: describe, research,
@@ -120,11 +121,12 @@ function Demo({ v }: { v: ReturnType<typeof useVisitor> }) {
           <div className="relative h-[720px] overflow-hidden">
             {/* app header */}
             <div className="flex h-[52px] items-center gap-3 border-b border-[#e6e8ec] bg-white px-5">
-              <span className="flex h-[26px] w-[26px] items-center justify-center rounded-[7px] bg-[#0a0c11]">
-                <Trend />
-              </span>
-              <span className="text-[16px] font-bold" style={archivo}>
-                SEO<span className="text-[#1b46d4]">Page</span>
+              {/* The builder's real header: the seopage¹ wordmark, as in components/Brand.tsx there. */}
+              <span className={`${funnelDisplay.className} inline-flex items-start text-[20px] font-bold leading-none tracking-[-0.04em] text-[#0a0c11]`}>
+                seopage
+                <span className="ml-[0.29em] mt-[0.07em] flex h-[1.5em] min-w-[1.5em] items-center justify-center rounded-[0.43em] bg-[#3D6BFF] text-[0.28em] tracking-normal text-white">
+                  1
+                </span>
               </span>
               <span className="border-l border-[#e6e8ec] pl-2.5 text-[10.5px] uppercase tracking-[.14em] text-[#646b78]" style={mono}>
                 create
@@ -358,14 +360,5 @@ function Skip({ k, why }: { k: string; why: string }) {
       <br />
       <span className="text-[12px] text-[#7a2a22]">{why}</span>
     </span>
-  );
-}
-
-function Trend() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M3 17l6-6 4 4 8-8" />
-      <path d="M14 7h7v7" />
-    </svg>
   );
 }
