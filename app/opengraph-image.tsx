@@ -32,25 +32,25 @@ export default function OgImage() {
             opacity: 0.5,
           }}
         />
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        {/* The wordmark: "seopage" with its citation superscript. */}
+        <div style={{ display: "flex", alignItems: "flex-start", fontSize: 44, fontWeight: 800, color: "#0a0c11", letterSpacing: -1.8, lineHeight: 1 }}>
+          seopage
           <div
             style={{
-              width: 40,
-              height: 40,
-              borderRadius: 10,
-              background: "#1b46d4",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              marginLeft: 4,
+              width: 19,
+              height: 19,
+              borderRadius: 5,
+              background: "#3D6BFF",
               color: "#fff",
-              fontSize: 24,
-              fontWeight: 800,
+              fontSize: 13,
+              letterSpacing: 0,
             }}
           >
-            S
-          </div>
-          <div style={{ display: "flex", fontSize: 34, fontWeight: 700, color: "#0a0c11" }}>
-            SEO<span style={{ color: "#1b46d4" }}>Page</span>
+            1
           </div>
         </div>
 
