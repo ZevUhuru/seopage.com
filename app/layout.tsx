@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
 import "./globals.css";
+import { PRICE_LABEL } from "@/lib/config";
 
 const sans = Geist({
   variable: "--font-sans",
@@ -29,8 +30,10 @@ const serif = Newsreader({
 });
 
 const TITLE = "SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage";
-const DESCRIPTION =
-  "An SEO page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. $99 per page, delivered within 3 hours.";
+const DESCRIPTION = `An SEO page is a page built to win one search. Build yours with AI — researched, written, and engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. Free to preview, ${PRICE_LABEL} to publish.`;
+
+// Shared by both the OpenGraph and Twitter cards.
+const SOCIAL_DESCRIPTION = `Describe your business. Get a finished SEO page — researched, written, and engineered for Google and AI search. Free to preview, ${PRICE_LABEL} to publish.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),
@@ -61,8 +64,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   openGraph: {
     title: TITLE,
-    description:
-      "Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. $99 per page, delivered within 3 hours.",
+    description: SOCIAL_DESCRIPTION,
     url: "https://seopage.com",
     siteName: "SEOPage",
     locale: "en_US",
@@ -71,8 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: TITLE,
-    description:
-      "Give us a keyword. Get a finished SEO page — researched, written, human-reviewed, and engineered for Google and AI search. $99 per page, delivered within 3 hours.",
+    description: SOCIAL_DESCRIPTION,
   },
   robots: {
     index: true,

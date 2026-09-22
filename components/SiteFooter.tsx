@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { DELIVERY_HOURS, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 export function SiteFooter() {
   return (
@@ -9,17 +9,14 @@ export function SiteFooter() {
         <div className="flex flex-col gap-2">
           <Logo />
           <p className="text-sm text-muted">
-            Done-for-you SEO pages — researched, human-reviewed, delivered
-            within {DELIVERY_HOURS} hours.
+            SEO landing pages built with AI — researched, written, ready to
+            publish. Free to preview, {PRICE_LABEL} to publish.
           </p>
         </div>
         <div className="flex flex-col gap-1 text-sm text-muted sm:items-end">
-          <Link
-            href="/#pricing"
-            className="font-medium text-ink hover:text-accent"
-          >
-            Get my SEO page · {PRICE_LABEL}
-          </Link>
+          <a href={CREATE_URL} className="font-medium text-ink hover:text-accent">
+            Build my SEO page
+          </a>
           <Link href="/audit" className="hover:text-ink">
             Free SEO page audit
           </Link>

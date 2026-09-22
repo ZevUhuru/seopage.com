@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
-import { DELIVERY_HOURS, PRICE_LABEL } from "@/lib/config";
+import { PRICE_LABEL } from "@/lib/config";
 
-export const alt = `SEOPage — done-for-you SEO pages. ${PRICE_LABEL} per page, delivered within ${DELIVERY_HOURS} hours.`;
+export const alt = `SEOPage — SEO landing pages built with AI. Free to preview, ${PRICE_LABEL} to publish.`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -103,7 +103,7 @@ export default function OgImage() {
             {PRICE_LABEL} per page
           </span>
           <span style={{ display: "flex" }}>
-            Researched · human-reviewed · delivered within {DELIVERY_HOURS} hours
+            Researched · written by AI · free to preview
           </span>
         </div>
       </div>
