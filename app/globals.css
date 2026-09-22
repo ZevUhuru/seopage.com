@@ -564,3 +564,36 @@ body {
   color: rgba(10, 12, 17, 0.06);
   transform: rotate(-22deg);
 }
+
+/* ============================================================
+   Homepage (Nora) — dark premium system. Scoped under .nh so the
+   light editorial system above keeps governing every other page.
+   ============================================================ */
+.nh {
+  background: #04060b;
+  color: #eef2ff;
+  font-family: var(--font-funnel), var(--font-sans), system-ui, sans-serif;
+}
+.nh ::selection { background: #3d6bff; color: #fff; }
+.nh-display {
+  font-family: var(--font-funnel-display), var(--font-sans), sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.045em;
+}
+.nh-mono { font-family: var(--font-mono), ui-monospace, monospace; }
+.nh a:focus-visible, .nh button:focus-visible, .nh input:focus-visible {
+  outline: 2px solid #9db4ff;
+  outline-offset: 3px;
+}
+@keyframes nh-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@keyframes nh-pop { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes nh-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.nh-caret { display: inline-block; width: 2px; height: 1em; background: #3d6bff; margin-left: 3px; vertical-align: -0.14em; animation: nh-blink 1s steps(1) infinite; }
+.nh-tcaret { display: inline-block; width: 1.5px; height: 15px; background: #1b46d4; margin-left: 1px; animation: nh-blink 1s steps(1) infinite; }
+.nh-pop { animation: nh-pop 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.nh-named { animation: nh-wipe 0.6s cubic-bezier(0.7, 0, 0.2, 1) both; }
+.nh-faq summary::-webkit-details-marker { display: none; }
+.nh-faq[open] .nh-plus { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) {
+  .nh-caret, .nh-tcaret, .nh-pop, .nh-named { animation: none; }
+}
