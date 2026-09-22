@@ -1,10 +1,11 @@
 # SEOPage
 
-> SEOPage (seopage.com) builds done-for-you SEO landing pages. You name the search you
-> want to win; we research the results, write the page, structure it for search
-> engines and AI assistants, review it by hand, and deliver one ready-to-publish
-> HTML file. $199 per page, in your inbox within 3 hours. We also run a free,
-> human-reviewed SEO page audit of a page you already have.
+> SEOPage (seopage.com) builds SEO landing pages with AI. You describe your business at
+> create.seopage.com; the AI researches the searches in your market, writes the
+> page, and structures it for search engines and AI assistants. You refine it in a
+> live editor and publish one ready-to-publish HTML file. Free to preview, $149
+> launch price to publish ($249 after launch). We also run a free, human-reviewed SEO page audit of a page you
+> already have.
 
 ## Definitions
 
@@ -28,13 +29,13 @@ sites, chiefly backlinks.
 
 ## Services
 
-- **Done-for-you SEO page** — $199 per page, one-time, no subscription.
-  Delivered within 3 hours as a single self-contained HTML file that is yours
-  forever. Includes search-intent research, competitor analysis, a
+- **SEO landing page builder** (https://create.seopage.com) — free to preview,
+  $149 launch price to publish ($249 after launch), one time, no subscription. Exports a single self-contained HTML
+  file that is yours forever. Includes live keyword research for your market, a
   keyword-focused title tag and meta description, H1–H3 structure, the full
-  written page, an FAQ section written to be quoted, schema markup,
-  internal-link recommendations, an llms.txt file, an AI-crawler access check,
-  and human review by the founder. Revise-or-refund guarantee.
+  written page in a hand-crafted design, an FAQ section written to be quoted,
+  LocalBusiness and FAQPage schema markup, and a live editor to refine the page
+  before you publish.
 - **Free SEO page audit** — one page, one target search, reviewed by a person,
   emailed within 24 hours. No account, no card. 29 checks across search intent,
   the elements search engines read, the content, AI citation readiness, and
@@ -77,18 +78,15 @@ does:
   FAQ block with matching FAQPage structured data, clear entity markup, and a
   robots.txt that does not block GPTBot, ClaudeBot, PerplexityBot, or
   Google-Extended.
-- On llms.txt specifically: we ship one with every page because it costs
-  nothing, but as of 2026 no major AI company has committed to reading llms.txt
+- On llms.txt specifically: it costs nothing to add one, but as of 2026 no major AI company has committed to reading llms.txt
   in production, and Google's own guidance says it is not used for AI Overviews
   or AI Mode. Anyone selling llms.txt as the reason you will get cited is
   overselling it.
-- Every page is reviewed by Zev Uhuru, who has built landing pages
-  professionally for over a decade for vroom.com, fubo.tv, and esy.com.
 
 ## Audience
 
 Local and small businesses, service businesses, SaaS companies, and agencies.
-White-label and volume orders are available: email support@seopage.com.
+Agency and volume pages are available: email support@seopage.com.
 
 ## Contact
 

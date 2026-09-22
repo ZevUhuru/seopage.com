@@ -1,25 +1,26 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ExampleShowcase, ANATOMY } from "@/components/ExampleShowcase";
 import { JsonLd } from "@/components/JsonLd";
-import { BuyButton } from "@/components/BuyButton";
+import { CreateButton } from "@/components/CreateButton";
 import AnswerConsole from "@/components/AnswerConsole";
 import { EmailCapture } from "@/components/EmailCapture";
 import {
-  DELIVERY_HOURS,
+  CREATE_URL,
+  PRICE_AFTER_LAUNCH_LABEL,
   PRICE_LABEL,
   PRICE_USD,
   PRODUCT,
 } from "@/lib/config";
 
 /* ================================================================
-   Direct-response PAS structure, one goal (buy the page):
+   Direct-response PAS structure, one goal (build the page in the
+   builder app at CREATE_URL — free to preview, PRICE_LABEL to publish):
    Problem (hero) → Agitate (the compounding loss) → the Turn
-   (tools diagnose, we cure) → Solution (the page + deliverable)
-   → Proof (real AI-citation receipts) → Offer (price + guarantee)
+   (tools diagnose, the page cures) → Solution (the page + how it's built)
+   → Offer (price, free preview)
    → FAQ → Close. The CTA repeats after every persuasion block.
    ================================================================ */
 
@@ -31,30 +32,30 @@ export const metadata: Metadata = {
   title: {
     absolute: `SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage`,
   },
-  description: `An SEO landing page is a page built to win one search. We build yours — researched, written, human-reviewed, engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. ${PRICE_LABEL}, delivered within ${DELIVERY_HOURS} hours.`,
+  description: `An SEO landing page is a page built to win one search. Build yours with AI — researched, written, and engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. Free to preview, ${PRICE_LABEL} to publish.`,
   alternates: { canonical: "/" },
 };
 
 const FAQS: { q: string; a: string }[] = [
   {
     q: "What is an SEO landing page?",
-    a: `An SEO landing page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. Ours are done for you: you name the search, we research the results, write the page, review it by hand, and deliver one complete ready-to-publish HTML file — not a draft you still have to fix.`,
+    a: `An SEO landing page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. SEOPage builds yours with AI: you describe your business, it researches the searches in your market and writes the page, you refine it in a live editor, and you publish one complete ready-to-publish HTML file — not a draft you still have to fix.`,
   },
   {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
-    a: "One finished SEO page: research into the search results for your keyword, a keyword-focused title tag and meta description, a clean heading structure, the full written page, an FAQ section written to be quoted, schema markup, internal-link suggestions, and a responsive design — delivered as a single ready-to-publish HTML file that's yours forever.",
+    a: "One finished SEO page: keyword research for your market, a keyword-focused title tag and meta description, a clean heading structure, the full written page in a hand-crafted responsive design, an FAQ section written to be quoted, and LocalBusiness and FAQPage schema markup — exported as a single ready-to-publish HTML file that's yours forever. Previewing is free; you only pay when you publish.",
   },
   {
-    q: `How does ${DELIVERY_HOURS}-hour delivery work?`,
-    a: `After checkout you fill out a short brief — your business, your target keyword, your competitors. Then we research the search results, write and structure the page, and a person reviews everything before it goes out. The finished page arrives in your inbox within ${DELIVERY_HOURS} hours of your order.`,
+    q: "How does it work?",
+    a: `Enter three details: your business name, what you do, and where you do it. The AI researches the searches people in your market actually type, writes the page around the one worth winning, and lays it out in a hand-crafted design. You refine anything you want in the live editor, then publish for ${PRICE_LABEL} and download the file. No brief, no sales call, no waiting on an inbox.`,
   },
   {
     q: "Who actually writes the page?",
-    a: "The research and drafting run on a workflow we've spent months building for exactly this job: search-intent research, competitor analysis, structured writing, and SEO checks. A person reviews every page before it's sent. That's why delivery takes hours, not seconds — instant AI drafts are easy; pages worth publishing take a process.",
+    a: "The AI does, inside guardrails. It runs live keyword research for your market and writes structured content: the headline, sections, FAQ, title tag, and meta description. It never improvises the design; the look comes from hand-crafted themes and section templates, so the page doesn't read or look like generic AI output. And you have the final say in the editor before anything is published.",
   },
   {
     q: "How is this different from an AI visibility tool?",
-    a: "AI visibility tools monitor whether ChatGPT, Perplexity, and Google AI mention your brand — they diagnose the problem, usually for a monthly subscription, and leave the fixing to you. We're the other half: we build the page those systems can actually cite. No dashboard, no subscription. One finished page, engineered to be quoted.",
+    a: "AI visibility tools monitor whether ChatGPT, Perplexity, and Google AI mention your brand — they diagnose the problem, usually for a monthly subscription, and leave the fixing to you. SEOPage is the other half: it builds the page those systems can actually cite. No dashboard, no subscription. One finished page, engineered to be quoted.",
   },
   {
     q: "Will it actually rank on Google?",
@@ -66,24 +67,25 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Do you do llms.txt?",
-    a: "Yes — every order includes an llms.txt file for your page, and we'll also tell you the truth about it. As of 2026 no major AI company has committed to reading llms.txt in production, and Google's own AI-optimization guidance says it isn't used for AI Overviews or AI Mode. It costs nothing to ship and it's there the day that changes, but anyone selling it to you as the reason you'll get cited is selling you a meta keywords tag. What actually earns a citation is duller: specific facts an assistant can quote, answers that still make sense lifted out of the page, valid structured data, and a site that isn't accidentally blocking the AI crawlers in robots.txt. We build for those.",
+    a: "It isn't part of the page, and here's the truth about it. As of 2026 no major AI company has committed to reading llms.txt in production, and Google's own AI-optimization guidance says it isn't used for AI Overviews or AI Mode. It costs nothing to add one yourself and it's there the day that changes, but anyone selling it to you as the reason you'll get cited is selling you a meta keywords tag. What actually earns a citation is duller: specific facts an assistant can quote, answers that still make sense lifted out of the page, valid structured data, and a site that isn't accidentally blocking the AI crawlers in robots.txt. Every SEOPage page is built for those.",
   },
   {
     q: "Is this AEO or GEO — answer engine optimization?",
-    a: "Those are the names people are giving to the same job: getting your business named inside an AI answer instead of a blue link. We do it at the page level. In practice that means writing self-contained, quotable passages rather than long build-up; putting specific, checkable facts and numbers on the page, because generative engines lean on sources they can quote precisely; matching structured data to the content so the page is machine-readable; making the entity clear and consistent, so the assistant knows who you are; and confirming GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers can actually reach your site. It's the same craft as good SEO, aimed at a surface that quotes instead of links.",
+    a: "Those are the names people are giving to the same job: getting your business named inside an AI answer instead of a blue link. We do it at the page level. In practice that means writing self-contained, quotable passages rather than long build-up; putting specific, checkable facts and numbers on the page, because generative engines lean on sources they can quote precisely; matching structured data to the content so the page is machine-readable; making the entity clear and consistent, so the assistant knows who you are; and a robots.txt that lets GPTBot, ClaudeBot, PerplexityBot, and Google's crawlers actually reach your site. It's the same craft as good SEO, aimed at a surface that quotes instead of links.",
   },
   {
     q: "What if I don't like the page?",
-    a: PRODUCT.satisfaction +
-      " Reply to your delivery email with what you'd change and we'll revise it — and if it's still not right, we'll refund you in full.",
+    a:
+      "You'll know before you pay. The whole page is free to preview, and you can refine any section in the editor until it's right. You only pay when you publish. " +
+      PRODUCT.satisfaction,
   },
   {
     q: "Do I need a website? How do I publish it?",
-    a: "You don't need an existing site. The page arrives as one self-contained HTML file — upload it to any host, point a domain at it, or paste it into your site builder's custom-HTML block. The delivery email includes step-by-step publishing instructions.",
+    a: "You don't need an existing site. When you publish, you download the page as one self-contained HTML file — upload it to any host, point a domain at it, or paste it into your site builder's custom-HTML block.",
   },
   {
-    q: "Can I order pages for multiple keywords, or for clients?",
-    a: `Yes. Each order covers one page for one target keyword — many customers order a page per service or per city. If you're an agency or need pages in volume, email ${PRODUCT.supportEmail} and we'll set you up directly.`,
+    q: "Can I build pages for multiple keywords, or for clients?",
+    a: `Yes. Each page covers one target keyword — many customers build a page per service or per city. If you're an agency or need pages in volume, email ${PRODUCT.supportEmail} and we'll set you up directly.`,
   },
 ];
 
@@ -97,7 +99,7 @@ const SCHEMA = {
       url: "https://seopage.com",
       email: PRODUCT.supportEmail,
       description:
-        "SEOPage builds done-for-you SEO landing pages: researched, written, human-reviewed, and engineered to be cited by AI search and rank on Google, delivered within hours.",
+        "SEOPage builds SEO landing pages with AI: researched, written, and engineered to be cited by AI search and rank on Google. Free to preview, ready to publish in one sitting.",
     },
     {
       "@type": "WebSite",
@@ -110,15 +112,15 @@ const SCHEMA = {
       "@type": "Service",
       "@id": "https://seopage.com/#service",
       serviceType: "SEO landing page creation",
-      name: "Done-for-you SEO landing page",
+      name: "SEO landing page builder",
       provider: { "@id": "https://seopage.com/#organization" },
-      description: `One researched, written, and human-reviewed SEO landing page built around a target keyword, engineered to be cited by AI search, delivered ready to publish within ${DELIVERY_HOURS} hours.`,
+      description: `One researched and written SEO landing page built around a target keyword, engineered to be cited by AI search, and exported ready to publish.`,
       offers: {
         "@type": "Offer",
         price: `${PRICE_USD}.00`,
         priceCurrency: "USD",
         availability: "https://schema.org/InStock",
-        url: "https://seopage.com",
+        url: CREATE_URL,
       },
     },
     {
@@ -176,18 +178,15 @@ const SOURCES: { name: string; href: string }[] = [
   },
 ];
 
-/* The deliverable, itemized like a receipt. This is the product. */
+/* The deliverable, itemized like a receipt. Only what the builder ships. */
 const DELIVERABLE: { t: string; d: string }[] = [
-  { t: "Search-intent research", d: "What the results for your keyword reward, and why" },
-  { t: "Competitor analysis", d: "What the pages that currently win have in common" },
+  { t: "Keyword research", d: "The searches people in your market actually type, and the one worth winning" },
   { t: "Title tag + meta description", d: "Written around your keyword, sized to fit" },
   { t: "Full written page", d: "Structured H1–H3, copy matched to search intent" },
   { t: "FAQ section", d: "Written to be quoted by Google and AI assistants" },
-  { t: "Schema markup", d: "Valid structured data, matched to the content" },
-  { t: "llms.txt file", d: "A plain-text index of your page, ready for the crawlers that read it" },
-  { t: "AI-crawler access check", d: "We confirm GPTBot, ClaudeBot, and PerplexityBot aren't blocked from your site" },
-  { t: "Internal-link suggestions", d: "Where the page should link, and what should link to it" },
-  { t: "Human review", d: "A person reads every page before it ships" },
+  { t: "Schema markup", d: "LocalBusiness and FAQPage structured data, matched to the content" },
+  { t: "Hand-crafted design", d: "Real typefaces and per-industry themes. The AI never improvises the look" },
+  { t: "Live editor", d: "Refine any section and see the page update before you pay" },
   { t: "Ready-to-publish HTML", d: "One self-contained file, yours forever" },
 ];
 
@@ -215,16 +214,16 @@ export default function Home() {
               </span>
             </p>
             <p className="rise rise-2 mx-auto mt-7 max-w-xl text-lg leading-relaxed text-ink-2">
-              We build the SEO landing page that gets you recommended instead. The most
-              powerful AI available does the research, I review every line
-              myself, and it lands in your inbox within {DELIVERY_HOURS} hours.
+              Build the SEO landing page that gets you recommended instead.
+              Our AI researches your market and writes the page, you refine
+              it, and it&apos;s ready to publish in one sitting.
             </p>
             <div className="rise rise-3 mt-9 flex justify-center">
-              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
+              <CreateButton label="Build My Page — Free Preview" />
             </div>
             <p className="rise rise-4 mono mt-5 text-[0.72rem] uppercase tracking-[0.14em] text-muted">
-              Engineered to be cited &middot; {DELIVERY_HOURS}-hour delivery
-              &middot; human-reviewed
+              Engineered to be cited &middot; free to preview &middot;{" "}
+              {PRICE_LABEL} launch price to publish
             </p>
             <div className="rise rise-4 mt-14">
               <a
@@ -298,9 +297,9 @@ export default function Home() {
 
             {/* CTA repeat: catch the reader at peak agitation. */}
             <div className="mt-10 flex flex-col items-center gap-3">
-              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
+              <CreateButton label="Build My Page — Free Preview" />
               <p className="text-sm text-muted">
-                One page. One keyword. Done in {DELIVERY_HOURS} hours.
+                One page. One keyword. Built in one sitting.
               </p>
             </div>
           </div>
@@ -316,12 +315,12 @@ export default function Home() {
               AI visibility tools tell you you&apos;re losing.
               <br />
               <span className="text-[#8b93f8]">
-                We build the page that wins it back.
+                SEOPage builds the page that wins it back.
               </span>
             </p>
             <p className="mx-auto mt-8 max-w-xl text-lg leading-relaxed text-white/60">
               Dashboards charge monthly to tell you you&apos;re invisible.
-              The cure is one well-built page — that&apos;s what we sell.
+              The cure is one well-built page — that&apos;s what SEOPage makes.
             </p>
           </div>
         </section>
@@ -361,7 +360,7 @@ export default function Home() {
               <div className="card overflow-hidden">
                 <div className="flex items-baseline justify-between border-b border-line px-6 py-4">
                   <span className="mono text-[11px] uppercase tracking-[0.14em] text-muted">
-                    Every order includes
+                    Every page includes
                   </span>
                   <span className="mono text-[11px] uppercase tracking-[0.14em] text-muted">
                     {PRICE_LABEL}
@@ -385,29 +384,29 @@ export default function Home() {
               </div>
               <div className="lg:pt-2">
                 <h3 className="text-lg font-semibold text-ink">
-                  Order to inbox in {DELIVERY_HOURS} hours
+                  Three details to a finished page
                 </h3>
                 <div className="mt-6 space-y-7">
                   {[
                     {
                       n: "01",
-                      t: "Place your order",
-                      d: `${PRICE_LABEL} through Stripe. No account, no subscription, no sales call.`,
+                      t: "Tell it about your business",
+                      d: "Your business name, what you do, and where. Add more detail if you like. No brief, no sales call.",
                     },
                     {
                       n: "02",
-                      t: "Tell us the search you want to win",
-                      d: "A 5-minute brief: your business, your market, your goal, and what a customer should do on the page.",
+                      t: "The AI researches and writes",
+                      d: "Live keyword research for your market, then a full page written around the search worth winning, in a hand-crafted design.",
                     },
                     {
                       n: "03",
-                      t: "We research, write, and review",
-                      d: "Search-intent research, competitor analysis, structured writing — then a person reviews the finished page.",
+                      t: "Refine it in the editor",
+                      d: "Change any section and see the page update. Previewing is free.",
                     },
                     {
                       n: "04",
-                      t: "It lands in your inbox",
-                      d: "Ready-to-publish HTML with publishing instructions. Upload it anywhere.",
+                      t: "Publish and download",
+                      d: `${PRICE_LABEL} once through Stripe. One self-contained HTML file, yours forever. Upload it anywhere.`,
                     },
                   ].map((s) => (
                     <div key={s.n} className="flex gap-4">
@@ -424,87 +423,7 @@ export default function Home() {
                   ))}
                 </div>
                 <div className="mt-8">
-                  <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ============ 04 · THE PERSON — who reviews your page ============ */}
-        <section id="founder" className="border-t border-line bg-surface-2">
-          <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="03" eyebrow="Who's behind it" />
-            <div className="mx-auto mt-12 grid max-w-4xl items-center gap-10 sm:grid-cols-[auto_1fr]">
-              <div className="mx-auto text-center">
-                {/* Wrapper clips; the image is zoomed and nudged right within it. */}
-                <div className="h-44 w-44 overflow-hidden rounded-full border-2 border-accent">
-                  <Image
-                    src="/founder-zev-uhuru.png"
-                    alt="Zev Uhuru, founder of SEOPage"
-                    width={176}
-                    height={176}
-                    className="h-full w-full scale-[1.35] translate-x-2 translate-y-4 object-cover"
-                  />
-                </div>
-                <p className="mt-3 text-sm text-muted">New York City</p>
-              </div>
-              <div>
-                <p className="mono text-[11px] uppercase tracking-[0.14em] text-accent">
-                  A note from the founder
-                </p>
-                <p className="note mt-5">
-                  I&apos;ve built SEO landing pages professionally for over a
-                  decade, for{" "}
-                  <span className="font-semibold text-[#0b2c5b]">vroom.com</span>,{" "}
-                  <span className="font-semibold text-[#c2560c]">fubo.tv</span>,{" "}
-                  <span className="font-semibold text-[#00786a]">esy.com</span>,
-                  and my own products.
-                  SEOPage is that craft turned into a service. AI does in an
-                  hour what used to take me a week of research and drafting,
-                  though it still doesn&apos;t know which page is worth
-                  publishing. That part is the decade, and I bring it to every
-                  page before it ships.{" "}
-                  <span className="note-close">
-                    If it isn&apos;t a page I&apos;d publish myself, it
-                    doesn&apos;t go out.
-                  </span>
-                </p>
-                <div className="mt-6 flex items-center justify-between gap-4 border-t border-line pt-5">
-                  <div>
-                    <p className="font-semibold text-ink">Zev Uhuru</p>
-                    <p className="text-sm text-muted">
-                      Founder &middot; Marketing Engineer
-                    </p>
-                  </div>
-                  {/* GitHub first: the profile README lists the fubo and Vroom
-                      work by URL, so it verifies the claim this note actually
-                      makes. LinkedIn stays for readers who don't know what a
-                      commit is. */}
-                  <div className="flex shrink-0 items-center gap-2">
-                    <a
-                      href="https://github.com/ZevUhuru"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Zev Uhuru on GitHub"
-                      className="grid h-10 w-10 place-items-center rounded-lg border border-line text-ink-2 transition hover:border-accent hover:text-accent"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.35-1.29-1.71-1.29-1.71-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.35.78 1.05.78 2.12v3.14c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
-                      </svg>
-                    </a>
-                    <a
-                      href="https://linkedin.com/in/zevuhuru"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label="Zev Uhuru on LinkedIn"
-                      className="grid h-10 w-10 place-items-center rounded-lg border border-line text-ink-2 transition hover:border-accent hover:text-accent"
-                    >
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z" />
-                      </svg>
-                    </a>
-                  </div>
+                  <CreateButton label="Build My Page — Free Preview" />
                 </div>
               </div>
             </div>
@@ -514,7 +433,7 @@ export default function Home() {
         {/* ============ 05 · OFFER — price, anchored, de-risked ============ */}
         <section id="pricing" className="border-t border-line">
           <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 lg:py-24">
-            <ChapterHead n="04" eyebrow="The offer" />
+            <ChapterHead n="03" eyebrow="The offer" />
             <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1fr_0.9fr]">
               <div>
                 <h2 className="display reveal text-[1.9rem] leading-[1.08] text-ink sm:text-[2.4rem]">
@@ -544,18 +463,18 @@ export default function Home() {
                 {/* Risk reversal: the guarantee carries the fear's counterweight. */}
                 <div className="card mt-8 max-w-md p-6">
                   <p className="mono text-[11px] uppercase tracking-[0.14em] text-good">
-                    The make-it-right guarantee
+                    See it before you pay
                   </p>
                   <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-2">
-                    Read the finished page. If anything&apos;s off, reply to
-                    the delivery email and we&apos;ll revise it until
-                    it&apos;s right. Still not happy? Full refund. You risk an
-                    email; we risk the work.
+                    The whole page is free to preview. Refine it until
+                    it&apos;s right, and only pay when you publish. Still
+                    something off after that? Email{" "}
+                    {PRODUCT.supportEmail} and we&apos;ll make it right.
                   </p>
                 </div>
 
                 <p className="mt-6 max-w-md text-sm text-muted">
-                  Ordering for an agency or in volume? Email{" "}
+                  Building for an agency or in volume? Email{" "}
                   <a
                     href={`mailto:${PRODUCT.supportEmail}`}
                     className="underline hover:text-ink"
@@ -574,6 +493,9 @@ export default function Home() {
                       {PRICE_LABEL}
                     </span>
                     <span className="ml-1 text-sm text-muted">once</span>
+                    <span className="mono mt-1 block text-[0.68rem] uppercase tracking-[0.12em] text-accent">
+                      Launch price &middot; {PRICE_AFTER_LAUNCH_LABEL} after launch
+                    </span>
                   </div>
                 </div>
                 <div className="p-7">
@@ -581,10 +503,10 @@ export default function Home() {
                     {[
                       "One finished page for one target keyword",
                       "Engineered to be cited by AI search",
-                      "Search-intent + competitor research",
+                      "Live keyword research for your market",
                       "Title tag, meta description, and schema markup",
-                      "Human-reviewed before it ships",
-                      `Delivered within ${DELIVERY_HOURS} hours, yours forever`,
+                      "Refine it in a live editor before you pay",
+                      "Ready-to-publish HTML, yours forever",
                     ].map((f) => (
                       <li key={f} className="flex items-start gap-3">
                         <Check sm />
@@ -593,14 +515,14 @@ export default function Home() {
                     ))}
                   </ul>
                   <div className="mt-7">
-                    <BuyButton
-                      label={`Get Me Cited in AI — ${PRICE_LABEL}`}
+                    <CreateButton
+                      label="Build My Page — Free Preview"
                       className="btn btn-accent btn-lg w-full"
                     />
                   </div>
                   <p className="mt-3 text-center text-xs text-muted">
-                    Secure checkout by Stripe &middot; brief takes 5 minutes
-                    &middot; revise-or-refund guarantee
+                    Free to preview &middot; pay only when you publish
+                    &middot; secure checkout by Stripe
                   </p>
                 </div>
               </div>
@@ -611,7 +533,7 @@ export default function Home() {
         {/* ============ 05 · OBJECTIONS — the questions, answered ============ */}
         <section id="faq" className="bg-surface-2">
           <div className="mx-auto max-w-6xl px-5 pt-16 sm:px-8 lg:pt-24">
-            <ChapterHead n="05" eyebrow="The questions, answered" />
+            <ChapterHead n="04" eyebrow="The questions, answered" />
           </div>
           <div className="mx-auto max-w-3xl px-5 pb-16 sm:px-8 lg:pb-24">
             <div className="mt-12">
@@ -681,17 +603,16 @@ export default function Home() {
               </span>
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-2">
-              Tell us the search you want to win. The most powerful AI
-              available does the research and builds the page, I review every
-              line and sign it off, and it&apos;s in your inbox within{" "}
-              {DELIVERY_HOURS} hours.
+              Tell it the search you want to win. The AI researches your
+              market and builds the page, you refine it until it&apos;s right,
+              and you publish when you&apos;re happy.
             </p>
             <div className="mt-9 flex justify-center">
-              <BuyButton label={`Get Me Cited in AI — ${PRICE_LABEL}`} />
+              <CreateButton label="Build My Page — Free Preview" />
             </div>
             <p className="mt-4 text-sm text-muted">
               {PRICE_LABEL}{" "}
-              once &middot; revise-or-refund guarantee &middot; no subscription
+              once to publish &middot; free to preview &middot; no subscription
             </p>
 
             {/* Footnotes — the page cites its sources. */}

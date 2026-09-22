@@ -1,6 +1,6 @@
 # SEOPage — Done-For-You SEO Pages
 
-SEOPage sells **finished SEO pages as a service**: pay **$199** up front, fill
+SEOPage sells **finished SEO pages as a service**: pay **$149** up front, fill
 out a detailed brief, and receive a researched, written, human-reviewed page by
 email **within 3 hours**. The $29 instant-builder validated that strangers will
 pay for a generated page; this iteration tests the real commercial price with
@@ -9,7 +9,7 @@ service positioning (researched + reviewed, not instant AI output).
 ### Primary funnel (pay-first)
 
 ```
-land (/ or /on-page-seo-services) → pay $199 (Stripe) → /order?session_id=… (brief)
+land (/ or /on-page-seo-services) → pay $149 (Stripe) → /order?session_id=… (brief)
   → confirmation ("inbox within 3 hours") → operator fulfills from /admin
   → "Send delivery email" → buyer downloads via /api/export/[id]
 ```

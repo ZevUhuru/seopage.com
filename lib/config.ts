@@ -2,9 +2,25 @@
  * Central config. Edit the price here (one place) and it flows to the
  * homepage, the paywall, and the Stripe Checkout Session.
  */
-export const PRICE_USD = 199;
+export const PRICE_USD = 149;
 export const PRICE_CENTS = PRICE_USD * 100;
 export const PRICE_LABEL = `$${PRICE_USD}`;
+
+/**
+ * Launch pricing: $149 now, $249 once launch pricing ends. Shown as a FUTURE
+ * price, never struck through as a "was" price we never charged. When launch
+ * ends, raise PRICE_USD to this and drop the launch copy. Must match
+ * create.seopage.com's lib/config.ts, where the page is actually bought.
+ */
+export const PRICE_AFTER_LAUNCH_USD = 249;
+export const PRICE_AFTER_LAUNCH_LABEL = `$${PRICE_AFTER_LAUNCH_USD}`;
+
+/**
+ * The builder app. Every "build my page" CTA on the marketing site sends
+ * people here: free to preview, PRICE_LABEL to publish.
+ */
+export const CREATE_URL =
+  process.env.NEXT_PUBLIC_CREATE_URL || "https://create.seopage.com";
 
 /** The delivery promise shown everywhere. Only promise what we can hit. */
 export const DELIVERY_HOURS = 3;
