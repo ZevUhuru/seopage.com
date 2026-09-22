@@ -1,51 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePersonalize, useVisitor } from "./Personalize";
 import { CREATE_URL } from "@/lib/config";
-
-const WORDS = ["The", "one", "most", "people", "recommend", "is"];
-
-/** The AI answer that streams in and names SEOPage (or the visitor's business). */
-export function HeroAnswer() {
-  const v = useVisitor();
-  // A new key remounts the stream, so it replays whenever the named business changes.
-  return <StreamedAnswer key={v.displayName + v.question} v={v} />;
-}
-
-function StreamedAnswer({ v }: { v: ReturnType<typeof useVisitor> }) {
-  const [shown, setShown] = useState(0);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t = setInterval(
-      () => setShown((n) => (reduced ? WORDS.length + 1 : n > WORDS.length ? n : n + 1)),
-      reduced ? 0 : 180,
-    );
-    return () => clearInterval(t);
-  }, []);
-
-  const done = shown > WORDS.length;
-  return (
-    <div
-      className="w-full max-w-[470px] rounded-[18px] border border-white/15 bg-[#0A0F1E]/80 px-5 py-[18px] backdrop-blur-md"
-    >
-      <p className="text-[13px] text-[#A0A9C0]">{v.question}</p>
-      <p className="mt-2 text-[18px] leading-[1.45]">
-        {WORDS.slice(0, Math.min(shown, WORDS.length)).join(" ")}{" "}
-        {done ? (
-          <>
-            <b className="nh-named inline-block font-semibold text-[#9DB4FF]">{v.displayName}.</b>
-            <sup className="ml-1 rounded bg-[#3D6BFF] px-[5px] py-px text-[11px] font-semibold text-white">1</sup>
-          </>
-        ) : (
-          <span className="nh-caret" aria-hidden />
-        )}
-      </p>
-      <p className="nh-mono mt-2 text-[11.5px] text-[#7D869C]">1 · {v.host}</p>
-    </div>
-  );
-}
 
 /** The hero's pill form. Typing personalizes the page; the button starts the builder. */
 export function HeroForm() {

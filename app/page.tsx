@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { PersonalizeProvider } from "@/components/home/Personalize";
-import { AlarmTranscript, HeroAnswer, HeroForm, Tick } from "@/components/home/HeroAnswer";
+import { AlarmTranscript, HeroForm, Tick } from "@/components/home/HeroAnswer";
 import { LoopVideo } from "@/components/home/LoopVideo";
 import { BuilderDemo } from "@/components/home/BuilderDemo";
 import { ChecksExplorer } from "@/components/home/ChecksExplorer";
@@ -59,7 +59,7 @@ export default function Home() {
             src="/home/nora-proud.mp4"
             poster="/home/nora-proud.webp"
             label="Nora, a clay-animated plumber, standing outside her shop with a pipe wrench on her shoulder."
-            className="absolute right-0 top-0 h-full w-full object-cover lg:w-[72%]"
+            className="absolute right-0 top-0 h-full w-full object-cover lg:w-[72%] lg:[mask-image:linear-gradient(90deg,transparent_0%,black_32%)]"
             style={{ objectPosition: "30% 50%" }}
           />
           <div className="absolute inset-0 bg-[#04060B]/70 lg:bg-transparent lg:[background:linear-gradient(90deg,#04060B_0%,rgba(4,6,11,.86)_30%,rgba(4,6,11,.2)_62%,rgba(4,6,11,0)_100%)]" />
@@ -87,7 +87,6 @@ export default function Home() {
             </header>
 
             <div className="mt-24 flex w-full max-w-[640px] flex-col gap-6 lg:mt-auto">
-              <HeroAnswer />
               <h1 className="nh-display text-[clamp(48px,6.2vw,88px)] leading-[0.95]">SEO landing pages that get cited by AI.</h1>
               <p className="max-w-[540px] text-[clamp(17px,1.5vw,20px)] leading-[1.55] text-[#C9D0E2]">
                 And rank on Google. Built from live search data for your city, and scored on ten checks before you pay.
@@ -179,7 +178,7 @@ export default function Home() {
           <div className="grid gap-8 lg:grid-cols-2">
             {[
               ["/proof/esy-ai-citations.png", "Ahrefs Site Explorer overview for esy.com: 37 ChatGPT citations across 20 pages, plus Perplexity, Copilot, and Grok.", "esy.com, cited 37 times by ChatGPT", "Across 20 pages, plus Perplexity, Copilot, and Grok."],
-              ["/proof/clipart-ai-citations.png", "Ahrefs Site Explorer overview for clip.art: 12 ChatGPT citations, up 9 in a month, with a domain rating of 0.6.", "clip.art, 12 ChatGPT citations", "Nine new that month, on a domain rating under 1. Structure did the work."],
+              ["/proof/clipart-ai-responses-sep-2026.png", "Ahrefs Site Explorer overview for clip.art, September 2026: 102 AI responses across 35 pages, 20 in AI Overviews, 36 in ChatGPT, domain rating 11, organic traffic 1.9K.", "clip.art, named in 102 AI answers", "Across 35 pages: 36 in ChatGPT, 20 in Google AI Overviews, plus AI Mode, Copilot, Perplexity, and Gemini. Organic traffic up 570 in a month, on a domain rating of 11."],
             ].map(([src, alt, h, d]) => (
               <figure key={src} className="flex flex-col gap-[18px]">
                 <div className="overflow-hidden rounded-[18px] border border-white/15 bg-white">
@@ -193,7 +192,7 @@ export default function Home() {
               </figure>
             ))}
           </div>
-          <p className="text-[14px] text-[#7D869C]">Ahrefs Site Explorer, May 2026. Our own sites, not client results. Yours will differ.</p>
+          <p className="text-[14px] text-[#7D869C]">Ahrefs Site Explorer: esy.com in May 2026, clip.art in September 2026. Our own sites, not client results. Yours will differ.</p>
         </section>
 
         {/* TEN CHECKS */}
@@ -280,7 +279,7 @@ export default function Home() {
 
         {/* CLOSE */}
         <section className="relative flex min-h-[860px] flex-col overflow-hidden">
-          <LoopVideo src="/home/nora-call.mp4" poster="/home/nora-call.webp" label="Nora smiling on the phone, writing down a new job." className="absolute right-0 top-0 h-full w-full object-cover lg:w-[64%]" style={{ objectPosition: "50% 40%" }} />
+          <LoopVideo src="/home/nora-call.mp4" poster="/home/nora-call.webp" label="Nora smiling on the phone, writing down a new job." className="absolute right-0 top-0 h-full w-full object-cover lg:w-[64%] lg:[mask-image:linear-gradient(90deg,transparent_0%,black_32%)]" style={{ objectPosition: "50% 40%" }} />
           <div className="absolute inset-0 bg-[#04060B]/75 lg:bg-transparent lg:[background:linear-gradient(90deg,#04060B_0%,rgba(4,6,11,.86)_30%,rgba(4,6,11,.2)_62%,rgba(4,6,11,0)_100%)]" />
           <div className={`relative flex min-h-[860px] flex-1 flex-col ${PAD} pb-11 pt-32 lg:pt-[150px]`}>
             <p className="max-w-[520px] text-[20px] text-[#C9D0E2]">
