@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
+import { Logo } from "@/components/Logo";
 import { PersonalizeProvider } from "@/components/home/Personalize";
 import { AlarmTranscript, HeroForm, Tick } from "@/components/home/HeroAnswer";
 import { LoopVideo } from "@/components/home/LoopVideo";
@@ -67,23 +68,10 @@ export default function Home() {
 
           <div className={`relative flex h-full flex-col ${PAD} pb-16 pt-7`}>
             <header className="flex h-[52px] items-center justify-between">
-              <Link href="/" className="flex items-center gap-2.5" aria-label="SEOPage home">
-                <span className="flex h-[30px] w-[30px] items-center justify-center rounded-[9px] bg-[#3D6BFF]">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                    <path d="M3 17l6-6 4 4 8-8" />
-                    <path d="M14 7h7v7" />
-                  </svg>
-                </span>
-                <span className="nh-display text-[21px] font-bold tracking-[-0.02em]">SEOPage</span>
-              </Link>
-              <nav className="flex items-center gap-8 text-[15px] text-[#C9D0E2]">
-                <a href="#demo" className="hidden hover:text-white md:inline">How it works</a>
-                <a href="#proof" className="hidden hover:text-white md:inline">Proof</a>
-                <a href="#price" className="hidden hover:text-white md:inline">Pricing</a>
-                <a href={CREATE_URL} className="flex h-11 items-center rounded-full border border-white/30 bg-[#04060B]/35 px-5 font-medium text-[#EEF2FF] backdrop-blur hover:border-white/60">
-                  Build my page
-                </a>
-              </nav>
+              <Logo tone="dark" className="text-[26px]" />
+              <a href={CREATE_URL} className="flex h-11 items-center rounded-full border border-white/30 bg-[#04060B]/35 px-5 font-medium text-[#EEF2FF] backdrop-blur hover:border-white/60">
+                Build my page
+              </a>
             </header>
 
             <div className="mt-24 flex w-full max-w-[640px] flex-col gap-6 lg:mt-auto">
