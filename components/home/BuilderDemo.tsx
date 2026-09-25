@@ -187,7 +187,7 @@ function Demo({ v, trade }: { v: ReturnType<typeof useVisitor>; trade: DemoTrade
                   <span className="text-[10.5px] uppercase tracking-[.16em] text-[#646b78]" style={mono}>Your page is taking shape</span>
                   <div className="overflow-hidden rounded-xl bg-white shadow-[0_24px_48px_-24px_rgba(10,12,17,.35)]">
                     <div className="relative h-[230px]">
-                      <img src="/home/nora-proud.webp" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} />
+                      {trade.hero ? <img src={trade.hero} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 40%" }} /> : <div className="absolute inset-0 bg-[#1d2a55]" />}
                       <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(12,20,45,.92) 0%, rgba(12,20,45,.55) 55%, rgba(12,20,45,.1) 100%)" }} />
                       <div className="absolute left-6 right-[140px] top-7 flex flex-col gap-2 text-white">
                         <span className="text-[9.5px] uppercase tracking-[.16em] text-[#9fb4ff]" style={mono}>{city} · same-day service</span>
@@ -334,7 +334,7 @@ function Demo({ v, trade }: { v: ReturnType<typeof useVisitor>; trade: DemoTrade
               <div key="live" className="absolute inset-x-0 bottom-0 top-[52px] flex items-center justify-center bg-[#0a0c11]/45">
                 <div className="nh-pop w-[480px] overflow-hidden rounded-[18px] bg-white shadow-[0_30px_60px_-20px_rgba(0,0,0,.5)]">
                   <div className="relative h-[130px]">
-                    <img src="/home/nora-proud.webp" alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 35%" }} />
+                    {trade.hero ? <img src={trade.hero} alt="" className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: "50% 35%" }} /> : <div className="absolute inset-0 bg-[#1d2a55]" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent" />
                   </div>
                   <div className="flex flex-col gap-3.5 px-7 pb-[26px] pt-1">
