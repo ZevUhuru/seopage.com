@@ -3,9 +3,10 @@ import { getVertical, VERTICALS } from "@/lib/verticals";
 import { TradeA } from "../../../_lib/trade-a";
 import { TradeB } from "../../../_lib/trade-b";
 import { TradeC } from "../../../_lib/trade-c";
+import { TradeD } from "../../../_lib/trade-d";
 import { TRADE_STYLES, TradeSwitcher, type TradeKey } from "../../../_lib/trade-shared";
 
-const VIEWS = { a: TradeA, b: TradeB, c: TradeC };
+const VIEWS = { a: TradeA, b: TradeB, c: TradeC, d: TradeD };
 
 export const dynamicParams = false;
 export function generateStaticParams() {

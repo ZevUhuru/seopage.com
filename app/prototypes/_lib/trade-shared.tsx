@@ -13,6 +13,7 @@ export const TRADE_STYLES = [
   { key: "a", name: "The Answer", note: "Opens on the AI answer naming someone else. The homepage's story, told per trade." },
   { key: "b", name: "The Brief", note: "Reads like the research brief. The page to build is drawn out, proof pinned to it." },
   { key: "c", name: "The Poster", note: "The trade in huge type, searches scrolling past, losses struck through." },
+  { key: "d", name: "Homepage edition", note: "The homepage's story with a roofer or HVAC tech in Nora's place. Frames mark each scene to make." },
 ] as const;
 export type TradeKey = (typeof TRADE_STYLES)[number]["key"];
 
