@@ -3,9 +3,16 @@ import { getArticles, relatedFrom } from "@/lib/articles";
 import { ArticleA } from "../../_lib/a";
 import { ArticleB } from "../../_lib/b";
 import { ArticleC } from "../../_lib/c";
-import { ProtoSwitcher, type StyleKey } from "../../_lib/shared";
+import { ProtoSwitcher, STYLES, type StyleKey } from "../../_lib/shared";
 
 const ARTICLE = { a: ArticleA, b: ArticleB, c: ArticleC };
+
+// Built once, so the prototype links never depend on the API.
+export const dynamicParams = false;
+export async function generateStaticParams() {
+  const all = await getArticles();
+  return STYLES.flatMap((s) => all.map((a) => ({ style: s.key, slug: a.slug })));
+}
 
 export default async function ProtoArticle({ params }: { params: Promise<{ style: string; slug: string }> }) {
   const { style, slug } = await params;

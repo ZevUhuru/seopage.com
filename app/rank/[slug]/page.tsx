@@ -18,16 +18,20 @@ import {
 const BASE_URL = "https://seopage.com";
 
 /**
- * Articles are published from Compose, so slugs are not known at build time.
- * Everything renders on demand and is held by ISR until the publish webhook
- * purges it.
+ * Every article known at build is prerendered; ones published from Compose
+ * later render on first request. Either way ISR holds the page until the
+ * publish webhook purges it.
+ *
+ * Prerendering is what makes a failed API refresh safe: getArticles() throws
+ * in production so Next keeps the last-good render, which only exists if the
+ * page was rendered once. With an empty list here, an API outage 500'd every
+ * article that had never been visited.
  */
 export const dynamicParams = true;
 export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  // Empty at build; the first request for a slug renders and caches it.
-  return [];
+  return (await getArticles()).map((a) => ({ slug: a.slug }));
 }
 
 export async function generateMetadata({
