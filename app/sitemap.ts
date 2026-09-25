@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getBaseUrl } from "@/lib/config";
 import { VERTICALS } from "@/lib/verticals";
-import { getArticles } from "@/lib/articles";
+import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = getBaseUrl();
@@ -22,13 +22,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.9,
     })),
     {
-      url: `${base}/agentic`,
+      url: `${base}${JOURNAL_PATH}`,
       lastModified,
       changeFrequency: "daily" as const,
       priority: 0.7,
     },
     ...articles.map((a) => ({
-      url: `${base}/agentic/${a.slug}`,
+      url: `${base}${JOURNAL_PATH}/${a.slug}`,
       lastModified: new Date(a.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.6,

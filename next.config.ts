@@ -14,6 +14,9 @@ const nextConfig: NextConfig = {
       { source: "/what-is-an-seo-page", destination: "/", permanent: true },
       { source: "/what-is-an-seo-landing-page", destination: "/", permanent: true },
       { source: "/glossary/seo-page", destination: "/", permanent: true },
+      // The journal was renamed rank¹ (/rank).
+      { source: "/agentic", destination: "/rank", permanent: true },
+      { source: "/agentic/:slug", destination: "/rank/:slug", permanent: true },
     ];
   },
 };

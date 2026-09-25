@@ -1,5 +1,5 @@
 /**
- * /agentic articles: a static registry checked into git, merged with articles
+ * rank¹ articles (seopage.com/rank): a static registry checked into git, merged with articles
  * published from Compose via api.esy.com.
  *
  * The registry is the curated source of record and wins slug collisions; the
@@ -16,7 +16,10 @@ import { seedArticles } from "@/data/agentic-articles";
 
 const API_URL = process.env.ESY_API_URL ?? "https://api.esy.com";
 
-/** The Compose publication that feeds seopage.com/agentic. */
+/** Where the journal lives. /agentic 301s here (next.config.ts). */
+export const JOURNAL_PATH = "/rank";
+
+/** The Compose publication that feeds the journal. */
 export const PUBLICATION_SLUG = process.env.ESY_PUBLICATION_SLUG ?? "seopage";
 
 /** Backstop only; on-demand tag revalidation is the real trigger. */
@@ -24,7 +27,7 @@ const REVALIDATE_SECONDS = 3600;
 
 /**
  * The shape api.esy.com serves for a published article. Video fields are
- * optional: seopage.com/agentic launches as written articles, and a Mux
+ * optional: the journal launched as written articles, and a Mux
  * playback id upgrades a given article to a video page with no code change.
  */
 export type Article = {
@@ -149,4 +152,28 @@ export function formatDuration(seconds?: number): string | null {
 export function toIsoDuration(seconds?: number): string | undefined {
   if (!seconds || seconds <= 0) return undefined;
   return `PT${Math.floor(seconds / 60)}M${seconds % 60}S`;
+}
+
+/** Reading time at ~230 words a minute, never under one. */
+export function readMinutes(content: string): number {
+  return Math.max(1, Math.round(content.split(/\s+/).length / 230));
+}
+
+export function slugify(text: string): string {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+/**
+ * The body's top-level sections, with the ids the renderer gives them. Link
+ * syntax is stripped so the id matches the heading's visible text.
+ */
+export function headingsOf(content: string): { id: string; text: string }[] {
+  return [...content.matchAll(/^#{1,2}\s+(.+)$/gm)].map((m) => {
+    const text = m[1].replace(/\[([^\]]+)\]\([^)]*\)/g, "$1").replace(/[*_`]/g, "");
+    return { id: slugify(text), text };
+  });
+}
+
+export function formatDate(iso: string, month: "short" | "long" = "short"): string {
+  return new Date(iso).toLocaleDateString("en-US", { month, day: "numeric", year: "numeric", timeZone: "UTC" });
 }
