@@ -6,7 +6,7 @@ import {
   secretsForPublication,
   verifyHmac,
 } from "@/lib/verify-webhook";
-import { PUBLICATION_SLUG } from "@/lib/articles";
+import { JOURNAL_PATH, PUBLICATION_SLUG } from "@/lib/articles";
 
 export const runtime = "nodejs";
 
@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
   revalidateTag("published-articles", "max");
   revalidateTag(`published-articles:${PUBLICATION_SLUG}`, "max");
 
-  const paths = ["/agentic", `/agentic/${slug}`, "/sitemap.xml"];
+  const paths = [JOURNAL_PATH, `${JOURNAL_PATH}/${slug}`, "/sitemap.xml"];
   paths.forEach((path) => revalidatePath(path));
 
   return NextResponse.json({

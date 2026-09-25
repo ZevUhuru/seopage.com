@@ -286,7 +286,7 @@ export default function Home() {
                 <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
                 <Link href="/audit" className="hover:text-white">Free SEO page audit</Link>
                 <Link href="/on-page-seo-services" className="hover:text-white">On-page SEO services</Link>
-                <Link href="/agentic" className="hover:text-white">The build log</Link>
+                <Link href="/rank" className="hover:text-white">rank¹, the journal</Link>
               </span>
               <span>Nora is an illustration, not a customer. Payments by Stripe.</span>
             </footer>

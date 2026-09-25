@@ -597,3 +597,36 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .nh-caret, .nh-tcaret, .nh-pop, .nh-named { animation: none; }
 }
+
+/* ============================================================
+   rank¹ journal body. Calm dark reading, sections numbered with
+   citation badges, lists set as answer cards. Scoped by class.
+   ============================================================ */
+.rank-prose { color: #c9d0e2; font-size: 18px; line-height: 1.75; }
+.rank-prose p { margin-top: 1.2em; }
+.rank-prose h2 {
+  display: flex; align-items: baseline; gap: 0.55em;
+  font-family: var(--font-funnel-display), sans-serif; font-weight: 600; letter-spacing: -0.035em;
+  font-size: clamp(26px, 2.4vw, 34px); line-height: 1.1; color: #eef2ff;
+  margin-top: 2.2em; scroll-margin-top: 90px;
+}
+.rank-prose h3 { margin-top: 1.6em; font-weight: 600; color: #eef2ff; }
+.rank-prose strong { color: #eef2ff; font-weight: 600; }
+.rank-prose a { color: #9db4ff; text-decoration: underline; text-underline-offset: 3px; }
+.rank-prose ul, .rank-prose ol {
+  margin-top: 1.4em; display: grid; gap: 0.7em; padding: 1.3em 1.5em;
+  border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 18px; background: #0a0f1e;
+}
+.rank-prose ul { list-style: none; }
+.rank-prose ul li { position: relative; padding-left: 1.3em; }
+.rank-prose ul li::before { content: "→"; position: absolute; left: 0; color: #3d6bff; }
+.rank-prose ol { list-style: decimal; padding-left: 2.8em; }
+.rank-prose ol li::marker { color: #9db4ff; font-weight: 600; }
+.rank-prose blockquote { margin-top: 1.4em; border-left: 2px solid #3d6bff; padding-left: 1.1em; color: #eef2ff; }
+.rank-prose code { font-family: var(--font-mono), monospace; font-size: 0.86em; background: rgba(255, 255, 255, 0.08); padding: 0.1em 0.35em; border-radius: 5px; color: #eef2ff; }
+.rank-prose pre { margin-top: 1.4em; overflow-x: auto; padding: 1.1em 1.3em; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; background: #0a0f1e; font-size: 0.85em; }
+.rank-prose pre code { background: none; padding: 0; }
+.rank-prose hr { margin-top: 2.4em; border-color: rgba(255, 255, 255, 0.12); }
+.rank-prose table { margin-top: 1.4em; width: 100%; border-collapse: collapse; font-size: 0.92em; display: block; overflow-x: auto; }
+.rank-prose th { text-align: left; font-weight: 600; color: #eef2ff; border-bottom: 1px solid rgba(255, 255, 255, 0.25); padding: 0.6em 0.8em; }
+.rank-prose td { vertical-align: top; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding: 0.6em 0.8em; }

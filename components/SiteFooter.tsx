@@ -20,8 +20,8 @@ export function SiteFooter() {
           <Link href="/audit" className="hover:text-ink">
             Free SEO page audit
           </Link>
-          <Link href="/agentic" className="hover:text-ink">
-            The build log
+          <Link href="/rank" className="hover:text-ink">
+            rank¹, the journal
           </Link>
           <Link href="/on-page-seo-services" className="hover:text-ink">
             On-page SEO services
