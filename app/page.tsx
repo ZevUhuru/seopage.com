@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DarkFooter } from "@/components/DarkFooter";
 import { JsonLd } from "@/components/JsonLd";
 import { Logo } from "@/components/Logo";
 import { PersonalizeProvider } from "@/components/home/Personalize";
@@ -9,14 +10,15 @@ import { BuilderDemo } from "@/components/home/BuilderDemo";
 import { ChecksExplorer } from "@/components/home/ChecksExplorer";
 import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import { FAQS, HOME_SCHEMA } from "@/lib/homeContent";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
 
 /* ================================================================
    One goal: build a page in the builder (free to preview, PRICE_LABEL
    to publish). Problem (hero) → alarm (the answer names someone else)
    → the turn (the click follows the citation) → the builder, replayed
    → proof (our own sites, unedited) → the ten checks → rank vs. cited
-   → offer → FAQ (the ranking content) → close.
+   → offer → FAQ (the ranking content) → close → the footer, below the
+   closing scene so its links can grow without covering Nora.
    Nora is an illustration and is labeled as one on the page.
    ================================================================ */
 
@@ -280,19 +282,10 @@ export default function Home() {
               </a>
               <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} launch price · {PRICE_AFTER_LAUNCH_LABEL} after launch</span>
             </div>
-            <footer className="mt-auto flex flex-col gap-3 border-t border-white/15 pt-6 text-[13px] text-[#7D869C] sm:flex-row sm:justify-between">
-              <span className="flex flex-wrap gap-x-5 gap-y-2">
-                <span>© {new Date().getFullYear()} SEOPage</span>
-                <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
-                <Link href="/audit" className="hover:text-white">Free SEO page audit</Link>
-                <Link href="/on-page-seo-services" className="hover:text-white">On-page SEO services</Link>
-                <Link href="/rank" className="hover:text-white">rank¹, the journal</Link>
-              </span>
-              <span>Nora is an illustration, not a customer. Payments by Stripe.</span>
-            </footer>
           </div>
         </section>
       </PersonalizeProvider>
+      <DarkFooter note="Nora is an illustration, not a customer." />
     </div>
   );
 }
