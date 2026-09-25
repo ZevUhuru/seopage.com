@@ -11,7 +11,7 @@ export const STYLES = [
 ] as const;
 export type StyleKey = (typeof STYLES)[number]["key"];
 
-export const base = (s: StyleKey) => `/proto/rank/${s}`;
+export const base = (s: StyleKey) => `/prototypes/${s}`;
 
 export function readMinutes(content: string) {
   return Math.max(1, Math.round(content.split(/\s+/).length / 230));
@@ -104,7 +104,7 @@ export function Cite({ n, className = "" }: { n: number | string; className?: st
 export function ProtoSwitcher({ current, slug }: { current: StyleKey; slug?: string }) {
   return (
     <nav className="fixed bottom-4 left-1/2 z-[100] flex -translate-x-1/2 items-center gap-1 rounded-full border border-white/15 bg-[#0A0F1E]/90 p-1 text-[13px] shadow-2xl backdrop-blur">
-      <Link href="/proto/rank" className="hidden px-3 text-[#7D869C] hover:text-white sm:inline">
+      <Link href="/prototypes" className="hidden px-3 text-[#7D869C] hover:text-white sm:inline">
         Prototypes
       </Link>
       {STYLES.map((s) => (
