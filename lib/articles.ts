@@ -174,11 +174,6 @@ export function headingsOf(content: string): { id: string; text: string }[] {
   });
 }
 
-/** An article's first sentence, for answer-style summaries. */
-export function firstSentence(text: string): string {
-  return text.match(/^.*?[.!?](\s|$)/)?.[0].trim() ?? text;
-}
-
 export function formatDate(iso: string, month: "short" | "long" = "short"): string {
   return new Date(iso).toLocaleDateString("en-US", { month, day: "numeric", year: "numeric", timeZone: "UTC" });
 }
