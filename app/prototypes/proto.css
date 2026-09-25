@@ -81,3 +81,8 @@
 
 .rk-scroll { scrollbar-width: none; }
 .rk-scroll::-webkit-scrollbar { display: none; }
+
+/* Trade poster ticker: two copies of the list slide one width left. */
+@keyframes rk-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.rk-marquee { animation: rk-marquee 40s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .rk-marquee { animation: none; flex-wrap: wrap; width: auto; white-space: normal; padding: 0 24px; } }
