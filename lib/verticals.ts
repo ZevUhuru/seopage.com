@@ -1,5 +1,5 @@
 /**
- * Industry pages: seopage.com/roofers, /hvac, and the rest.
+ * Industry pages: seopage.com/for/roofers, /for/hvac, and the rest.
  *
  * The domain supplies "SEO page" and the slug supplies the trade, so the URL
  * itself reads as the query. Each entry targets a vertical head term
@@ -19,7 +19,7 @@ import type { DemoTrade } from "@/components/home/BuilderDemo";
 import { PRICE_LABEL } from "@/lib/config";
 
 export type Vertical = {
-  /** URL slug. seopage.com/<slug> */
+  /** URL slug. seopage.com/for/<slug> (see tradePath). */
   slug: string;
   /** Plural trade noun as it appears in prose: "roofers", "HVAC companies". */
   plural: string;
@@ -202,6 +202,14 @@ export const VERTICALS: Vertical[] = [
     },
   },
 ];
+
+/**
+ * Where a trade page lives. Every link, canonical, and schema URL goes through
+ * this, so the pages can move by changing one line. Trades that launched at
+ * the root (/roofers, /hvac) 301 here from next.config.ts.
+ */
+export const TRADE_BASE = "/for";
+export const tradePath = (slug: string) => `${TRADE_BASE}/${slug}`;
 
 export function getVertical(slug: string): Vertical | undefined {
   return VERTICALS.find((v) => v.slug === slug);

@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 import { LoopVideo } from "@/components/home/LoopVideo";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL, PRODUCT } from "@/lib/config";
-import { VERTICALS } from "@/lib/verticals";
+import { VERTICALS, tradePath } from "@/lib/verticals";
 import { RankMark } from "./shared";
 
 /* Three homepage footer directions, each shown on the real closing scene.
@@ -31,7 +31,7 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 async function footerData(scale: boolean) {
   const articles = await getArticles();
-  const trades: L[] = VERTICALS.map((v) => ({ label: cap(v.plural), href: `/${v.slug}` }));
+  const trades: L[] = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) }));
   if (scale) trades.push(...SIMULATED.map((t) => ({ label: cap(t), href: "#" })));
   trades.sort((a, b) => a.label.localeCompare(b.label));
   const product: L[] = [

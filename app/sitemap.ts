@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getBaseUrl } from "@/lib/config";
-import { VERTICALS } from "@/lib/verticals";
+import { VERTICALS, tradePath } from "@/lib/verticals";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     ...VERTICALS.map((v) => ({
-      url: `${base}/${v.slug}`,
+      url: `${base}${tradePath(v.slug)}`,
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.9,

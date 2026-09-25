@@ -21,20 +21,17 @@ import {
 } from "@/components/trade/parts";
 import { FAQS } from "@/lib/homeContent";
 import { PRICE_LABEL, PRICE_USD } from "@/lib/config";
-import { VERTICALS, getVertical } from "@/lib/verticals";
+import { VERTICALS, getVertical, tradePath } from "@/lib/verticals";
 
 /* ================================================================
-   One template, one data file, N industry pages. The homepage's dark
-   system and offer (build free, pay to publish): an AI answer naming a
-   competitor → the searches that pay → the builder replayed for this
-   trade → what the page must prove, drawn → why the competition is
-   beatable → price → FAQ → close.
+   One template, one data file, N industry pages, at /for/<trade>. The
+   homepage's dark system and offer (build free, pay to publish): an AI
+   answer naming a competitor → the searches that pay → the builder
+   replayed for this trade → what the page must prove, drawn → why the
+   competition is beatable → price → FAQ → close.
 
-   This is a root-level dynamic segment, so it would otherwise catch
-   every unmatched path on the site. Two things prevent that: static
-   routes (/audit, /order, /admin…) always win over a dynamic segment
-   in the App Router, and dynamicParams = false means anything not in
-   VERTICALS 404s instead of rendering an empty industry page.
+   dynamicParams = false means anything not in VERTICALS 404s instead of
+   rendering an empty industry page.
    ================================================================ */
 
 export const dynamicParams = false;
@@ -54,11 +51,11 @@ export async function generateMetadata({
   return {
     title: { absolute: `${v.title} | SEOPage` },
     description: v.description,
-    alternates: { canonical: `/${v.slug}` },
+    alternates: { canonical: tradePath(v.slug) },
     openGraph: {
       title: v.title,
       description: v.description,
-      url: `https://seopage.com/${v.slug}`,
+      url: `https://seopage.com${tradePath(v.slug)}`,
       siteName: "SEOPage",
       locale: "en_US",
       type: "website",
@@ -104,7 +101,7 @@ export default async function VerticalPage({
     "@graph": [
       {
         "@type": "Service",
-        "@id": `https://seopage.com/${v.slug}#service`,
+        "@id": `https://seopage.com${tradePath(v.slug)}#service`,
         serviceType: v.primaryKeyword,
         name: `${v.primaryKeyword} landing page, built with AI`,
         provider: { "@id": "https://seopage.com/#organization" },
@@ -114,20 +111,20 @@ export default async function VerticalPage({
           price: `${PRICE_USD}.00`,
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
-          url: `https://seopage.com/${v.slug}`,
+          url: `https://seopage.com${tradePath(v.slug)}`,
         },
       },
       {
         "@type": "BreadcrumbList",
-        "@id": `https://seopage.com/${v.slug}#breadcrumbs`,
+        "@id": `https://seopage.com${tradePath(v.slug)}#breadcrumbs`,
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "SEOPage", item: "https://seopage.com" },
-          { "@type": "ListItem", position: 2, name: v.primaryKeyword, item: `https://seopage.com/${v.slug}` },
+          { "@type": "ListItem", position: 2, name: v.primaryKeyword, item: `https://seopage.com${tradePath(v.slug)}` },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": `https://seopage.com/${v.slug}#faq`,
+        "@id": `https://seopage.com${tradePath(v.slug)}#faq`,
         mainEntity: faqs.map((f) => ({
           "@type": "Question",
           name: f.q,

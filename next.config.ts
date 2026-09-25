@@ -17,6 +17,10 @@ const nextConfig: NextConfig = {
       // The journal was renamed rank¹ (/rank).
       { source: "/agentic", destination: "/rank", permanent: true },
       { source: "/agentic/:slug", destination: "/rank/:slug", permanent: true },
+      // Trade pages moved under /for/ (tradePath in lib/verticals.ts). Only
+      // trades that launched at the root need these; new trades start at /for/.
+      { source: "/roofers", destination: "/for/roofers", permanent: true },
+      { source: "/hvac", destination: "/for/hvac", permanent: true },
     ];
   },
 };
