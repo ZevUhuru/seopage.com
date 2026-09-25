@@ -31,7 +31,7 @@ const SLOTS = [
   { top: "40%", left: "52%", w: "42%", h: "22%", label: "Section" },
 ];
 
-function Blueprint({ v }: { v: Vertical }) {
+export function Blueprint({ v }: { v: Vertical }) {
   return (
     <div className="grid gap-10 xl:grid-cols-[1.1fr_1fr] xl:items-start">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[20px] border border-[#3D6BFF]/40 bg-[#0A0F1E] [background-image:linear-gradient(rgba(61,107,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(61,107,255,.08)_1px,transparent_1px)] [background-size:24px_24px]">

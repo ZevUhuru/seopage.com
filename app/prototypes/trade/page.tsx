@@ -9,7 +9,7 @@ export default function TradeChooser() {
       <p className="mt-6 max-w-[640px] text-[19px] leading-[1.55] text-[#C9D0E2]">
         Three templates for /roofers, /hvac, and every trade after them. Each renders from lib/verticals.ts, so one template serves every trade. The switcher at the bottom flips direction and trade.
       </p>
-      <ul className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <ul className="mt-14 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {TRADE_STYLES.map((s) => (
           <li key={s.key} className="flex flex-col gap-4 rounded-[24px] border border-white/12 bg-[#0A0F1E] p-7">
             <span className="nh-display text-[64px] leading-none text-[#3D6BFF]">{s.key.toUpperCase()}</span>

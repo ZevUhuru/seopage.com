@@ -4,7 +4,7 @@ import { PersonalizeProvider, type PersonalDefaults } from "@/components/home/Pe
 import { Logo } from "@/components/Logo";
 import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
 import type { Vertical } from "@/lib/verticals";
-import { Faq, PriceCard, Query } from "./trade-shared";
+import { aOr, Faq, PriceCard, Query, REPLAY } from "./trade-shared";
 
 /* D · HOMEPAGE EDITION
    The homepage's story and layout with a different profession. The
@@ -29,15 +29,7 @@ const EDITIONS: Record<string, Edition> = {
     name: "Marco",
     role: "roofer",
     caption: ["Roofer, fifteen years in.", "Great at the work. Invisible to AI."],
-    defaults: { service: "roofer", demoName: "Ridgeline Roofing", demoService: "Roofing", demoCity: "Denver" },
-    demo: {
-      credential: "licensed & insured roofer",
-      services: [
-        { h: "Storm & hail repair", d: "Insurance claims handled" },
-        { h: "Roof replacement", d: "Asphalt, metal, tile" },
-        { h: "Leak repair", d: "Same-day tarping" },
-      ],
-    },
+    ...REPLAY.roofers,
     scenes: {
       proud: "On a pitched roof at golden hour, nail gun on the shoulder, the crew truck parked below.",
       surprised: "Halfway up a ladder, reading a phone in disbelief.",
@@ -50,15 +42,7 @@ const EDITIONS: Record<string, Edition> = {
     name: "Dee",
     role: "HVAC tech",
     caption: ["HVAC tech, ten years in.", "Great at the work. Invisible to AI."],
-    defaults: { service: "HVAC company", demoName: "Summit Heating & Air", demoService: "HVAC", demoCity: "Phoenix" },
-    demo: {
-      credential: "licensed HVAC contractor",
-      services: [
-        { h: "AC repair", d: "Same day, most brands" },
-        { h: "Furnace repair", d: "Heat back on tonight" },
-        { h: "System replacement", d: "Written quotes, financing" },
-      ],
-    },
+    ...REPLAY.hvac,
     scenes: {
       proud: "Beside a rooftop condenser, pressure gauges in hand, the city behind.",
       surprised: "In an attic by flashlight, reading a phone in disbelief.",
@@ -191,7 +175,7 @@ export function TradeD({ v }: { v: Vertical }) {
 
       {/* WHAT THE PAGE MUST PROVE */}
       <section className={SECTION}>
-        <h2 className={`${H2} max-w-[900px]`}>What a {v.primaryKeyword} page has to say out loud.</h2>
+        <h2 className={`${H2} max-w-[900px]`}>What {aOr(v.primaryKeyword)} {v.primaryKeyword} page has to say out loud.</h2>
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {v.proof.map((p, i) => (
             <div key={p.t} className="flex flex-col gap-4 rounded-[22px] border border-white/12 bg-[#0A0F1E] p-7">

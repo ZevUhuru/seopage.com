@@ -1,10 +1,17 @@
+import { BuilderDemo } from "@/components/home/BuilderDemo";
+import { PersonalizeProvider } from "@/components/home/Personalize";
 import type { Vertical } from "@/lib/verticals";
-import { Cta, Faq, PAD, PriceCard, Query, SECTION, TradeHeader, TradeLegal, urlSlug } from "./trade-shared";
+import { Blueprint } from "./trade-b";
+import { Cta, Faq, PAD, PriceCard, Query, SECTION, TradeHeader, TradeLegal, REPLAY, aOr, tradeWord, urlSlug } from "./trade-shared";
 
 /* A · THE ANSWER
    The homepage's argument, told per trade: someone asks an assistant the
    trade's most urgent search, and the answer names another company. Every
-   section after that is the fix, in the order a buyer needs it. */
+   section after that is the fix, in the order a buyer needs it.
+
+   `final` is the recommended cut: the builder replay builds this trade's
+   page right after the searches, and B's blueprint replaces the proof
+   cards. No character, no videos, no images to make. */
 
 function Transcript({ v }: { v: Vertical }) {
   return (
@@ -36,7 +43,8 @@ function Transcript({ v }: { v: Vertical }) {
   );
 }
 
-export function TradeA({ v }: { v: Vertical }) {
+export function TradeA({ v, final = false }: { v: Vertical; final?: boolean }) {
+  const replay = REPLAY[v.slug];
   return (
     <main>
       {/* HERO */}
@@ -77,10 +85,37 @@ export function TradeA({ v }: { v: Vertical }) {
         </ul>
       </section>
 
+      {final && replay && (
+        /* THE PAGE, BUILT: the real builder, replayed for this trade */
+        <section className={`${SECTION} flex flex-col gap-12 bg-[#0A0F1E]`}>
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <h2 className="nh-display max-w-[760px] text-[clamp(40px,5vw,72px)] leading-none">Here&apos;s {aOr(tradeWord(v))} {tradeWord(v)} page, built.</h2>
+            <p className="max-w-[460px] text-[18px] leading-[1.6] text-[#C9D0E2]">
+              The real builder, replayed for {replay.defaults.demoName} in {replay.defaults.demoCity}: live research, the page written and designed, ten checks scored before you pay. Yours uses your business and your city.
+            </p>
+          </div>
+          <PersonalizeProvider defaults={replay.defaults}>
+            <BuilderDemo trade={replay.demo} />
+          </PersonalizeProvider>
+          <p className="text-[14px] text-[#7D869C]">The builder&apos;s screens, replayed. {replay.defaults.demoName} is an example business. Search volumes are illustrative; yours come from live data.</p>
+        </section>
+      )}
+
+      {final ? (
+        /* WHAT THE PAGE MUST PROVE, drawn onto the page */
+        <section className={SECTION}>
+          <h2 className="nh-display max-w-[900px] text-[clamp(40px,5vw,72px)] leading-none">Every claim a buyer needs, placed where it gets read.</h2>
+          <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-[#C9D0E2]">What {aOr(v.primaryKeyword)} {v.primaryKeyword} page has to say in plain text before anyone calls, and where each one goes.</p>
+          <div className="mt-14">
+            <Blueprint v={v} />
+          </div>
+        </section>
+      ) : (
+        <>
       {/* WHAT THE PAGE MUST PROVE */}
       <section className={`${SECTION} bg-[#0A0F1E]`}>
         <h2 className="nh-display max-w-[900px] text-[clamp(40px,5vw,72px)] leading-none">An assistant can&apos;t quote your photos.</h2>
-        <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-[#C9D0E2]">What a {v.primaryKeyword} page has to say in plain text before anyone calls. Your page states every one of these.</p>
+        <p className="mt-6 max-w-[600px] text-[18px] leading-[1.6] text-[#C9D0E2]">What {aOr(v.primaryKeyword)} {v.primaryKeyword} page has to say in plain text before anyone calls. Your page states every one of these.</p>
         <div className="mt-14 grid gap-5 md:grid-cols-2">
           {v.proof.map((p, i) => (
             <div key={p.t} className="flex flex-col gap-4 rounded-[22px] border border-white/12 bg-[#04060B] p-7">
@@ -96,6 +131,8 @@ export function TradeA({ v }: { v: Vertical }) {
           ))}
         </div>
       </section>
+        </>
+      )}
 
       {/* WHY THE PAGES ABOVE YOU ARE BEATABLE */}
       <section className={`${SECTION} grid gap-12 lg:grid-cols-12`}>

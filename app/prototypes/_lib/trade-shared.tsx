@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { Tick } from "@/components/home/HeroAnswer";
 import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import type { DemoTrade } from "@/components/home/BuilderDemo";
+import type { PersonalDefaults } from "@/components/home/Personalize";
 import { VERTICALS, type Vertical } from "@/lib/verticals";
 
 /* Shared pieces for the three trade-page prototypes. Everything renders from
@@ -14,6 +16,7 @@ export const TRADE_STYLES = [
   { key: "b", name: "The Brief", note: "Reads like the research brief. The page to build is drawn out, proof pinned to it." },
   { key: "c", name: "The Poster", note: "The trade in huge type, searches scrolling past, losses struck through." },
   { key: "d", name: "Homepage edition", note: "The homepage's story with a roofer or HVAC tech in Nora's place. Frames mark each scene to make." },
+  { key: "e", name: "Final", note: "A, with B's blueprint for the proof and the builder replay building this trade's page. No videos, no new images." },
 ] as const;
 export type TradeKey = (typeof TRADE_STYLES)[number]["key"];
 
@@ -139,3 +142,41 @@ export function TradeSwitcher({ style, slug }: { style: TradeKey; slug: string }
 /** A search as the URL slug its page would live at: "roof leak repair near me" → roof-leak-repair. */
 export const urlSlug = (q: string) =>
   q.replace(/\b(near me|in \[city\])\b/g, "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+/** "roofing SEO" → "roofing": the trade as an adjective. */
+export const tradeWord = (v: Vertical) => v.primaryKeyword.replace(/ SEO$/i, "");
+
+/**
+ * What the builder replay builds on each trade page. Text-only service tiles:
+ * no photos to make. Would move into lib/verticals.ts with the template.
+ */
+export const REPLAY: Record<string, { defaults: PersonalDefaults; demo: DemoTrade }> = {
+  roofers: {
+    defaults: { service: "roofer", demoName: "Ridgeline Roofing", demoService: "Roofing", demoCity: "Denver" },
+    demo: {
+      credential: "licensed & insured roofer",
+      services: [
+        { h: "Storm & hail repair", d: "Insurance claims handled" },
+        { h: "Roof replacement", d: "Asphalt, metal, tile" },
+        { h: "Leak repair", d: "Same-day tarping" },
+      ],
+    },
+  },
+  hvac: {
+    defaults: { service: "HVAC company", demoName: "Summit Heating & Air", demoService: "HVAC", demoCity: "Phoenix" },
+    demo: {
+      credential: "licensed HVAC contractor",
+      services: [
+        { h: "AC repair", d: "Same day, most brands" },
+        { h: "Furnace repair", d: "Heat back on tonight" },
+        { h: "System replacement", d: "Written quotes, financing" },
+      ],
+    },
+  },
+};
+
+/**
+ * "a roofing" / "an HVAC": acronyms are read letter by letter, so one that
+ * starts with a letter named with a vowel sound (F, H, L, M, N, R, S, X) takes "an".
+ */
+export const aOr = (word: string) => (/^[aeiou]/i.test(word) || /^[FHLMNRSX][A-Z]/.test(word) ? "an" : "a");

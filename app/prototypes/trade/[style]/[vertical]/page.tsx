@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
-import { getVertical, VERTICALS } from "@/lib/verticals";
+import { getVertical, VERTICALS, type Vertical } from "@/lib/verticals";
 import { TradeA } from "../../../_lib/trade-a";
 import { TradeB } from "../../../_lib/trade-b";
 import { TradeC } from "../../../_lib/trade-c";
 import { TradeD } from "../../../_lib/trade-d";
 import { TRADE_STYLES, TradeSwitcher, type TradeKey } from "../../../_lib/trade-shared";
 
-const VIEWS = { a: TradeA, b: TradeB, c: TradeC, d: TradeD };
+const TradeFinal = ({ v }: { v: Vertical }) => <TradeA v={v} final />;
+const VIEWS = { a: TradeA, b: TradeB, c: TradeC, d: TradeD, e: TradeFinal };
 
 export const dynamicParams = false;
 export function generateStaticParams() {

@@ -292,7 +292,7 @@ function Demo({ v, trade }: { v: ReturnType<typeof useVisitor>; trade: DemoTrade
                             {img ? (
                               <img src={img} alt="" className="block h-24 w-full object-cover" />
                             ) : (
-                              <div className="flex h-24 items-center justify-center bg-[#eef1fc] text-[10px] uppercase tracking-[.14em] text-[#1b46d4]" style={mono}>Image to make</div>
+                              <div className="h-1 w-full bg-[#1b46d4]" />
                             )}
                             <div className="px-3 py-2.5"><span className="block text-[12.5px] font-bold">{h}</span><span className="text-[11px] text-[#646b78]">{d}</span></div>
                           </div>
