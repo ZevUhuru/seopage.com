@@ -15,7 +15,8 @@
  * it is the line where Google stops reading this as content.
  */
 
-import { DELIVERY_HOURS, DELIVERY_LABEL, PRICE_LABEL } from "@/lib/config";
+import type { DemoTrade } from "@/components/home/BuilderDemo";
+import { PRICE_LABEL } from "@/lib/config";
 
 export type Vertical = {
   /** URL slug. seopage.com/<slug> */
@@ -39,6 +40,16 @@ export type Vertical = {
   failings: string[];
   /** Questions specific to this trade. Shared FAQs are appended by the page. */
   faqs: { q: string; a: string }[];
+  /**
+   * What the builder replay builds on this trade's page: an example business
+   * (no photos needed; service tiles render text-only), and the trade noun
+   * the page's AI transcript asks about before the visitor types their own.
+   */
+  replay: {
+    service: string;
+    example: { name: string; service: string; city: string };
+    trade: DemoTrade;
+  };
 };
 
 export const VERTICALS: Vertical[] = [
@@ -53,7 +64,7 @@ export const VERTICALS: Vertical[] = [
     ],
     title: "Roofing SEO: One Page Built to Win the Search That Pays",
     description:
-      `Roofing SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the roofer an AI assistant names. ${PRICE_LABEL}, in your inbox ${DELIVERY_LABEL}.`,
+      `Roofing SEO that ships a finished page, not a retainer. Build one page engineered to win a search your customers actually type, and to be the roofer an AI assistant names. Free to preview, ${PRICE_LABEL} to publish.`,
     headline: {
       lead: "A storm hits and the calls go out within the hour.",
       loss: "They go to whoever the search finds first.",
@@ -96,13 +107,25 @@ export const VERTICALS: Vertical[] = [
       },
       {
         q: "How is this different from a roofing SEO agency?",
-        a: `An agency sells a monthly retainer and reports on progress. We sell one finished page for ${PRICE_LABEL}, delivered in ${DELIVERY_HOURS} hours, and then we are done. If you need a page for emergency repair, one for replacement, and one for each city you serve, that is separate orders — not a contract.`,
+        a: `An agency sells a monthly retainer and reports on progress. SEOPage builds one finished page: it researches your market, writes and designs the page, and you preview the whole thing free before paying ${PRICE_LABEL} to publish. Then it is yours. If you need a page for emergency repair, one for replacement, and one for each city you serve, build each one. There is no contract.`,
       },
       {
-        q: "Which page should a roofer order first?",
+        q: "Which page should a roofer build first?",
         a: "The one with the most urgent buyer. For most roofers that is emergency or storm-damage repair, because the searcher has water coming in and is calling whoever the search puts in front of them. Replacement and cost pages convert more slowly and can come second.",
       },
     ],
+    replay: {
+      service: "roofer",
+      example: { name: "Ridgeline Roofing", service: "Roofing", city: "Denver" },
+      trade: {
+        credential: "licensed & insured roofer",
+        services: [
+          { h: "Storm & hail repair", d: "Insurance claims handled" },
+          { h: "Roof replacement", d: "Asphalt, metal, tile" },
+          { h: "Leak repair", d: "Same-day tarping" },
+        ],
+      },
+    },
   },
   {
     slug: "hvac",
@@ -115,7 +138,7 @@ export const VERTICALS: Vertical[] = [
     ],
     title: "HVAC SEO: One Page Built to Win the Search That Pays",
     description:
-      `HVAC SEO that ships a finished page, not a retainer. We build one page engineered to win a search your customers actually type, and to be the company an AI assistant names. ${PRICE_LABEL}, in your inbox ${DELIVERY_LABEL}.`,
+      `HVAC SEO that ships a finished page, not a retainer. Build one page engineered to win a search your customers actually type, and to be the company an AI assistant names. Free to preview, ${PRICE_LABEL} to publish.`,
     headline: {
       lead: "The AC dies on the first hot day and nobody shops around.",
       loss: "They call whoever the search answers with.",
@@ -162,9 +185,21 @@ export const VERTICALS: Vertical[] = [
       },
       {
         q: "How is this different from an HVAC marketing agency?",
-        a: `An agency sells a monthly retainer. We sell one finished page for ${PRICE_LABEL}, delivered in ${DELIVERY_HOURS} hours, with no contract. Order a page for AC repair now and a furnace page before winter, or order twelve. There is nothing to cancel.`,
+        a: `An agency sells a monthly retainer. SEOPage builds one finished page, free to preview and ${PRICE_LABEL} to publish, with no contract. Build a page for AC repair now and a furnace page before winter, or build twelve. There is nothing to cancel.`,
       },
     ],
+    replay: {
+      service: "HVAC company",
+      example: { name: "Summit Heating & Air", service: "HVAC", city: "Phoenix" },
+      trade: {
+        credential: "licensed HVAC contractor",
+        services: [
+          { h: "AC repair", d: "Same day, most brands" },
+          { h: "Furnace repair", d: "Heat back on tonight" },
+          { h: "System replacement", d: "Written quotes, financing" },
+        ],
+      },
+    },
   },
 ];
 
