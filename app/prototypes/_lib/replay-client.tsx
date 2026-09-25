@@ -1,10 +1,12 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /**
  * Drag (or use the arrow keys) to reveal the page SEOPage builds over the
  * site a trade has today. Both pages are drawn at 720px and scaled to fit.
+ * On first view it sweeps once from the old site to the new one and rests
+ * near the left edge, so the new page's headline is readable at rest.
  */
 export function BeforeAfter({
   before,
@@ -17,9 +19,42 @@ export function BeforeAfter({
   failings: string[];
   proof: string[];
 }) {
-  const [pos, setPos] = useState(50);
+  const REST = 3;
+  const [pos, setPos] = useState(96);
   const box = useRef<HTMLDivElement>(null);
+  const touched = useRef(false);
+
+  useEffect(() => {
+    const el = box.current;
+    if (!el) return;
+    let raf = 0;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      raf = requestAnimationFrame(() => setPos(REST));
+      return () => cancelAnimationFrame(raf);
+    }
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        const start = performance.now();
+        const tick = (now: number) => {
+          if (touched.current) return;
+          const t = Math.min(1, (now - start - 500) / 1600);
+          if (t > 0) setPos(96 - (96 - REST) * (1 - Math.pow(1 - t, 3)));
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, []);
   const move = (clientX: number) => {
+    touched.current = true;
     const r = box.current?.getBoundingClientRect();
     if (r) setPos(Math.min(100, Math.max(0, ((clientX - r.left) / r.width) * 100)));
   };
@@ -42,7 +77,7 @@ export function BeforeAfter({
         tabIndex={0}
         onPointerDown={(e) => { (e.target as HTMLElement).setPointerCapture?.(e.pointerId); move(e.clientX); }}
         onPointerMove={(e) => e.buttons === 1 && move(e.clientX)}
-        onKeyDown={(e) => { if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - 5)); if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + 5)); }}
+        onKeyDown={(e) => { touched.current = true; if (e.key === "ArrowLeft") setPos((p) => Math.max(0, p - 5)); if (e.key === "ArrowRight") setPos((p) => Math.min(100, p + 5)); }}
         className="relative aspect-[720/1000] cursor-ew-resize select-none overflow-hidden rounded-[20px] border border-white/15 bg-white lg:col-span-6"
         style={{ touchAction: "pan-y" }}
       >
