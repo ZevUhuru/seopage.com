@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { DarkFooter } from "@/components/DarkFooter";
 import { Logo } from "@/components/Logo";
 import { JournalClose, PAD, RankMark } from "@/components/rank/parts";
 import { formatDate, getArticles, JOURNAL_PATH, readMinutes } from "@/lib/articles";
@@ -124,6 +125,7 @@ export default async function RankIndex() {
       </section>
 
       <JournalClose />
+      <DarkFooter />
     </main>
   );
 }

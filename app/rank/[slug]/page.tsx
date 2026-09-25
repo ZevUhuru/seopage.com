@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { DarkFooter } from "@/components/DarkFooter";
 import { JsonLd } from "@/components/JsonLd";
 import { Cite, JournalHeader, JournalProse, PAD, PriceCard } from "@/components/rank/parts";
 import {
@@ -229,6 +230,7 @@ export default async function ArticlePage({
           </aside>
         </div>
       </main>
+      <DarkFooter />
     </>
   );
 }
