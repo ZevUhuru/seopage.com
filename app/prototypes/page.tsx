@@ -4,6 +4,7 @@ import { base, RankMark, STYLES } from "./_lib/shared";
 import { FOOTERS } from "./_lib/footer";
 import { THUMBS } from "./_lib/thumbnail";
 import { BANNERS, PROFILES } from "./_lib/channel";
+import { CARDS } from "./_lib/social";
 
 export default async function ProtoHome() {
   const [lead] = await getArticles();
@@ -78,6 +79,24 @@ export default async function ProtoHome() {
         ))}
       </div>
       <Link href="/prototypes/channel" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all six</Link>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">Social card</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three share images for the explainer case study, and how each reads as a link preview.
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {CARDS.map((t) => (
+          <li key={t.key} className={`flex flex-col overflow-hidden rounded-[24px] border bg-[#0A0F1E] ${t.chosen ? "border-[#3D6BFF]" : "border-white/12"}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/prototypes/social/${t.file}`} alt="" className="aspect-[1200/630] w-full object-cover" />
+            <span className="nh-display p-7 text-[30px] leading-none tracking-[-0.03em]">
+              <span className="text-[#3D6BFF]">{t.key.toUpperCase()}</span> · {t.name}
+              {t.chosen && <span className="ml-3 rounded-full bg-[#3D6BFF] px-3 py-1 align-middle font-sans text-[13px] font-semibold tracking-normal text-white">Chosen</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <Link href="/prototypes/social" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
     </main>
   );
 }

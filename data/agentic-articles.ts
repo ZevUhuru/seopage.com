@@ -31,7 +31,7 @@ export const seedArticles: Article[] = [
     tags: ["explainer video", "saas explainer video", "ai explainer video", "youtube thumbnail", "case study"],
     relatedSlugs: ["how-to-do-seo-for-a-landing-page", "seo-page-content-best-practices-2026"],
     muxPlaybackId: "00cNyTsDrNB94KlXTM5yoFMxHlviTYAAl8dM2aEsE6no",
-    thumbnailUrl: "/rank/explainer-video/thumbnail.jpg",
+    thumbnailUrl: "/rank/explainer-video/social-card.jpg",
     durationSeconds: 75,
     transcript:
       "Someone near you just asked AI who to hire. It gave them someone else's name. Meet Nora. Master plumber, twelve years in. Great at her job. Invisible to AI. Nearly half of US consumers now use AI to find a local business. And the click goes to whoever the answer names. So Nora built the page AI could quote. She typed four details. SEOPage researched live searches in her city, skipped the ones that bring the wrong people, and gathered the questions customers really ask. Then it wrote and designed her page, and scored it on ten checks, before she paid anything. One click, and it's live. We built our own sites this way first. ChatGPT now cites them by name. The goal isn't a ranking report. It's a call that starts with “I found you on ChatGPT.” Build your page free. Pay $199, the launch price, only when you publish. SEOPage. Make the answer you.",

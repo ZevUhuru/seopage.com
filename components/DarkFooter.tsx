@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { SocialIcons } from "./SocialLinks";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 import { CREATE_URL, PRODUCT } from "@/lib/config";
@@ -59,6 +60,7 @@ export async function DarkFooter({ note }: { note?: string }) {
           <a href={CREATE_URL} className="flex h-11 w-fit items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">
             Build my page free
           </a>
+          <SocialIcons className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-[#C9D0E2] transition-colors hover:border-white/50 hover:text-white" />
         </div>
 
         <nav aria-label="Product" className="lg:col-span-2">

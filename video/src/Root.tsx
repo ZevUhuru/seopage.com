@@ -3,6 +3,7 @@ import { Composition, Still } from "remotion";
 import { FPS, s } from "./lib/brand";
 import { Master } from "./Master";
 import { ThumbAlarm, ThumbCited, ThumbSplit } from "./Thumbs";
+import { CardEditorial, CardNumbers, CardVideo } from "./Cards";
 import { BannerNora, BannerSteps, BannerType, ProfileMark, ProfileNora, ProfileWordmark } from "./Channel";
 
 /**
@@ -25,6 +26,9 @@ export function Root() {
       <Still id="BannerType" component={BannerType} width={2560} height={1440} />
       <Still id="BannerNora" component={BannerNora} width={2560} height={1440} />
       <Still id="BannerSteps" component={BannerSteps} width={2560} height={1440} />
+      <Still id="CardEditorial" component={CardEditorial} width={1200} height={630} />
+      <Still id="CardVideo" component={CardVideo} width={1200} height={630} />
+      <Still id="CardNumbers" component={CardNumbers} width={1200} height={630} />
     </>
   );
 }

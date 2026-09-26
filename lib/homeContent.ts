@@ -1,4 +1,4 @@
-import { CREATE_URL, PRICE_LABEL, PRICE_USD, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRICE_USD, PRODUCT, SOCIALS } from "@/lib/config";
 
 /**
  * Homepage FAQ: the ranking content for "SEO landing page" and its AEO/GEO
@@ -67,6 +67,7 @@ export const HOME_SCHEMA = {
       name: "SEOPage",
       url: "https://seopage.com",
       email: PRODUCT.supportEmail,
+      sameAs: SOCIALS.map((s) => s.href),
       description:
         "SEOPage builds SEO landing pages with AI: researched, written, and engineered to be cited by AI search and rank on Google. Free to preview, ready to publish in one sitting.",
     },
