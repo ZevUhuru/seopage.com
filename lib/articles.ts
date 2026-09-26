@@ -70,10 +70,17 @@ async function fetchPublished(): Promise<Article[]> {
       },
     },
   );
-  // Throw, never return [] — returning an empty list here would let Next cache
-  // an article-less render on a transient blip and silently drop every article
-  // until the cache expired. A 404 means the publication is missing or not
-  // public, which is also an error rather than "no articles".
+  // A 404 means api.esy.com has no public publication by this slug, which is a
+  // steady state rather than a blip: the checked-in registry is then the whole
+  // journal. Throwing here instead turned every cache miss (a new deploy, a
+  // crawler's first fetch) into a 500 on every page that lists articles.
+  if (res.status === 404) {
+    console.warn(`[articles] ${PUBLICATION_SLUG}: publication not found on the API, registry only.`);
+    return [];
+  }
+  // Anything else still throws, never returns []: an empty list on a transient
+  // outage would let Next cache an article-less render and silently drop every
+  // API-only article until the cache expired. Throwing keeps the last good one.
   if (!res.ok) {
     throw new Error(`published-articles ${PUBLICATION_SLUG}: HTTP ${res.status}`);
   }
