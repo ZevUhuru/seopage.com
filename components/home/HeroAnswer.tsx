@@ -1,7 +1,7 @@
 "use client";
 
 import { usePersonalize, useVisitor } from "./Personalize";
-import { CREATE_URL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 
 /** The hero's pill form. Typing personalizes the page; the button starts the builder. */
 export function HeroForm() {
@@ -32,7 +32,7 @@ export function HeroForm() {
         </a>
       </div>
       <ul className="flex flex-wrap gap-x-[22px] gap-y-2 pl-2 text-[14px] text-[#C9D0E2] sm:pl-6">
-        {["Free preview, no card", "$149 launch price, once", "You own the page"].map((t) => (
+        {["Free preview, no card", `${PRICE_LABEL} launch price, once`, "You own the page"].map((t) => (
           <li key={t} className="flex items-center gap-[7px]">
             <Tick />
             {t}

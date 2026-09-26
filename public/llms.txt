@@ -3,7 +3,7 @@
 > SEOPage (seopage.com) builds SEO landing pages with AI. You describe your business at
 > create.seopage.com; the AI researches the searches in your market, writes the
 > page, and structures it for search engines and AI assistants. You refine it in a
-> live editor and publish one ready-to-publish HTML file. Free to preview, $149
+> live editor and publish one ready-to-publish HTML file. Free to preview, $199
 > launch price to publish ($249 after launch). We also run a free, human-reviewed SEO page audit of a page you
 > already have.
 
@@ -30,7 +30,7 @@ sites, chiefly backlinks.
 ## Services
 
 - **SEO landing page builder** (https://create.seopage.com) — free to preview,
-  $149 launch price to publish ($249 after launch), one time, no subscription. Exports a single self-contained HTML
+  $199 launch price to publish ($249 after launch), one time, no subscription. Exports a single self-contained HTML
   file that is yours forever. Includes live keyword research for your market, a
   keyword-focused title tag and meta description, H1–H3 structure, the full
   written page in a hand-crafted design, an FAQ section written to be quoted,
