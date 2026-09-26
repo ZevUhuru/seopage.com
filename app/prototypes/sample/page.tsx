@@ -8,7 +8,7 @@ export default function SampleChooser() {
     <main className="px-6 py-16 sm:px-10 lg:px-24 lg:py-24">
       <h1 className="nh-display text-[clamp(56px,8vw,120px)] leading-[0.9]">Photo sets.</h1>
       <p className="mt-6 max-w-[660px] text-[19px] leading-[1.55] text-[#C9D0E2]">
-        The before/after sample, three ways. Same hand-written homeowner copy, three realistic photo directions. Each set is used on both sides, since a business&apos;s photos don&apos;t change when its page does.
+        The before/after sample, three ways. Same hand-written homeowner copy, three realistic photo directions. Each set is used on both sides, so the comparison is about the words.
       </p>
       <ul className="mt-14 grid gap-5 md:grid-cols-3">
         {SETS.map((s, i) => (

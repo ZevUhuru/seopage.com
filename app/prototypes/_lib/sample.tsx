@@ -6,9 +6,12 @@ import { BeforeAfter } from "./replay-client";
 import { PAD } from "./trade-shared";
 
 /* Direction B of the app section, three ways: the same before/after, with
-   hand-written homeowner copy and one of three realistic photo sets. The
-   same photos sit on both sides, because a business's photos don't change
-   when its page does; the words do. Example businesses, labeled as such. */
+   hand-written homeowner copy and one of three realistic photo sets. One set
+   sits on both sides so the comparison is about the words. The builder
+   generates its own photos today, so nothing here claims it reuses the
+   business's photos; that waits for customer uploads (api.esy.com
+   docs/plans/2026-09-25-builder-brand-assets.md). Example businesses,
+   labeled as such. */
 
 export const SETS = Object.entries(images.sets).map(([key, s]) => ({ key, name: s.name, note: s.note }));
 export type SetKey = keyof typeof images.sets;
@@ -116,7 +119,7 @@ function AfterPage({ s, set, slug }: { s: Sample; set: SetKey; slug: string }) {
   );
 }
 
-/** The site most trades have today: the same photos, almost no words. */
+/** The site most trades have today: good photos, almost no words. */
 function BeforePage({ s, set, slug }: { s: Sample; set: SetKey; slug: string }) {
   const keys = ["hero", ...s.services.map((x) => x.key)];
   return (
@@ -146,9 +149,9 @@ export function SampleProto({ set, v }: { set: SetKey; v: Vertical }) {
   return (
     <section className={`${PAD} flex flex-col gap-12 bg-[#0A0F1E] py-24 lg:py-[120px]`}>
       <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-        <h2 className="nh-display max-w-[760px] text-[clamp(40px,5vw,72px)] leading-none">Same photos. A page that wins.</h2>
+        <h2 className="nh-display max-w-[760px] text-[clamp(40px,5vw,72px)] leading-none">Same business. A page that wins.</h2>
         <p className="max-w-[460px] text-[18px] leading-[1.6] text-[#C9D0E2]">
-          Drag across. On the left, the site most {v.plural} have: good photos, a phone number, nothing an assistant can quote. On the right, the page SEOPage builds from the same photos.
+          Drag across. On the left, the site most {v.plural} have: good photos, a phone number, nothing an assistant can quote. On the right, the page SEOPage builds for the same business.
         </p>
       </div>
       <BeforeAfter before={<BeforePage s={s} set={set} slug={v.slug} />} after={<AfterPage s={s} set={set} slug={v.slug} />} failings={v.failings} proof={v.proof.map((p) => p.t)} />

@@ -1,5 +1,5 @@
 {
-  "_about": "Realistic photo sets for the before/after sample page (/prototypes/sample). Three art directions to choose between; the same set is used on both sides, because a business's photos don't change when its page does. Generated through api.esy.com's generate-photoreal-image; files at public/prototypes/sample/<set>/<trade>/<key>.webp.",
+  "_about": "Realistic photo sets for the before/after sample page (/prototypes/sample). Three art directions to choose between; one set is used on both sides so the comparison is about the words. The builder generates its own photos today; customer uploads are planned (api.esy.com docs/plans/2026-09-25-builder-brand-assets.md). Generated through api.esy.com's generate-photoreal-image; files at public/prototypes/sample/<set>/<trade>/<key>.webp.",
   "sets": {
     "job": {
       "name": "On the job",
@@ -12,8 +12,8 @@
       "artDirection": "Architectural and editorial photography of finished work for a premium local trade business. Warm golden-hour light, clean composition, crisp detail, magazine quality. The finished work and the home are the subject; no people. No text, no logos, no watermarks, no brand names on equipment."
     },
     "phone": {
-      "name": "Your own photos",
-      "note": "Candid phone snapshots an owner takes on the job. Shows the page working with a customer's real photos.",
+      "name": "Phone snapshots",
+      "note": "Candid phone snapshots, the kind an owner takes on the job. Unpolished and real-looking.",
       "artDirection": "Candid smartphone photos a small-business owner takes on the job to show customers. Slightly imperfect framing, mixed natural light, realistic and unpolished, ordinary homes and job sites. No people posing, hands and tools at most. No text, no logos, no watermarks, no brand names on equipment."
     }
   },
