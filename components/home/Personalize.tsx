@@ -16,17 +16,9 @@ type Personal = {
   setCity: (v: string) => void;
 };
 
-/**
- * What the page assumes before the visitor types anything. The homepage is
- * Nora's plumbing shop; a trade page passes its own trade.
- */
-export type PersonalDefaults = { service: string; demoName: string; demoService: string; demoCity: string };
-const HOME_DEFAULTS: PersonalDefaults = { service: "plumber", demoName: "Lind Plumbing", demoService: "Plumbing", demoCity: "Denver" };
-
 const Ctx = createContext<Personal | null>(null);
-const Defaults = createContext<PersonalDefaults>(HOME_DEFAULTS);
 
-export function PersonalizeProvider({ children, defaults = HOME_DEFAULTS }: { children: ReactNode; defaults?: PersonalDefaults }) {
+export function PersonalizeProvider({ children }: { children: ReactNode }) {
   const [name, setName] = useState("");
   const [service, setService] = useState("");
   const [city, setCity] = useState("");
@@ -34,11 +26,7 @@ export function PersonalizeProvider({ children, defaults = HOME_DEFAULTS }: { ch
     () => ({ name, service, city, setName, setService, setCity }),
     [name, service, city],
   );
-  return (
-    <Defaults.Provider value={defaults}>
-      <Ctx.Provider value={value}>{children}</Ctx.Provider>
-    </Defaults.Provider>
-  );
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 
 export function usePersonalize(): Personal {
@@ -50,10 +38,9 @@ export function usePersonalize(): Personal {
 /** Derived, display-ready values with sensible defaults. */
 export function useVisitor() {
   const { name, service, city } = usePersonalize();
-  const d = useContext(Defaults);
   const own = !name.trim();
   const displayName = own ? "SEOPage" : name.trim();
-  const svc = service.trim() || d.service;
+  const svc = service.trim() || "plumber";
   const town = city.split(",")[0].trim() || "your city";
   const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "") || "yourbusiness";
   return {
@@ -67,11 +54,11 @@ export function useVisitor() {
       : `Who’s the best ${svc.toLowerCase()} in ${town}?`,
     alarmQuestion: `Who’s the best ${svc.toLowerCase()} in ${town}?`,
     missing: `${own ? "Your business" : displayName} isn’t mentioned. There’s no page for the answer to quote.`,
-    // The demo builds the page's example shop until the visitor types their own.
+    // The demo builds Nora's example shop until the visitor types their own.
     demo: {
-      name: name.trim() || d.demoName,
-      service: service.trim() || d.demoService,
-      city: city.split(",")[0].trim() || d.demoCity,
+      name: name.trim() || "Lind Plumbing",
+      service: service.trim() || "Plumbing",
+      city: city.split(",")[0].trim() || "Denver",
     },
     slug,
   };

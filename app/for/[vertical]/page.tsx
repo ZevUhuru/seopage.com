@@ -3,8 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DarkFooter } from "@/components/DarkFooter";
 import { JsonLd } from "@/components/JsonLd";
-import { BuilderDemo } from "@/components/home/BuilderDemo";
-import { PersonalizeProvider } from "@/components/home/Personalize";
 import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import {
   aOr,
@@ -17,8 +15,8 @@ import {
   SECTION,
   TradeHeader,
   Transcript,
-  tradeWord,
 } from "@/components/trade/parts";
+import { TradeSample } from "@/components/trade/Sample";
 import { FAQS } from "@/lib/homeContent";
 import { PRICE_LABEL, PRICE_USD } from "@/lib/config";
 import { VERTICALS, getVertical, tradePath } from "@/lib/verticals";
@@ -26,9 +24,10 @@ import { VERTICALS, getVertical, tradePath } from "@/lib/verticals";
 /* ================================================================
    One template, one data file, N industry pages, at /for/<trade>. The
    homepage's dark system and offer (build free, pay to publish): an AI
-   answer naming a competitor → the searches that pay → the builder
-   replayed for this trade → what the page must prove, drawn → why the
-   competition is beatable → price → FAQ → close.
+   answer naming a competitor → the searches that pay → before/after: the
+   site the trade has today vs the page SEOPage builds for the same business
+   → what the page must prove, drawn → why the competition is beatable →
+   price → FAQ → close.
 
    dynamicParams = false means anything not in VERTICALS 404s instead of
    rendering an empty industry page.
@@ -94,7 +93,6 @@ export default async function VerticalPage({
   if (!v) notFound();
 
   const faqs = [...v.faqs, ...SHARED_FAQS];
-  const word = tradeWord(v);
 
   const schema = {
     "@context": "https://schema.org",
@@ -176,29 +174,15 @@ export default async function VerticalPage({
           </ul>
         </section>
 
-        {/* THE PAGE, BUILT: the real builder, replayed for this trade */}
+        {/* BEFORE / AFTER: the same business, the page that wins */}
         <section className={`${SECTION} flex flex-col gap-12 bg-[#0A0F1E]`}>
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <h2 className={`${H2} max-w-[760px]`}>
-              Here&apos;s {aOr(word)} {word} page, built.
-            </h2>
+            <h2 className={`${H2} max-w-[760px]`}>Same business. A page that wins.</h2>
             <p className="max-w-[460px] text-[18px] leading-[1.6] text-[#C9D0E2]">
-              The real builder, replayed for {v.replay.example.name} in {v.replay.example.city}: live research, the page written and designed, ten checks scored before you pay. Yours uses your business and your city.
+              Drag across. On the left, the site most {v.plural} have: good photos, a phone number, nothing an assistant can quote. On the right, the page SEOPage builds for the same business.
             </p>
           </div>
-          <PersonalizeProvider
-            defaults={{
-              service: v.replay.service,
-              demoName: v.replay.example.name,
-              demoService: v.replay.example.service,
-              demoCity: v.replay.example.city,
-            }}
-          >
-            <BuilderDemo trade={v.replay.trade} />
-          </PersonalizeProvider>
-          <p className="text-[14px] text-[#7D869C]">
-            The builder&apos;s screens, replayed. {v.replay.example.name} is an example business. Search volumes are illustrative; yours come from live data.
-          </p>
+          <TradeSample v={v} />
         </section>
 
         {/* WHAT THE PAGE MUST PROVE, drawn onto the page */}

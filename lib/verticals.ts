@@ -15,7 +15,6 @@
  * it is the line where Google stops reading this as content.
  */
 
-import type { DemoTrade } from "@/components/home/BuilderDemo";
 import { PRICE_LABEL } from "@/lib/config";
 
 export type Vertical = {
@@ -41,14 +40,23 @@ export type Vertical = {
   /** Questions specific to this trade. Shared FAQs are appended by the page. */
   faqs: { q: string; a: string }[];
   /**
-   * What the builder replay builds on this trade's page: an example business
-   * (no photos needed; service tiles render text-only), and the trade noun
-   * the page's AI transcript asks about before the visitor types their own.
+   * The before/after sample on this trade's page: an example business (named
+   * as one on the page), what it says to its own customers, and the photos
+   * both sides share. Photos and their Esy provenance live in
+   * data/trade-sample-images.json.
    */
-  replay: {
-    service: string;
-    example: { name: string; service: string; city: string };
-    trade: DemoTrade;
+  sample: {
+    name: string;
+    city: string;
+    phone: string;
+    /** The target search, answered in the hero. */
+    headline: string;
+    sub: string;
+    trust: string[];
+    services: { key: string; h: string; d: string }[];
+    areas: string;
+    /** Questions the business's customers ask, not questions about SEO. */
+    faqs: { q: string; a: string }[];
   };
 };
 
@@ -114,17 +122,24 @@ export const VERTICALS: Vertical[] = [
         a: "The one with the most urgent buyer. For most roofers that is emergency or storm-damage repair, because the searcher has water coming in and is calling whoever the search puts in front of them. Replacement and cost pages convert more slowly and can come second.",
       },
     ],
-    replay: {
-      service: "roofer",
-      example: { name: "Ridgeline Roofing", service: "Roofing", city: "Denver" },
-      trade: {
-        credential: "licensed & insured roofer",
-        services: [
-          { h: "Storm & hail repair", d: "Insurance claims handled" },
-          { h: "Roof replacement", d: "Asphalt, metal, tile" },
-          { h: "Leak repair", d: "Same-day tarping" },
-        ],
-      },
+    sample: {
+      name: "Ridgeline Roofing",
+      city: "Denver",
+      phone: "(720) 555-0147",
+      headline: "Emergency roof repair in Denver. We tarp tonight, fix it this week.",
+      sub: "Licensed, bonded, and insured. Call any hour and a crew is on your roof within two hours to stop the leak, with a written price before any repair.",
+      trust: ["Licensed, bonded & insured", "On your roof within 2 hours", "Insurance claims handled", "10-year workmanship warranty"],
+      services: [
+        { key: "storm", h: "Storm & hail repair", d: "We document the damage and work directly with your insurer." },
+        { key: "replacement", h: "Roof replacement", d: "Asphalt, metal, and tile. Written quote after a free inspection." },
+        { key: "leak", h: "Leak repair", d: "Found, tarped, and fixed. Most leaks the same day." },
+      ],
+      areas: "Denver, Aurora, Lakewood, Englewood, Littleton, and Arvada",
+      faqs: [
+        { q: "How fast can you get to my house?", a: "Anywhere in the Denver metro, a crew is on your roof within two hours, day or night. If it's still raining, we tarp it first and come back to repair it once it's dry." },
+        { q: "Will my insurance cover hail damage?", a: "Often, yes. We inspect the roof, photograph every damaged area, and meet your adjuster on site. You pay your deductible; we bill the insurer for the rest." },
+        { q: "How much does a roof repair cost?", a: "It depends on what's damaged, so we don't guess over the phone. After a free inspection you get a written price, and it doesn't change once work starts." },
+      ],
     },
   },
   {
@@ -188,17 +203,24 @@ export const VERTICALS: Vertical[] = [
         a: `An agency sells a monthly retainer. SEOPage builds one finished page, free to preview and ${PRICE_LABEL} to publish, with no contract. Build a page for AC repair now and a furnace page before winter, or build twelve. There is nothing to cancel.`,
       },
     ],
-    replay: {
-      service: "HVAC company",
-      example: { name: "Summit Heating & Air", service: "HVAC", city: "Phoenix" },
-      trade: {
-        credential: "licensed HVAC contractor",
-        services: [
-          { h: "AC repair", d: "Same day, most brands" },
-          { h: "Furnace repair", d: "Heat back on tonight" },
-          { h: "System replacement", d: "Written quotes, financing" },
-        ],
-      },
+    sample: {
+      name: "Summit Heating & Air",
+      city: "Phoenix",
+      phone: "(602) 555-0182",
+      headline: "AC repair in Phoenix, today. Cool air back before bedtime.",
+      sub: "Licensed technicians for every major brand of air conditioner and heat pump. Same-day repair, evenings and weekends, with a written price before we start.",
+      trust: ["Licensed & insured", "Same-day, 7 days a week", "Every major brand", "Financing available"],
+      services: [
+        { key: "ac", h: "AC repair", d: "Most repairs finished on the first visit." },
+        { key: "furnace", h: "Furnace repair", d: "Heat back on the same night, even in January." },
+        { key: "replacement", h: "System replacement", d: "Written quotes, with monthly payment options." },
+      ],
+      areas: "Phoenix, Scottsdale, Tempe, Mesa, Chandler, and Glendale",
+      faqs: [
+        { q: "How fast can you fix my AC?", a: "Call before 3 p.m. and a technician is usually at your door the same day, evenings and weekends included. In summer, homes without any cooling go first." },
+        { q: "Should I repair my AC or replace it?", a: "If the system is fairly young and the repair is a small share of a new unit, repair usually makes sense. We give you both prices in writing and you decide." },
+        { q: "Do you work on my brand?", a: "Yes. We service every major brand of air conditioner, heat pump, and furnace, and carry the common parts on the truck." },
+      ],
     },
   },
 ];
