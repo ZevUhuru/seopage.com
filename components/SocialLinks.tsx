@@ -10,6 +10,48 @@ const ICONS: Record<(typeof SOCIALS)[number]["name"], React.ReactNode> = {
   ),
 };
 
+/** One line on what each channel is for, for placements with room to say it. */
+const WHY: Record<(typeof SOCIALS)[number]["name"], string> = {
+  YouTube: "Watch pages get built",
+  LinkedIn: "Company updates",
+};
+
+/** Small icon + name, for a quiet row like the footer's bottom bar. */
+export function SocialInline({ className }: { className: string }) {
+  return (
+    <span className="flex gap-4">
+      {SOCIALS.map((s) => (
+        <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer me" className={`flex items-center gap-1.5 ${className}`}>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{ICONS[s.name]}</svg>
+          {s.name}
+        </a>
+      ))}
+    </span>
+  );
+}
+
+/** Icon, name, and handle with a reason to follow, for a footer column. */
+export function SocialList() {
+  return (
+    <ul className="flex flex-col gap-4">
+      {SOCIALS.map((s) => (
+        <li key={s.name}>
+          <a href={s.href} target="_blank" rel="noopener noreferrer me" className="group flex items-start gap-3">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 text-[#C9D0E2] transition-colors group-hover:border-white/50 group-hover:text-white">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>{ICONS[s.name]}</svg>
+            </span>
+            <span className="flex flex-col">
+              <span className="text-[15px] text-[#C9D0E2] transition-colors group-hover:text-white">{s.name}</span>
+              <span className="text-[13px] text-[#7D869C]">{s.handle}</span>
+              <span className="text-[13px] text-[#7D869C]">{WHY[s.name]}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 /** Icon buttons for the dark footer; `className` sets their color and hover. */
 export function SocialIcons({ className }: { className: string }) {
   return (
