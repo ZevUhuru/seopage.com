@@ -3,7 +3,7 @@ import { Logo } from "./Logo";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 import { CREATE_URL, PRODUCT } from "@/lib/config";
-import { VERTICALS } from "@/lib/verticals";
+import { VERTICALS, tradePath } from "@/lib/verticals";
 
 /**
  * The footer for the dark pages (homepage, rank¹). It sits below the page's
@@ -43,7 +43,7 @@ function FooterLink({ l }: { l: L }) {
 /** `note` is a page-specific disclosure, like the homepage's Nora line. */
 export async function DarkFooter({ note }: { note?: string }) {
   const articles = await getArticles();
-  const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: `/${v.slug}` })).sort((a, b) =>
+  const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) })).sort((a, b) =>
     a.label.localeCompare(b.label),
   );
   const latest = articles.slice(0, 4);
