@@ -2,12 +2,12 @@
  * Central config. Edit the price here (one place) and it flows to the
  * homepage, the paywall, and the Stripe Checkout Session.
  */
-export const PRICE_USD = 149;
+export const PRICE_USD = 199;
 export const PRICE_CENTS = PRICE_USD * 100;
 export const PRICE_LABEL = `$${PRICE_USD}`;
 
 /**
- * Launch pricing: $149 now, $249 once launch pricing ends. Shown as a FUTURE
+ * Launch pricing: $199 now, $249 once launch pricing ends. Shown as a FUTURE
  * price, never struck through as a "was" price we never charged. When launch
  * ends, raise PRICE_USD to this and drop the launch copy. Must match
  * create.seopage.com's lib/config.ts, where the page is actually bought.

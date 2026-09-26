@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useVisitor } from "./Personalize";
 import { funnelDisplay } from "./fonts";
+import { PRICE_LABEL } from "@/lib/config";
 
 /**
  * A replay of the real builder at create.seopage.com: describe, research,
@@ -153,7 +154,7 @@ function Demo({ v, trade }: { v: ReturnType<typeof useVisitor>; trade: DemoTrade
               {scene === 2 && (
                 <span className="ml-auto flex items-center gap-3.5">
                   <span className="text-[13px] font-semibold">{name}</span>
-                  <span className="flex h-[34px] items-center rounded-lg bg-[#1b46d4] px-3.5 text-[13px] font-semibold text-white">Go live · $149</span>
+                  <span className="flex h-[34px] items-center rounded-lg bg-[#1b46d4] px-3.5 text-[13px] font-semibold text-white">Go live · {PRICE_LABEL}</span>
                 </span>
               )}
             </div>
@@ -341,9 +342,9 @@ function Demo({ v, trade }: { v: ReturnType<typeof useVisitor>; trade: DemoTrade
                     <span className="text-[25px] font-extrabold leading-[1.1] tracking-[-0.02em]" style={archivo}>Put {name} on the web.</span>
                     <span className="rounded-lg border border-[#e6e8ec] bg-[#f5f6f8] px-3 py-2.5 text-[12px] text-[#353a44]" style={mono}>{slug}.seo.page</span>
                     <span className="flex flex-col gap-[7px] text-[13.5px]"><span>✓ Live the moment you pay</span><span>✓ Leads go to your inbox</span><span>✓ Download the HTML, yours to keep</span></span>
-                    <span className="flex items-baseline gap-2.5 border-t border-[#e6e8ec] pt-3"><span className="text-[32px] font-extrabold" style={archivo}>$149</span><span className="rounded-[5px] bg-[#eef1fc] px-[7px] py-1 text-[10px] uppercase tracking-[.12em] text-[#1434a8]" style={mono}>Launch price</span></span>
+                    <span className="flex items-baseline gap-2.5 border-t border-[#e6e8ec] pt-3"><span className="text-[32px] font-extrabold" style={archivo}>{PRICE_LABEL}</span><span className="rounded-[5px] bg-[#eef1fc] px-[7px] py-1 text-[10px] uppercase tracking-[.12em] text-[#1434a8]" style={mono}>Launch price</span></span>
                     <span className={`flex h-12 items-center justify-center rounded-[10px] text-[15px] font-semibold text-white transition-colors ${paid ? "bg-[#15803d]" : "bg-[#1b46d4]"}`}>
-                      {paid ? `Live at ${slug}.seo.page` : "Pay $149 and go live"}
+                      {paid ? `Live at ${slug}.seo.page` : `Pay ${PRICE_LABEL} and go live`}
                     </span>
                   </div>
                 </div>
