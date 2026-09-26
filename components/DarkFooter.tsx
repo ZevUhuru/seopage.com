@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { SocialIcons, SocialInline, SocialList } from "./SocialLinks";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
 import { CREATE_URL, PRODUCT } from "@/lib/config";
@@ -40,8 +41,11 @@ function FooterLink({ l }: { l: L }) {
   );
 }
 
+/** Where the social links sit; see /prototypes/socials for all three. */
+export type SocialsPlacement = "brand" | "bar" | "column";
+
 /** `note` is a page-specific disclosure, like the homepage's Nora line. */
-export async function DarkFooter({ note }: { note?: string }) {
+export async function DarkFooter({ note, socials = "column" }: { note?: string; socials?: SocialsPlacement }) {
   const articles = await getArticles();
   const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) })).sort((a, b) =>
     a.label.localeCompare(b.label),
@@ -59,6 +63,9 @@ export async function DarkFooter({ note }: { note?: string }) {
           <a href={CREATE_URL} className="flex h-11 w-fit items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">
             Build my page free
           </a>
+          {socials === "brand" && (
+            <SocialIcons className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-[#C9D0E2] transition-colors hover:border-white/50 hover:text-white" />
+          )}
         </div>
 
         <nav aria-label="Product" className="lg:col-span-2">
@@ -68,6 +75,12 @@ export async function DarkFooter({ note }: { note?: string }) {
               <li key={l.label}><FooterLink l={l} /></li>
             ))}
           </ul>
+          {socials === "column" && (
+            <>
+              <p className={`${HEAD} mt-10`}>Follow</p>
+              <SocialList />
+            </>
+          )}
         </nav>
 
         <nav aria-label="SEO pages by trade" className="lg:col-span-3">
@@ -102,7 +115,10 @@ export async function DarkFooter({ note }: { note?: string }) {
           <span>© {new Date().getFullYear()} SEOPage</span>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
         </span>
-        <span>{note ? `${note} ` : ""}Payments by Stripe.</span>
+        <span className="flex flex-wrap items-center gap-x-5 gap-y-1">
+          {socials === "bar" && <SocialInline className="hover:text-white" />}
+          <span>{note ? `${note} ` : ""}Payments by Stripe.</span>
+        </span>
       </div>
 
       <div aria-hidden className="pointer-events-none -mb-[0.2em] select-none overflow-hidden leading-none">

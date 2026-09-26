@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT, SOCIALS } from "@/lib/config";
 
 export function SiteFooter() {
   return (
@@ -29,6 +29,13 @@ export function SiteFooter() {
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-ink">
             {PRODUCT.supportEmail}
           </a>
+          <span className="flex gap-4">
+            {SOCIALS.map((s) => (
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer me" className="hover:text-ink">
+                {s.name}
+              </a>
+            ))}
+          </span>
           <span className="text-xs text-muted">
             © {new Date().getFullYear()} SEOPage
           </span>

@@ -45,6 +45,15 @@ export const PRODUCT = {
   supportEmail: "support@seopage.com",
 };
 
+/**
+ * Our social profiles. Linked from both footers and listed as sameAs on the
+ * Organization schema, which ties them to SEOPage for search engines and AI.
+ */
+export const SOCIALS = [
+  { name: "YouTube", handle: "@SEOPageAI", href: "https://www.youtube.com/@SEOPageAI" },
+  { name: "LinkedIn", handle: "SEOPage", href: "https://www.linkedin.com/company/seopage" },
+] as const;
+
 /** The site's public origin, used to build Stripe redirect URLs. */
 export function getBaseUrl(): string {
   if (process.env.NEXT_PUBLIC_BASE_URL) return process.env.NEXT_PUBLIC_BASE_URL;

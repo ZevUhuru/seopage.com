@@ -9,5 +9,5 @@ const site = join(root, "..", "public");
 const dest = join(root, "public", "site");
 
 mkdirSync(dest, { recursive: true });
-for (const dir of ["home", "proof"]) cpSync(join(site, dir), join(dest, dir), { recursive: true });
-console.log(`synced ${site}/{home,proof} -> ${dest}`);
+for (const dir of ["home", "proof", "rank"]) cpSync(join(site, dir), join(dest, dir), { recursive: true });
+console.log(`synced ${site}/{home,proof,rank} -> ${dest}`);
