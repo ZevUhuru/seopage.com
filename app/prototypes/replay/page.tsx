@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { VERTICALS } from "@/lib/verticals";
 import { REPLAY_STYLES } from "../_lib/replay";
+import { ImageDownloads } from "../_lib/image-downloads";
 
 export default function ReplayChooser() {
   return (
@@ -25,6 +26,7 @@ export default function ReplayChooser() {
           </li>
         ))}
       </ul>
+      <ImageDownloads dir="prototypes/replay" title="Replay images" />
     </main>
   );
 }

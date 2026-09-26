@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* The homepage's dark palette (app/globals.css .nh) and the builder's light one. */
+@theme {
+  --color-ink: #04060b;
+  --color-night: #0a0f1e;
+  --color-paper: #eef2ff;
+  --color-mist: #c9d0e2;
+  --color-fog: #a0a9c0;
+  --color-slate: #7d869c;
+  --color-coral: #ff6b5c;
+  --color-coral-soft: #ff8a7d;
+  --color-signal: #3d6bff;
+  --color-sky: #9db4ff;
+  --color-cobalt: #1b46d4;
+}

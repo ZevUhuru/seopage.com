@@ -2,6 +2,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Logo } from "@/components/Logo";
+import { ZoomImage } from "@/components/rank/ZoomImage";
 import { Tick } from "@/components/home/HeroAnswer";
 import { funnelDisplay } from "@/components/home/fonts";
 import { JOURNAL_PATH, slugify } from "@/lib/articles";
@@ -122,7 +123,17 @@ export function JournalProse({ content }: { content: string }) {
   );
   return (
     <div className="rank-prose">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ h1: Section, h2: Section }}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          h1: Section,
+          h2: Section,
+          // An image paragraph becomes a figure: the zoom dialog can't sit inside a <p>.
+          p: ({ node, children }) =>
+            node?.children.some((c) => c.type === "element" && c.tagName === "img") ? <figure className="rank-figure">{children}</figure> : <p>{children}</p>,
+          img: ({ src, alt }) => <ZoomImage src={typeof src === "string" ? src : undefined} alt={alt} />,
+        }}
+      >
         {content}
       </ReactMarkdown>
     </div>

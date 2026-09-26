@@ -1,0 +1,708 @@
+{
+  "_doc": "The master's sound, one place. Times are seconds on the 75s master. `npm run audio` generates every missing file into public/audio (ElevenLabs), `npm run cues` prints the per-second map and fails on any silent second. Voice text spells SEOPage as 'S-E-O Page' so the voice says the letters.",
+  "durationSec": 75,
+  "voice": {
+    "_doc": "voiceId is a placeholder until Zev picks one: `npm run audio -- --voices` lists the account's voices, `--audition <id>` renders vo01 with it.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    }
+  },
+  "vo": [
+    {
+      "id": "vo01",
+      "burn": false,
+      "at": 0.25,
+      "slot": 2.5,
+      "text": "Someone near you just asked AI who to hire.",
+      "caption": "Someone near you just asked AI who to hire."
+    },
+    {
+      "id": "vo02",
+      "burn": false,
+      "at": 3,
+      "slot": 2.2,
+      "text": "It gave them someone else's name.",
+      "caption": "It gave them someone else's name."
+    },
+    {
+      "id": "vo03",
+      "burn": false,
+      "at": 5.4,
+      "slot": 5.4,
+      "text": "Meet Nora. Master plumber, twelve years in. Great at her job... invisible to AI.",
+      "caption": "Meet Nora. Master plumber, twelve years in. Great at her job. Invisible to AI."
+    },
+    {
+      "id": "vo04",
+      "burn": false,
+      "at": 11.1,
+      "slot": 3.6,
+      "text": "Nearly half of U.S. consumers now use AI to find a local business.",
+      "caption": "Nearly half of US consumers now use AI to find a local business."
+    },
+    {
+      "id": "vo05",
+      "burn": false,
+      "at": 14.9,
+      "slot": 2.6,
+      "text": "And the click goes to whoever the answer names.",
+      "caption": "And the click goes to whoever the answer names."
+    },
+    {
+      "id": "vo06",
+      "burn": false,
+      "at": 18.1,
+      "slot": 3.6,
+      "text": "So Nora built the page AI could quote. She typed four details.",
+      "caption": "So Nora built the page AI could quote. She typed four details."
+    },
+    {
+      "id": "vo07",
+      "at": 27.9,
+      "slot": 7.6,
+      "text": "S-E-O Page researched live searches in her city, skipped the ones that bring the wrong people, and gathered the questions customers really ask.",
+      "caption": "SEOPage researched live searches in her city, skipped the ones that bring the wrong people, and gathered the questions customers really ask."
+    },
+    {
+      "id": "vo08",
+      "at": 36.5,
+      "slot": 6,
+      "text": "Then it wrote and designed her page, and scored it on ten checks, before she paid anything.",
+      "caption": "Then it wrote and designed her page, and scored it on ten checks, before she paid anything."
+    },
+    {
+      "id": "vo09",
+      "at": 44.6,
+      "slot": 2.2,
+      "text": "One click, and it's live.",
+      "caption": "One click, and it's live."
+    },
+    {
+      "id": "vo10",
+      "burn": false,
+      "at": 50.4,
+      "slot": 5.2,
+      "text": "We built our own sites this way first. ChatGPT now cites them by name.",
+      "caption": "We built our own sites this way first. ChatGPT now cites them by name."
+    },
+    {
+      "id": "vo11",
+      "burn": false,
+      "at": 58.4,
+      "slot": 5.4,
+      "text": "The goal isn't a ranking report. It's a call that starts with: I found you on ChatGPT.",
+      "caption": "The goal isn't a ranking report. It's a call that starts with “I found you on ChatGPT.”"
+    },
+    {
+      "id": "vo12",
+      "at": 64.4,
+      "slot": 5.2,
+      "text": "Build your page free. Pay one ninety-nine, the launch price, only when you publish.",
+      "caption": "Build your page free. Pay $199, the launch price, only when you publish."
+    },
+    {
+      "id": "vo13",
+      "burn": false,
+      "at": 70.2,
+      "slot": 2.6,
+      "text": "S-E-O Page. Make the answer you.",
+      "caption": "SEOPage. Make the answer you."
+    }
+  ],
+  "music": {
+    "id": "score",
+    "model": "music_v1",
+    "lengthSec": 75,
+    "prompt": "Instrumental underscore for a 75-second small-business technology explainer. No vocals. 0-5s: tense and sparse, a single low synth pulse and muted felt piano, uneasy. 5-18s: restrained, empathetic, soft piano motif over a quiet pulse, building slightly. 18-21s: a lift as the mood turns hopeful. 21-50s: driving, optimistic, modern indie-electronic groove at about 100 BPM, crisp light percussion, plucked synths, warm bass, confident momentum. 50-64s: warm and proud, a fuller pad, the groove relaxes. 64-75s: confident resolution, groove returns briefly then lands on a clean final chord that rings out by 74s."
+  },
+  "sfx": {
+    "room_evening": {
+      "prompt": "quiet indoor room tone in the evening, faint distant city traffic, very subtle",
+      "sec": 6,
+      "loop": true
+    },
+    "phone_typing": {
+      "prompt": "soft smartphone touchscreen keyboard taps, quick typing, close and intimate",
+      "sec": 2
+    },
+    "msg_send": {
+      "prompt": "soft modern chat message send whoosh, short and airy",
+      "sec": 0.6
+    },
+    "ai_stream": {
+      "prompt": "subtle soft digital shimmer, text appearing on screen, gentle granular sparkle",
+      "sec": 1.6
+    },
+    "sting_low": {
+      "prompt": "short low ominous cinematic sting, dark sub-bass hit with a dissonant tail",
+      "sec": 1.6
+    },
+    "whoosh_soft": {
+      "prompt": "soft short cinematic whoosh transition, airy",
+      "sec": 0.8
+    },
+    "whoosh_big": {
+      "prompt": "deep cinematic whoosh swoosh passing by, fast, for a zoom transition",
+      "sec": 1.2
+    },
+    "shop_ambience": {
+      "prompt": "small plumbing workshop ambience, faint dripping water, distant street outside, calm",
+      "sec": 6,
+      "loop": true
+    },
+    "phone_buzz": {
+      "prompt": "single smartphone vibration buzz on a wooden counter",
+      "sec": 0.8
+    },
+    "text_thud": {
+      "prompt": "soft low muted thud, subtle impact for text appearing",
+      "sec": 0.7
+    },
+    "counter_ticks": {
+      "prompt": "rapid soft digital counter ticking, numbers counting up quickly, accelerating",
+      "sec": 1.5
+    },
+    "impact_soft": {
+      "prompt": "clean modern soft impact hit with warm low end and short shimmer tail",
+      "sec": 1.2
+    },
+    "riser": {
+      "prompt": "cinematic tension riser building up for two seconds, airy and bright, ends abruptly",
+      "sec": 2.2
+    },
+    "citation_pop": {
+      "prompt": "small bright glassy pop, UI element appearing, satisfying",
+      "sec": 0.5
+    },
+    "laptop_typing": {
+      "prompt": "typing on a laptop keyboard at a steady pace, quiet room",
+      "sec": 3.5
+    },
+    "ui_click": {
+      "prompt": "clean soft mouse click, modern UI, crisp",
+      "sec": 0.3
+    },
+    "key_typing": {
+      "prompt": "fast light keyboard typing on a laptop, clean, close microphone",
+      "sec": 1.4
+    },
+    "button_press": {
+      "prompt": "satisfying soft UI button press with a gentle confirm tone",
+      "sec": 0.6
+    },
+    "data_blips": {
+      "prompt": "soft subtle data processing blips and bleeps, computer analyzing, gentle and rhythmic",
+      "sec": 8,
+      "loop": true
+    },
+    "step_done": {
+      "prompt": "short bright positive UI tick, task completed",
+      "sec": 0.4
+    },
+    "card_in": {
+      "prompt": "soft paper-like UI card slide in swoosh, subtle",
+      "sec": 0.6
+    },
+    "neg_tone": {
+      "prompt": "soft muted low two-note descending UI tone, gentle rejection, not harsh",
+      "sec": 0.7
+    },
+    "page_build": {
+      "prompt": "soft digital construction shimmer, interface elements assembling into place, gentle and quick",
+      "sec": 1.8
+    },
+    "check_tick": {
+      "prompt": "single crisp bright UI checkmark tick, short",
+      "sec": 0.3
+    },
+    "success_chime": {
+      "prompt": "warm uplifting success chime, three rising notes, modern UI",
+      "sec": 1.4
+    },
+    "scroll_swish": {
+      "prompt": "gentle smooth page scroll swish, soft",
+      "sec": 1.2
+    },
+    "modal_pop": {
+      "prompt": "soft UI modal pop up, gentle and rounded",
+      "sec": 0.5
+    },
+    "pay_chime": {
+      "prompt": "gentle payment confirmation ding, clean and premium",
+      "sec": 1
+    },
+    "live_whoosh": {
+      "prompt": "uplifting bright shimmering whoosh into a soft sparkle, launch moment",
+      "sec": 1.8
+    },
+    "phone_ring": {
+      "prompt": "a classic landline telephone ringing twice in a small shop",
+      "sec": 2.4
+    },
+    "phone_pickup": {
+      "prompt": "phone handset being picked up, a soft clunk",
+      "sec": 0.5
+    },
+    "price_hit": {
+      "prompt": "confident warm punchy impact with a subtle cash register shimmer, short",
+      "sec": 1
+    },
+    "logo_sting": {
+      "prompt": "short elegant logo reveal sting, soft bright synth pluck with a shimmering tail",
+      "sec": 2.4
+    }
+  },
+  "hits": [
+    {
+      "sfx": "room_evening",
+      "at": 0,
+      "until": 5.2,
+      "vol": 0.21
+    },
+    {
+      "sfx": "phone_typing",
+      "at": 0.25,
+      "vol": 0.8
+    },
+    {
+      "sfx": "msg_send",
+      "at": 1.95,
+      "vol": 0.7
+    },
+    {
+      "sfx": "ai_stream",
+      "at": 2.4,
+      "vol": 0.55
+    },
+    {
+      "sfx": "sting_low",
+      "at": 3.35,
+      "vol": 0.8
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 4.75,
+      "vol": 0.6
+    },
+    {
+      "sfx": "shop_ambience",
+      "at": 5,
+      "until": 11.2,
+      "vol": 0.24
+    },
+    {
+      "sfx": "phone_buzz",
+      "at": 5.25,
+      "vol": 0.55
+    },
+    {
+      "sfx": "text_thud",
+      "at": 5.45,
+      "vol": 0.5
+    },
+    {
+      "sfx": "text_thud",
+      "at": 7.9,
+      "vol": 0.45
+    },
+    {
+      "sfx": "sting_low",
+      "at": 9.1,
+      "vol": 0.45
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 10.75,
+      "vol": 0.6
+    },
+    {
+      "sfx": "counter_ticks",
+      "at": 11.3,
+      "vol": 0.6
+    },
+    {
+      "sfx": "impact_soft",
+      "at": 12.8,
+      "vol": 0.7
+    },
+    {
+      "sfx": "citation_pop",
+      "at": 13.4,
+      "vol": 0.5
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 14.6,
+      "vol": 0.45
+    },
+    {
+      "sfx": "riser",
+      "at": 15.5,
+      "vol": 0.55
+    },
+    {
+      "sfx": "citation_pop",
+      "at": 16.55,
+      "vol": 0.8
+    },
+    {
+      "sfx": "whoosh_big",
+      "at": 17.45,
+      "vol": 0.75
+    },
+    {
+      "sfx": "shop_ambience",
+      "at": 18,
+      "until": 21.2,
+      "vol": 0.18
+    },
+    {
+      "sfx": "laptop_typing",
+      "at": 18.1,
+      "vol": 0.55
+    },
+    {
+      "sfx": "whoosh_big",
+      "at": 20.4,
+      "vol": 0.65
+    },
+    {
+      "sfx": "ui_click",
+      "at": 21.6,
+      "vol": 0.7
+    },
+    {
+      "sfx": "key_typing",
+      "at": 21.7,
+      "vol": 0.6
+    },
+    {
+      "sfx": "ui_click",
+      "at": 23.2,
+      "vol": 0.7
+    },
+    {
+      "sfx": "key_typing",
+      "at": 23.3,
+      "vol": 0.55
+    },
+    {
+      "sfx": "ui_click",
+      "at": 24.3,
+      "vol": 0.7
+    },
+    {
+      "sfx": "key_typing",
+      "at": 24.4,
+      "vol": 0.5
+    },
+    {
+      "sfx": "ui_click",
+      "at": 25.6,
+      "vol": 0.7
+    },
+    {
+      "sfx": "button_press",
+      "at": 26.8,
+      "vol": 0.75
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 27.8,
+      "vol": 0.55
+    },
+    {
+      "sfx": "data_blips",
+      "at": 28,
+      "until": 36,
+      "vol": 0.2
+    },
+    {
+      "sfx": "card_in",
+      "at": 29,
+      "vol": 0.55
+    },
+    {
+      "sfx": "step_done",
+      "at": 29.9,
+      "vol": 0.5
+    },
+    {
+      "sfx": "card_in",
+      "at": 30.8,
+      "vol": 0.55
+    },
+    {
+      "sfx": "neg_tone",
+      "at": 31.1,
+      "vol": 0.5
+    },
+    {
+      "sfx": "step_done",
+      "at": 31.8,
+      "vol": 0.5
+    },
+    {
+      "sfx": "card_in",
+      "at": 32.8,
+      "vol": 0.55
+    },
+    {
+      "sfx": "step_done",
+      "at": 33.7,
+      "vol": 0.5
+    },
+    {
+      "sfx": "step_done",
+      "at": 35.2,
+      "vol": 0.5
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 35.8,
+      "vol": 0.55
+    },
+    {
+      "sfx": "card_in",
+      "at": 36.1,
+      "vol": 0.5
+    },
+    {
+      "sfx": "page_build",
+      "at": 36.3,
+      "vol": 0.45
+    },
+    {
+      "sfx": "check_tick",
+      "at": 38,
+      "vol": 0.55,
+      "rate": 0.9
+    },
+    {
+      "sfx": "check_tick",
+      "at": 38.28,
+      "vol": 0.55,
+      "rate": 0.94
+    },
+    {
+      "sfx": "check_tick",
+      "at": 38.56,
+      "vol": 0.55,
+      "rate": 0.98
+    },
+    {
+      "sfx": "check_tick",
+      "at": 38.84,
+      "vol": 0.55,
+      "rate": 1.02
+    },
+    {
+      "sfx": "check_tick",
+      "at": 39.12,
+      "vol": 0.55,
+      "rate": 1.06
+    },
+    {
+      "sfx": "check_tick",
+      "at": 39.4,
+      "vol": 0.55,
+      "rate": 1.1
+    },
+    {
+      "sfx": "check_tick",
+      "at": 39.68,
+      "vol": 0.55,
+      "rate": 1.14
+    },
+    {
+      "sfx": "check_tick",
+      "at": 39.96,
+      "vol": 0.55,
+      "rate": 1.18
+    },
+    {
+      "sfx": "check_tick",
+      "at": 40.24,
+      "vol": 0.55,
+      "rate": 1.22
+    },
+    {
+      "sfx": "check_tick",
+      "at": 40.52,
+      "vol": 0.55,
+      "rate": 1.26
+    },
+    {
+      "sfx": "success_chime",
+      "at": 40.7,
+      "vol": 0.7
+    },
+    {
+      "sfx": "scroll_swish",
+      "at": 41.6,
+      "vol": 0.45
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 43.8,
+      "vol": 0.5
+    },
+    {
+      "sfx": "modal_pop",
+      "at": 44.2,
+      "vol": 0.6
+    },
+    {
+      "sfx": "ui_click",
+      "at": 46,
+      "vol": 0.75
+    },
+    {
+      "sfx": "pay_chime",
+      "at": 46.15,
+      "vol": 0.7
+    },
+    {
+      "sfx": "live_whoosh",
+      "at": 46.9,
+      "vol": 0.7
+    },
+    {
+      "sfx": "impact_soft",
+      "at": 48.2,
+      "vol": 0.55
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 49.7,
+      "vol": 0.55
+    },
+    {
+      "sfx": "card_in",
+      "at": 50.3,
+      "vol": 0.55
+    },
+    {
+      "sfx": "counter_ticks",
+      "at": 50.9,
+      "vol": 0.5
+    },
+    {
+      "sfx": "impact_soft",
+      "at": 52.3,
+      "vol": 0.6
+    },
+    {
+      "sfx": "card_in",
+      "at": 53.6,
+      "vol": 0.55
+    },
+    {
+      "sfx": "counter_ticks",
+      "at": 54.1,
+      "vol": 0.5
+    },
+    {
+      "sfx": "impact_soft",
+      "at": 55.6,
+      "vol": 0.65
+    },
+    {
+      "sfx": "text_thud",
+      "at": 56.4,
+      "vol": 0.4
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 57.7,
+      "vol": 0.55
+    },
+    {
+      "sfx": "shop_ambience",
+      "at": 58,
+      "until": 64.2,
+      "vol": 0.21
+    },
+    {
+      "sfx": "phone_ring",
+      "at": 58.1,
+      "vol": 0.55
+    },
+    {
+      "sfx": "phone_pickup",
+      "at": 60.5,
+      "vol": 0.55
+    },
+    {
+      "sfx": "text_thud",
+      "at": 60.9,
+      "vol": 0.4
+    },
+    {
+      "sfx": "whoosh_soft",
+      "at": 63.8,
+      "vol": 0.55
+    },
+    {
+      "sfx": "card_in",
+      "at": 64.3,
+      "vol": 0.5
+    },
+    {
+      "sfx": "price_hit",
+      "at": 65.2,
+      "vol": 0.75
+    },
+    {
+      "sfx": "step_done",
+      "at": 66,
+      "vol": 0.45
+    },
+    {
+      "sfx": "step_done",
+      "at": 66.35,
+      "vol": 0.45
+    },
+    {
+      "sfx": "step_done",
+      "at": 66.7,
+      "vol": 0.45
+    },
+    {
+      "sfx": "step_done",
+      "at": 67.05,
+      "vol": 0.45
+    },
+    {
+      "sfx": "button_press",
+      "at": 68,
+      "vol": 0.6
+    },
+    {
+      "sfx": "whoosh_big",
+      "at": 69.3,
+      "vol": 0.6
+    },
+    {
+      "sfx": "logo_sting",
+      "at": 69.9,
+      "vol": 0.8
+    },
+    {
+      "sfx": "citation_pop",
+      "at": 70.6,
+      "vol": 0.6
+    },
+    {
+      "sfx": "room_evening",
+      "at": 71.5,
+      "until": 75,
+      "vol": 0.12
+    }
+  ]
+}

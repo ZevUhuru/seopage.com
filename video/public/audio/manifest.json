@@ -1,0 +1,425 @@
+{
+  "room_evening": {
+    "file": "room_evening.mp3",
+    "sec": 6.034,
+    "hash": "10fb0264b1b7",
+    "lufs": -45.31,
+    "truePeak": -29.88,
+    "gainDb": 18,
+    "leveled": "lev/room_evening.mp3"
+  },
+  "phone_typing": {
+    "file": "phone_typing.mp3",
+    "sec": 2.038,
+    "hash": "599021a2bb0b",
+    "lufs": -21.58,
+    "truePeak": 0.18,
+    "gainDb": -1.18,
+    "leveled": "lev/phone_typing.mp3"
+  },
+  "msg_send": {
+    "file": "msg_send.mp3",
+    "sec": 0.627,
+    "hash": "0a0df1bd190a",
+    "lufs": -23.48,
+    "truePeak": -5.14,
+    "gainDb": 1.48,
+    "leveled": "lev/msg_send.mp3"
+  },
+  "ai_stream": {
+    "file": "ai_stream.mp3",
+    "sec": 1.646,
+    "hash": "7fe9be1f7940",
+    "lufs": -14.48,
+    "truePeak": -5.78,
+    "gainDb": -7.52,
+    "leveled": "lev/ai_stream.mp3"
+  },
+  "sting_low": {
+    "file": "sting_low.mp3",
+    "sec": 1.646,
+    "hash": "488cc0b423ed",
+    "lufs": -17.83,
+    "truePeak": -4.65,
+    "gainDb": -4.17,
+    "leveled": "lev/sting_low.mp3"
+  },
+  "whoosh_soft": {
+    "file": "whoosh_soft.mp3",
+    "sec": 0.836,
+    "hash": "4834d7871e78",
+    "lufs": -12.71,
+    "truePeak": 0,
+    "gainDb": -9.29,
+    "leveled": "lev/whoosh_soft.mp3"
+  },
+  "whoosh_big": {
+    "file": "whoosh_big.mp3",
+    "sec": 1.228,
+    "hash": "3fa7d9129d37",
+    "lufs": -15.15,
+    "truePeak": -0.19,
+    "gainDb": -6.85,
+    "leveled": "lev/whoosh_big.mp3"
+  },
+  "shop_ambience": {
+    "file": "shop_ambience.mp3",
+    "sec": 6.034,
+    "hash": "f8d931839856",
+    "lufs": -45,
+    "truePeak": -20.95,
+    "gainDb": 18,
+    "leveled": "lev/shop_ambience.mp3"
+  },
+  "phone_buzz": {
+    "file": "phone_buzz.mp3",
+    "sec": 0.836,
+    "hash": "2c9b3cb27bd8",
+    "lufs": -3.17,
+    "truePeak": -0.15,
+    "gainDb": -18.83,
+    "leveled": "lev/phone_buzz.mp3"
+  },
+  "text_thud": {
+    "file": "text_thud.mp3",
+    "sec": 0.731,
+    "hash": "368ec1f16b6c",
+    "lufs": -31.78,
+    "truePeak": -8.38,
+    "gainDb": 7.38,
+    "leveled": "lev/text_thud.mp3"
+  },
+  "counter_ticks": {
+    "file": "counter_ticks.mp3",
+    "sec": 1.515,
+    "hash": "2ab49e84d1e6",
+    "lufs": -18.05,
+    "truePeak": -4.52,
+    "gainDb": -3.95,
+    "leveled": "lev/counter_ticks.mp3"
+  },
+  "impact_soft": {
+    "file": "impact_soft.mp3",
+    "sec": 1.228,
+    "hash": "06f07699686b",
+    "lufs": -34.24,
+    "truePeak": -21.26,
+    "gainDb": 12.24,
+    "leveled": "lev/impact_soft.mp3"
+  },
+  "riser": {
+    "file": "riser.mp3",
+    "sec": 2.247,
+    "hash": "1db1af500c6e",
+    "lufs": -8.51,
+    "truePeak": 1,
+    "gainDb": -13.49,
+    "leveled": "lev/riser.mp3"
+  },
+  "citation_pop": {
+    "file": "citation_pop.mp3",
+    "sec": 0.522,
+    "hash": "8da131ab272c",
+    "lufs": -39.75,
+    "truePeak": -20.72,
+    "gainDb": 17.75,
+    "leveled": "lev/citation_pop.mp3"
+  },
+  "laptop_typing": {
+    "file": "laptop_typing.mp3",
+    "sec": 3.527,
+    "hash": "3367cb544652",
+    "lufs": -25.36,
+    "truePeak": -2.59,
+    "gainDb": 1.59,
+    "leveled": "lev/laptop_typing.mp3"
+  },
+  "ui_click": {
+    "file": "ui_click.mp3",
+    "sec": 0.522,
+    "hash": "532f12179413",
+    "lufs": -23.55,
+    "truePeak": -6.66,
+    "gainDb": 1.55,
+    "leveled": "lev/ui_click.mp3"
+  },
+  "key_typing": {
+    "file": "key_typing.mp3",
+    "sec": 1.411,
+    "hash": "48a5e11644b7",
+    "lufs": -22.79,
+    "truePeak": -0.18,
+    "gainDb": -0.82,
+    "leveled": "lev/key_typing.mp3"
+  },
+  "button_press": {
+    "file": "button_press.mp3",
+    "sec": 0.627,
+    "hash": "0a0fdc0428ea",
+    "lufs": -28.55,
+    "truePeak": -15.94,
+    "gainDb": 6.55,
+    "leveled": "lev/button_press.mp3"
+  },
+  "data_blips": {
+    "file": "data_blips.mp3",
+    "sec": 8.046,
+    "hash": "8fc30069bc9f",
+    "lufs": -16.64,
+    "truePeak": -4.67,
+    "gainDb": -5.36,
+    "leveled": "lev/data_blips.mp3"
+  },
+  "step_done": {
+    "file": "step_done.mp3",
+    "sec": 0.522,
+    "hash": "4a325d95f37d",
+    "lufs": -21.55,
+    "truePeak": -10.11,
+    "gainDb": -0.45,
+    "leveled": "lev/step_done.mp3"
+  },
+  "card_in": {
+    "file": "card_in.mp3",
+    "sec": 0.627,
+    "hash": "1508fb6fff9c",
+    "lufs": -29.24,
+    "truePeak": -14.79,
+    "gainDb": 7.24,
+    "leveled": "lev/card_in.mp3"
+  },
+  "neg_tone": {
+    "file": "neg_tone.mp3",
+    "sec": 0.731,
+    "hash": "3e9572dd61c7",
+    "lufs": -29.69,
+    "truePeak": -13.01,
+    "gainDb": 7.69,
+    "leveled": "lev/neg_tone.mp3"
+  },
+  "page_build": {
+    "file": "page_build.mp3",
+    "sec": 1.802,
+    "hash": "e0625be3daa9",
+    "lufs": -18.78,
+    "truePeak": -7.76,
+    "gainDb": -3.22,
+    "leveled": "lev/page_build.mp3"
+  },
+  "check_tick": {
+    "file": "check_tick.mp3",
+    "sec": 0.522,
+    "hash": "dd65bfbd61b5",
+    "lufs": -23.85,
+    "truePeak": -10.22,
+    "gainDb": 1.85,
+    "leveled": "lev/check_tick.mp3"
+  },
+  "success_chime": {
+    "file": "success_chime.mp3",
+    "sec": 1.411,
+    "hash": "cd9da7d07156",
+    "lufs": -25.21,
+    "truePeak": -10.93,
+    "gainDb": 3.21,
+    "leveled": "lev/success_chime.mp3"
+  },
+  "scroll_swish": {
+    "file": "scroll_swish.mp3",
+    "sec": 1.228,
+    "hash": "bd0a9cf7380e",
+    "lufs": -21.58,
+    "truePeak": -6.48,
+    "gainDb": -0.42,
+    "leveled": "lev/scroll_swish.mp3"
+  },
+  "modal_pop": {
+    "file": "modal_pop.mp3",
+    "sec": 0.522,
+    "hash": "2e4aada0c0e9",
+    "lufs": -32.35,
+    "truePeak": -13.69,
+    "gainDb": 10.35,
+    "leveled": "lev/modal_pop.mp3"
+  },
+  "pay_chime": {
+    "file": "pay_chime.mp3",
+    "sec": 1.045,
+    "hash": "1b8a17107d52",
+    "lufs": -12.29,
+    "truePeak": 0.2,
+    "gainDb": -9.71,
+    "leveled": "lev/pay_chime.mp3"
+  },
+  "live_whoosh": {
+    "file": "live_whoosh.mp3",
+    "sec": 1.802,
+    "hash": "37498ec6325c",
+    "lufs": -12.24,
+    "truePeak": -1.1,
+    "gainDb": -9.76,
+    "leveled": "lev/live_whoosh.mp3"
+  },
+  "phone_ring": {
+    "file": "phone_ring.mp3",
+    "sec": 2.429,
+    "hash": "25b6fd92b9f6",
+    "lufs": -8.15,
+    "truePeak": -1.29,
+    "gainDb": -13.85,
+    "leveled": "lev/phone_ring.mp3"
+  },
+  "phone_pickup": {
+    "file": "phone_pickup.mp3",
+    "sec": 0.522,
+    "hash": "dc8e07643bd3",
+    "lufs": -21.55,
+    "truePeak": -2.47,
+    "gainDb": -0.45,
+    "leveled": "lev/phone_pickup.mp3"
+  },
+  "price_hit": {
+    "file": "price_hit.mp3",
+    "sec": 1.045,
+    "hash": "3898853ed7d0",
+    "lufs": -8.55,
+    "truePeak": 0.24,
+    "gainDb": -13.45,
+    "leveled": "lev/price_hit.mp3"
+  },
+  "logo_sting": {
+    "file": "logo_sting.mp3",
+    "sec": 2.429,
+    "hash": "1e43c5f7a293",
+    "lufs": -15.69,
+    "truePeak": -0.15,
+    "gainDb": -6.31,
+    "leveled": "lev/logo_sting.mp3"
+  },
+  "score": {
+    "file": "score.mp3",
+    "sec": 75.048,
+    "hash": "1347147240db",
+    "lufs": -15.45,
+    "truePeak": -1.21,
+    "gainDb": -6.55,
+    "leveled": "lev/score.mp3"
+  },
+  "vo01": {
+    "file": "vo01.mp3",
+    "sec": 2.534,
+    "hash": "da5fde907310",
+    "lufs": -25.01,
+    "truePeak": -7.58,
+    "gainDb": 1.6,
+    "leveled": "lev/vo01.mp3"
+  },
+  "vo02": {
+    "file": "vo02.mp3",
+    "sec": 1.802,
+    "hash": "78ac774198e0",
+    "lufs": -23.99,
+    "truePeak": -8.25,
+    "gainDb": 1.6,
+    "leveled": "lev/vo02.mp3"
+  },
+  "vo03": {
+    "file": "vo03.mp3",
+    "sec": 4.598,
+    "hash": "e3024a9a08c1",
+    "lufs": -23.63,
+    "truePeak": -3.83,
+    "gainDb": 1.6,
+    "leveled": "lev/vo03.mp3"
+  },
+  "vo04": {
+    "file": "vo04.mp3",
+    "sec": 3.605,
+    "hash": "aa96b0312d3d",
+    "lufs": -25.53,
+    "truePeak": -5.31,
+    "gainDb": 1.6,
+    "leveled": "lev/vo04.mp3"
+  },
+  "vo05": {
+    "file": "vo05.mp3",
+    "sec": 2.456,
+    "hash": "826cc1987f1e",
+    "lufs": -23.43,
+    "truePeak": -6.13,
+    "gainDb": 1.6,
+    "leveled": "lev/vo05.mp3"
+  },
+  "vo06": {
+    "file": "vo06.mp3",
+    "sec": 3.291,
+    "hash": "bef9895f706c",
+    "lufs": -23.28,
+    "truePeak": -3.79,
+    "gainDb": 1.6,
+    "leveled": "lev/vo06.mp3"
+  },
+  "vo07": {
+    "file": "vo07.mp3",
+    "sec": 8.307,
+    "hash": "9bca68012117",
+    "lufs": -23.92,
+    "truePeak": -3.2,
+    "gainDb": 1.6,
+    "leveled": "lev/vo07.mp3"
+  },
+  "vo08": {
+    "file": "vo08.mp3",
+    "sec": 5.146,
+    "hash": "66ce6ff4298b",
+    "lufs": -22.96,
+    "truePeak": -3.9,
+    "gainDb": 1.6,
+    "leveled": "lev/vo08.mp3"
+  },
+  "vo09": {
+    "file": "vo09.mp3",
+    "sec": 1.489,
+    "hash": "f11c989b3de0",
+    "lufs": -23.32,
+    "truePeak": -3.08,
+    "gainDb": 1.6,
+    "leveled": "lev/vo09.mp3"
+  },
+  "vo10": {
+    "file": "vo10.mp3",
+    "sec": 4.728,
+    "hash": "63e0cb37a02d",
+    "lufs": -22.78,
+    "truePeak": -2.6,
+    "gainDb": 1.6,
+    "leveled": "lev/vo10.mp3"
+  },
+  "vo11": {
+    "file": "vo11.mp3",
+    "sec": 5.564,
+    "hash": "b52585d4ed7d",
+    "lufs": -24.48,
+    "truePeak": -5.98,
+    "gainDb": 1.6,
+    "leveled": "lev/vo11.mp3"
+  },
+  "vo12": {
+    "file": "vo12.mp3",
+    "sec": 4.258,
+    "hash": "d236a4562026",
+    "lufs": -23.48,
+    "truePeak": -4.99,
+    "gainDb": 1.6,
+    "leveled": "lev/vo12.mp3"
+  },
+  "vo13": {
+    "file": "vo13.mp3",
+    "sec": 2.116,
+    "hash": "61ee59867a53",
+    "lufs": -23.37,
+    "truePeak": -5.4,
+    "gainDb": 1.6,
+    "leveled": "lev/vo13.mp3"
+  }
+}

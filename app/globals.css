@@ -622,6 +622,11 @@ body {
 .rank-prose ul li::before { content: "→"; position: absolute; left: 0; color: #3d6bff; }
 .rank-prose ol { list-style: decimal; padding-left: 2.8em; }
 .rank-prose ol li::marker { color: #9db4ff; font-weight: 600; }
+.rank-prose .rank-figure { margin-top: 1.6em; display: flex; flex-direction: column; align-items: center; gap: 0.6em; }
+.rank-prose .rank-zoom { display: flex; justify-content: center; }
+.rank-prose .rank-zoom img { display: block; width: auto; max-width: 100%; max-height: 640px; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; transition: border-color .2s; }
+.rank-prose .rank-zoom:hover img { border-color: rgba(157, 180, 255, 0.5); }
+.rank-prose .rank-caption { max-width: 60ch; text-align: center; font-size: 0.8em; line-height: 1.5; color: #7d869c; }
 .rank-prose blockquote { margin-top: 1.4em; border-left: 2px solid #3d6bff; padding-left: 1.1em; color: #eef2ff; }
 .rank-prose code { font-family: var(--font-mono), monospace; font-size: 0.86em; background: rgba(255, 255, 255, 0.08); padding: 0.1em 0.35em; border-radius: 5px; color: #eef2ff; }
 .rank-prose pre { margin-top: 1.4em; overflow-x: auto; padding: 1.1em 1.3em; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; background: #0a0f1e; font-size: 0.85em; }

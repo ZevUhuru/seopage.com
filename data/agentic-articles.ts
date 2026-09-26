@@ -21,6 +21,151 @@ import type { Article } from "@/lib/articles";
  */
 export const seedArticles: Article[] = [
   {
+    slug: "how-we-made-our-explainer-video",
+    title: "How We Made Our Explainer Video in Code (a Case Study on Ourselves)",
+    description:
+      "We made SEOPage's 75-second explainer in one working session: research first, three proposals, then the video built in code with Remotion, every sound generated with ElevenLabs and leveled by measurement, three cuts from one timeline, and a thumbnail chosen by how it reads at phone size. Here is every decision, what went wrong, and what we don't know yet.",
+    category: "case-studies",
+    categoryLabel: "Case study",
+    publishedAt: "2026-09-26",
+    tags: ["explainer video", "saas explainer video", "ai explainer video", "youtube thumbnail", "case study"],
+    relatedSlugs: ["how-to-do-seo-for-a-landing-page", "seo-page-content-best-practices-2026"],
+    muxPlaybackId: "00cNyTsDrNB94KlXTM5yoFMxHlviTYAAl8dM2aEsE6no",
+    thumbnailUrl: "/rank/explainer-video/thumbnail.jpg",
+    durationSeconds: 75,
+    transcript:
+      "Someone near you just asked AI who to hire. It gave them someone else's name. Meet Nora. Master plumber, twelve years in. Great at her job. Invisible to AI. Nearly half of US consumers now use AI to find a local business. And the click goes to whoever the answer names. So Nora built the page AI could quote. She typed four details. SEOPage researched live searches in her city, skipped the ones that bring the wrong people, and gathered the questions customers really ask. Then it wrote and designed her page, and scored it on ten checks, before she paid anything. One click, and it's live. We built our own sites this way first. ChatGPT now cites them by name. The goal isn't a ranking report. It's a call that starts with “I found you on ChatGPT.” Build your page free. Pay $199, the launch price, only when you publish. SEOPage. Make the answer you.",
+    content: `We sell pages that get a business named when someone asks AI who to hire. So when we needed an explainer video, we held it to the same standard we hold your page to: research what works before making anything, answer the real question first, show proof with its source, and check the result at the size people actually see it.
+
+Watch it on [our YouTube channel](https://www.youtube.com/watch?v=gB9rg92S6ZA). This is the full write-up of how it was made. Some of it worked the first time. Some of it didn't, and that part is below too.
+
+## What we set out to make
+
+One video that explains what SEOPage is and how you use it, for YouTube and every social feed, with sound that means something in every second. The audience is a plumber, a roofer, an HVAC owner: people who are great at their trade and have no reason to care about software.
+
+That audience decided most of what follows.
+
+## Research first: three proposals, one pick
+
+Before writing a frame, we read what the evidence says about explainer videos. The findings that shaped the video:
+
+- **Length.** Videos under a minute hold about half their viewers, and one to three minutes is close behind ([Wistia](https://wistia.com/blog/video-marketing-statistics)). We aimed for 75 seconds.
+- **The first seconds carry the weight.** Meta and Nielsen found up to 47% of a video ad's value is delivered in the first three seconds ([Meta](https://www.facebook.com/business/news/updated-features-for-video-ads)).
+- **Most feeds are sound on now.** The old "85% watch muted" figure is from 2016. Meta now reports over 75% of Reels views have sound on ([Meta for Developers](https://developers.facebook.com/blog/post/2024/11/07/unlock-the-power-of-reel-ads/)). Captions still help: 80% of people say they're more likely to finish a captioned video ([Verizon Media via Forbes](https://www.forbes.com/sites/tjmccue/2019/07/31/verizon-media-says-69-percent-of-consumers-watching-video-with-sound-off/)).
+
+Then we wrote three proposals:
+
+1. **Nora's evening.** The homepage's story as a film: the alarm, the builder, the proof, the offer.
+2. **The interface does the talking.** A polished product-motion piece with music and no voice.
+3. **Receipts first.** A founder-led screen recording of the real builder.
+
+We picked the first. Proposal two looks great to software people and says nothing to a roofer. Proposal three is honest, but real screen recordings carry load times, small text, and browser clutter, which is exactly what the research says to cut. The story version is the only one that explains both why you'd care and how you'd use it.
+
+## The story is the homepage, filmed
+
+The video follows the same order as our homepage, because that order already works:
+
+| Time | What you see |
+|---|---|
+| 0:00 | Someone asks an AI assistant for the best plumber. It names someone else. |
+| 0:05 | Nora, a master plumber, reading that answer. |
+| 0:11 | 45% of US consumers now use AI to find a local business ([BrightLocal, 2026](https://www.brightlocal.com/research/lcrs-ai-trust/)). |
+| 0:21 | The builder, in four steps: describe, research, score, go live. |
+| 0:50 | Proof: our own sites, cited by AI, straight from Ahrefs. |
+| 0:58 | The goal: a call that starts with "I found you on ChatGPT." |
+| 1:04 | The offer, then the end card. |
+
+![The first five seconds: the AI answer names "the shop down the street".](/rank/explainer-video/hook.jpg)
+
+Nora is an illustration, and the video says so on screen every time she appears. The competitor is a placeholder, and the AI assistant is generic, not any real product's interface. The proof is labeled "our own sites, not client results." A video that asks to be trusted can't cut corners on who is real.
+
+## The product is the demo
+
+The homepage already has a replay of the real builder, drawn at the app's true size with its real fonts and colors. We ported it into [Remotion](https://www.remotion.dev), which makes video out of React components, so the video shows the actual interface rather than a mockup of it.
+
+Two things made the demo readable:
+
+- **A camera.** The interface is drawn once, and a virtual camera pushes into whatever the voice is talking about: the search volumes while it says "live searches in her city," the ten checks while it says "ten checks."
+- **A cursor that clicks where things are.** The first render had the pointer clicking about 50 pixels above every field. We only caught it by rendering still frames and checking each one. Motion hides mistakes like that; still frames don't.
+
+![The Score step: the camera frames the page and the ten checks together.](/rank/explainer-video/builder-score.jpg)
+
+## Sound in every second
+
+We wanted every second to carry a sound that belongs to it: typing when a field fills, a tick for each of the ten checks, a phone ring when the call comes in. So the soundtrack is a cue sheet, not a mix done by ear:
+
+- 13 voice lines, 156 words, read by an ElevenLabs voice
+- 33 sound effects on 86 timed cues, each generated from a written prompt
+- A 75-second instrumental score, generated from a prompt that describes the arc: tense, then hopeful, a drive through the demo, then a resolve
+
+A script checks the cue sheet and fails if any second has only music. All 75 pass.
+
+**The part we got wrong first.** Generated audio doesn't arrive at a consistent volume. Our files ranged from -3 to -45 LUFS, a spread of about 42 dB. Mixed as they came, the phone buzz and the riser would have drowned out the voice, and the room tone would have been inaudible. The raw mix even peaked above full scale. The fix was to measure every file and level it to the voice before mixing. After that, the score sits about 18 dB under the voice whenever someone speaks, and the finished file lands at about -14 LUFS with true peak at -1 dBTP.
+
+## One timeline, three cuts
+
+The same 75 seconds ship three ways:
+
+- **YouTube (16:9):** no burned-in captions. Captions go up as a separate file, so viewers can switch them off.
+- **LinkedIn and X (16:9):** captions burned in, because those feeds autoplay muted.
+- **Reels, TikTok, and Shorts (9:16):** every scene laid out again for a tall screen, not cropped.
+
+The vertical cut has to stay out of the areas the apps cover. On Reels, that's the bottom 35% and the top 14% ([Meta](https://www.facebook.com/business/ads-guide/update/video/instagram-reels)). Our first vertical render put captions right on top of the scene's own text. The fix: captions only appear where the words aren't already on screen as type, and they sit just above the covered zone.
+
+![The vertical cut: the step label up top, the interface in the middle, the bottom kept clear for the app's own buttons.](/rank/explainer-video/vertical.jpg)
+
+## The thumbnail was chosen at phone size
+
+We made three thumbnails:
+
+- **A:** Nora's shock with "AI picked THEM."
+- **B:** Nora smiling on a call with "Get named by ChatGPT."
+- **C:** a before-and-after split.
+
+Then we looked at each one at 170 pixels wide, the size of a phone feed.
+
+![All three thumbnails at desktop and phone size, with YouTube's duration badge.](/rank/explainer-video/thumbnails-feed.jpg)
+
+A reads instantly. B's headline survives, but its detail turns to mush. C's words shrink until they barely register. We chose A for one more reason: it shows exactly what the video's first five seconds show. YouTube judges thumbnail tests by watch time, not clicks ([YouTube Help](https://support.google.com/youtube/answer/16391400?hl=en)). A thumbnail that promises what the video delivers keeps people watching. One that promises something else wins the click and loses the viewer.
+
+The title follows the same logic. It doesn't repeat the thumbnail; it answers it: "Why ChatGPT Recommends Your Competitor (and How to Fix It)." The thumbnail shows the damage, and the title names the cause and promises the fix.
+
+## Channel art from what we already have
+
+The channel's profile picture is the small blue "1" from our logo. It's the mark an AI answer puts next to a source it cites, and it's the only option we tried that still reads at 24 pixels, the size it appears beside a comment. The banner is Nora outside her shop, placed so her face lands in the center strip that phones show.
+
+![Three banners, each with the strip every device shows outlined, and how a phone crops it.](/rank/explainer-video/banners-preview.jpg)
+
+## What went wrong
+
+A case study that only lists wins isn't one. Here's what broke along the way:
+
+- **The pointer missed its targets** by about 50 pixels. Caught by checking still frames.
+- **A black gap** of almost a second sat between the demo and the proof. Caught by pulling frames from the finished file, not the preview.
+- **The audio levels were 42 dB apart**, as above. Caught by measuring every file, because we couldn't listen to them.
+- **The vertical captions collided** with the on-screen text. Caught on a contact sheet of the whole cut.
+- **An API key stored in our own infrastructure turned out to be a key ID**, not the key itself. Caught when the first request was rejected.
+
+None of these would have been caught by watching the preview once and calling it done. Each one was caught by checking the output at the size, and in the form, people actually get it.
+
+## What we don't know yet
+
+The video went live on YouTube as we finished this write-up, so there are no results here yet, only decisions. As the numbers come in, we'll update this page with:
+
+- How many people who see the thumbnail click it
+- How many are still watching after three seconds, and at the end
+- Which of the three thumbnails wins YouTube's test
+- How many people start a page from the video
+
+If a choice above turns out to be wrong, we'll say which one.
+
+## What this has to do with your page
+
+The rules that made the video are the rules we build your page with. Answer the real question first. Show proof, with where it came from. Check the result the way it's actually seen: on a phone, in a feed, or quoted in an AI answer. And don't keep anything just because it looks good to the people who made it.
+
+That's what a page that gets cited looks like. [Build yours free](https://create.seopage.com).`,
+  },
+  {
     slug: "ai-seo-services-what-you-are-actually-buying",
     title: "AI SEO Services: What You're Actually Buying",
     description:
