@@ -1,0 +1,97 @@
+{
+  "_about": "Images for the app-simulation prototypes (/prototypes/replay). Generated through api.esy.com from these prompts; files live at public/prototypes/replay/<trade>/<key>.webp. Style matches public/home/svc-*.webp.",
+  "style": "Stylized 3D render, soft clay-like materials, warm evening lamp light, navy blue and copper color palette, cozy and clean, shallow depth of field, no people's faces, no text, no logos, no watermarks. Landscape 3:2.",
+  "trades": {
+    "roofers": {
+      "hero": "A two-story suburban house at dusk with a freshly installed dark shingle roof, a roofer's ladder leaning on the gutter, warm light glowing from the windows, a work truck parked in the driveway.",
+      "services": [
+        {
+          "key": "storm",
+          "prompt": "A section of roof after a hail storm being repaired: a blue tarp partly rolled back, new shingles stacked beside damaged ones, a roofing hammer and nail pouch resting on the ridge, puddles glinting in lamp light."
+        },
+        {
+          "key": "replacement",
+          "prompt": "A newly installed standing-seam metal roof on a cozy house, clean lines catching warm evening light, a neat stack of leftover panels and a toolbox on the lawn below."
+        },
+        {
+          "key": "leak",
+          "prompt": "An attic interior with a single drip falling from a roof beam into a copper bucket, a flashlight on the floor lighting new plywood decking and a roll of underlayment."
+        }
+      ]
+    },
+    "hvac": {
+      "hero": "The back of a cozy house at dusk with a new outdoor air conditioning condenser on a concrete pad, a technician's tool bag and pressure gauges beside it, warm light in the windows.",
+      "services": [
+        {
+          "key": "ac",
+          "prompt": "An outdoor air conditioning condenser with its service panel open, coiled blue and red refrigerant hoses, a flashlight and screwdrivers laid out on a towel on the grass."
+        },
+        {
+          "key": "furnace",
+          "prompt": "A basement furnace with its front panel removed and a warm blue burner flame visible, a toolbox and a new air filter leaning against it, copper pipes on the wall."
+        },
+        {
+          "key": "replacement",
+          "prompt": "A brand new high-efficiency heat pump indoor unit in a tidy utility room, protective plastic still on the unit, a neat toolbox and a rolled set of plans on a shelf."
+        }
+      ]
+    }
+  },
+  "generated": {
+    "roofers/hero": {
+      "runId": "run-87d0d0ad",
+      "artifactId": "artifact-d0c2805b",
+      "url": "https://images.esy.com/artifacts/illustration/run-87d0d0ad/image.webp",
+      "status": "completed"
+    },
+    "roofers/storm": {
+      "runId": "run-7772fc3c",
+      "artifactId": "artifact-4c0bd98f",
+      "url": "https://images.esy.com/artifacts/illustration/run-7772fc3c/image.webp",
+      "status": "completed"
+    },
+    "roofers/replacement": {
+      "runId": "run-fca1892b",
+      "artifactId": "artifact-94c04714",
+      "url": "https://images.esy.com/artifacts/illustration/run-fca1892b/image.webp",
+      "status": "completed"
+    },
+    "roofers/leak": {
+      "runId": "run-ddaf1b0c",
+      "artifactId": "artifact-465af710",
+      "url": "https://images.esy.com/artifacts/illustration/run-ddaf1b0c/image.webp",
+      "status": "completed"
+    },
+    "hvac/hero": {
+      "runId": "run-07f7fc77",
+      "artifactId": "artifact-97b48458",
+      "url": "https://images.esy.com/artifacts/illustration/run-07f7fc77/image.webp",
+      "status": "completed"
+    },
+    "hvac/furnace": {
+      "runId": "run-876861db",
+      "artifactId": "artifact-88c0bf6a",
+      "url": "https://images.esy.com/artifacts/illustration/run-876861db/image.webp",
+      "status": "completed"
+    },
+    "hvac/replacement (rejected)": {
+      "runId": "run-4a776cbe",
+      "status": "failed",
+      "reason": "Esy OCR text gate: thermostat showed '72'. Prompt revised."
+    },
+    "hvac/ac": {
+      "runId": "run-c6772e99",
+      "artifactId": "artifact-6c09ba3e",
+      "url": "https://images.esy.com/artifacts/illustration/run-c6772e99/image.webp",
+      "status": "completed",
+      "costUsd": null
+    },
+    "hvac/replacement": {
+      "runId": "run-7ae151e7",
+      "artifactId": "artifact-fc25f727",
+      "url": "https://images.esy.com/artifacts/illustration/run-7ae151e7/image.webp",
+      "status": "completed",
+      "costUsd": null
+    }
+  }
+}

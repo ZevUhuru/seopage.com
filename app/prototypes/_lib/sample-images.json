@@ -1,0 +1,252 @@
+{
+  "_about": "Realistic photo sets for the before/after sample page (/prototypes/sample). Three art directions to choose between; one set is used on both sides so the comparison is about the words. The builder generates its own photos today; customer uploads are planned (api.esy.com docs/plans/2026-09-25-builder-brand-assets.md). Generated through api.esy.com's generate-photoreal-image; files at public/prototypes/sample/<set>/<trade>/<key>.webp.",
+  "sets": {
+    "job": {
+      "name": "On the job",
+      "note": "Documentary job-site photos: daylight, crews at work, true-to-life color.",
+      "artDirection": "Documentary job-site photography for a local trade business. Natural overcast daylight, true-to-life color, candid and unposed, 35mm lens look. Workers in plain work clothes are seen from behind or at a distance, faces not the subject. Everyday American suburbs. No text, no logos, no watermarks, no brand names on equipment."
+    },
+    "finished": {
+      "name": "Finished work",
+      "note": "Polished golden-hour photos of completed work. No people, magazine look.",
+      "artDirection": "Architectural and editorial photography of finished work for a premium local trade business. Warm golden-hour light, clean composition, crisp detail, magazine quality. The finished work and the home are the subject; no people. No text, no logos, no watermarks, no brand names on equipment."
+    },
+    "phone": {
+      "name": "Phone snapshots",
+      "note": "Candid phone snapshots, the kind an owner takes on the job. Unpolished and real-looking.",
+      "artDirection": "Candid smartphone photos a small-business owner takes on the job to show customers. Slightly imperfect framing, mixed natural light, realistic and unpolished, ordinary homes and job sites. No people posing, hands and tools at most. No text, no logos, no watermarks, no brand names on equipment."
+    }
+  },
+  "trades": {
+    "roofers": {
+      "context": "Roofing company in Denver, Colorado",
+      "images": {
+        "hero": {
+          "negativeSpace": "left",
+          "prompt": "A two-story suburban home with a freshly replaced asphalt shingle roof, ladder against the gutter, clean ridge lines."
+        },
+        "storm": {
+          "prompt": "A roof being repaired after a hail storm: bruised shingles next to new ones, a blue tarp folded back, roofing nails and a hammer."
+        },
+        "replacement": {
+          "prompt": "A new standing-seam metal roof on a ranch-style house, a stack of leftover panels on the lawn."
+        },
+        "leak": {
+          "prompt": "Attic underside of a roof with a water stain around a vent pipe, new flashing and a bucket below."
+        }
+      }
+    },
+    "hvac": {
+      "context": "Heating and air conditioning company in Phoenix, Arizona",
+      "images": {
+        "hero": {
+          "negativeSpace": "left",
+          "prompt": "A new outdoor air conditioning condenser on a concrete pad beside a stucco desert home, a technician's tool bag next to it."
+        },
+        "ac": {
+          "prompt": "An outdoor AC condenser with its service panel open, refrigerant hoses connected, tools on a towel."
+        },
+        "furnace": {
+          "prompt": "A gas furnace in a garage utility closet with its front panel off and a blue burner flame visible, a new air filter beside it."
+        },
+        "replacement": {
+          "prompt": "A newly installed heat pump air handler in a tidy utility closet, protective plastic still on it, copper line set neatly insulated."
+        }
+      }
+    }
+  },
+  "generated": {
+    "job/roofers/hero": {
+      "runId": "run-65b97b3a",
+      "artifactId": "artifact-e2a0d683",
+      "url": "https://images.esy.com/artifacts/photo-image/run-65b97b3a/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A worker in a hard hat climbs an extension ladder leaning against the gutter of a two-story suburban home with a dark asphalt shingle roof, with shingle debris scattered on the driveway and a calm overcast sky and dry lawn to the left."
+    },
+    "job/roofers/storm": {
+      "runId": "run-e777a01a",
+      "artifactId": "artifact-6ae2f631",
+      "url": "https://images.esy.com/artifacts/photo-image/run-e777a01a/image.webp",
+      "status": "completed",
+      "qa": "usable-with-notes",
+      "altText": "Close-up of an asphalt shingle roof under repair with weathered shingles beside newer sections, a folded-back blue tarp at left, scattered roofing nails with plastic caps, a chalk reel and a claw hammer in the foreground, and a worker kneeling in the blurred background over a suburban skyline."
+    },
+    "job/roofers/replacement": {
+      "runId": "run-69e6199d",
+      "artifactId": "artifact-a3d5743a",
+      "url": "https://images.esy.com/artifacts/photo-image/run-69e6199d/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A ranch-style house with a new dark gray standing-seam metal roof, where a hard-hatted worker carries a panel toward a ladder while a stack of leftover roofing panels rests on the dry front lawn under overcast daylight."
+    },
+    "job/roofers/leak": {
+      "runId": "run-80d4ad73",
+      "artifactId": "artifact-696dcde0",
+      "url": "https://images.esy.com/artifacts/photo-image/run-80d4ad73/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "Interior attic view of a person in a black hoodie and gloves installing metal flashing around a metal vent pipe on water-stained wood sheathing, with a galvanized bucket on the plywood floor below and fiberglass insulation to the right."
+    },
+    "job/hvac/hero": {
+      "runId": "run-9e46ce86",
+      "artifactId": "artifact-2edd15c7",
+      "url": "https://images.esy.com/artifacts/photo-image/run-9e46ce86/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A new gray outdoor air conditioning condenser on a concrete pad beside a tan stucco desert home, with an open tool bag holding refrigerant gauges and copper tubing in front, and a technician crouched at the right working on the unit."
+    },
+    "job/hvac/ac": {
+      "runId": "run-ddd6afcb",
+      "artifactId": "artifact-64daa903",
+      "url": "https://images.esy.com/artifacts/photo-image/run-ddd6afcb/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "An outdoor air conditioning condenser with its service panel open and a gloved technician's hand using a wrench inside, colored refrigerant hoses running to a manifold gauge set, with hand tools, a rag, and coiled wire laid out on a canvas drop cloth."
+    },
+    "job/hvac/furnace": {
+      "runId": "run-700506db",
+      "artifactId": "artifact-4f4c4046",
+      "url": "https://images.esy.com/artifacts/photo-image/run-700506db/image.webp",
+      "status": "completed",
+      "qa": "usable-with-notes",
+      "altText": "An open gas furnace in a garage utility closet with a lit blue burner row visible, a new pleated air filter and a dirty used filter standing on the concrete floor beside it, with a flashlight on the ground and a desert home visible through the open door."
+    },
+    "job/hvac/replacement": {
+      "runId": "run-5f471b1e",
+      "artifactId": "artifact-c0cdc0c2",
+      "url": "https://images.esy.com/artifacts/photo-image/run-5f471b1e/image.webp",
+      "status": "completed",
+      "qa": "usable-with-notes",
+      "altText": "A newly installed heat pump air handler still covered in factory protective plastic inside a residential utility closet, with insulated black-wrapped refrigerant lines and a bright copper pipe running to the unit, and a worker standing in a doorway with a coiled hose in the background."
+    },
+    "finished/roofers/hero": {
+      "runId": "run-2a80b79e",
+      "artifactId": "artifact-3228734b",
+      "url": "https://images.esy.com/artifacts/photo-image/run-2a80b79e/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A two-story suburban home with brick and beige siding and a dark asphalt shingle roof, an aluminum extension ladder leaning against the gutter, set against distant mountains at golden hour."
+    },
+    "finished/roofers/storm": {
+      "runId": "run-0d257fc6",
+      "artifactId": "artifact-1577ebaf",
+      "url": "https://images.esy.com/artifacts/photo-image/run-0d257fc6/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "Close-up of a residential asphalt-shingle roof at golden hour showing hail-bruised shingles beside newer ones, a folded-back blue tarp, a small pile of roofing nails, and a worn claw hammer resting in the foreground."
+    },
+    "finished/roofers/replacement": {
+      "runId": "run-ae8c781c",
+      "artifactId": "artifact-a89c0bc0",
+      "url": "https://images.esy.com/artifacts/photo-image/run-ae8c781c/image.webp",
+      "status": "completed",
+      "qa": "usable-with-notes",
+      "altText": "A ranch-style house with a newly installed dark gray standing-seam metal roof and attached garage, with a stack of leftover metal roofing panels and a coil of wire on the front lawn in golden-hour light, mountains in the background."
+    },
+    "finished/roofers/leak": {
+      "runId": "run-708c3d35",
+      "artifactId": "artifact-deead8e4",
+      "url": "https://images.esy.com/artifacts/photo-image/run-708c3d35/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "Interior attic view of a wood roof deck showing a dark water stain around a metal vent pipe with new galvanized flashing, and a galvanized bucket resting on the floor joists below amid pink insulation and a coiled black cable."
+    },
+    "finished/hvac/hero": {
+      "runId": "run-a6d8d870",
+      "artifactId": "artifact-974376d8",
+      "url": "https://images.esy.com/artifacts/photo-image/run-a6d8d870/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A metal air conditioning condenser unit on a concrete pad beside a stucco desert home at golden hour, with an electrical disconnect box on the wall and a technician's tool bag on the ground to the right."
+    },
+    "finished/hvac/ac": {
+      "runId": "run-c801d46a",
+      "artifactId": "artifact-d32b5d73",
+      "url": "https://images.esy.com/artifacts/photo-image/run-c801d46a/image.webp",
+      "status": "completed",
+      "qa": "usable-with-notes",
+      "altText": "An outdoor air conditioning condenser unit with its side service panel open exposing internal wiring and copper refrigerant lines, red and blue hoses connected to a manifold gauge set, and hand tools including wrenches and a multimeter laid out on a canvas towel on a concrete pad against a stucco wall in warm evening light."
+    },
+    "finished/hvac/furnace": {
+      "runId": "run-cbc5c49c",
+      "artifactId": "artifact-d15d9b3a",
+      "url": "https://images.esy.com/artifacts/photo-image/run-cbc5c49c/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "An open gas furnace in a garage utility closet showing a row of blue burner flames, with a new pleated air filter and the removed access panel propped upright beside it."
+    },
+    "finished/hvac/replacement": {
+      "runId": "run-135428c2",
+      "artifactId": "artifact-5f900823",
+      "url": "https://images.esy.com/artifacts/photo-image/run-135428c2/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A vertical heat pump air handler still wrapped in factory protective plastic stands in a utility closet, with foam-insulated copper refrigerant lines and PVC drain piping running along its right side, next to an open hallway lit by warm daylight."
+    },
+    "phone/roofers/hero": {
+      "runId": "run-d525031d",
+      "artifactId": "artifact-18694460",
+      "url": "https://images.esy.com/artifacts/photo-image/run-d525031d/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A two-story cream-sided suburban home with a new dark asphalt shingle roof and an aluminum extension ladder leaning against the front gutter, photographed from a dry lawn with tarps and debris, under a partly cloudy sky with distant mountains at left."
+    },
+    "phone/roofers/storm": {
+      "runId": "run-0d954e2b",
+      "artifactId": "artifact-51bed1c8",
+      "url": "https://images.esy.com/artifacts/photo-image/run-0d954e2b/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A close-up of a shingle roof under repair showing weathered hail-damaged shingles beside darker new shingles, a folded-back blue tarp at left, loose roofing nails, coiled nail strips, and a worn claw hammer resting on the surface."
+    },
+    "phone/roofers/replacement": {
+      "runId": "run-861d9ecf",
+      "artifactId": "artifact-ce526fa8",
+      "url": "https://images.esy.com/artifacts/photo-image/run-861d9ecf/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A ranch-style house with a new charcoal standing-seam metal roof, an aluminum extension ladder leaning against the eave, and a stack of leftover metal panels lying on the winter-brown lawn."
+    },
+    "phone/roofers/leak": {
+      "runId": "run-74ca05ad",
+      "artifactId": "artifact-dc1c7733",
+      "url": "https://images.esy.com/artifacts/photo-image/run-74ca05ad/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "Attic underside of a plywood roof deck with a brown water stain around a galvanized vent pipe and new metal flashing, a small window and gable framing behind, and a black bucket resting on blown-in insulation below."
+    },
+    "phone/hvac/hero": {
+      "runId": "run-9919b1ca",
+      "artifactId": "artifact-cffdd7a0",
+      "url": "https://images.esy.com/artifacts/photo-image/run-9919b1ca/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A new gray outdoor air conditioning condenser unit on a concrete pad beside a tan stucco house wall in bright desert sunlight, with an open technician's tool bag full of tools on the ground to its right."
+    },
+    "phone/hvac/ac": {
+      "runId": "run-63170713",
+      "artifactId": "artifact-2ce0ec8e",
+      "url": "https://images.esy.com/artifacts/photo-image/run-63170713/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "An outdoor air conditioning condenser unit with its service panel open exposing colored wiring, blue and red refrigerant hoses running to a manifold gauge set, and hand tools resting on a folded gray towel on a cracked concrete pad in harsh sunlight."
+    },
+    "phone/hvac/furnace": {
+      "runId": "run-65b00944",
+      "artifactId": "artifact-45e93c64",
+      "url": "https://images.esy.com/artifacts/photo-image/run-65b00944/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "An open residential gas furnace in a garage utility closet with its front panel removed showing a row of blue burner flames, wiring and gas piping, with a new pleated air filter and older metal panels leaning against the wall and an orange extension cord coiled on the floor."
+    },
+    "phone/hvac/replacement": {
+      "runId": "run-f94ccfd9",
+      "artifactId": "artifact-4ed502c8",
+      "url": "https://images.esy.com/artifacts/photo-image/run-f94ccfd9/image.webp",
+      "status": "completed",
+      "qa": "pass",
+      "altText": "A plastic-wrapped heat pump air handler inside a scuffed residential utility closet, with an insulated copper line set, flexible conduit, junction box, and PVC drain lines, viewed from a doorway that opens onto a room with dark wood flooring."
+    }
+  }
+}
