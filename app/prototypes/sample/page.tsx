@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { VERTICALS } from "@/lib/verticals";
 import { SETS } from "../_lib/sample";
+import { ImageDownloads } from "../_lib/image-downloads";
 
 export default function SampleChooser() {
   return (
@@ -28,6 +29,7 @@ export default function SampleChooser() {
           </li>
         ))}
       </ul>
+      <ImageDownloads dir="prototypes/sample" title="Photo sets" />
     </main>
   );
 }

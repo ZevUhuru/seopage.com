@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { VERTICALS } from "@/lib/verticals";
 import { TRADE_STYLES } from "../_lib/trade-shared";
+import { ImageDownloads } from "../_lib/image-downloads";
 
 export default function TradeChooser() {
   return (
@@ -25,6 +26,7 @@ export default function TradeChooser() {
           </li>
         ))}
       </ul>
+      <ImageDownloads dir="trade" title="Trade page photos" />
     </main>
   );
 }

@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getArticles } from "@/lib/articles";
 import { base, RankMark, STYLES } from "./_lib/shared";
 import { FOOTERS } from "./_lib/footer";
+import { THUMBS } from "./_lib/thumbnail";
+import { BANNERS, PROFILES } from "./_lib/channel";
 
 export default async function ProtoHome() {
   const [lead] = await getArticles();
@@ -42,6 +44,40 @@ export default async function ProtoHome() {
           </li>
         ))}
       </ul>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">YouTube thumbnail</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three thumbnails for the explainer video, and how each reads at feed size.
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {THUMBS.map((t) => (
+          <li key={t.key} className={`flex flex-col overflow-hidden rounded-[24px] border bg-[#0A0F1E] ${t.chosen ? "border-[#3D6BFF]" : "border-white/12"}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`/prototypes/thumbnail/${t.file}`} alt="" className="aspect-video w-full object-cover" />
+            <span className="nh-display p-7 text-[30px] leading-none tracking-[-0.03em]">
+              <span className="text-[#3D6BFF]">{t.key.toUpperCase()}</span> · {t.name}
+              {t.chosen && <span className="ml-3 rounded-full bg-[#3D6BFF] px-3 py-1 align-middle font-sans text-[13px] font-semibold tracking-normal text-white">Chosen</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <Link href="/prototypes/thumbnail" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">YouTube channel</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three profile pictures and three banners, each checked at the sizes YouTube actually shows them.
+      </p>
+      <div className="mt-10 flex flex-wrap items-center gap-8">
+        {PROFILES.filter((p) => p.chosen).map((p) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={p.key} src={`/prototypes/channel/${p.file}`} alt="" className="h-28 w-28 rounded-full border border-[#3D6BFF]" />
+        ))}
+        {BANNERS.filter((b) => b.chosen).map((b) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img key={b.key} src={`/prototypes/channel/${b.file}`} alt="" className="aspect-video w-full max-w-[520px] rounded-[18px] border border-[#3D6BFF] object-cover" />
+        ))}
+      </div>
+      <Link href="/prototypes/channel" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all six</Link>
     </main>
   );
 }

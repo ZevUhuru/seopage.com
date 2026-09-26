@@ -1,0 +1,536 @@
+{
+  "room_evening": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "quiet indoor room tone in the evening, faint distant city traffic, very subtle",
+    "duration_seconds": 6,
+    "loop": true,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:36.419Z"
+  },
+  "phone_typing": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft smartphone touchscreen keyboard taps, quick typing, close and intimate",
+    "duration_seconds": 2,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:38.705Z"
+  },
+  "msg_send": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft modern chat message send whoosh, short and airy",
+    "duration_seconds": 0.6,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:40.637Z"
+  },
+  "ai_stream": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "subtle soft digital shimmer, text appearing on screen, gentle granular sparkle",
+    "duration_seconds": 1.6,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:43.084Z"
+  },
+  "sting_low": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "short low ominous cinematic sting, dark sub-bass hit with a dissonant tail",
+    "duration_seconds": 1.6,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:45.399Z"
+  },
+  "whoosh_soft": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft short cinematic whoosh transition, airy",
+    "duration_seconds": 0.8,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:47.304Z"
+  },
+  "whoosh_big": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "deep cinematic whoosh swoosh passing by, fast, for a zoom transition",
+    "duration_seconds": 1.2,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:49.187Z"
+  },
+  "shop_ambience": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "small plumbing workshop ambience, faint dripping water, distant street outside, calm",
+    "duration_seconds": 6,
+    "loop": true,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:53.041Z"
+  },
+  "phone_buzz": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "single smartphone vibration buzz on a wooden counter",
+    "duration_seconds": 0.8,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:54.967Z"
+  },
+  "text_thud": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft low muted thud, subtle impact for text appearing",
+    "duration_seconds": 0.7,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:56.872Z"
+  },
+  "counter_ticks": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "rapid soft digital counter ticking, numbers counting up quickly, accelerating",
+    "duration_seconds": 1.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:16:59.204Z"
+  },
+  "impact_soft": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "clean modern soft impact hit with warm low end and short shimmer tail",
+    "duration_seconds": 1.2,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:01.269Z"
+  },
+  "riser": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "cinematic tension riser building up for two seconds, airy and bright, ends abruptly",
+    "duration_seconds": 2.2,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:03.306Z"
+  },
+  "citation_pop": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "small bright glassy pop, UI element appearing, satisfying",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:05.157Z"
+  },
+  "laptop_typing": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "typing on a laptop keyboard at a steady pace, quiet room",
+    "duration_seconds": 3.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:07.295Z"
+  },
+  "ui_click": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "clean soft mouse click, modern UI, crisp",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:09.361Z"
+  },
+  "key_typing": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "fast light keyboard typing on a laptop, clean, close microphone",
+    "duration_seconds": 1.4,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:11.251Z"
+  },
+  "button_press": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "satisfying soft UI button press with a gentle confirm tone",
+    "duration_seconds": 0.6,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:13.231Z"
+  },
+  "data_blips": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft subtle data processing blips and bleeps, computer analyzing, gentle and rhythmic",
+    "duration_seconds": 8,
+    "loop": true,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:17.543Z"
+  },
+  "step_done": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "short bright positive UI tick, task completed",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:19.488Z"
+  },
+  "card_in": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft paper-like UI card slide in swoosh, subtle",
+    "duration_seconds": 0.6,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:21.366Z"
+  },
+  "neg_tone": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft muted low two-note descending UI tone, gentle rejection, not harsh",
+    "duration_seconds": 0.7,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:23.368Z"
+  },
+  "page_build": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft digital construction shimmer, interface elements assembling into place, gentle and quick",
+    "duration_seconds": 1.8,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:25.389Z"
+  },
+  "check_tick": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "single crisp bright UI checkmark tick, short",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:27.195Z"
+  },
+  "success_chime": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "warm uplifting success chime, three rising notes, modern UI",
+    "duration_seconds": 1.4,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:29.802Z"
+  },
+  "scroll_swish": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "gentle smooth page scroll swish, soft",
+    "duration_seconds": 1.2,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:31.904Z"
+  },
+  "modal_pop": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "soft UI modal pop up, gentle and rounded",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:33.766Z"
+  },
+  "pay_chime": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "gentle payment confirmation ding, clean and premium",
+    "duration_seconds": 1,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:35.753Z"
+  },
+  "live_whoosh": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "uplifting bright shimmering whoosh into a soft sparkle, launch moment",
+    "duration_seconds": 1.8,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:38.184Z"
+  },
+  "phone_ring": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "a classic landline telephone ringing twice in a small shop",
+    "duration_seconds": 2.4,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:40.362Z"
+  },
+  "phone_pickup": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "phone handset being picked up, a soft clunk",
+    "duration_seconds": 0.5,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:42.332Z"
+  },
+  "price_hit": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "confident warm punchy impact with a subtle cash register shimmer, short",
+    "duration_seconds": 1,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:44.322Z"
+  },
+  "logo_sting": {
+    "kind": "sfx",
+    "provider": "elevenlabs",
+    "text": "short elegant logo reveal sting, soft bright synth pluck with a shimmering tail",
+    "duration_seconds": 2.4,
+    "loop": false,
+    "prompt_influence": 0.45,
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:46.592Z"
+  },
+  "score": {
+    "kind": "music",
+    "provider": "elevenlabs",
+    "prompt": "Instrumental underscore for a 75-second small-business technology explainer. No vocals. 0-5s: tense and sparse, a single low synth pulse and muted felt piano, uneasy. 5-18s: restrained, empathetic, soft piano motif over a quiet pulse, building slightly. 18-21s: a lift as the mood turns hopeful. 21-50s: driving, optimistic, modern indie-electronic groove at about 100 BPM, crisp light percussion, plucked synths, warm bass, confident momentum. 50-64s: warm and proud, a fuller pad, the groove relaxes. 64-75s: confident resolution, groove returns briefly then lands on a clean final chord that rings out by 74s.",
+    "ms": 75000,
+    "model": "music_v1",
+    "requestId": null,
+    "generatedAt": "2026-09-26T18:17:57.472Z"
+  },
+  "vo01": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "Someone near you just asked AI who to hire.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "6QMNkMYntdNBkP9x4x2U",
+    "generatedAt": "2026-09-26T18:16:59.678Z"
+  },
+  "vo02": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "It gave them someone else's name.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "6pNCn0hx4XejSCFRbQ24",
+    "generatedAt": "2026-09-26T18:17:01.818Z"
+  },
+  "vo03": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "Meet Nora. Master plumber, twelve years in. Great at her job... invisible to AI.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "QpMrPCyQhe7ltWBVY2PA",
+    "generatedAt": "2026-09-26T18:17:03.819Z"
+  },
+  "vo04": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "Nearly half of U.S. consumers now use AI to find a local business.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "5TSeQCCsZmFopVezacV7",
+    "generatedAt": "2026-09-26T18:17:05.657Z"
+  },
+  "vo05": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "And the click goes to whoever the answer names.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "xzNdgNoI3piuuKWfM9rk",
+    "generatedAt": "2026-09-26T18:17:07.257Z"
+  },
+  "vo06": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "So Nora built the page AI could quote. She typed four details.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "07yPirZukR0S0Qmhknj1",
+    "generatedAt": "2026-09-26T18:17:09.037Z"
+  },
+  "vo07": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "S-E-O Page researched live searches in her city, skipped the ones that bring the wrong people, and gathered the questions customers really ask.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "BgHl97dEv2sIw0JcfxDo",
+    "generatedAt": "2026-09-26T18:17:11.615Z"
+  },
+  "vo08": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "Then it wrote and designed her page, and scored it on ten checks, before she paid anything.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "Gn23pZKea8e0S2M1FqwQ",
+    "generatedAt": "2026-09-26T18:17:13.376Z"
+  },
+  "vo09": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "One click, and it's live.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "gf38XjSdoiBHZ7VMDMUR",
+    "generatedAt": "2026-09-26T18:17:14.981Z"
+  },
+  "vo10": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "We built our own sites this way first. ChatGPT now cites them by name.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "L4DSaJZk9p5uT8y85iu5",
+    "generatedAt": "2026-09-26T18:17:16.879Z"
+  },
+  "vo11": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "The goal isn't a ranking report. It's a call that starts with: I found you on ChatGPT.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "hmMNi7FvSRYrQ15td3TN",
+    "generatedAt": "2026-09-26T18:17:18.898Z"
+  },
+  "vo12": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "Build your page free. Pay one ninety-nine, the launch price, only when you publish.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "M0G9TDTjxCIYpDHgm9uI",
+    "generatedAt": "2026-09-26T18:17:20.900Z"
+  },
+  "vo13": {
+    "kind": "voice",
+    "provider": "elevenlabs",
+    "text": "S-E-O Page. Make the answer you.",
+    "voiceId": "iP95p4xoKVk53GoZ742B",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.45,
+      "similarity_boost": 0.8,
+      "style": 0.25,
+      "use_speaker_boost": true
+    },
+    "requestId": "jEiYo4ozmMlEGnLYYEzu",
+    "generatedAt": "2026-09-26T18:17:22.534Z"
+  }
+}

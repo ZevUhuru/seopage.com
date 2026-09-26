@@ -45,9 +45,9 @@ export async function generateMetadata({
   if (!a) return {};
 
   const url = `${BASE_URL}${JOURNAL_PATH}/${a.slug}`;
-  const ogImage = a.muxPlaybackId
-    ? `https://image.mux.com/${a.muxPlaybackId}/thumbnail.jpg?time=0`
-    : a.thumbnailUrl;
+  // A chosen thumbnail beats Mux's first frame, which is often a fade from black.
+  const ogImage =
+    a.thumbnailUrl ?? (a.muxPlaybackId ? `https://image.mux.com/${a.muxPlaybackId}/thumbnail.jpg?time=0` : undefined);
 
   return {
     title: { absolute: `${a.title} | SEOPage` },
@@ -95,7 +95,9 @@ export default async function ArticlePage({
         "@type": "VideoObject",
         name: article.title,
         description: article.description,
-        thumbnailUrl: `https://image.mux.com/${article.muxPlaybackId}/thumbnail.jpg?time=0`,
+        thumbnailUrl: article.thumbnailUrl
+          ? new URL(article.thumbnailUrl, BASE_URL).toString()
+          : `https://image.mux.com/${article.muxPlaybackId}/thumbnail.jpg?time=0`,
         uploadDate: article.publishedAt,
         duration: toIsoDuration(article.durationSeconds),
         contentUrl: `https://stream.mux.com/${article.muxPlaybackId}.m3u8`,

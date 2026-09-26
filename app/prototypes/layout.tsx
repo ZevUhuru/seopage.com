@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { funnelDisplay, funnelSans } from "@/components/home/fonts";
+import { DownloadPage } from "./_lib/download-page";
 import "./proto.css";
 
 /* Prototypes for the /agentic → /rank redesign. Never indexed; delete the
@@ -13,6 +14,7 @@ export default function ProtoLayout({ children }: { children: React.ReactNode })
   return (
     <div className={`nh ${funnelDisplay.variable} ${funnelSans.variable} min-h-screen`}>
       {children}
+      <DownloadPage />
     </div>
   );
 }
