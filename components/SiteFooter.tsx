@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { CREATE_URL, PRICE_LABEL, PRODUCT, SOCIALS } from "@/lib/config";
+import { CREATE_URL, PARENT, PRICE_LABEL, PRODUCT, SOCIALS } from "@/lib/config";
 
 export function SiteFooter() {
   return (
@@ -37,7 +37,10 @@ export function SiteFooter() {
             ))}
           </span>
           <span className="text-xs text-muted">
-            © {new Date().getFullYear()} SEOPage
+            © {new Date().getFullYear()} SEOPage, a division of{" "}
+            <a href={PARENT.href} className="underline underline-offset-2 hover:text-ink">
+              {PARENT.name}
+            </a>
           </span>
         </div>
       </div>
