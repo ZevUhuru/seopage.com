@@ -6,6 +6,7 @@ import { THUMBS } from "./_lib/thumbnail";
 import { BANNERS, PROFILES } from "./_lib/channel";
 import { CARDS } from "./_lib/social";
 import { SOCIAL_PLACEMENTS } from "./_lib/socials";
+import { PARENT_PLACEMENTS } from "./_lib/parent";
 
 export default async function ProtoHome() {
   const [lead] = await getArticles();
@@ -114,6 +115,22 @@ export default async function ProtoHome() {
         ))}
       </ul>
       <Link href="/prototypes/socials" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">A division of ESY LLC</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three places in the footer to say who SEOPage belongs to, linking esy.com.
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {PARENT_PLACEMENTS.map((p) => (
+          <li key={p.key} className={`flex flex-col gap-3 rounded-[24px] border bg-[#0A0F1E] p-7 ${p.chosen ? "border-[#3D6BFF]" : "border-white/12"}`}>
+            <span className="nh-display text-[30px] leading-none tracking-[-0.03em]">
+              <span className="text-[#3D6BFF]">{p.key.toUpperCase()}</span> · {p.name}
+            </span>
+            <span className="text-[16px] text-[#A0A9C0]">{p.note}</span>
+          </li>
+        ))}
+      </ul>
+      <Link href="/prototypes/parent" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
     </main>
   );
 }

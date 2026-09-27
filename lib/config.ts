@@ -45,6 +45,9 @@ export const PRODUCT = {
   supportEmail: "support@seopage.com",
 };
 
+/** The company SEOPage is a division of. */
+export const PARENT = { name: "ESY LLC", href: "https://esy.com" } as const;
+
 /**
  * Our social profiles. Linked from both footers and listed as sameAs on the
  * Organization schema, which ties them to SEOPage for search engines and AI.

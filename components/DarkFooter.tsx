@@ -3,7 +3,7 @@ import { Logo } from "./Logo";
 import { SocialIcons, SocialInline, SocialList } from "./SocialLinks";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
-import { CREATE_URL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PARENT, PRODUCT } from "@/lib/config";
 import { VERTICALS, tradePath } from "@/lib/verticals";
 
 /**
@@ -44,8 +44,19 @@ function FooterLink({ l }: { l: L }) {
 /** Where the social links sit; see /prototypes/socials for all three. */
 export type SocialsPlacement = "brand" | "bar" | "column";
 
+/** Where "a division of ESY LLC" sits; see /prototypes/parent. The bottom bar was chosen. */
+export type ParentPlacement = "bar" | "brand" | "band";
+
 /** `note` is a page-specific disclosure, like the homepage's Nora line. */
-export async function DarkFooter({ note, socials = "column" }: { note?: string; socials?: SocialsPlacement }) {
+export async function DarkFooter({
+  note,
+  socials = "column",
+  parent = "bar",
+}: {
+  note?: string;
+  socials?: SocialsPlacement;
+  parent?: ParentPlacement;
+}) {
   const articles = await getArticles();
   const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) })).sort((a, b) =>
     a.label.localeCompare(b.label),
@@ -60,6 +71,11 @@ export async function DarkFooter({ note, socials = "column" }: { note?: string; 
           <p className="max-w-[260px] text-[15px] leading-[1.55] text-[#A0A9C0]">
             SEO landing pages that rank on Google and get cited by AI.
           </p>
+          {parent === "brand" && (
+            <a href={PARENT.href} className="-mt-2 w-fit text-[14px] text-[#9DB4FF] hover:text-white">
+              A division of {PARENT.name} →
+            </a>
+          )}
           <a href={CREATE_URL} className="flex h-11 w-fit items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">
             Build my page free
           </a>
@@ -110,9 +126,30 @@ export async function DarkFooter({ note, socials = "column" }: { note?: string; 
         </nav>
       </div>
 
+      {parent === "band" && (
+        <div className="mt-20 flex flex-col gap-3 rounded-[20px] border border-white/12 bg-[#0A0F1E] px-7 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-[15px] leading-[1.55] text-[#C9D0E2]">
+            SEOPage is a division of <span className="text-[#EEF2FF]">{PARENT.name}</span>, the company behind Esy.
+          </p>
+          <a href={PARENT.href} className="shrink-0 text-[14.5px] font-medium text-[#9DB4FF] hover:text-white">
+            Visit esy.com →
+          </a>
+        </div>
+      )}
+
       <div className="mt-20 flex flex-col gap-2 border-t border-white/12 py-6 text-[13px] text-[#7D869C] sm:flex-row sm:justify-between">
         <span className="flex flex-wrap gap-x-5 gap-y-1">
-          <span>© {new Date().getFullYear()} SEOPage</span>
+          <span>
+            © {new Date().getFullYear()} SEOPage
+            {parent === "bar" && (
+              <>
+                , a division of{" "}
+                <a href={PARENT.href} className="underline decoration-white/25 underline-offset-2 hover:text-white">
+                  {PARENT.name}
+                </a>
+              </>
+            )}
+          </span>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
         </span>
         <span className="flex flex-wrap items-center gap-x-5 gap-y-1">
