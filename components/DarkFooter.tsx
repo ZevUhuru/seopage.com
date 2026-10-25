@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { EsyMark } from "./EsyMark";
 import { SocialIcons, SocialInline, SocialList } from "./SocialLinks";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
@@ -47,15 +48,20 @@ export type SocialsPlacement = "brand" | "bar" | "column";
 /** Where "a division of ESY LLC" sits; see /prototypes/parent. The bottom bar was chosen. */
 export type ParentPlacement = "bar" | "brand" | "band";
 
+/** Where Esy's logo sits; see /prototypes/esy-logo. The bottom bar (A) was chosen. */
+export type EsyLogoPlacement = "none" | "bar" | "brand" | "band";
+
 /** `note` is a page-specific disclosure, like the homepage's Nora line. */
 export async function DarkFooter({
   note,
   socials = "column",
   parent = "bar",
+  esy = "bar",
 }: {
   note?: string;
   socials?: SocialsPlacement;
   parent?: ParentPlacement;
+  esy?: EsyLogoPlacement;
 }) {
   const articles = await getArticles();
   const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) })).sort((a, b) =>
@@ -74,6 +80,12 @@ export async function DarkFooter({
           {parent === "brand" && (
             <a href={PARENT.href} className="-mt-2 w-fit text-[14px] text-[#9DB4FF] hover:text-white">
               A division of {PARENT.name} →
+            </a>
+          )}
+          {/* Esy B: "Built on Esy" in colour, under the tagline */}
+          {esy === "brand" && (
+            <a href={PARENT.href} aria-label="Built on Esy" className="-mt-1 flex w-fit items-center gap-2 text-[14px] text-[#A0A9C0] hover:text-white">
+              Built on <EsyMark className="h-[19px] text-white" />
             </a>
           )}
           <a href={CREATE_URL} className="flex h-11 w-fit items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">
@@ -137,7 +149,22 @@ export async function DarkFooter({
         </div>
       )}
 
-      <div className="mt-20 flex flex-col gap-2 border-t border-white/12 py-6 text-[13px] text-[#7D869C] sm:flex-row sm:justify-between">
+      {/* Esy C: the logo in colour on its own strip, above the bottom bar */}
+      {esy === "band" && (
+        <div className="mt-20 flex flex-col gap-4 rounded-[20px] border border-white/12 bg-[#0A0F1E] px-7 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <span className="flex items-center gap-5">
+            <EsyMark className="h-[34px] shrink-0 text-white" />
+            <span className="text-[15px] leading-[1.55] text-[#C9D0E2]">
+              SEOPage is built on Esy, from <span className="text-[#EEF2FF]">{PARENT.name}</span>.
+            </span>
+          </span>
+          <a href={PARENT.href} className="shrink-0 text-[14.5px] font-medium text-[#9DB4FF] hover:text-white">
+            Visit esy.com →
+          </a>
+        </div>
+      )}
+
+      <div className={`${esy === "band" ? "mt-10" : "mt-20"} flex flex-col gap-2 border-t border-white/12 py-6 text-[13px] text-[#7D869C] sm:flex-row sm:justify-between`}>
         <span className="flex flex-wrap gap-x-5 gap-y-1">
           <span>
             © {new Date().getFullYear()} SEOPage
@@ -148,6 +175,12 @@ export async function DarkFooter({
                   {PARENT.name}
                 </a>
               </>
+            )}
+            {/* Esy A: the logo in colour, text-height, ending the company line (colour always: phones can't hover) */}
+            {esy === "bar" && (
+              <a href={PARENT.href} aria-label="Esy, esy.com" className="ml-2 inline-flex translate-y-[2px] items-center text-[#C9D0E2] hover:text-white">
+                <EsyMark className="h-[13px]" />
+              </a>
             )}
           </span>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
