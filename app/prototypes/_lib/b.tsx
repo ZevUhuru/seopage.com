@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { Tick } from "@/components/home/HeroAnswer";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 import { Ask } from "./b-ask";
 import { base, Cite, fmtDate, firstSentence, headingsOf, Prose, RankMark, readMinutes, type ArticleProps, type IndexProps } from "./shared";
 
@@ -35,7 +35,7 @@ function PriceCard() {
       <span className="text-[15px] text-[#C9D0E2]">Want your page to be the source?</span>
       <span className="flex items-baseline gap-3">
         <span className="nh-display text-[56px] leading-none tracking-[-0.05em]">{PRICE_LABEL}</span>
-        <span className="text-[14px] text-[#9DB4FF]">launch price</span>
+        <span className="text-[14px] text-[#9DB4FF]">once</span>
       </span>
       <ul className="flex flex-col gap-2 border-y border-white/12 py-4 text-[14.5px] text-[#C9D0E2]">
         {["Free preview, no card", "Ten checks before you pay", "You own the page"].map((x) => (
@@ -45,7 +45,7 @@ function PriceCard() {
       <a href={CREATE_URL} className="flex h-[52px] items-center justify-center rounded-full bg-[#3D6BFF] font-semibold text-white hover:bg-[#5A82FF]">
         Build my page free
       </a>
-      <span className="text-[13px] text-[#7D869C]">{PRICE_AFTER_LAUNCH_LABEL} after launch.</span>
+      <span className="text-[13px] text-[#7D869C]">No subscription. Pay when you publish.</span>
     </div>
   );
 }

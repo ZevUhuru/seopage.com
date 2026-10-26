@@ -10,7 +10,7 @@ import { BuilderDemo } from "@/components/home/BuilderDemo";
 import { ChecksExplorer } from "@/components/home/ChecksExplorer";
 import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import { FAQS, HOME_SCHEMA } from "@/lib/homeContent";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 
 /* ================================================================
    One goal: build a page in the builder (free to preview, PRICE_LABEL
@@ -232,9 +232,9 @@ export default function Home() {
             <span className="text-[16px] text-[#C9D0E2]">SEO landing page</span>
             <span className="flex items-baseline gap-3.5">
               <span className="nh-display text-[clamp(72px,7vw,104px)] leading-none tracking-[-0.05em] tabular-nums">{PRICE_LABEL}</span>
-              <span className="text-[15px] text-[#9DB4FF]">launch price</span>
+              <span className="text-[15px] text-[#9DB4FF]">once</span>
             </span>
-            <span className="text-[15px] text-[#A0A9C0]">{PRICE_AFTER_LAUNCH_LABEL} after launch. Pay when you publish.</span>
+            <span className="text-[15px] text-[#A0A9C0]">No subscription. Pay when you publish.</span>
             <ul className={`flex flex-col gap-2.5 border-y ${RULE} py-[18px] text-[15.5px]`}>
               {["Live keyword research for your city", "The full page, written and designed", "Title, description, and schema", "Ten checks, scored before you pay", "Publish to your own address, or download it"].map((x) => (
                 <li key={x}>{x}</li>
@@ -280,7 +280,7 @@ export default function Home() {
               <a href={CREATE_URL} className="flex h-[60px] items-center rounded-full bg-[#3D6BFF] px-8 text-[17px] font-semibold text-white transition-colors hover:bg-[#5A82FF]">
                 Build my page free
               </a>
-              <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} launch price · {PRICE_AFTER_LAUNCH_LABEL} after launch</span>
+              <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} once, when you publish</span>
             </div>
           </div>
         </section>
