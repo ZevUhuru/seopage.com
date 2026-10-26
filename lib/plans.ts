@@ -1,4 +1,4 @@
-import { BOOK_CALL_URL, CREATE_URL, PRICE_AFTER_LAUNCH_USD, PRICE_USD } from "./config";
+import { BOOK_CALL_URL, CREATE_URL, PRICE_USD } from "./config";
 
 /* ================================================================
    Every SEOPage plan, in one place (2026-10-26). /pricing and
@@ -83,7 +83,6 @@ export const PLANS: Plan[] = [
     price: PRICE_USD,
     per: "once",
     yearly: null,
-    later: { price: PRICE_AFTER_LAUNCH_USD, when: "after launch" },
     who: "You build it, we check it",
     blurb: "One page for the search that matters most. Try it before you pay.",
     includes: [
