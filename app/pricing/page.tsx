@@ -4,7 +4,7 @@ import { Logo } from "@/components/Logo";
 import { Tick } from "@/components/home/HeroAnswer";
 import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import { PlanGrid } from "@/components/pricing/PlanGrid";
-import { CREATE_URL } from "@/lib/config";
+import { BOOK_CALL_URL, CREATE_URL } from "@/lib/config";
 import {
   ADD_ONS, COMPARE, CREDIT_PACKS, CREDIT_USES, FITS, MANAGED_PILOT, NEVER_A_CREDIT, PLANS, REFUND_DAYS, plan, usd,
 } from "@/lib/plans";
@@ -58,7 +58,7 @@ export default function PricingPage() {
       <Credits />
       <Faq />
 
-      <DarkFooter note="Monthly plans are coming soon; prices may change before they open." />
+      <DarkFooter note="SEOPage and SEOPage + Ads are coming soon; prices may change before they open." />
     </div>
   );
 }
@@ -132,6 +132,9 @@ function ManagedPilot() {
         <p className={LEAD}>
           {usd(m.price)} a month for the first {MANAGED_PILOT.places} businesses, held for a year. It starts as a {MANAGED_PILOT.days}-day pilot, then runs month to month. After that, new businesses pay {usd(MANAGED_PILOT.list)}.
         </p>
+        <a href={BOOK_CALL_URL} target="_blank" rel="noopener noreferrer" className="flex h-[50px] w-fit items-center rounded-[10px] bg-[#3D6BFF] px-6 text-[15.5px] font-semibold text-white transition-colors hover:bg-[#5A82FF]">
+          Book a call
+        </a>
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:col-span-8">
         {split.map(([k, items]) => (
@@ -204,8 +207,8 @@ const FAQS = [
     a: "You do. Every page is yours to keep, publish anywhere or download, on every plan.",
   },
   {
-    q: "When do the monthly plans open?",
-    a: "They’re being built now. Start with one page today; it’s the same builder the plans use.",
+    q: "When do SEOPage and SEOPage + Ads open?",
+    a: "They’re being built now. Start with one page today; it’s the same builder the plans use. Managed is open now to the first 10 businesses: book a call.",
   },
 ];
 

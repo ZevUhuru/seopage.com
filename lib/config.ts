@@ -45,6 +45,9 @@ export const PRODUCT = {
   supportEmail: "support@seopage.com",
 };
 
+/** Zev's booking page. Managed is sold on a call, not through checkout. */
+export const BOOK_CALL_URL = "https://cal.com/zev-uhuru-49mkft/15min";
+
 /** The company SEOPage is a division of. */
 export const PARENT = { name: "ESY LLC", href: "https://esy.com" } as const;
 

@@ -34,7 +34,7 @@ export function PlanGrid() {
 
 function PlanCard({ p, billing }: { p: Plan; billing: Billing }) {
   const price = priceFor(p, billing);
-  const live = p.status === "live";
+  const coming = p.status === "coming";
   return (
     <article
       className={`flex flex-col gap-6 rounded-[20px] border p-7 ${p.featured ? "border-[#3D6BFF] bg-[#0A0F1E]" : "border-white/12 bg-[#04060B]"}`}
@@ -42,7 +42,7 @@ function PlanCard({ p, billing }: { p: Plan; billing: Billing }) {
       <header className="flex flex-col gap-2">
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-[19px] font-semibold">{p.name}</h3>
-          {!live && <span className="text-[13px] text-[#7D869C]">Coming soon</span>}
+          {coming && <span className="text-[13px] text-[#7D869C]">Coming soon</span>}
         </div>
         <p className="text-[14.5px] text-[#A0A9C0]">{p.who}</p>
       </header>
@@ -66,10 +66,17 @@ function PlanCard({ p, billing }: { p: Plan; billing: Billing }) {
         ))}
       </ul>
 
-      {live && p.cta.href ? (
-        <a href={p.cta.href} className="flex h-[50px] items-center justify-center rounded-[10px] bg-[#3D6BFF] px-6 text-[15.5px] font-semibold text-white transition-colors hover:bg-[#5A82FF]">
-          {p.cta.label}
-        </a>
+      {/* Bought online: the one primary button. Sold on a call: a quieter button to the booking page. */}
+      {!coming && p.cta.href ? (
+        p.status === "live" ? (
+          <a href={p.cta.href} className="flex h-[50px] items-center justify-center rounded-[10px] bg-[#3D6BFF] px-6 text-[15.5px] font-semibold text-white transition-colors hover:bg-[#5A82FF]">
+            {p.cta.label}
+          </a>
+        ) : (
+          <a href={p.cta.href} target="_blank" rel="noopener noreferrer" className="flex h-[50px] items-center justify-center rounded-[10px] border border-white/30 px-6 text-[15.5px] font-medium hover:border-white/60">
+            {p.cta.label}
+          </a>
+        )
       ) : (
         <button disabled className="flex h-[50px] cursor-not-allowed items-center justify-center rounded-[10px] border border-white/15 px-6 text-[15.5px] font-medium text-[#7D869C]">
           {p.cta.label}

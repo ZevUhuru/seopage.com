@@ -19,12 +19,12 @@ export default function PlansStatus() {
       <div className="grid gap-5 md:grid-cols-2">
         {PLANS.map((p) => {
           const c = COST_ESTIMATE[p.id];
-          const live = p.status === "live";
+          const label = { live: "Live", call: "By call", coming: "Off" }[p.status];
           return (
             <article key={p.id} className="flex flex-col gap-5 rounded-[20px] border border-white/12 bg-[#0A0F1E] p-7">
               <div className="flex items-center justify-between gap-3">
                 <h2 className="text-[20px] font-semibold">{p.name} · {usd(p.price)} {p.per === "once" ? "once" : "a month"}</h2>
-                <span className={`rounded-[8px] px-2.5 py-1 text-[13px] ${live ? "bg-[#1F8A5B]/25 text-[#7BE0A9]" : "bg-white/8 text-[#A0A9C0]"}`}>{live ? "Live" : "Off"}</span>
+                <span className={`rounded-[8px] px-2.5 py-1 text-[13px] ${p.status === "coming" ? "bg-white/8 text-[#A0A9C0]" : "bg-[#1F8A5B]/25 text-[#7BE0A9]"}`}>{label}</span>
               </div>
               <dl className="grid grid-cols-3 gap-4 text-[14.5px]">
                 <div><dt className="text-[#7D869C]">Cost, first month</dt><dd className="tabular-nums">{usd(c.firstMonth)}</dd></div>
@@ -37,7 +37,7 @@ export default function PlansStatus() {
               {c.hours > 0 && <p className="text-[14px] text-[#A0A9C0]">Plus about {c.hours} hour{c.hours === 1 ? "" : "s"} of a person’s time a month.</p>}
               {p.needs.length > 0 ? (
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-[15px] font-semibold">Before it can go live</h3>
+                  <h3 className="text-[15px] font-semibold">{p.status === "call" ? "Sold on a call today. Before the app can run it" : "Before it can go live"}</h3>
                   <ul className="flex list-disc flex-col gap-1.5 pl-5 text-[14.5px] leading-[1.5] text-[#C9D0E2]">
                     {p.needs.map((n) => <li key={n}>{n}</li>)}
                   </ul>

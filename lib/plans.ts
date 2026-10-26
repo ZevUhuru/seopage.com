@@ -1,21 +1,23 @@
-import { CREATE_URL, PRICE_AFTER_LAUNCH_USD, PRICE_USD } from "./config";
+import { BOOK_CALL_URL, CREATE_URL, PRICE_AFTER_LAUNCH_USD, PRICE_USD } from "./config";
 
 /* ================================================================
    Every SEOPage plan, in one place (2026-10-26). /pricing and
    /prototypes/plans read this file, so a price or a limit changes here
    and nowhere else.
 
-   Only the one-page offer is sold today (create.seopage.com). The three
-   monthly plans are written out in full so the direction is clear, and
-   ship switched off: `status: "coming"` renders a disabled button. A plan
-   goes live by flipping its status once everything in `needs` exists.
+   One page is sold today (create.seopage.com), and Managed is sold on a
+   call. SEOPage and SEOPage + Ads are written out in full so the
+   direction is clear, and ship switched off: `status: "coming"` renders a
+   disabled button. A plan goes live by flipping its status once
+   everything in `needs` exists.
 
    Sources: the Oct 6 "SEOPage Offer" doc, and the Oct 26 look at
    Searchable, Blaze and BabyLoveGrowth. Every price is a proposal.
    ================================================================ */
 
 export type PlanId = "page" | "seopage" | "ads" | "managed";
-export type PlanStatus = "live" | "coming";
+/** live: bought online · call: sold on a call · coming: shown, not sold. */
+export type PlanStatus = "live" | "call" | "coming";
 export type Billing = "monthly" | "yearly";
 
 /** What a plan gets each month. The app will enforce these; today nothing does. */
@@ -166,7 +168,7 @@ export const PLANS: Plan[] = [
   {
     id: "managed",
     name: "Managed",
-    status: "coming",
+    status: "call",
     price: 999,
     per: "month",
     yearly: null,
@@ -185,7 +187,7 @@ export const PLANS: Plan[] = [
       pagesFirstMonth: 12, pagesPerMonth: 12, imagesPerPage: 4, creditsPerMonth: null, locations: 3,
       searchConsole: true, rewrites: true, aiAnswers: "weekly", report: "monthly", ads: "run", person: true,
     },
-    cta: { label: "Coming soon" },
+    cta: { label: "Book a call", href: BOOK_CALL_URL },
     needs: [
       "Everything SEOPage + Ads needs",
       "Google Business Profile access (API approval)",
