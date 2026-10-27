@@ -5,17 +5,18 @@ import { BOOK_CALL_URL, CREATE_URL, PRICE_USD } from "./config";
    /prototypes/plans read this file, so a price or a limit changes here
    and nowhere else.
 
-   One page is sold today (create.seopage.com), and Managed is sold on a
-   call. SEOPage and SEOPage + Ads are written out in full so the
-   direction is clear, and ship switched off: `status: "coming"` renders a
-   disabled button. A plan goes live by flipping its status once
-   everything in `needs` exists.
+   Three plans: One page (sold today on create.seopage.com), SEOPage (the
+   monthly plan, switched off until it's built) and Managed (sold on a
+   call). Google Ads is an add-on to SEOPage, not a plan: whether an owner
+   needs it depends on whether they already pay for clicks, not on how long
+   they've been with us. `status: "coming"` renders a disabled button; a
+   plan goes live by flipping its status once everything in `needs` exists.
 
    Sources: the Oct 6 "SEOPage Offer" doc, and the Oct 26 look at
    Searchable, Blaze and BabyLoveGrowth. Every price is a proposal.
    ================================================================ */
 
-export type PlanId = "page" | "seopage" | "ads" | "managed";
+export type PlanId = "page" | "seopage" | "managed";
 /** live: bought online · call: sold on a call · coming: shown, not sold. */
 export type PlanStatus = "live" | "call" | "coming";
 export type Billing = "monthly" | "yearly";
@@ -36,8 +37,8 @@ export interface Limits {
   rewrites: boolean;
   aiAnswers: "none" | "weekly";
   report: "none" | "monthly";
-  /** none · suggestions the owner approves · run for them inside a budget. */
-  ads: "none" | "suggest" | "run";
+  /** none · available as the Ads add-on · run for them inside a budget. */
+  ads: "none" | "addon" | "run";
   /** A named person on the account, and a monthly call. */
   person: boolean;
 }
@@ -60,6 +61,8 @@ export interface Plan {
   limits: Limits;
   cta: { label: string; href?: string };
   featured?: boolean;
+  /** The Google Ads add-on can be switched on for this plan. */
+  adsAddOn?: boolean;
   /** Internal: what has to exist before `status` can be "live". Never rendered on /pricing. */
   needs: string[];
 }
@@ -73,6 +76,26 @@ export const MANAGED_PILOT = { places: 10, days: 90, list: 1499 } as const;
 
 /** Money back on the first month of a monthly plan. A proposal, Zev's call. */
 export const REFUND_DAYS = 30;
+
+/** Google Ads, added to SEOPage for owners already paying Google for clicks. */
+export const ADS = {
+  name: "Google Ads",
+  status: "coming" as PlanStatus,
+  price: 99,
+  yearly: yearlyFor(99),
+  extraCredits: 20,
+  includes: [
+    "Your Google Ads beside your pages",
+    "What's wasting spend, and what to try instead",
+    "Nothing changes your spend until you say yes",
+    "A budget cap the app never goes over",
+  ],
+  needs: [
+    "Everything SEOPage needs",
+    "Google Ads API access (developer token)",
+    "Ads suggestions the owner approves, under a hard budget cap",
+  ],
+};
 
 export const PLANS: Plan[] = [
   // Live today: the builder and its checks are real, checkout is on create.seopage.com.
@@ -119,10 +142,11 @@ export const PLANS: Plan[] = [
     ],
     limits: {
       pagesFirstMonth: 8, pagesPerMonth: 4, imagesPerPage: 4, creditsPerMonth: 40, locations: 1,
-      searchConsole: true, rewrites: true, aiAnswers: "weekly", report: "monthly", ads: "none", person: false,
+      searchConsole: true, rewrites: true, aiAnswers: "weekly", report: "monthly", ads: "addon", person: false,
     },
     cta: { label: "Coming soon" },
     featured: true,
+    adsAddOn: true,
     needs: [
       "Monthly billing in Stripe (subscription, yearly price, refunds)",
       "Search Console connection that picks the month's pages",
@@ -132,35 +156,6 @@ export const PLANS: Plan[] = [
       "Monthly report from Search Console and Analytics",
       "A check budget per customer in Esy (today all SEOPage shares one $25 a month)",
       "Each subscriber as an ESY LLC Client in Esy",
-    ],
-  },
-  // For owners already paying Google for clicks.
-  {
-    id: "ads",
-    name: "SEOPage + Ads",
-    status: "coming",
-    price: 279,
-    per: "month",
-    yearly: yearlyFor(279),
-    who: "You approve every change",
-    blurb: "Your pages and your Google Ads in one place.",
-    includes: [
-      "Everything in SEOPage",
-      "Your Google Ads beside your pages",
-      "What's wasting spend, and what to try instead",
-      "Nothing changes your spend until you say yes",
-      "A budget cap the app never goes over",
-      "60 credits a month",
-    ],
-    limits: {
-      pagesFirstMonth: 8, pagesPerMonth: 4, imagesPerPage: 4, creditsPerMonth: 60, locations: 1,
-      searchConsole: true, rewrites: true, aiAnswers: "weekly", report: "monthly", ads: "suggest", person: false,
-    },
-    cta: { label: "Coming soon" },
-    needs: [
-      "Everything SEOPage needs",
-      "Google Ads API access (developer token)",
-      "Ads suggestions the owner approves, under a hard budget cap",
     ],
   },
   // Done for them, by people. A capped pilot at a founding price.
@@ -175,7 +170,7 @@ export const PLANS: Plan[] = [
     who: "We run it for you",
     blurb: "We run your pages, your Google Business Profile and your Google Ads.",
     includes: [
-      "Everything in SEOPage + Ads",
+      "Everything in SEOPage, with Google Ads",
       "One person who knows your business, and a monthly call",
       "Up to 12 pages a month, plus rewrites of your current site",
       "Your Google Business Profile kept current",
@@ -188,7 +183,7 @@ export const PLANS: Plan[] = [
     },
     cta: { label: "Book a call", href: BOOK_CALL_URL },
     needs: [
-      "Everything SEOPage + Ads needs",
+      "Everything SEOPage and the Ads add-on need",
       "Google Business Profile access (API approval)",
       "A client seat in os.esy.com for each Managed business",
       "Time: about 4–6 hours a month per business",
@@ -198,13 +193,15 @@ export const PLANS: Plan[] = [
 
 export const plan = (id: PlanId) => PLANS.find((p) => p.id === id)!;
 
-/** The price a card shows for the chosen billing. */
-export function priceFor(p: Plan, billing: Billing) {
+/** The price a card shows for the chosen billing, with the Ads add-on if it's on. */
+export function priceFor(p: Plan, billing: Billing, withAds = false) {
   if (p.per === "once") return { amount: p.price, unit: "once", note: null as string | null };
+  const ads = withAds && p.adsAddOn;
   if (billing === "yearly" && p.yearly) {
-    return { amount: Math.round(p.yearly / 12), unit: "a month", note: `${usd(p.yearly)} billed yearly` };
+    const yearly = p.yearly + (ads ? ADS.yearly : 0);
+    return { amount: Math.round(yearly / 12), unit: "a month", note: `${usd(yearly)} billed yearly` };
   }
-  return { amount: p.price, unit: "a month", note: p.yearly ? "billed monthly" : null };
+  return { amount: p.price + (ads ? ADS.price : 0), unit: "a month", note: p.yearly ? "billed monthly" : null };
 }
 
 /** The compare table, one row per limit. */
@@ -215,18 +212,21 @@ export const COMPARE: { label: string; value: (l: Limits) => string }[] = [
   { label: "Pages that slip get rewritten", value: (l) => yes(l.rewrites) },
   { label: "Which AI answers name you", value: (l) => (l.aiAnswers === "weekly" ? "Weekly" : "—") },
   { label: "Monthly report", value: (l) => yes(l.report === "monthly") },
-  { label: "Google Ads", value: (l) => ({ none: "—", suggest: "Suggestions you approve", run: "We run them" })[l.ads] },
-  { label: "Credits for extra versions", value: (l) => (l.creditsPerMonth === null ? (l.person ? "Not needed" : "—") : `${l.creditsPerMonth} a month`) },
+  { label: "Google Ads", value: (l) => ({ none: "—", addon: `Add-on, +${usd(ADS.price)} a month`, run: "We run them" })[l.ads] },
+  {
+    label: "Credits for extra versions",
+    value: (l) => (l.creditsPerMonth === null ? (l.person ? "Not needed" : "—") : `${l.creditsPerMonth} a month${l.ads === "addon" ? `, ${l.creditsPerMonth + ADS.extraCredits} with Ads` : ""}`),
+  },
   { label: "Locations", value: (l) => String(l.locations) },
   { label: "A person and a monthly call", value: (l) => yes(l.person) },
 ];
 function yes(b: boolean) { return b ? "Yes" : "—"; }
 
 /** Who each plan is for, in the owner's words. */
-export const FITS: { who: string; plan: PlanId }[] = [
+export const FITS: { who: string; plan: PlanId; label?: string }[] = [
   { who: "I want to see what you make before I commit to anything.", plan: "page" },
   { who: "I have a website and want more calls from it, month after month.", plan: "seopage" },
-  { who: "I already pay Google for clicks and don't know if it's working.", plan: "ads" },
+  { who: "I already pay Google for clicks and don't know if it's working.", plan: "seopage", label: "SEOPage with Google Ads" },
   { who: "I don't have time for this. I want someone to run it.", plan: "managed" },
 ];
 
@@ -243,8 +243,9 @@ export const CREDIT_PACKS = [
   { credits: 500, price: 70 },
 ];
 
-/** Monthly add-ons on SEOPage and SEOPage + Ads. */
+/** Monthly add-ons on SEOPage. */
 export const ADD_ONS = [
+  { what: "Google Ads", price: `${usd(ADS.price)} a month`, note: `Suggestions you approve, under a budget cap; ${ADS.extraCredits} more credits` },
   { what: "Another location", price: "$99 a month", note: "Its own pages, profile and report" },
 ];
 
@@ -260,6 +261,7 @@ export const NEVER_A_CREDIT = [
 export const COST_ESTIMATE: Record<PlanId, { firstMonth: number; after: number; hours: number }> = {
   page: { firstMonth: 4.49, after: 0, hours: 0 },
   seopage: { firstMonth: 45, after: 25, hours: 0 },
-  ads: { firstMonth: 50, after: 30, hours: 0.5 },
   managed: { firstMonth: 75, after: 75, hours: 5 },
 };
+/** The Ads add-on on its own: Ads API reads, suggestions, a few more credits. */
+export const ADS_COST_ESTIMATE = { monthly: 5, hours: 0.5 };

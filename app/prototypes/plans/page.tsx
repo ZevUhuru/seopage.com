@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { COST_ESTIMATE, PLANS, usd } from "@/lib/plans";
+import { ADS, ADS_COST_ESTIMATE, COST_ESTIMATE, PLANS, usd } from "@/lib/plans";
 
 /* Internal: what each plan needs before it can switch on, and what it
    roughly costs us. Same data as /pricing (lib/plans.ts). Never indexed. */
@@ -48,6 +48,24 @@ export default function PlansStatus() {
             </article>
           );
         })}
+        {/* The Ads add-on isn't a plan, but it has its own blockers and cost. */}
+        <article className="flex flex-col gap-5 rounded-[20px] border border-white/12 bg-[#0A0F1E] p-7">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-[20px] font-semibold">{ADS.name} add-on · +{usd(ADS.price)} a month</h2>
+            <span className="rounded-[8px] bg-white/8 px-2.5 py-1 text-[13px] text-[#A0A9C0]">Off</span>
+          </div>
+          <dl className="grid grid-cols-3 gap-4 text-[14.5px]">
+            <div><dt className="text-[#7D869C]">Cost a month</dt><dd className="tabular-nums">{usd(ADS_COST_ESTIMATE.monthly)}</dd></div>
+            <div><dt className="text-[#7D869C]">Margin</dt><dd className="tabular-nums">{pct(ADS_COST_ESTIMATE.monthly, ADS.price)}</dd></div>
+          </dl>
+          <p className="text-[14px] text-[#A0A9C0]">Plus about {ADS_COST_ESTIMATE.hours} hours of a person’s time a month.</p>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-[15px] font-semibold">Before it can go live</h3>
+            <ul className="flex list-disc flex-col gap-1.5 pl-5 text-[14.5px] leading-[1.5] text-[#C9D0E2]">
+              {ADS.needs.map((n) => <li key={n}>{n}</li>)}
+            </ul>
+          </div>
+        </article>
       </div>
     </main>
   );

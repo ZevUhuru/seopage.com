@@ -58,7 +58,7 @@ export default function PricingPage() {
       <Credits />
       <Faq />
 
-      <DarkFooter note="SEOPage and SEOPage + Ads are coming soon; prices may change before they open." />
+      <DarkFooter note="SEOPage and its Google Ads add-on are coming soon; prices may change before they open." />
     </div>
   );
 }
@@ -108,9 +108,9 @@ function Fits() {
       </div>
       <dl className={`flex flex-col border-t ${RULE} lg:col-span-8`}>
         {FITS.map((f) => (
-          <div key={f.plan} className={`grid gap-1 border-b ${RULE} py-5 sm:grid-cols-[1fr_200px] sm:gap-8`}>
+          <div key={f.who} className={`grid gap-1 border-b ${RULE} py-5 sm:grid-cols-[1fr_200px] sm:gap-8`}>
             <dt className="text-[17px] leading-[1.5]">“{f.who}”</dt>
-            <dd className="text-[16px] text-[#9DB4FF] sm:text-right">{plan(f.plan).name}</dd>
+            <dd className="text-[16px] text-[#9DB4FF] sm:text-right">{f.label ?? plan(f.plan).name}</dd>
           </div>
         ))}
       </dl>
@@ -207,7 +207,7 @@ const FAQS = [
     a: "You do. Every page is yours to keep, publish anywhere or download, on every plan.",
   },
   {
-    q: "When do SEOPage and SEOPage + Ads open?",
+    q: "When does SEOPage open?",
     a: "They’re being built now. Start with one page today; it’s the same builder the plans use. Managed is open now to the first 10 businesses: book a call.",
   },
 ];

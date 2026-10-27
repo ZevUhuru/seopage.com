@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { Tick } from "@/components/home/HeroAnswer";
-import { PLANS, priceFor, usd, type Billing, type Plan } from "@/lib/plans";
+import { ADS, PLANS, priceFor, usd, type Billing, type Plan } from "@/lib/plans";
 
-/* The four plans side by side, with a monthly/yearly switch. Plans that
-   aren't sold yet keep their full card but get a disabled button, so the
-   page reads as the real offer with the doors not open yet. */
+/* The three plans side by side, with a monthly/yearly switch. SEOPage
+   carries the Google Ads add-on as a switch, so owners who pay for clicks
+   see one plan with one extra, not a fourth card. Plans that aren't sold
+   yet keep their full card but get a disabled button. */
 
 export function PlanGrid() {
   const [billing, setBilling] = useState<Billing>("monthly");
@@ -25,7 +26,7 @@ export function PlanGrid() {
           </button>
         ))}
       </div>
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {PLANS.map((p) => <PlanCard key={p.id} p={p} billing={billing} />)}
       </div>
     </div>
@@ -33,8 +34,10 @@ export function PlanGrid() {
 }
 
 function PlanCard({ p, billing }: { p: Plan; billing: Billing }) {
-  const price = priceFor(p, billing);
+  const [withAds, setWithAds] = useState(false);
+  const price = priceFor(p, billing, withAds);
   const coming = p.status === "coming";
+  const includes = withAds ? [...p.includes, ...ADS.includes] : p.includes;
   return (
     <article
       className={`flex flex-col gap-6 rounded-[20px] border p-7 ${p.featured ? "border-[#3D6BFF] bg-[#0A0F1E]" : "border-white/12 bg-[#04060B]"}`}
@@ -61,10 +64,21 @@ function PlanCard({ p, billing }: { p: Plan; billing: Billing }) {
       <p className="text-[15.5px] leading-[1.55] text-[#C9D0E2]">{p.blurb}</p>
 
       <ul className="flex flex-1 flex-col gap-2.5 text-[15px] text-[#C9D0E2]">
-        {p.includes.map((x) => (
+        {includes.map((x) => (
           <li key={x} className="flex items-start gap-2.5"><span className="mt-[5px]"><Tick /></span>{x}</li>
         ))}
       </ul>
+
+      {/* The Ads add-on: changes the price and the list; it ships when the Ads API is approved. */}
+      {p.adsAddOn && (
+        <label className="flex cursor-pointer items-start gap-3 rounded-[12px] border border-white/15 p-4">
+          <input type="checkbox" checked={withAds} onChange={(e) => setWithAds(e.target.checked)} className="mt-1 h-4 w-4 accent-[#3D6BFF]" />
+          <span className="flex flex-col gap-0.5">
+            <span className="text-[15px] font-medium">Add Google Ads, +{usd(ADS.price)} a month</span>
+            <span className="text-[13.5px] leading-[1.45] text-[#A0A9C0]">For owners already paying Google for clicks. {ADS.extraCredits} more credits a month.</span>
+          </span>
+        </label>
+      )}
 
       {/* Bought online: the one primary button. Sold on a call: a quieter button to the booking page. */}
       {!coming && p.cta.href ? (
