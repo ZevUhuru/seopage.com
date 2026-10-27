@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ADS, ADS_COST_ESTIMATE, COST_ESTIMATE, PLANS, usd } from "@/lib/plans";
+import { ADS, ADS_COST_ESTIMATE, BY_THE_PAGE, COST_ESTIMATE, PAGE_COST, PLANS, usd } from "@/lib/plans";
 
 /* Internal: what each plan needs before it can switch on, and what it
    roughly costs us. Same data as /pricing (lib/plans.ts). Never indexed. */
@@ -23,7 +23,7 @@ export default function PlansStatus() {
           return (
             <article key={p.id} className="flex flex-col gap-5 rounded-[20px] border border-white/12 bg-[#0A0F1E] p-7">
               <div className="flex items-center justify-between gap-3">
-                <h2 className="text-[20px] font-semibold">{p.name} · {usd(p.price)} {p.per === "once" ? "once" : "a month"}</h2>
+                <h2 className="text-[20px] font-semibold">{p.name} · {usd(p.price)} a month</h2>
                 <span className={`rounded-[8px] px-2.5 py-1 text-[13px] ${p.status === "coming" ? "bg-white/8 text-[#A0A9C0]" : "bg-[#1F8A5B]/25 text-[#7BE0A9]"}`}>{label}</span>
               </div>
               <dl className="grid grid-cols-3 gap-4 text-[14.5px]">
@@ -48,6 +48,25 @@ export default function PlansStatus() {
             </article>
           );
         })}
+        {/* By the page: one live, bundles waiting on checkout. */}
+        <article className="flex flex-col gap-5 rounded-[20px] border border-white/12 bg-[#0A0F1E] p-7">
+          <h2 className="text-[20px] font-semibold">By the page</h2>
+          <dl className="flex flex-col gap-2 text-[14.5px]">
+            {BY_THE_PAGE.options.map((o) => (
+              <div key={o.pages} className="grid grid-cols-[1fr_auto_auto] items-center gap-4">
+                <dt>{o.pages === 1 ? "1 page" : `${o.pages} pages`} · {usd(o.price)}</dt>
+                <dd className="tabular-nums text-[#A0A9C0]">cost {usd(Math.round(PAGE_COST * o.pages * 100) / 100)} · {pct(PAGE_COST * o.pages, o.price)}</dd>
+                <dd><span className={`rounded-[8px] px-2.5 py-1 text-[13px] ${o.status === "live" ? "bg-[#1F8A5B]/25 text-[#7BE0A9]" : "bg-white/8 text-[#A0A9C0]"}`}>{o.status === "live" ? "Live" : "Off"}</span></dd>
+              </div>
+            ))}
+          </dl>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-[15px] font-semibold">Before the bundles can go live</h3>
+            <ul className="flex list-disc flex-col gap-1.5 pl-5 text-[14.5px] leading-[1.5] text-[#C9D0E2]">
+              {BY_THE_PAGE.needs.map((n) => <li key={n}>{n}</li>)}
+            </ul>
+          </div>
+        </article>
         {/* The Ads add-on isn't a plan, but it has its own blockers and cost. */}
         <article className="flex flex-col gap-5 rounded-[20px] border border-white/12 bg-[#0A0F1E] p-7">
           <div className="flex items-center justify-between gap-3">

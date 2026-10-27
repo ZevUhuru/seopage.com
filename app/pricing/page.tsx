@@ -6,14 +6,15 @@ import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import { PlanGrid } from "@/components/pricing/PlanGrid";
 import { BOOK_CALL_URL, CREATE_URL } from "@/lib/config";
 import {
-  ADD_ONS, COMPARE, CREDIT_PACKS, CREDIT_USES, FITS, MANAGED_PILOT, NEVER_A_CREDIT, PLANS, REFUND_DAYS, plan, usd,
+  ADD_ONS, BY_THE_PAGE, COMPARE, CREDIT_PACKS, CREDIT_USES, FITS, MANAGED_PILOT, NEVER_A_CREDIT, PLANS, REFUND_DAYS, perPage, plan, usd,
 } from "@/lib/plans";
 
 /* ================================================================
-   /pricing: every plan, written out in full (2026-10-26).
-   Only "One page" is sold today; the monthly plans show with disabled
-   buttons. Not indexed, not in the sitemap and not linked from anywhere
-   until the first monthly plan goes live. Data: lib/plans.ts.
+   /pricing: the shop (2026-10-27). Monthly first: SEOPage (switched off
+   until it's built, with Google Ads as an add-on) and Managed (book a
+   call). Then pages by the page: one today, bundles once checkout sells
+   them. Not indexed, not in the sitemap and not linked from anywhere
+   until SEOPage goes live. Data: lib/plans.ts.
    ================================================================ */
 
 export const metadata: Metadata = {
@@ -43,7 +44,7 @@ export default function PricingPage() {
         <div className="flex max-w-[760px] flex-col gap-5">
           <h1 className="nh-display text-[clamp(42px,5.4vw,80px)] leading-[0.98]">Pages that keep coming, every month.</h1>
           <p className="text-[19px] leading-[1.6] text-[#C9D0E2]">
-            Start with one page today. Monthly plans add new pages from your own Search Console, rewrite the ones that slip, and show you which AI answers name you.
+            A monthly plan adds new pages from your own Search Console, rewrites the ones that slip, and shows you which AI answers name you. Need just one page? Buy it by the page.
           </p>
         </div>
         <PlanGrid />
@@ -52,6 +53,7 @@ export default function PricingPage() {
         </p>
       </section>
 
+      <ByThePage />
       <Compare />
       <Fits />
       <ManagedPilot />
@@ -60,6 +62,41 @@ export default function PricingPage() {
 
       <DarkFooter note="SEOPage and its Google Ads add-on are coming soon; prices may change before they open." />
     </div>
+  );
+}
+
+/** One landing page, or a bundle, paid once. Secondary to the plans, and always dearer a page. */
+function ByThePage() {
+  return (
+    <section id="by-the-page" className={`${SECTION} grid gap-12 border-t ${RULE} lg:grid-cols-12 lg:gap-14`}>
+      <div className="flex flex-col gap-5 lg:col-span-4">
+        <h2 className={H2}>Or buy by the page.</h2>
+        <p className={LEAD}>For one landing page to send people to, or a few, with no plan. Each page is built and checked the same way.</p>
+        <ul className="flex flex-col gap-2.5 text-[15.5px] text-[#C9D0E2]">
+          {BY_THE_PAGE.includes.map((x) => <li key={x} className="flex items-start gap-2.5"><span className="mt-[5px]"><Tick /></span>{x}</li>)}
+        </ul>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-3 lg:col-span-8">
+        {BY_THE_PAGE.options.map((o) => (
+          <div key={o.pages} className={`flex flex-col gap-4 rounded-[20px] border ${RULE} bg-[#0A0F1E] p-6`}>
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-[17px] font-semibold">{o.pages === 1 ? "1 page" : `${o.pages} pages`}</h3>
+              {o.status === "coming" && <span className="text-[13px] text-[#7D869C]">Coming soon</span>}
+            </div>
+            <div className="flex flex-col gap-1">
+              <span className="nh-display text-[44px] leading-none tracking-[-0.05em] tabular-nums">{usd(o.price)}</span>
+              <span className="text-[13.5px] text-[#7D869C]">{o.pages === 1 ? "once" : `${usd(perPage(o))} a page, once`}</span>
+            </div>
+            <p className="flex-1 text-[15px] leading-[1.55] text-[#C9D0E2]">{o.fits}</p>
+            {o.status === "live" && o.cta.href ? (
+              <a href={o.cta.href} className="flex h-[48px] items-center justify-center rounded-[10px] bg-[#3D6BFF] px-5 text-[15px] font-semibold text-white transition-colors hover:bg-[#5A82FF]">{o.cta.label}</a>
+            ) : (
+              <button disabled className="flex h-[48px] cursor-not-allowed items-center justify-center rounded-[10px] border border-white/15 px-5 text-[15px] font-medium text-[#7D869C]">{o.cta.label}</button>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -76,18 +113,22 @@ function Compare() {
               {PLANS.map((p) => (
                 <th key={p.id} className="py-4 pr-6 font-semibold">
                   {p.name}
-                  <span className="block text-[13.5px] font-normal text-[#A0A9C0]">{usd(p.price)} {p.per === "once" ? "once" : "a month"}</span>
+                  <span className="block text-[13.5px] font-normal text-[#A0A9C0]">{usd(p.price)} a month</span>
                 </th>
               ))}
+              <th className="py-4 pr-6 font-semibold">
+                By the page
+                <span className="block text-[13.5px] font-normal text-[#A0A9C0]">{usd(BY_THE_PAGE.options[0].price)} a page, once</span>
+              </th>
             </tr>
           </thead>
           <tbody>
             {COMPARE.map((row) => (
               <tr key={row.label} className={`border-b ${RULE}`}>
                 <th scope="row" className="py-4 pr-6 font-normal text-[#C9D0E2]">{row.label}</th>
-                {PLANS.map((p) => {
-                  const v = row.value(p.limits);
-                  return <td key={p.id} className={`py-4 pr-6 ${v === "—" ? "text-[#4A5268]" : ""}`}>{v}</td>;
+                {[...PLANS.map((p) => ({ id: p.id as string, limits: p.limits })), { id: "page", limits: BY_THE_PAGE.limits }].map((c) => {
+                  const v = row.label === "New pages" && c.id === "page" ? "1, 3 or 6" : row.value(c.limits);
+                  return <td key={c.id} className={`py-4 pr-6 ${v === "—" ? "text-[#4A5268]" : ""}`}>{v}</td>;
                 })}
               </tr>
             ))}
@@ -104,13 +145,13 @@ function Fits() {
     <section className={`${SECTION} grid gap-12 lg:grid-cols-12 lg:gap-14`}>
       <div className="flex flex-col gap-5 lg:col-span-4">
         <h2 className={H2}>Which one is you?</h2>
-        <p className={LEAD}>Most businesses start with one page, see it, then move to a plan.</p>
+        <p className={LEAD}>Every plan starts with a free preview of your first page.</p>
       </div>
       <dl className={`flex flex-col border-t ${RULE} lg:col-span-8`}>
         {FITS.map((f) => (
-          <div key={f.who} className={`grid gap-1 border-b ${RULE} py-5 sm:grid-cols-[1fr_200px] sm:gap-8`}>
+          <div key={f.who} className={`grid gap-1 border-b ${RULE} py-5 sm:grid-cols-[1fr_220px] sm:gap-8`}>
             <dt className="text-[17px] leading-[1.5]">“{f.who}”</dt>
-            <dd className="text-[16px] text-[#9DB4FF] sm:text-right">{f.label ?? plan(f.plan).name}</dd>
+            <dd className="sm:text-right"><a href={f.href} className="text-[16px] text-[#9DB4FF] underline-offset-2 hover:underline">{f.label}</a></dd>
           </div>
         ))}
       </dl>
@@ -204,7 +245,7 @@ const FAQS = [
   },
   {
     q: "Who owns the pages if I cancel?",
-    a: "You do. Every page is yours to keep, publish anywhere or download, on every plan.",
+    a: "You do. Every page is yours to keep, publish anywhere or download, on every plan and by the page.",
   },
   {
     q: "When does SEOPage open?",

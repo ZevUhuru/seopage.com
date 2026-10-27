@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Tick } from "@/components/home/HeroAnswer";
 import { ADS, PLANS, priceFor, usd, type Billing, type Plan } from "@/lib/plans";
 
-/* The three plans side by side, with a monthly/yearly switch. SEOPage
+/* The two monthly plans side by side, with a monthly/yearly switch. SEOPage
    carries the Google Ads add-on as a switch, so owners who pay for clicks
    see one plan with one extra, not a fourth card. Plans that aren't sold
    yet keep their full card but get a disabled button. */
@@ -26,7 +26,7 @@ export function PlanGrid() {
           </button>
         ))}
       </div>
-      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div id="plans" className="grid max-w-[1000px] gap-5 md:grid-cols-2">
         {PLANS.map((p) => <PlanCard key={p.id} p={p} billing={billing} />)}
       </div>
     </div>

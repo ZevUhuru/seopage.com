@@ -5,18 +5,23 @@ import { BOOK_CALL_URL, CREATE_URL, PRICE_USD } from "./config";
    /prototypes/plans read this file, so a price or a limit changes here
    and nowhere else.
 
-   Three plans: One page (sold today on create.seopage.com), SEOPage (the
-   monthly plan, switched off until it's built) and Managed (sold on a
-   call). Google Ads is an add-on to SEOPage, not a plan: whether an owner
-   needs it depends on whether they already pay for clicks, not on how long
-   they've been with us. `status: "coming"` renders a disabled button; a
-   plan goes live by flipping its status once everything in `needs` exists.
+   The site is a shop. Monthly comes first: SEOPage (switched off until
+   it's built) and Managed (sold on a call). Google Ads is an add-on to
+   SEOPage, not a plan: whether an owner needs it depends on whether they
+   already pay for clicks, not on how long they've been with us.
+
+   Below the plans, pages are sold by the page, for the buyer who wants one
+   landing page (or a few) without a plan: one page today on
+   create.seopage.com, bundles of 3 and 6 once checkout can sell them.
+
+   `status: "coming"` renders a disabled button; anything goes live by
+   flipping its status once everything in `needs` exists.
 
    Sources: the Oct 6 "SEOPage Offer" doc, and the Oct 26 look at
    Searchable, Blaze and BabyLoveGrowth. Every price is a proposal.
    ================================================================ */
 
-export type PlanId = "page" | "seopage" | "managed";
+export type PlanId = "seopage" | "managed";
 /** live: bought online · call: sold on a call · coming: shown, not sold. */
 export type PlanStatus = "live" | "call" | "coming";
 export type Billing = "monthly" | "yearly";
@@ -98,30 +103,6 @@ export const ADS = {
 };
 
 export const PLANS: Plan[] = [
-  // Live today: the builder and its checks are real, checkout is on create.seopage.com.
-  {
-    id: "page",
-    name: "One page",
-    status: "live",
-    price: PRICE_USD,
-    per: "once",
-    yearly: null,
-    who: "You build it, we check it",
-    blurb: "One page for the search that matters most. Try it before you pay.",
-    includes: [
-      "Built from your business, section by section",
-      "Versions of each section to choose from",
-      "Checked before you pay",
-      "Publish to your address, or download it",
-      "Yours to keep, no subscription",
-    ],
-    limits: {
-      pagesFirstMonth: 1, pagesPerMonth: 0, imagesPerPage: 0, creditsPerMonth: null, locations: 1,
-      searchConsole: false, rewrites: false, aiAnswers: "none", report: "none", ads: "none", person: false,
-    },
-    cta: { label: "Build my page free", href: CREATE_URL },
-    needs: [],
-  },
   // The core offer: the monthly bill the business runs on.
   {
     id: "seopage",
@@ -193,6 +174,43 @@ export const PLANS: Plan[] = [
 
 export const plan = (id: PlanId) => PLANS.find((p) => p.id === id)!;
 
+/** By the page: one landing page, or a discounted bundle, paid once. Always dearer a page than the plan (about $19). */
+export const BY_THE_PAGE = {
+  includes: [
+    "Built from your business, section by section",
+    "Versions of each section to choose from",
+    "Checked before you pay",
+    "Publish to your address, or download it",
+    "Yours to keep, no subscription",
+  ],
+  limits: {
+    pagesFirstMonth: 1, pagesPerMonth: 0, imagesPerPage: 0, creditsPerMonth: null, locations: 1,
+    searchConsole: false, rewrites: false, aiAnswers: "none", report: "none", ads: "none", person: false,
+  } satisfies Limits as Limits,
+  options: [
+    {
+      pages: 1, price: PRICE_USD, status: "live" as PlanStatus,
+      fits: "The search that matters most, or one page to send ad traffic to.",
+      cta: { label: "Build my page free", href: CREATE_URL as string | undefined },
+    },
+    {
+      pages: 3, price: 499, status: "coming" as PlanStatus,
+      fits: "Your main service and two more, or one service in three towns.",
+      cta: { label: "Coming soon", href: undefined as string | undefined },
+    },
+    {
+      pages: 6, price: 899, status: "coming" as PlanStatus,
+      fits: "A page for each job you want more of.",
+      cta: { label: "Coming soon", href: undefined as string | undefined },
+    },
+  ],
+  needs: [
+    "Checkout for 3 and 6 pages (today it sells one)",
+    "A page balance in the builder that counts down as each page goes live",
+  ],
+};
+export const perPage = (o: { pages: number; price: number }) => Math.round(o.price / o.pages);
+
 /** The price a card shows for the chosen billing, with the Ads add-on if it's on. */
 export function priceFor(p: Plan, billing: Billing, withAds = false) {
   if (p.per === "once") return { amount: p.price, unit: "once", note: null as string | null };
@@ -223,11 +241,11 @@ export const COMPARE: { label: string; value: (l: Limits) => string }[] = [
 function yes(b: boolean) { return b ? "Yes" : "—"; }
 
 /** Who each plan is for, in the owner's words. */
-export const FITS: { who: string; plan: PlanId; label?: string }[] = [
-  { who: "I want to see what you make before I commit to anything.", plan: "page" },
-  { who: "I have a website and want more calls from it, month after month.", plan: "seopage" },
-  { who: "I already pay Google for clicks and don't know if it's working.", plan: "seopage", label: "SEOPage with Google Ads" },
-  { who: "I don't have time for this. I want someone to run it.", plan: "managed" },
+export const FITS: { who: string; label: string; href: string }[] = [
+  { who: "I have a website and want more calls from it, month after month.", label: "SEOPage", href: "#plans" },
+  { who: "I already pay Google for clicks and don't know if it's working.", label: "SEOPage with Google Ads", href: "#plans" },
+  { who: "I don't have time for this. I want someone to run it.", label: "Managed", href: "#plans" },
+  { who: "I just need one good page to send people to.", label: "By the page", href: "#by-the-page" },
 ];
 
 /** What a credit buys. Retries and fixes never cost one. */
@@ -259,9 +277,10 @@ export const NEVER_A_CREDIT = [
 
 /** Internal estimates of what a plan costs us a month (pages at the v3 median of $4.49, plus checks and reporting). */
 export const COST_ESTIMATE: Record<PlanId, { firstMonth: number; after: number; hours: number }> = {
-  page: { firstMonth: 4.49, after: 0, hours: 0 },
   seopage: { firstMonth: 45, after: 25, hours: 0 },
   managed: { firstMonth: 75, after: 75, hours: 5 },
 };
+/** A page by the page costs what any page does. */
+export const PAGE_COST = 4.49;
 /** The Ads add-on on its own: Ads API reads, suggestions, a few more credits. */
 export const ADS_COST_ESTIMATE = { monthly: 5, hours: 0.5 };
