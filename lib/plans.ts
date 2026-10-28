@@ -8,7 +8,9 @@ import { BOOK_CALL_URL, CREATE_URL, PRICE_USD } from "./config";
    The site is a shop. Monthly comes first: SEOPage (switched off until
    it's built) and Managed (sold on a call). Google Ads is an add-on to
    SEOPage, not a plan: whether an owner needs it depends on whether they
-   already pay for clicks, not on how long they've been with us.
+   already pay for clicks, not on how long they've been with us. Guides are
+   the second add-on: articles answering the questions an owner's
+   customers search before they call, the first step toward an SEO writer.
 
    Below the plans, pages are sold by the page, for the buyer who wants one
    landing page (or a few) without a plan: one page today on
@@ -99,6 +101,31 @@ export const ADS = {
     "Everything SEOPage needs",
     "Google Ads API access (developer token)",
     "Ads suggestions the owner approves, under a hard budget cap",
+  ],
+};
+
+/* Guides, added to SEOPage for owners whose customers read up before they
+   hire (remodelers, roofers, dentists, lawyers). Questions come from the
+   owner's own Search Console, aimed at cost, compare and repair-or-replace
+   searches. They count separately from the plan's pages. */
+export const GUIDES = {
+  name: "Guides",
+  status: "coming" as PlanStatus,
+  price: 99,
+  yearly: yearlyFor(99),
+  perMonth: 4,
+  includes: [
+    "4 guides a month, answering what people ask before they call",
+    "Picked from the questions in your Search Console",
+    "Sources cited in every guide",
+    "Nothing goes live until you say yes",
+  ],
+  needs: [
+    "Everything SEOPage needs",
+    "A guide format in the builder: longer than a page, with cited sources",
+    "Question searches picked from Search Console",
+    "Somewhere to publish them: a blog we host, or the owner's WordPress or Webflow",
+    "A guide allowance in the builder, separate from pages",
   ],
 };
 
@@ -264,6 +291,7 @@ export const CREDIT_PACKS = [
 /** Monthly add-ons on SEOPage. */
 export const ADD_ONS = [
   { what: "Google Ads", price: `${usd(ADS.price)} a month`, note: `Suggestions you approve, under a budget cap; ${ADS.extraCredits} more credits` },
+  { what: "Guides", price: `${usd(GUIDES.price)} a month`, note: `${GUIDES.perMonth} a month, answering what your customers ask before they call` },
   { what: "Another location", price: "$99 a month", note: "Its own pages, profile and report" },
 ];
 
@@ -284,3 +312,5 @@ export const COST_ESTIMATE: Record<PlanId, { firstMonth: number; after: number; 
 export const PAGE_COST = 4.49;
 /** The Ads add-on on its own: Ads API reads, suggestions, a few more credits. */
 export const ADS_COST_ESTIMATE = { monthly: 5, hours: 0.5 };
+/** Guides: a guess of about $5 a guide (a page plus source research) until a guide workflow is measured. */
+export const GUIDES_COST_ESTIMATE = { monthly: 20, hours: 0 };
