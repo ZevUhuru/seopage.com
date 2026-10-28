@@ -240,8 +240,8 @@ const FAQS = [
     a: "No. We don’t buy, trade or automate links. Google’s spam policies count all three as link spam. Good links come from real listings, partners and pages worth citing.",
   },
   {
-    q: "Why not 30 articles a month?",
-    a: "A blog post rarely gets a plumber a phone call. A page about the job you do, in the city you do it, can. We make fewer pages, each aimed at a search that brings calls, and Google’s own guidance warns against pages made in bulk without adding value.",
+    q: "What kind of pages do you make?",
+    a: "Pages for the jobs you do, in the places you work, plus answers to the questions people search before they call. Each one is picked from your own Search Console, and nothing goes live until you say yes.",
   },
   {
     q: "Who owns the pages if I cancel?",
