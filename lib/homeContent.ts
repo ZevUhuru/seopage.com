@@ -11,6 +11,11 @@ export const FAQS: { q: string; a: string }[] = [
     a: `An SEO landing page is a web page engineered to win one specific search: it targets a single keyword with a matching title tag, meta description, heading structure, content written for the search intent, and schema markup — so search engines can rank it and AI assistants can cite it. SEOPage builds yours with AI: you describe your business, it researches the searches in your market and writes the page, you refine it in a live editor, and you publish one complete ready-to-publish HTML file — not a draft you still have to fix.`,
   },
   {
+    // The monthly plan leads the homepage (2026-10-29); this answer says what a month is, without page counts.
+    q: "What's in the monthly plan?",
+    a: "SEOPage is $149 a month, opening soon. Each month our AI SEO agents read your Search Console, pick the searches your site doesn't answer yet, research and write those pages for your city, and score each one on ten checks. You approve every page before it goes live, and a monthly report shows searches and clicks, page by page. You can start today with one page, free to preview.",
+  },
+  {
     q: `What exactly do I get for ${PRICE_LABEL}?`,
     a: "One finished SEO page: keyword research for your market, a keyword-focused title tag and meta description, a clean heading structure, the full written page in a hand-crafted responsive design, an FAQ section written to be quoted, and LocalBusiness and FAQPage schema markup — exported as a single ready-to-publish HTML file that's yours forever. Previewing is free; you only pay when you publish.",
   },
@@ -24,7 +29,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "How is this different from an AI visibility tool?",
-    a: "AI visibility tools monitor whether ChatGPT, Perplexity, and Google AI mention your brand — they diagnose the problem, usually for a monthly subscription, and leave the fixing to you. SEOPage is the other half: it builds the page those systems can actually cite. No dashboard, no subscription. One finished page, engineered to be quoted.",
+    a: "AI visibility tools monitor whether ChatGPT, Perplexity, and Google AI mention your brand — they diagnose the problem, usually for a monthly subscription, and leave the fixing to you. SEOPage is the other half: it builds the pages those systems can actually cite. Buy one page and keep it, or let the monthly plan keep building them from your own Search Console, with a report on what moved.",
   },
   {
     q: "Will it actually rank on Google?",

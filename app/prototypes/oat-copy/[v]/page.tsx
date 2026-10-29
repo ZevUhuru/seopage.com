@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { COPIES, OatHome, Picker, TONES } from "../../_lib/oat-home";
+import { COPIES, OatHome, Picker, TONES } from "@/components/oat/home";
 
 /* How the paragraph under each headline speaks: the page as it stood ("now") and three takes
-   (A Short, B Checklist, C Owner talk), all on Oat. The takes are defined in _lib/oat-home.tsx. */
+   (A Short, B Checklist, C Owner talk), all on Oat. The takes are defined in components/oat/home.tsx. */
 
 export const metadata: Metadata = { title: { absolute: "Homepage copy | SEOPage" }, robots: { index: false, follow: false } };
 

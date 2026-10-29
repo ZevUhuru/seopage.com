@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
-import { ALIASES, COPIES, OatHome, Picker, TONES } from "../../_lib/oat-home";
+import { ALIASES, COPIES, OatHome, Picker, TONES } from "@/components/oat/home";
 
 /* The homepage on three grounds (Oat, Night, Black), with the chosen copy: B · Checklist (2026-10-29). */
 
