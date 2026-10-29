@@ -62,7 +62,7 @@ export const ALIASES: Record<string, string> = { "oat-sharp": "oat", "black-sign
      C · Owner talk  second person, the owner's day, plain and warm */
 export type Copy = { key: string; name: string; note: string; hero: ReactNode; n1: ReactNode; month: ReactNode | null; builder: ReactNode; close: ReactNode };
 
-function Points({ items, center = false }: { items: string[]; center?: boolean }) {
+export function Points({ items, center = false }: { items: string[]; center?: boolean }) {
   return (
     <ul className={`flex flex-wrap gap-y-2.5 text-[var(--o-text)] ${center ? "justify-center gap-x-5 text-[16px]" : "flex-col gap-x-6 text-[clamp(16px,1.3vw,18px)]"}`}>
       {items.map((t) => (
@@ -118,20 +118,42 @@ export const COPIES: Copy[] = [
 /* The type and shape each look uses, as variables the shared sections read. */
 const LOOK = { "--o-body": "var(--font-funnel)", "--o-head": "var(--font-funnel-display)", "--o-hw": "600", "--o-ht": "-0.045em", "--o-h1": "clamp(48px,6.2vw,88px)", "--o-h2": "clamp(36px,4.3vw,62px)", "--o-r": "999px", "--o-rf": "999px" };
 
-const PAD = "px-6 sm:px-10 lg:px-24";
-const SECTION = `${PAD} py-24 lg:py-[128px]`;
+/* The Oat kit, shared with the journal prototype (oat-rank.tsx) so both pages come from one source. */
+export const PAD = "px-6 sm:px-10 lg:px-24";
+export const SECTION = `${PAD} py-24 lg:py-[128px]`;
 const H1 = "font-[family-name:var(--o-head)] [font-weight:var(--o-hw)] text-[length:var(--o-h1)] leading-[0.95] tracking-[var(--o-ht)] [font-variant-numeric:lining-nums]";
-const H2 = "font-[family-name:var(--o-head)] [font-weight:var(--o-hw)] text-[length:var(--o-h2)] leading-[1] tracking-[var(--o-ht)] [font-variant-numeric:lining-nums]";
-const BODY = "text-[clamp(17px,1.4vw,19px)] leading-[1.6] text-[var(--o-text2)]";
-const PRIMARY = "inline-flex h-[52px] items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-7 text-[16px] font-semibold text-[var(--o-action-ink)] hover:opacity-90";
-const GHOST = "inline-flex h-[52px] items-center rounded-[var(--o-r)] border border-[var(--o-edge-strong)] px-6 text-[16px] font-medium text-[var(--o-text)] hover:border-[var(--o-text)]";
-const CARD = "rounded-[14px] border border-[var(--o-edge)] bg-[var(--o-panel)]";
+export const H2 = "font-[family-name:var(--o-head)] [font-weight:var(--o-hw)] text-[length:var(--o-h2)] leading-[1] tracking-[var(--o-ht)] [font-variant-numeric:lining-nums]";
+export const BODY = "text-[clamp(17px,1.4vw,19px)] leading-[1.6] text-[var(--o-text2)]";
+export const PRIMARY = "inline-flex h-[52px] items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-7 text-[16px] font-semibold text-[var(--o-action-ink)] hover:opacity-90";
+export const GHOST = "inline-flex h-[52px] items-center rounded-[var(--o-r)] border border-[var(--o-edge-strong)] px-6 text-[16px] font-medium text-[var(--o-text)] hover:border-[var(--o-text)]";
+export const CARD = "rounded-[14px] border border-[var(--o-edge)] bg-[var(--o-panel)]";
+
+/* The font variables and the tone's colors + type, for any page wearing the kit. */
+export const OAT_FONTS = `${mono.variable} ${funnelDisplay.variable} ${funnelSans.variable}`;
+export const toneStyle = (t: Tone) => ({ ...Object.fromEntries(Object.entries(t.vars).map(([k, v]) => [`--o-${k}`, v])), ...LOOK, background: "var(--o-bg)" }) as CSSProperties;
+
+/* The site header: Pricing and Sign in for people coming back; Start free for everyone else.
+   `extra` sits after the logo (the journal puts its rank mark there). */
+export function SiteHeader({ dark = false, extra }: { dark?: boolean; extra?: ReactNode }) {
+  return (
+    <header className="flex h-[52px] items-center justify-between">
+      <div className="flex items-center gap-4">
+        <Logo tone={dark ? "dark" : "light"} className="text-[26px]" />
+        {extra}
+      </div>
+      <nav aria-label="Main" className="flex items-center gap-1 text-[15px] font-medium">
+        <Link href="/pricing" className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Pricing</Link>
+        <a href={SIGN_IN_URL} className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Sign in</a>
+        <a href={CREATE_URL} className="ml-2 hidden h-11 items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-5 font-semibold text-[var(--o-action-ink)] hover:opacity-90 sm:inline-flex">Start free</a>
+      </nav>
+    </header>
+  );
+}
 
 /* The whole homepage for one ground and one copy take, with the picker the route passes in. */
 export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; picker: ReactNode }) {
-  const style = { ...Object.fromEntries(Object.entries(t.vars).map(([k, v]) => [`--o-${k}`, v])), ...LOOK } as CSSProperties;
   return (
-    <div className={`${mono.variable} ${funnelDisplay.variable} ${funnelSans.variable} min-h-screen font-[family-name:var(--o-body)] text-[var(--o-text)]`} style={{ ...style, background: "var(--o-bg)" }}>
+    <div className={`${OAT_FONTS} min-h-screen font-[family-name:var(--o-body)] text-[var(--o-text)]`} style={toneStyle(t)}>
       <PersonalizeProvider>
         <Hero tone={t} sub={c.hero} />
         <Question body={c.n1} />
@@ -164,15 +186,7 @@ function Hero({ tone, sub }: { tone: Tone; sub: ReactNode }) {
   return (
     <section className={`relative overflow-hidden ${PAD} pt-7`} style={glow}>
       <style>{MOTION}</style>
-      {/* Header: Pricing and Sign in for people coming back; the build button for everyone else */}
-      <header className="flex h-[52px] items-center justify-between">
-        <Logo tone={tone.dark ? "dark" : "light"} className="text-[26px]" />
-        <nav aria-label="Main" className="flex items-center gap-1 text-[15px] font-medium">
-          <Link href="/pricing" className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Pricing</Link>
-          <a href={SIGN_IN_URL} className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Sign in</a>
-          <a href={CREATE_URL} className="ml-2 hidden h-11 items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-5 font-semibold text-[var(--o-action-ink)] hover:opacity-90 sm:inline-flex">Start free</a>
-        </nav>
-      </header>
+      <SiteHeader dark={tone.dark} />
       <div className="mx-auto mt-16 flex max-w-[900px] flex-col items-center gap-6 text-center lg:mt-24">
         <h1 className={`${H1} oat-rise`}>
           Build a site Google and AI can trust,{" "}
