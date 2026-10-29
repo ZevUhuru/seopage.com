@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { EsyMark } from "./EsyMark";
 import { CREATE_URL, PARENT, PRICE_LABEL, PRODUCT, SOCIALS } from "@/lib/config";
 
 export function SiteFooter() {
@@ -40,6 +41,10 @@ export function SiteFooter() {
             © {new Date().getFullYear()} SEOPage, a division of{" "}
             <a href={PARENT.href} className="underline underline-offset-2 hover:text-ink">
               {PARENT.name}
+            </a>
+            {/* Esy's logo in colour, text-height, ending the company line (/prototypes/esy-logo, A) */}
+            <a href={PARENT.href} aria-label="Esy, esy.com" className="ml-2 inline-flex translate-y-[2px] items-center text-ink">
+              <EsyMark className="h-[12px]" />
             </a>
           </span>
         </div>

@@ -1,6 +1,6 @@
 import { Logo } from "@/components/Logo";
 import { Tick } from "@/components/home/HeroAnswer";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 import type { Vertical } from "@/lib/verticals";
 
 /* Building blocks for the trade pages (/roofers, /hvac, …). They sit on the
@@ -61,7 +61,7 @@ export function Cta({ v, center = false }: { v: Vertical; center?: boolean }) {
         Build my {tradeWord(v)} page free
       </a>
       <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[14px] text-[#C9D0E2]">
-        {["Free preview, no card", `${PRICE_LABEL} launch price, once`, "You own the page"].map((t) => (
+        {["Free preview, no card", `${PRICE_LABEL} once, when you publish`, "You own the page"].map((t) => (
           <li key={t} className="flex items-center gap-[7px]">
             <Tick />
             {t}
@@ -159,9 +159,9 @@ export function PriceCard({ v }: { v: Vertical }) {
       <span className="text-[16px] text-[#C9D0E2]">One {v.primaryKeyword} page</span>
       <span className="flex items-baseline gap-3.5">
         <span className="nh-display text-[clamp(72px,7vw,104px)] leading-none tracking-[-0.05em]">{PRICE_LABEL}</span>
-        <span className="text-[15px] text-[#9DB4FF]">launch price</span>
+        <span className="text-[15px] text-[#9DB4FF]">once</span>
       </span>
-      <span className="text-[15px] text-[#A0A9C0]">{PRICE_AFTER_LAUNCH_LABEL} after launch. Pay when you publish.</span>
+      <span className="text-[15px] text-[#A0A9C0]">No subscription. Pay when you publish.</span>
       <ul className="flex flex-col gap-2.5 border-y border-white/12 py-[18px] text-[15.5px]">
         {["Live research on your market's searches", "The full page, written and designed", "Everything a buyer needs, stated in text", "Title, description, and schema", "Ten checks, scored before you pay"].map((x) => (
           <li key={x}>{x}</li>

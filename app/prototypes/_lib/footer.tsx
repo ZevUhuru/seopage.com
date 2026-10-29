@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { LoopVideo } from "@/components/home/LoopVideo";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 import { VERTICALS, tradePath } from "@/lib/verticals";
 import { RankMark } from "./shared";
 
@@ -83,7 +83,7 @@ function Close({ inner }: { inner?: React.ReactNode }) {
           <a href={CREATE_URL} className="flex h-[60px] items-center rounded-full bg-[#3D6BFF] px-8 text-[17px] font-semibold text-white hover:bg-[#5A82FF]">
             Build my page free
           </a>
-          <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} launch price · {PRICE_AFTER_LAUNCH_LABEL} after launch</span>
+          <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} once, when you publish</span>
         </div>
         {inner}
       </div>
