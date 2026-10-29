@@ -2,7 +2,7 @@ import { AlarmTranscript, HeroForm } from "@/components/home/HeroAnswer";
 import { BuilderDemo, type DemoTrade } from "@/components/home/BuilderDemo";
 import { PersonalizeProvider, type PersonalDefaults } from "@/components/home/Personalize";
 import { Logo } from "@/components/Logo";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 import type { Vertical } from "@/lib/verticals";
 import { aOr, Faq, PriceCard, Query, REPLAY } from "./trade-shared";
 
@@ -239,7 +239,7 @@ export function TradeD({ v }: { v: Vertical }) {
           <h2 className="nh-display mt-5 max-w-[720px] text-[clamp(48px,6.4vw,92px)] leading-[0.95]">Someone&apos;s asking AI which {e.role} to call. Make the answer you.</h2>
           <div className="mt-10 flex flex-wrap items-center gap-5">
             <a href={CREATE_URL} className="flex h-[60px] items-center rounded-full bg-[#3D6BFF] px-8 text-[17px] font-semibold text-white hover:bg-[#5A82FF]">Build my page free</a>
-            <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} launch price · {PRICE_AFTER_LAUNCH_LABEL} after launch</span>
+            <span className="text-[14.5px] text-[#C9D0E2]">Free preview · {PRICE_LABEL} once, when you publish</span>
           </div>
           <p className="mt-auto border-t border-white/15 pt-6 text-[13px] text-[#7D869C]">{e.name} is an illustration, not a customer. Payments by Stripe.</p>
         </div>

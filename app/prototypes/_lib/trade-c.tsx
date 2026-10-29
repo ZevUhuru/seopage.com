@@ -1,5 +1,5 @@
 import { funnelDisplay } from "@/components/home/fonts";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
 import type { Vertical } from "@/lib/verticals";
 import { Cta, Faq, PAD, Query, SECTION, TradeHeader, TradeLegal } from "./trade-shared";
 
@@ -78,7 +78,7 @@ export function TradeC({ v }: { v: Vertical }) {
           <div className="lg:col-span-7">
             <p className="text-[18px] font-medium text-white/80">One {v.primaryKeyword} page. Once.</p>
             <p className="nh-display mt-3 text-[clamp(110px,16vw,240px)] leading-[0.8] tracking-[-0.06em]">{PRICE_LABEL}</p>
-            <p className="mt-6 text-[17px] text-white/80">Launch price. {PRICE_AFTER_LAUNCH_LABEL} after launch. Free to preview, pay when you publish.</p>
+            <p className="mt-6 text-[17px] text-white/80">One time. Free to preview, pay when you publish.</p>
           </div>
           <div className="flex flex-col gap-4 lg:col-span-4 lg:col-start-9">
             <a href={CREATE_URL} className="flex h-[60px] items-center justify-center rounded-full bg-white text-[17px] font-semibold text-[#0A0F1E] hover:bg-[#EEF2FF]">

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { Tick } from "@/components/home/HeroAnswer";
-import { CREATE_URL, PRICE_AFTER_LAUNCH_LABEL, PRICE_LABEL, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PRICE_LABEL, PRODUCT } from "@/lib/config";
 
 /* ================================================================
    Three pricing pages for seopage.com/pricing (2026-10-04). Each tests one
@@ -188,7 +188,7 @@ export function PricingSwitcher({ current }: { current: PricingKey }) {
 
 type Plan = { id: string; name: string; price: string; per: string; blurb: string; items: string[]; cta: string; href: string; featured?: boolean; flag?: string };
 const PLAN_ONE: Plan = {
-  id: "one", name: "One page", price: PRICE_LABEL, per: "once", blurb: `Launch price, ${PRICE_AFTER_LAUNCH_LABEL} after. For the one search that matters most.`,
+  id: "one", name: "One page", price: PRICE_LABEL, per: "once", blurb: "For the one search that matters most.",
   items: ["Free preview, pay when you publish", "No subscription", "Yours to keep"], cta: "Build my page free", href: CREATE_URL,
 };
 const PLAN_GROWTH: Plan = {
@@ -228,7 +228,7 @@ function PlanCard({ p }: { p: Plan }) {
 // ── P1 · Per page ──────────────────────────────────────────────────────────
 
 const SETS = [
-  { n: "1 page", price: PRICE_LABEL, each: `${PRICE_AFTER_LAUNCH_LABEL} after launch`, fits: "The one search that matters most: your main service in your city." },
+  { n: "1 page", price: PRICE_LABEL, each: "once", fits: "The one search that matters most: your main service in your city." },
   { n: "3 pages", price: "$499", each: "$166 a page", fits: "Your main service and two more, or one service in three areas you cover.", featured: true },
   { n: "6 pages", price: "$899", each: "$150 a page", fits: "A page for each job you want more of. Or a few pages each for your clients." },
 ];

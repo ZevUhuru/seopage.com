@@ -35,7 +35,7 @@ export default function ChannelPrototypes() {
     <main className="px-6 py-16 sm:px-10 lg:px-24 lg:py-24">
       <h1 className="nh-display text-[clamp(56px,8vw,120px)] leading-[0.9]">YouTube channel.</h1>
       <p className="mt-6 max-w-[680px] text-[19px] leading-[1.55] text-[#C9D0E2]">
-        Profile picture and banner, built from what the brand already is: the seopage¹ wordmark and its citation mark, the homepage&apos;s ink and blue, and Nora. The launch price stays off the banner so it can&apos;t go stale.
+        Profile picture and banner, built from what the brand already is: the seopage¹ wordmark and its citation mark, the homepage&apos;s ink and blue, and Nora. The price stays off the banner so it can&apos;t go stale.
       </p>
 
       <h2 className="nh-display mt-20 text-[clamp(36px,4vw,56px)] leading-none">Profile picture.</h2>
