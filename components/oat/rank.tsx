@@ -53,11 +53,18 @@ export function JournalShell({ base, children }: { base: string; children: React
   );
 }
 
+/* Esy Navy as a local tone: the kit's variables flipped for light text, so Points, buttons and
+   labels inside a navy block read correctly. Used by the close, the plan card and the lead issue,
+   the journal's dark objects on the light page (they replace the dark theme's outlined boxes). */
+const NAVY = {
+  "--o-text": "#f4f1ea", "--o-text2": "#cdd6e2", "--o-muted": "#9fb0c4", "--o-edge": "rgba(244,241,234,.14)",
+  "--o-action": "#9db4ff", "--o-action-ink": "#0a2540", "--o-link": "#9db4ff", background: "#0a2540", color: "#f4f1ea",
+} as CSSProperties;
+
 /* The close: Esy Navy, the plan's ask in checklist voice. */
 function JournalClose() {
-  const navy = { "--o-text": "#f4f1ea", "--o-text2": "#cdd6e2", "--o-action": "#9db4ff", "--o-action-ink": "#0a2540", background: "#0a2540", color: "#f4f1ea" } as CSSProperties;
   return (
-    <section className={`${SECTION} text-center`} style={navy}>
+    <section className={`${SECTION} text-center`} style={NAVY}>
       <p className="text-[16px] font-medium text-[#9db4ff]">Everything here is how we build your pages.</p>
       <h2 className={`${H2} mx-auto mt-5 max-w-[860px]`}>Give the searches near you an answer on your site.</h2>
       <div className={`${BODY} mx-auto mt-6 max-w-[560px]`}>
@@ -68,14 +75,15 @@ function JournalClose() {
   );
 }
 
-/* The article's money card: the monthly plan, with one page as a footnote. */
+/* The article's money card: the monthly plan, with one page as a footnote. Navy, so it's the
+   brightest-contrast object in the rail, as the dark theme's gradient card was. */
 export function PlanCard() {
   return (
-    <div className={`${CARD} flex flex-col gap-5 p-7`}>
-      <span className="text-[15px] text-[var(--o-muted)]">SEOPage · opening soon</span>
+    <div className="flex flex-col gap-5 rounded-[18px] p-7 shadow-[0_24px_60px_-28px_rgba(10,37,64,.55)]" style={{ ...NAVY, backgroundImage: "radial-gradient(80% 60% at 100% 0%, rgba(61,107,255,.28), transparent 70%)" }}>
+      <span className="text-[15px] text-[var(--o-text2)]">Want your site to be the source?</span>
       <span className="flex items-baseline gap-3">
-        <span className={`${NUM} text-[48px] font-medium leading-none tracking-[-0.04em]`}>$149</span>
-        <span className="text-[15px] text-[var(--o-text2)]">a month</span>
+        <span className="font-[family-name:var(--o-head)] text-[56px] font-semibold leading-none tracking-[-0.05em]">$149</span>
+        <span className="text-[15px] text-[var(--o-link)]">a month · opening soon</span>
       </span>
       <div className="border-y border-[var(--o-edge)] py-4">
         <Points items={["Picked from your Search Console", "Written by our AI SEO agents", "A report every month"]} />
@@ -136,6 +144,9 @@ export function SectionLink({ id, text, i }: { id: string; text: string; i: numb
   );
 }
 
+/* An article's picture: its chosen thumbnail, else Mux's frame once there's a video. */
+const thumbOf = (a: Article) => a.thumbnailUrl ?? (a.muxPlaybackId ? `https://image.mux.com/${a.muxPlaybackId}/thumbnail.jpg?time=0` : undefined);
+
 /* ---------- The index: the masthead, the latest issue beside the next three, then every issue.
    Issue numbers count up from the oldest. ---------- */
 export function RankIndex({ articles, base }: { articles: Article[]; base: string }) {
@@ -164,19 +175,27 @@ export function RankIndex({ articles, base }: { articles: Article[]; base: strin
 
       {/* FRONT: the latest issue beside the next three */}
       {lead && (
-        <section className={`${PAD} grid gap-12 pb-24 lg:grid-cols-12 lg:gap-16`}>
-          <Link href={href(lead.slug)} className="group flex flex-col gap-6 lg:col-span-7">
-            <span className={LABEL}>Latest · {lead.categoryLabel}</span>
-            <h2 className="font-[family-name:var(--o-head)] text-[clamp(42px,5.4vw,84px)] font-semibold leading-[0.96] tracking-[-0.045em] transition-colors group-hover:text-[var(--o-link)]">{lead.title}</h2>
-            <p className="max-w-[620px] text-[clamp(18px,1.5vw,21px)] leading-[1.55] text-[var(--o-text2)]">{lead.description}</p>
-            <span className="text-[15px] font-medium text-[var(--o-link)]">Read · {readMinutes(lead.content)} min →</span>
+        <section className={`${PAD} grid items-start gap-12 pb-24 lg:grid-cols-12 lg:gap-14`}>
+          {/* The latest issue on a navy card, with its thumbnail when it has one: the page's one dark object */}
+          <Link href={href(lead.slug)} className="group flex flex-col overflow-hidden rounded-[22px] shadow-[0_30px_70px_-34px_rgba(10,37,64,.6)] lg:col-span-7" style={NAVY}>
+            {thumbOf(lead) && (
+              // eslint-disable-next-line @next/next/no-img-element -- the article's own thumbnail, any host
+              <img src={thumbOf(lead)} alt="" className="block aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]" />
+            )}
+            <div className="flex flex-col gap-5 p-8 sm:p-10" style={{ backgroundImage: "radial-gradient(70% 80% at 100% 0%, rgba(61,107,255,.24), transparent 70%)" }}>
+              <span className={LABEL}>Latest · {lead.categoryLabel}</span>
+              <h2 className="font-[family-name:var(--o-head)] text-[clamp(36px,4.2vw,64px)] font-semibold leading-[0.98] tracking-[-0.045em]">{lead.title}</h2>
+              <p className="max-w-[620px] text-[clamp(17px,1.4vw,19px)] leading-[1.55] text-[var(--o-text2)]">{lead.description}</p>
+              <span className="text-[15px] font-medium text-[var(--o-link)] group-hover:underline group-hover:underline-offset-4">Read · {readMinutes(lead.content)} min →</span>
+            </div>
           </Link>
           {next.length > 0 && (
-            <ol className="flex flex-col lg:col-span-5 lg:border-l lg:border-[var(--o-edge-strong)] lg:pl-12">
+            <ol className="flex flex-col lg:col-span-5">
               {next.map((a, i) => (
-                <li key={a.slug} className="border-b border-[var(--o-edge)] first:border-t lg:first:border-t-0">
-                  <Link href={href(a.slug)} className="group grid grid-cols-[56px_1fr] gap-4 py-7">
-                    <span className={`${NUM} pt-1 text-[15px] text-[var(--o-link)]`}>{issueNo(i + 1)}</span>
+                <li key={a.slug} className="border-b border-[var(--o-edge-strong)] first:border-t">
+                  <Link href={href(a.slug)} className="group grid grid-cols-[72px_1fr] gap-4 py-7">
+                    {/* Big display numbers, as the dark journal had them, in cobalt */}
+                    <span className="font-[family-name:var(--o-head)] text-[52px] font-semibold leading-[0.85] tracking-[-0.05em] text-[var(--o-link)]">{issueNo(i + 1)}</span>
                     <span className="flex flex-col gap-2">
                       <span className="text-[13.5px] text-[var(--o-muted)]">{a.categoryLabel}</span>
                       <span className="font-[family-name:var(--o-head)] text-[26px] font-semibold leading-[1.08] tracking-[-0.035em] transition-colors group-hover:text-[var(--o-link)]">{a.title}</span>
@@ -254,7 +273,7 @@ export function RankArticle({ article, related, base }: { article: Article; rela
           )}
 
           {/* The short answer: the self-contained passage an assistant can lift, with the sections below it */}
-          <section className={`${CARD} mt-10 p-7 sm:p-9`}>
+          <section className="mt-10 rounded-[18px] border border-[var(--o-edge-strong)] bg-[var(--o-panel)] p-7 sm:p-9">
             <p className={`${LABEL} flex items-center gap-2`}>
               <span className="h-2 w-2 rounded-full bg-[var(--o-action)]" />
               The short answer
@@ -300,7 +319,7 @@ export function RankArticle({ article, related, base }: { article: Article; rela
         <aside className="lg:col-span-4">
           <div className="sticky top-8 flex flex-col gap-6">
             {heads.length > 0 && (
-              <nav aria-label="Sections" className="hidden rounded-[14px] border border-[var(--o-edge)] p-6 lg:block">
+              <nav aria-label="Sections" className="hidden rounded-[18px] border border-[var(--o-edge-strong)] bg-[var(--o-panel)] p-6 lg:block">
                 <p className="text-[14px] text-[var(--o-muted)]">In this issue</p>
                 <ol className="mt-3 flex flex-col gap-2.5">
                   {heads.map((h, i) => <li key={h.id}><SectionLink id={h.id} text={h.text} i={i} /></li>)}
