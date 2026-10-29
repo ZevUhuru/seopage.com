@@ -7,6 +7,8 @@ import { BANNERS, PROFILES } from "./_lib/channel";
 import { CARDS } from "./_lib/social";
 import { SOCIAL_PLACEMENTS } from "./_lib/socials";
 import { PARENT_PLACEMENTS } from "./_lib/parent";
+import { ESY_LOGO_PLACEMENTS } from "./_lib/esy-logo";
+import { HEROES } from "./_lib/hero";
 import { PRICING } from "./_lib/pricing";
 
 export default async function ProtoHome() {
@@ -149,6 +151,39 @@ export default async function ProtoHome() {
         ))}
       </ul>
       <Link href="/prototypes/parent" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">The hero, showing the app</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three homepage heroes with create.seopage.com in place of Nora. Same title and form; the app fills in with what you type.
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {HEROES.map((h) => (
+          <li key={h.key}>
+            <Link href={`/prototypes/hero/${h.key}`} className="flex h-full flex-col gap-3 rounded-[24px] border border-white/12 bg-[#0A0F1E] p-7 hover:border-white/40">
+              <span className="nh-display text-[30px] leading-none tracking-[-0.03em]">
+                <span className="text-[#3D6BFF]">{h.key.toUpperCase()}</span> · {h.name}
+              </span>
+              <span className="text-[16px] text-[#A0A9C0]">{h.note}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">Esy&apos;s logo</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        Three places in the footer for Esy&apos;s logo, for readers who come from the Esy newsletter.
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {ESY_LOGO_PLACEMENTS.map((p) => (
+          <li key={p.key} className={`flex flex-col gap-3 rounded-[24px] border bg-[#0A0F1E] p-7 ${p.chosen ? "border-[#3D6BFF]" : "border-white/12"}`}>
+            <span className="nh-display text-[30px] leading-none tracking-[-0.03em]">
+              <span className="text-[#3D6BFF]">{p.key.toUpperCase()}</span> · {p.name}
+            </span>
+            <span className="text-[16px] text-[#A0A9C0]">{p.note}</span>
+          </li>
+        ))}
+      </ul>
+      <Link href="/prototypes/esy-logo" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
     </main>
   );
 }
