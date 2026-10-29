@@ -8,12 +8,14 @@ import { Logo } from "@/components/Logo";
 import { AppShot } from "@/components/home/AppShot";
 import { PersonalizeProvider } from "@/components/home/Personalize";
 import { BOOK_CALL_URL, CREATE_URL, PRICE_LABEL, SIGN_IN_URL } from "@/lib/config";
-import { OatForm, OatGap, OatMonth } from "./oat-client";
+import { FAQS } from "@/lib/homeContent";
+import { OatForm, OatGap, OatMonth } from "./client";
 
 /* ================================================================
-   The homepage in the Signed direction (2026-10-29), with the N1 story
-   under the new builder hero. One page, three grounds, so the dark
-   question can be answered side by side:
+   The homepage (live at / since the Oat PR), built in the Signed
+   direction (2026-10-29) with the N1 story under the builder hero.
+   One page, three grounds, so the dark question could be answered
+   side by side; the live page uses Oat with the checklist copy (B):
      oat   · Oat #EFECE5, the product on a lit navy stage
      night · Esy's Navy #0A2540, with the live glow
      black · today's #04060B, with the live glow
@@ -22,8 +24,9 @@ import { OatForm, OatGap, OatMonth } from "./oat-client";
    cobalt, one primary per section. Copy sells the monthly plan and shows
    the work, not who checks it (no human-review promise on the $149 plan);
    no ranking promises.
-   Shared by /prototypes/oat/[tone] (the grounds) and
-   /prototypes/oat-copy/[v] (how the paragraphs under each headline speak).
+   Rendered by / (app/page.tsx) and by the prototypes it came from:
+   /prototypes/oat/[tone] (the grounds) and /prototypes/oat-copy/[v]
+   (how the paragraphs under each headline speak).
    ================================================================ */
 
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--o-mono" });
@@ -116,7 +119,7 @@ export const COPIES: Copy[] = [
 ];
 
 /* The type and shape each look uses, as variables the shared sections read. */
-const LOOK = { "--o-body": "var(--font-funnel)", "--o-head": "var(--font-funnel-display)", "--o-hw": "600", "--o-ht": "-0.045em", "--o-h1": "clamp(48px,6.2vw,88px)", "--o-h2": "clamp(36px,4.3vw,62px)", "--o-r": "999px", "--o-rf": "999px" };
+const LOOK = { "--o-body": "var(--font-funnel)", "--o-head": "var(--font-funnel-display)", "--o-hw": "600", "--o-ht": "-0.045em", "--o-h1": "clamp(36px,6.2vw,88px)", "--o-h2": "clamp(36px,4.3vw,62px)", "--o-r": "999px", "--o-rf": "999px" };
 
 /* The Oat kit, shared with the journal prototype (oat-rank.tsx) so both pages come from one source. */
 export const PAD = "px-6 sm:px-10 lg:px-24";
@@ -151,7 +154,7 @@ export function SiteHeader({ dark = false, extra }: { dark?: boolean; extra?: Re
 }
 
 /* The whole homepage for one ground and one copy take, with the picker the route passes in. */
-export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; picker: ReactNode }) {
+export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; picker?: ReactNode }) {
   return (
     <div className={`${OAT_FONTS} min-h-screen font-[family-name:var(--o-body)] text-[var(--o-text)]`} style={toneStyle(t)}>
       <PersonalizeProvider>
@@ -161,10 +164,35 @@ export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; 
       <HowAMonthWorks intro={c.month} />
       <Builder body={c.builder} />
       <Offer />
+      <Faq />
       <Close inverse={t.key === "night"} sub={c.close} />
       <DarkFooter ground="ink" />
       {picker}
     </div>
+  );
+}
+
+/* ---------- FAQ: the homepage's ranking content, mirrored 1:1 into FAQPage schema (lib/homeContent) ---------- */
+function Faq() {
+  return (
+    <section id="faq" className={`${SECTION} grid gap-12 lg:grid-cols-12 lg:gap-14`}>
+      <h2 className={`${H2} lg:col-span-4`}>Fair questions.</h2>
+      <div className="flex flex-col border-t border-[var(--o-edge-strong)] lg:col-span-7 lg:col-start-6">
+        {FAQS.map((f, i) => (
+          <details key={f.q} className="nh-faq group border-b border-[var(--o-edge)]" open={i === 0}>
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-6 text-[19px] font-medium">
+              <h3 className="font-medium">{f.q}</h3>
+              <span className="nh-plus shrink-0 text-[26px] font-light text-[var(--o-muted)] transition-transform" aria-hidden>+</span>
+            </summary>
+            <p className="pb-6 pr-12 text-[16.5px] leading-[1.65] text-[var(--o-text2)]">{f.a}</p>
+          </details>
+        ))}
+        <p className="pt-8 text-[14px] text-[var(--o-muted)]">
+          Want the long version? <Link href="/audit" className="underline underline-offset-2 hover:text-[var(--o-text)]">Read the SEO page audit guide</Link> or see{" "}
+          <Link href="/on-page-seo-services" className="underline underline-offset-2 hover:text-[var(--o-text)]">how on-page SEO services compare</Link>.
+        </p>
+      </div>
+    </section>
   );
 }
 

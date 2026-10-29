@@ -93,41 +93,5 @@
 .rk-phone-scroll { animation: rk-phone-scroll 38s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .rk-phone-scroll { animation: none; } }
 
-/* ============================================================
-   2026-10-29 · rank¹ on Oat (/prototypes/oat-rank). The live
-   .rank-prose reading styles, redrawn for the light Oat kit: the
-   --o-* tokens from oat-home.tsx, sections numbered 01, 02 in
-   mono instead of citation badges. Text on Oat: body 11:1+,
-   links 6:1+. Figures reuse .rank-figure / .rank-zoom.
-   ============================================================ */
-.oat-prose { color: var(--o-text2); font-size: 18px; line-height: 1.75; }
-.oat-prose p { margin-top: 1.2em; }
-.oat-prose h2 {
-  display: grid; grid-template-columns: 2.4em 1fr; align-items: baseline;
-  font-family: var(--o-head), sans-serif; font-weight: 600; letter-spacing: -0.035em;
-  font-size: clamp(26px, 2.4vw, 34px); line-height: 1.12; color: var(--o-text);
-  margin-top: 2.2em; scroll-margin-top: 90px;
-}
-.oat-prose .oat-prose-num { font-size: 0.5em; letter-spacing: 0; color: var(--o-link); font-weight: 500; }
-.oat-prose h3 { margin-top: 1.6em; font-weight: 600; color: var(--o-text); }
-.oat-prose strong { color: var(--o-text); font-weight: 600; }
-.oat-prose a { color: var(--o-link); text-decoration: underline; text-underline-offset: 3px; }
-.oat-prose ul, .oat-prose ol { margin-top: 1.1em; display: flex; flex-direction: column; gap: 0.5em; }
-.oat-prose ul { list-style: none; }
-.oat-prose ul li { position: relative; padding-left: 1.3em; }
-.oat-prose ul li::before { content: ""; position: absolute; left: 0.2em; top: 0.72em; width: 6px; height: 6px; border-radius: 999px; background: var(--o-action); }
-.oat-prose ol { list-style: decimal; padding-left: 2.8em; }
-.oat-prose ol li::marker { color: var(--o-link); font-weight: 600; }
-.oat-prose .rank-figure { margin-top: 1.6em; display: flex; flex-direction: column; align-items: center; gap: 0.6em; }
-.oat-prose .rank-zoom { display: flex; justify-content: center; }
-.oat-prose .rank-zoom img { display: block; width: auto; max-width: 100%; max-height: 640px; border: 1px solid var(--o-edge); border-radius: 14px; transition: border-color .2s; }
-.oat-prose .rank-zoom:hover img { border-color: var(--o-edge-strong); }
-.oat-prose .rank-caption { max-width: 60ch; text-align: center; font-size: 0.8em; line-height: 1.5; color: var(--o-muted); }
-.oat-prose blockquote { margin-top: 1.4em; border-left: 2px solid var(--o-action); padding-left: 1.1em; color: var(--o-text); }
-.oat-prose code { font-family: var(--o-mono), monospace; font-size: 0.86em; background: var(--o-panel); border: 1px solid var(--o-edge); padding: 0.05em 0.35em; border-radius: 5px; color: var(--o-text); }
-.oat-prose pre { margin-top: 1.4em; overflow-x: auto; padding: 1.1em 1.3em; border: 1px solid var(--o-edge); border-radius: 14px; background: var(--o-panel); font-size: 0.85em; }
-.oat-prose pre code { background: none; border: 0; padding: 0; }
-.oat-prose hr { margin-top: 2.4em; border-color: var(--o-edge); }
-.oat-prose table { margin-top: 1.4em; width: 100%; border-collapse: collapse; font-size: 0.92em; display: block; overflow-x: auto; }
-.oat-prose th { text-align: left; font-weight: 600; color: var(--o-text); border-bottom: 1px solid var(--o-edge-strong); padding: 0.6em 0.8em; }
-.oat-prose td { vertical-align: top; border-bottom: 1px solid var(--o-edge); padding: 0.6em 0.8em; }
+/* 2026-10-29 · rank¹ on Oat: its .oat-prose reading styles moved to app/globals.css
+   when the Oat journal went live at /rank. */

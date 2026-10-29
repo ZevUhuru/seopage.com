@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { HomePage } from "@/components/home/HomePage";
+import { JsonLd } from "@/components/JsonLd";
+import { COPIES, OatHome, TONES } from "@/components/oat/home";
+import { HOME_SCHEMA } from "@/lib/homeContent";
 import { PRICE_LABEL } from "@/lib/config";
 
-/* The homepage; its story and sections are in components/home/HomePage.tsx. */
+/* The homepage: the Oat page (components/oat/home.tsx) with the checklist copy, picked in
+   /prototypes/oat and /prototypes/oat-copy (seopage.com #53). The dark Nora page it replaced is
+   components/home/HomePage.tsx, still used by the older prototypes. */
 
 export const metadata: Metadata = {
   // Primary keyword ("SEO landing page") front-loaded; see git history for
@@ -14,6 +18,14 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+const OAT = TONES.find((t) => t.key === "oat") ?? TONES[0];
+const CHECKLIST = COPIES.find((c) => c.key === "b") ?? COPIES[0];
+
 export default function Home() {
-  return <HomePage />;
+  return (
+    <>
+      <JsonLd data={HOME_SCHEMA} />
+      <OatHome tone={OAT} copy={CHECKLIST} />
+    </>
+  );
 }
