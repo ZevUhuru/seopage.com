@@ -15,6 +15,9 @@ export const PRICE_LABEL = `$${PRICE_USD}`;
 export const CREATE_URL =
   process.env.NEXT_PUBLIC_CREATE_URL || "https://create.seopage.com";
 
+/** Where a returning owner signs in: the builder's own login page. */
+export const SIGN_IN_URL = `${CREATE_URL}/login`;
+
 /** The delivery promise shown everywhere. Only promise what we can hit. */
 export const DELIVERY_HOURS = 3;
 export const DELIVERY_LABEL = `within ${DELIVERY_HOURS} hours`;

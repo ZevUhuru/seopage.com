@@ -51,17 +51,28 @@ export type ParentPlacement = "bar" | "brand" | "band";
 /** Where Esy's logo sits; see /prototypes/esy-logo. The bottom bar (A) was chosen. */
 export type EsyLogoPlacement = "none" | "bar" | "brand" | "band";
 
+/** The footer's background: today's black, Esy's Navy, or Esy's Ink (a step below Navy). */
+export type FooterGround = "black" | "navy" | "ink";
+const GROUND = {
+  black: { bg: "#04060B", fine: "text-[#7D869C]" },
+  /* #7D869C is 4.3:1 on navy, so the fine print lightens to #9FB0C4 (5.9:1) */
+  navy: { bg: "#0A2540", fine: "text-[#9FB0C4]" },
+  ink: { bg: "#061527", fine: "text-[#9FB0C4]" },
+};
+
 /** `note` is a page-specific disclosure, like the homepage's Nora line. */
 export async function DarkFooter({
   note,
   socials = "column",
   parent = "bar",
   esy = "bar",
+  ground = "black",
 }: {
   note?: string;
   socials?: SocialsPlacement;
   parent?: ParentPlacement;
   esy?: EsyLogoPlacement;
+  ground?: FooterGround;
 }) {
   const articles = await getArticles();
   const trades = VERTICALS.map((v) => ({ label: cap(v.plural), href: tradePath(v.slug) })).sort((a, b) =>
@@ -70,7 +81,7 @@ export async function DarkFooter({
   const latest = articles.slice(0, 4);
 
   return (
-    <footer className={`${PAD} border-t border-white/12 bg-[#04060B] pt-20 text-[#EEF2FF]`}>
+    <footer className={`${PAD} border-t border-white/12 pt-20 text-[#EEF2FF]`} style={{ background: GROUND[ground].bg }}>
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
         <div className="flex flex-col gap-5 lg:col-span-3">
           <Logo tone="dark" className="text-[28px]" />
@@ -164,7 +175,7 @@ export async function DarkFooter({
         </div>
       )}
 
-      <div className={`${esy === "band" ? "mt-10" : "mt-20"} flex flex-col gap-2 border-t border-white/12 py-6 text-[13px] text-[#7D869C] sm:flex-row sm:justify-between`}>
+      <div className={`${esy === "band" ? "mt-10" : "mt-20"} flex flex-col gap-2 border-t border-white/12 py-6 text-[13px] ${GROUND[ground].fine} sm:flex-row sm:justify-between`}>
         <span className="flex flex-wrap gap-x-5 gap-y-1">
           <span>
             © {new Date().getFullYear()} SEOPage

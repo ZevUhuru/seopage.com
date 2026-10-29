@@ -2,108 +2,167 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { Cormorant_Garamond, Geist, Geist_Mono } from "next/font/google";
+import { notFound, redirect } from "next/navigation";
+import { Geist_Mono } from "next/font/google";
+import { funnelDisplay, funnelSans } from "@/components/home/fonts";
 import { DarkFooter } from "@/components/DarkFooter";
 import { Logo } from "@/components/Logo";
 import { AppShot } from "@/components/home/AppShot";
 import { PersonalizeProvider } from "@/components/home/Personalize";
-import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
-import { OatAlarm, OatForm } from "../../_lib/oat-client";
+import { CREATE_URL, PRICE_LABEL, SIGN_IN_URL } from "@/lib/config";
+import { OatAlarm, OatAnswer, OatForm } from "../../_lib/oat-client";
 
 /* ================================================================
    The homepage in the Signed direction (2026-10-29), with the N1 story
-   under the new builder hero. One page, three tones, so the dark
+   under the new builder hero. One page, three grounds, so the dark
    question can be answered side by side:
-     oat   · Oat #EFECE5, the pick for the site
-     night · Esy's Navy #0A2540
-     black · today's #04060B, with the same system
-   System: Cormorant for big headlines (Esy's face, lining figures),
-   Geist for everything else, one cobalt, 10px buttons, one primary per
-   section, no ALL-CAPS labels, no glows, the stamp once (on the plan a
-   person reviews). Copy follows N1; no ranking promises.
+     oat   · Oat #EFECE5, the product on a lit navy stage
+     night · Esy's Navy #0A2540, with the live glow
+     black · today's #04060B, with the live glow
+   System: the live homepage's type and shapes on every ground (Funnel
+   Display 600 at -0.045em, Funnel Sans, pill buttons and form), one
+   cobalt, one primary per section, the stamp once (on the plan a person
+   reviews). Copy follows N1; no ranking promises.
    ================================================================ */
 
 export const metadata: Metadata = { title: { absolute: "Homepage in Signed | SEOPage" }, robots: { index: false, follow: false } };
 
-const serif = Cormorant_Garamond({ subsets: ["latin"], weight: ["600", "700"], variable: "--o-serif" });
-const sans = Geist({ subsets: ["latin"], variable: "--o-sans" });
 const mono = Geist_Mono({ subsets: ["latin"], variable: "--o-mono" });
 
-type Tone = { key: string; name: string; note: string; dark: boolean; vars: Record<string, string> };
+/* stage: the builder sits on a lit navy band, so the product is the brightest thing on a light page.
+   glow:  the live hero's cobalt glow behind the product. */
+type Tone = { key: string; name: string; note: string; dark: boolean; stage?: boolean; glow?: boolean; vars: Record<string, string> };
 
 /* Every pair checked: text 10:1+, muted 5.7:1+, buttons 7:1+, links 6:1+. */
 const TONES: Tone[] = [
   {
-    key: "oat", name: "Oat", note: "Warm ground, navy close", dark: false,
-    vars: { bg: "#efece5", alt: "#f6f3ec", panel: "#fffdf9", edge: "#ddd6c8", "edge-strong": "#c9bfac", text: "#16130f", text2: "#3a342b", muted: "#625a4c", action: "#1b46d4", "action-ink": "#ffffff", link: "#1b46d4", danger: "#b42318" },
+    key: "oat", name: "Oat", note: "Warm ground, the product on a navy stage", dark: false, stage: true,
+    vars: { bg: "#efece5", alt: "#f6f3ec", panel: "#fffdf9", edge: "#ddd6c8", "edge-strong": "#c9bfac", text: "#0b0b0c", text2: "#34302a", muted: "#5e574b", action: "#1b46d4", "action-ink": "#ffffff", link: "#1b46d4", danger: "#b42318" },
   },
   {
-    key: "night", name: "Night", note: "Esy's Navy all the way down", dark: true,
+    key: "night", name: "Night", note: "Esy's Navy all the way down", dark: true, glow: true,
     vars: { bg: "#0a2540", alt: "#0c2a49", panel: "#0f3052", edge: "#1d4270", "edge-strong": "#2c5487", text: "#f4f1ea", text2: "#cdd6e2", muted: "#9fb0c4", action: "#9db4ff", "action-ink": "#0a2540", link: "#9db4ff", danger: "#ff8a7d" },
   },
   {
-    key: "black", name: "Black", note: "Today's black, with the new system", dark: true,
-    vars: { bg: "#04060b", alt: "#070a12", panel: "#0a0f1e", edge: "#1a2033", "edge-strong": "#2a3248", text: "#eef2ff", text2: "#c9d0e2", muted: "#a0a9c0", action: "#9db4ff", "action-ink": "#04060b", link: "#9db4ff", danger: "#ff8a7d" },
+    key: "black", name: "Black", note: "The live black homepage, with the Signed details", dark: true, glow: true,
+    /* #3563F5: the live cobalt nudged so white text passes (4.9:1) */
+    vars: { bg: "#04060b", alt: "#070a12", panel: "#0a0f1e", edge: "#1a2033", "edge-strong": "#2a3248", text: "#eef2ff", text2: "#c9d0e2", muted: "#a0a9c0", action: "#3563f5", "action-ink": "#ffffff", link: "#9db4ff", danger: "#ff8a7d" },
   },
 ];
 
+/* Earlier links to the two in-between variants land on the tone they became. */
+const ALIASES: Record<string, string> = { "oat-sharp": "oat", "black-signed": "black" };
+
+/* The type and shape each look uses, as variables the shared sections read. */
+const LOOK = { "--o-body": "var(--font-funnel)", "--o-head": "var(--font-funnel-display)", "--o-hw": "600", "--o-ht": "-0.045em", "--o-h1": "clamp(48px,6.2vw,88px)", "--o-h2": "clamp(36px,4.3vw,62px)", "--o-r": "999px", "--o-rf": "999px" };
+
 const PAD = "px-6 sm:px-10 lg:px-24";
 const SECTION = `${PAD} py-24 lg:py-[128px]`;
-const H1 = "font-[family-name:var(--o-serif)] font-semibold text-[clamp(52px,7vw,104px)] leading-[0.95] tracking-[-0.01em] [font-variant-numeric:lining-nums]";
-const H2 = "font-[family-name:var(--o-serif)] font-semibold text-[clamp(42px,5vw,72px)] leading-[1] tracking-[-0.005em] [font-variant-numeric:lining-nums]";
+const H1 = "font-[family-name:var(--o-head)] [font-weight:var(--o-hw)] text-[length:var(--o-h1)] leading-[0.95] tracking-[var(--o-ht)] [font-variant-numeric:lining-nums]";
+const H2 = "font-[family-name:var(--o-head)] [font-weight:var(--o-hw)] text-[length:var(--o-h2)] leading-[1] tracking-[var(--o-ht)] [font-variant-numeric:lining-nums]";
 const BODY = "text-[clamp(17px,1.4vw,19px)] leading-[1.6] text-[var(--o-text2)]";
-const PRIMARY = "inline-flex h-[52px] items-center rounded-[10px] bg-[var(--o-action)] px-7 text-[16px] font-semibold text-[var(--o-action-ink)] hover:opacity-90";
-const GHOST = "inline-flex h-[52px] items-center rounded-[10px] border border-[var(--o-edge-strong)] px-6 text-[16px] font-medium text-[var(--o-text)] hover:border-[var(--o-text)]";
+const PRIMARY = "inline-flex h-[52px] items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-7 text-[16px] font-semibold text-[var(--o-action-ink)] hover:opacity-90";
+const GHOST = "inline-flex h-[52px] items-center rounded-[var(--o-r)] border border-[var(--o-edge-strong)] px-6 text-[16px] font-medium text-[var(--o-text)] hover:border-[var(--o-text)]";
 const CARD = "rounded-[14px] border border-[var(--o-edge)] bg-[var(--o-panel)]";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return TONES.map((t) => ({ tone: t.key }));
+  return [...TONES.map((t) => t.key), ...Object.keys(ALIASES)].map((tone) => ({ tone }));
 }
 
 export default async function Page({ params }: { params: Promise<{ tone: string }> }) {
   const { tone } = await params;
+  if (ALIASES[tone]) redirect(`/prototypes/oat/${ALIASES[tone]}`);
   const t = TONES.find((x) => x.key === tone);
   if (!t) notFound();
-  const style = Object.fromEntries(Object.entries(t.vars).map(([k, v]) => [`--o-${k}`, v])) as CSSProperties;
+  const style = { ...Object.fromEntries(Object.entries(t.vars).map(([k, v]) => [`--o-${k}`, v])), ...LOOK } as CSSProperties;
   return (
-    <div className={`${serif.variable} ${sans.variable} ${mono.variable} min-h-screen font-[family-name:var(--o-sans)] text-[var(--o-text)]`} style={{ ...style, background: "var(--o-bg)" }}>
+    <div className={`${mono.variable} ${funnelDisplay.variable} ${funnelSans.variable} min-h-screen font-[family-name:var(--o-body)] text-[var(--o-text)]`} style={{ ...style, background: "var(--o-bg)" }}>
       <PersonalizeProvider>
-        <Hero dark={t.dark} />
+        <Hero tone={t} />
         <Question />
       </PersonalizeProvider>
       <WhatItNeeds />
       <Builder />
-      <Proof />
       <Offer />
       <Close inverse={t.key === "night"} />
-      <DarkFooter />
+      <DarkFooter ground="ink" />
       <ToneSwitch current={t.key} />
     </div>
   );
 }
 
 /* ---------- Hero: the title, the form, the builder with your business in it ---------- */
-function Hero({ dark }: { dark: boolean }) {
+function Hero({ tone }: { tone: Tone }) {
+  const glow = tone.glow ? { background: "radial-gradient(50% 45% at 50% 62%, rgba(61,107,255,.22), transparent 75%)" } : undefined;
   return (
-    <section className={`relative overflow-hidden ${PAD} pt-7`}>
+    <section className={`relative overflow-hidden ${PAD} pt-7`} style={glow}>
+      <style>{MOTION}</style>
+      {/* Header: Pricing and Sign in for people coming back; the build button for everyone else */}
       <header className="flex h-[52px] items-center justify-between">
-        <Logo tone={dark ? "dark" : "light"} className="text-[26px]" />
-        <a href={CREATE_URL} className="inline-flex h-11 items-center rounded-[10px] border border-[var(--o-edge-strong)] px-5 font-medium hover:border-[var(--o-text)]">Build my page</a>
+        <Logo tone={tone.dark ? "dark" : "light"} className="text-[26px]" />
+        <nav aria-label="Main" className="flex items-center gap-1 text-[15px] font-medium">
+          <Link href="/pricing" className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Pricing</Link>
+          <a href={SIGN_IN_URL} className="inline-flex h-11 items-center px-3 text-[var(--o-text2)] hover:text-[var(--o-text)] sm:px-4">Sign in</a>
+          <a href={CREATE_URL} className="ml-2 hidden h-11 items-center rounded-[var(--o-r)] bg-[var(--o-action)] px-5 font-semibold text-[var(--o-action-ink)] hover:opacity-90 sm:inline-flex">Build my page</a>
+        </nav>
       </header>
-      <div className="mx-auto mt-16 flex max-w-[880px] flex-col items-center gap-6 text-center lg:mt-24">
-        <h1 className={H1}>SEO landing pages that get cited by AI.</h1>
-        <p className={`${BODY} mx-auto max-w-[560px]`}>And rank on Google. Built from live search data for your city, and scored on ten checks before you pay.</p>
-        <div className="w-full max-w-[760px] text-left"><OatForm /></div>
+      <div className="mx-auto mt-16 flex max-w-[900px] flex-col items-center gap-6 text-center lg:mt-24">
+        <h1 className={`${H1} oat-rise`}>
+          Build SEO landing pages that get{" "}
+          <span className="relative inline-block whitespace-nowrap">
+            cited by AI.
+            {/* The one hand-drawn mark in the hero, drawn in once on load */}
+            <svg viewBox="0 0 300 16" preserveAspectRatio="none" aria-hidden className="absolute -bottom-[0.08em] left-0 h-[0.16em] w-[96%]">
+              <path className="oat-draw" pathLength={1} d="M3 11 C 70 3, 160 3, 297 8" fill="none" stroke="var(--o-action)" strokeWidth="5" strokeLinecap="round" />
+            </svg>
+          </span>
+        </h1>
+        <p className={`${BODY} oat-rise mx-auto max-w-[560px]`} style={{ animationDelay: "120ms" }}>And rank on Google. Built from live search data for your city, and scored on ten checks before you pay.</p>
+        <div className="oat-rise w-full max-w-[760px] text-left" style={{ animationDelay: "220ms" }}><OatForm /></div>
       </div>
-      <p className="mt-14 text-center text-[14px] text-[var(--o-muted)]">The builder, with your business in it. Type yours above and watch it change.</p>
-      <div className="relative mx-auto mt-5 max-h-[560px] max-w-[1240px] overflow-hidden rounded-t-[16px] border border-b-0 border-[var(--o-edge)] lg:max-h-[600px]">
-        <AppShot theme="light" className="hidden sm:block" />
-        <AppShot theme="light" device="mobile" crop={{ x: 478, w: 400 }} className="sm:hidden" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40" style={{ background: "linear-gradient(to top, var(--o-bg), transparent)" }} />
-      </div>
+      <p className="oat-rise mt-14 text-center text-[14px] text-[var(--o-muted)]" style={{ animationDelay: "320ms" }}>The builder, with your business in it. Type yours above and watch it change.</p>
+      {tone.stage ? (
+        /* Full-bleed navy band that starts a third of the way down the shot, with the cobalt glow behind it */
+        <div className="relative -mx-6 mt-5 px-6 sm:-mx-10 sm:px-10 lg:-mx-24 lg:px-24" style={{ background: `linear-gradient(to bottom, transparent 0 140px, ${STAGE} 140px)` }}>
+          <div aria-hidden className="oat-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(45% 40% at 50% 70%, rgba(61,107,255,.32), transparent 75%)" }} />
+          <div className="oat-rise relative mx-auto max-w-[1240px]" style={{ animationDelay: "380ms" }}>
+            <ShotFrame fade={STAGE} border="rgba(10,37,64,.18)" shadow />
+            <div className="oat-float absolute -right-6 top-[42%] hidden xl:block"><OatAnswer /></div>
+          </div>
+        </div>
+      ) : (
+        <div className="mt-5"><ShotFrame fade="var(--o-bg)" border="var(--o-edge)" /></div>
+      )}
     </section>
+  );
+}
+
+const STAGE = "#0a2540";
+
+/* Hero motion: a staged rise, the underline drawing in, the stage glow breathing, the answer card
+   drifting. All of it stops for reduced-motion visitors. */
+const MOTION = `
+@keyframes oat-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes oat-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes oat-breathe { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes oat-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.oat-rise { animation: oat-rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.oat-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: oat-draw .9s cubic-bezier(.6,0,.2,1) .7s forwards; }
+.oat-breathe { animation: oat-breathe 6s ease-in-out infinite; }
+.oat-float { animation: oat-float 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .oat-rise, .oat-breathe, .oat-float { animation: none; }
+  .oat-draw { animation: none; stroke-dashoffset: 0; }
+}`;
+
+function ShotFrame({ fade, border, shadow = false }: { fade: string; border: string; shadow?: boolean }) {
+  return (
+    <div className="relative mx-auto max-h-[560px] max-w-[1240px] overflow-hidden rounded-t-[16px] border border-b-0 lg:max-h-[600px]" style={{ borderColor: border, boxShadow: shadow ? "0 30px 80px -20px rgba(4,6,11,.45)" : undefined }}>
+      <AppShot theme="light" className="hidden sm:block" />
+      <AppShot theme="light" device="mobile" crop={{ x: 478, w: 400 }} className="sm:hidden" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40" style={{ background: `linear-gradient(to top, ${fade}, transparent)` }} />
+    </div>
   );
 }
 
@@ -168,36 +227,10 @@ function Builder() {
   );
 }
 
-/* ---------- Our own sites ---------- */
-function Proof() {
-  return (
-    <section className={`${SECTION} border-t border-[var(--o-edge)]`} style={{ background: "var(--o-alt)" }}>
-      <div className="flex max-w-[760px] flex-col gap-5">
-        <h2 className={H2}>We ran it on our own sites first.</h2>
-        <p className={BODY}>The same system builds and checks the pages on our own products. Here is what AI search shows for them.</p>
-      </div>
-      <div className="mt-12 grid gap-6 lg:grid-cols-2">
-        <Shot src="/proof/clipart-ai-responses-sep-2026.png" alt="Ahrefs Site Explorer overview for clip.art, September 2026: 102 AI responses across 35 pages." caption="clip.art: named in 102 AI answers, across 35 pages. Ahrefs, September 2026." />
-        <Shot src="/proof/esy-ai-citations.png" alt="AI citations for Esy." caption="Esy: where AI answers cite it." />
-      </div>
-      <p className="mt-8 text-[14px] text-[var(--o-muted)]">Our own sites, not customer results. Yours will differ.</p>
-    </section>
-  );
-}
-
-function Shot({ src, alt, caption }: { src: string; alt: string; caption: string }) {
-  return (
-    <figure className="flex flex-col gap-3">
-      <img src={src} alt={alt} className="block w-full rounded-[14px] border border-[var(--o-edge)]" loading="lazy" />
-      <figcaption className="text-[14px] text-[var(--o-muted)]">{caption}</figcaption>
-    </figure>
-  );
-}
-
 /* ---------- The offer: one page now, the plan when it opens. The stamp, once. ---------- */
 function Offer() {
   return (
-    <section className={`${SECTION}`}>
+    <section className={`${SECTION}`} style={{ background: "var(--o-alt)" }}>
       <div className="flex max-w-[760px] flex-col gap-5">
         <h2 className={H2}>One page today. More every month, when you&apos;re ready.</h2>
       </div>
@@ -230,8 +263,8 @@ function Stamp() {
       </defs>
       <circle cx="60" cy="60" r="56" fill="none" stroke="var(--o-action)" strokeWidth="3" />
       <circle cx="60" cy="60" r="49" fill="none" stroke="var(--o-action)" strokeWidth="1.2" />
-      <text fontSize="9.5" fontWeight="700" letterSpacing="1.5" fill="var(--o-action)" fontFamily="var(--o-sans), sans-serif"><textPath href="#oat-stamp-top" startOffset="50%" textAnchor="middle">CHECKED BY A PERSON</textPath></text>
-      <text fontSize="8.5" fontWeight="600" letterSpacing="1.4" fill="var(--o-action)" fontFamily="var(--o-sans), sans-serif"><textPath href="#oat-stamp-bot" startOffset="50%" textAnchor="middle">EVERY PAGE</textPath></text>
+      <text fontSize="9.5" fontWeight="700" letterSpacing="1.5" fill="var(--o-action)" fontFamily="var(--font-funnel), sans-serif"><textPath href="#oat-stamp-top" startOffset="50%" textAnchor="middle">CHECKED BY A PERSON</textPath></text>
+      <text fontSize="8.5" fontWeight="600" letterSpacing="1.4" fill="var(--o-action)" fontFamily="var(--font-funnel), sans-serif"><textPath href="#oat-stamp-bot" startOffset="50%" textAnchor="middle">EVERY PAGE</textPath></text>
       <text x="60" y="64" textAnchor="middle" fontSize="20" fontWeight="700" fill="var(--o-action)">✓</text>
     </svg>
   );
