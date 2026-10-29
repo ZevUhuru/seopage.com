@@ -63,7 +63,7 @@ export function BelowSection({ v }: { v: BelowKey }) {
     const steps = [
       { n: 1, h: "Tell us who you are", d: "Your business, what you do and where. The page starts taking shape while you type." },
       { n: 2, h: "Choose each section", d: "Every section comes with versions to compare. Keep one, ask for three more, or edit the words yourself." },
-      { n: 3, h: "Every month after, more pages", d: "Four new pages a month, picked from the searches in your own Search Console. Pages that slip get rewritten. You approve each one." },
+      { n: 3, h: "Every month after, more pages", d: "New pages every month, picked from the searches in your own Search Console. Pages that slip get rewritten. You approve each one." },
     ];
     return (
       <section className={`${SECTION} bg-[#0A0F1E]`}>
