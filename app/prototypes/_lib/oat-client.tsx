@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePersonalize, useVisitor } from "@/components/home/Personalize";
-import { CREATE_URL, PRICE_LABEL } from "@/lib/config";
+import { CREATE_URL } from "@/lib/config";
 
 /* The hero form and the AI-answer card, drawn from the tone's tokens
    (--o-*) so the same page works on Oat, Navy or black. Same behaviour
@@ -29,11 +29,11 @@ export function OatForm() {
           <input className={`${field} w-full px-2 sm:px-0`} value={p.city} onChange={(e) => p.setCity(e.target.value)} placeholder="City" />
         </label>
         <a href={CREATE_URL} className="flex h-[48px] shrink-0 items-center justify-center rounded-[var(--o-r,10px)] bg-[var(--o-action)] px-6 text-[15.5px] font-semibold text-[var(--o-action-ink)] hover:opacity-90">
-          Build it free
+          Start free
         </a>
       </div>
       <ul className="flex flex-wrap gap-x-[22px] gap-y-2 pl-2 text-[14px] text-[var(--o-text2)] sm:pl-5">
-        {["Free preview, no card", `${PRICE_LABEL} once, when you publish`, "You own the page"].map((t) => (
+        {["First page free to preview", "Monthly plan from $149, opening soon", "You own every page"].map((t) => (
           <li key={t} className="flex items-center gap-[7px]">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--o-link)" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 12.5l4.5 4.5L19 7" /></svg>
             {t}
@@ -44,78 +44,92 @@ export function OatForm() {
   );
 }
 
-/* The answer that names someone else. Red only on the name and the warning, never as a fill. */
-export function OatAlarm() {
-  const v = useVisitor();
+/* The visitor's search gap (N1): searches near them, and whether their site has a page for each.
+   Sample numbers, labelled as an example. Reads the hero form. */
+export function OatGap() {
+  const { service, city } = useVisitor().demo;
+  const s = service.toLowerCase();
+  const t = city.toLowerCase();
+  const rows = [
+    { q: `${s} cost ${t}`, seen: "880", status: "No page", tone: "miss" },
+    { q: `emergency ${s} ${t}`, seen: "390", status: "No page", tone: "miss" },
+    { q: `${s} near me`, seen: "1,300", status: "Page 2", tone: "near" },
+    { q: `${s} ${t} reviews`, seen: "210", status: "No page", tone: "miss" },
+    { q: `${s} company ${t}`, seen: "640", status: "Answered", tone: "ok" },
+  ];
+  const chip = { miss: "border-[var(--o-danger)]/40 text-[var(--o-danger)]", near: "border-[var(--o-edge-strong)] text-[var(--o-text2)]", ok: "border-[var(--o-link)]/40 text-[var(--o-link)]" } as const;
   return (
-    <div className="flex flex-col gap-3 rounded-[14px] border border-[var(--o-edge)] bg-[var(--o-panel)] px-6 py-[22px]">
-      <p className="text-[14px] text-[var(--o-muted)]">&ldquo;{v.alarmQuestion}&rdquo;</p>
-      <p className="text-[18px] leading-[1.55] text-[var(--o-text)]">
-        The one most people recommend is <b className="font-semibold text-[var(--o-danger)]">[the business down the street]</b>. Their page answers pricing and timing directly and lists the areas they serve.
-      </p>
-      <p className="flex items-center gap-2 text-[14px] text-[var(--o-danger)]">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" aria-hidden><circle cx="12" cy="12" r="9" /><path d="M12 7v6M12 16.5v.5" /></svg>
-        {v.missing}
-      </p>
+    <div className="rounded-[18px] border border-[var(--o-edge)] bg-[var(--o-panel)] p-6">
+      <div className="mb-4 flex items-baseline justify-between gap-4">
+        <span className="text-[15px] font-semibold">Searches near you, and your site</span>
+        <span className="text-[13px] text-[var(--o-muted)]">Example</span>
+      </div>
+      <div className="grid grid-cols-[1fr_auto_auto] gap-x-5 border-b border-[var(--o-edge)] pb-2 text-[12.5px] text-[var(--o-muted)]">
+        <span>Search</span><span className="text-right">Seen a month</span><span className="w-[86px]">Your site</span>
+      </div>
+      <ul>
+        {rows.map((r) => (
+          <li key={r.q} className="grid grid-cols-[1fr_auto_auto] items-center gap-x-5 border-b border-[var(--o-edge)] py-3 text-[15px] last:border-b-0">
+            <span className="truncate">{r.q}</span>
+            <span className="text-right font-[family-name:var(--o-mono)] text-[14px] tabular-nums text-[var(--o-text2)]">{r.seen}</span>
+            <span className={`w-[86px] rounded-full border px-2.5 py-0.5 text-center text-[12.5px] font-medium ${chip[r.tone as keyof typeof chip]}`}>{r.status}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-4 text-[14px] leading-[1.55] text-[var(--o-text2)]">Each month SEOPage builds the missing pages first, then the ones you almost win.</p>
     </div>
   );
 }
 
-/* The hero's floating card: someone asks AI, and the answer names the business from the form.
-   Labelled as the goal, not a result. Types the question, thinks, then reveals the answer word
-   by word, holds, and starts again. Reduced-motion visitors see it finished. */
-export function OatAnswer() {
-  const { name, service, city } = useVisitor().demo;
-  const question = `Who should I call for ${service.toLowerCase()} in ${city}?`;
-  // Keyed by the question and name, so typing in the form restarts the card from the top
-  return <AnswerCard key={`${question}|${name}`} name={name} question={question} />;
-}
+/* The hero's floating card: this month's pages moving through the plan, picked from Search Console,
+   researched, scored on the ten checks, ready to approve. Labelled as an example. Each row advances on
+   one clock, staggered, and the month starts over. Reduced-motion visitors see every row ready. */
+const STAGES = ["Picked from Search Console", "Researching", "Scored on ten checks", "Ready for you"] as const;
 
-function AnswerCard({ name, question }: { name: string; question: string }) {
-  const host = `${name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "your-business"}.seo.page`;
-  // The business name is one token, so it lands (and is bolded) as a whole
-  const words = [`${name}.`, ..."Their page lists prices for common jobs, how soon they can come, and the neighbourhoods they cover.".split(" ")];
-
-  // step: 0..question.length types the question, then a thinking beat, then words appear
-  const thinkAt = question.length + 6;
-  const answerAt = thinkAt + 14;
-  const end = answerAt + words.length * 2 + 60;
-  const [step, setStep] = useState(0);
+export function OatMonth() {
+  const { service, city } = useVisitor().demo;
+  const pages = [
+    { t: `${service} prices in ${city}`, why: "Searched 880 times a month. No page yet." },
+    { t: `Emergency ${service.toLowerCase()}, ${city}`, why: "Searched 390 times. No page yet." },
+    { t: `${service} near you`, why: "You show up, but on page 2." },
+  ];
+  const [tick, setTick] = useState(0);
   const [still, setStill] = useState(false);
-
-  // One clock drives the whole card; reduced motion skips straight to the finished answer
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       const t = window.setTimeout(() => setStill(true), 0);
       return () => window.clearTimeout(t);
     }
-    const id = window.setInterval(() => setStep((n) => (n >= end ? 0 : n + 1)), 55);
+    // 1.1s a tick; row i starts 2 ticks after row i-1; hold the finished month, then restart
+    const id = window.setInterval(() => setTick((n) => (n >= 14 ? 0 : n + 1)), 1100);
     return () => window.clearInterval(id);
-  }, [end]);
-
-  const shownQ = still ? question : question.slice(0, step);
-  const thinking = !still && step >= thinkAt && step < answerAt;
-  const shownWords = still ? words.length : Math.max(0, Math.floor((step - answerAt) / 2) + 1) * (step >= answerAt ? 1 : 0);
-  const [first, ...rest] = words.slice(0, shownWords);
-
+  }, []);
+  const stageOf = (i: number) => (still ? 3 : Math.max(-1, Math.min(3, tick - i * 2)));
   return (
-    <div className="w-[360px] rounded-[18px] border border-white/10 bg-[#0f1a2e]/95 p-5 text-left text-[#eef2ff] shadow-[0_24px_60px_-12px_rgba(4,6,11,.6)] backdrop-blur" aria-label="Example of the answer you want AI to give">
-      <p className="mb-3 text-[12px] font-medium text-[#9db4ff]">The answer you want</p>
-      <p className="min-h-[22px] rounded-[12px] bg-white/[0.07] px-3.5 py-2.5 text-[14.5px] leading-[1.45] text-[#dfe5f3]">
-        {shownQ}<span className={`${still || step >= thinkAt ? "hidden" : "inline-block"} ml-0.5 h-[15px] w-[2px] translate-y-[2px] animate-pulse bg-[#9db4ff]`} />
-      </p>
-      <div className="mt-3 min-h-[96px] text-[15px] leading-[1.55]">
-        {thinking && <span className="inline-flex gap-1 pt-2" aria-hidden>{[0, 1, 2].map((i) => <span key={i} className="h-1.5 w-1.5 animate-bounce rounded-full bg-[#9db4ff]" style={{ animationDelay: `${i * 120}ms` }} />)}</span>}
-        {shownWords > 0 && (
-          <p>
-            <b className="font-semibold text-white">{first}</b>{rest.length ? " " + rest.join(" ") : ""}
-          </p>
-        )}
+    <div className="w-[372px] rounded-[18px] border border-white/10 bg-[#0f1a2e]/95 p-5 text-left text-[#eef2ff] shadow-[0_24px_60px_-12px_rgba(4,6,11,.6)] backdrop-blur" aria-label="Example of a month of pages in the plan">
+      <div className="mb-3 flex items-baseline justify-between">
+        <span className="text-[14px] font-semibold">This month&apos;s pages</span>
+        <span className="text-[12px] text-[#9fb0c4]">Example</span>
       </div>
-      <p className={`mt-3 inline-flex items-center gap-1.5 rounded-full border border-white/12 px-2.5 py-1 font-mono text-[11.5px] text-[#c9d0e2] transition-opacity duration-500 ${still || shownWords === words.length ? "opacity-100" : "opacity-0"}`}>
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden><path d="M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1" /></svg>
-        {host}
-      </p>
+      <ul className="flex flex-col gap-2.5">
+        {pages.map((p, i) => {
+          const st = stageOf(i);
+          const ready = st === 3;
+          return (
+            <li key={p.t} className={`rounded-[12px] border px-3.5 py-3 transition-colors duration-500 ${ready ? "border-[#9db4ff]/50 bg-[#9db4ff]/[0.08]" : "border-white/10 bg-white/[0.04]"} ${st < 0 ? "opacity-40" : "opacity-100"}`}>
+              <div className="flex items-start justify-between gap-3">
+                <span className="text-[14.5px] font-medium leading-[1.35]">{p.t}</span>
+                {ready && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9db4ff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0" aria-hidden><path d="M5 12.5l4.5 4.5L19 7" /></svg>}
+              </div>
+              <p className="mt-0.5 text-[12.5px] text-[#9fb0c4]">{p.why}</p>
+              <div className="mt-2.5 flex items-center gap-2">
+                <span className="flex gap-1" aria-hidden>{STAGES.map((_, k) => <span key={k} className={`h-1 w-6 rounded-full transition-colors duration-500 ${k <= st ? "bg-[#9db4ff]" : "bg-white/12"}`} />)}</span>
+                <span className="text-[12px] text-[#c9d0e2]">{st < 0 ? "Up next" : STAGES[st]}</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
