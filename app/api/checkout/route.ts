@@ -12,15 +12,18 @@ export const runtime = "nodejs";
  *  - Legacy (id): unlock a completed self-serve generation (preview paywall).
  */
 export async function POST(req: Request) {
-  let body: { id?: string } = {};
+  let body: { id?: string; gaClientId?: string } = {};
   try {
     body = await req.json();
   } catch {
     // No body — treat as a direct purchase.
   }
+  // The visitor's GA4 client id rides in the session's metadata, so the webhook's purchase event
+  // joins their journey. Only the cookie's shape ("123.456") is accepted.
+  const ga: Record<string, string> = /^\d+\.\d+$/.test(body.gaClientId ?? "") ? { ga_client_id: body.gaClientId as string } : {};
   const id = body.id?.trim();
   if (!id) {
-    return createDirectSession();
+    return createDirectSession(ga);
   }
 
   const gen = await getGeneration(id);
@@ -63,7 +66,7 @@ export async function POST(req: Request) {
       payment_intent_data: {
         statement_descriptor_suffix: PRODUCT.billingDescriptor,
       },
-      metadata: { generationId: id },
+      metadata: { generationId: id, ...ga },
       success_url: `${base}/success?id=${id}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${base}/preview/${id}?canceled=1`,
     });
@@ -80,7 +83,7 @@ export async function POST(req: Request) {
 }
 
 /** Pay-first purchase from the marketing site: pay now, intake after. */
-async function createDirectSession() {
+async function createDirectSession(ga: Record<string, string>) {
   if (!process.env.STRIPE_SECRET_KEY) {
     return NextResponse.json(
       { error: "Payments aren't configured yet (missing STRIPE_SECRET_KEY)." },
@@ -108,7 +111,7 @@ async function createDirectSession() {
       payment_intent_data: {
         statement_descriptor_suffix: PRODUCT.billingDescriptor,
       },
-      metadata: { kind: "direct-order" },
+      metadata: { kind: "direct-order", ...ga },
       success_url: `${base}/order?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${base}/?canceled=1`,
     });

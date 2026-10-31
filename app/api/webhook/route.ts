@@ -10,6 +10,8 @@ import {
 } from "@/lib/store";
 import { sendOrderAlert } from "@/lib/email";
 import { track } from "@/lib/analytics";
+import { sendGa4Event } from "@/lib/ga4";
+import { PRICE_CENTS, PRODUCT } from "@/lib/config";
 
 export const runtime = "nodejs";
 
@@ -34,6 +36,19 @@ export async function POST(req: Request) {
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object as Stripe.Checkout.Session;
+
+    // GA4 purchase, sent once per paid session whichever branch below handles it. The session id is
+    // the transaction id, so a retried webhook doesn't count twice. Without the visitor's GA id (an
+    // ad blocker), the sale still counts, just not credited to a channel.
+    if (session.payment_status === "paid") {
+      const value = (session.amount_total ?? PRICE_CENTS) / 100;
+      await sendGa4Event(session.metadata?.ga_client_id || `stripe.${session.id}`, "purchase", {
+        transaction_id: session.id,
+        value,
+        currency: (session.currency ?? "usd").toUpperCase(),
+        items: [{ item_id: "seo-page", item_name: PRODUCT.productName, price: value, quantity: 1 }],
+      });
+    }
 
     // Pay-first orders: record the payment immediately so the order exists
     // even if the buyer never returns to fill the intake form.

@@ -217,7 +217,7 @@ export function Picker({ label, items, current }: { label: string; items: { key:
 export function Hero({ tone, sub, heroShot }: { tone: Tone; sub: ReactNode; heroShot?: HeroShot }) {
   const glow = tone.glow ? { background: "radial-gradient(50% 45% at 50% 62%, rgba(61,107,255,.22), transparent 75%)" } : undefined;
   return (
-    <section className={`relative overflow-hidden ${PAD} pt-7`} style={glow}>
+    <section id="hero" className={`relative overflow-hidden ${PAD} pt-7`} style={glow}>
       <style>{MOTION}</style>
       <SiteHeader dark={tone.dark} />
       <div className="mx-auto mt-16 flex max-w-[900px] flex-col items-center gap-6 text-center lg:mt-24">
@@ -353,7 +353,7 @@ function Builder({ body }: { body: ReactNode }) {
 /* ---------- The offer: the monthly plan first, Managed beside it, one page as a footnote ---------- */
 export function Offer() {
   return (
-    <section className={`${SECTION}`} style={{ background: "var(--o-alt)" }}>
+    <section id="offer" className={`${SECTION}`} style={{ background: "var(--o-alt)" }}>
       <div className="flex max-w-[760px] flex-col gap-5">
         <h2 className={H2}>One plan. New pages every month.</h2>
       </div>
@@ -386,8 +386,9 @@ export function Offer() {
 export function Close({ inverse = false, sub }: { inverse?: boolean; sub: ReactNode }) {
   const navy = { "--o-text": "#f4f1ea", "--o-text2": "#cdd6e2", "--o-action": "#9db4ff", "--o-action-ink": "#0a2540", background: "#0a2540", color: "#f4f1ea" } as CSSProperties;
   const oat = { "--o-text": "#16130f", "--o-text2": "#3d372e", "--o-action": "#1b46d4", "--o-action-ink": "#ffffff", background: "#efece5", color: "#16130f" } as CSSProperties;
+  // The hero, offer and close ids name the section in analytics (start_free's location)
   return (
-    <section className={`${SECTION} text-center`} style={inverse ? oat : navy}>
+    <section id="close" className={`${SECTION} text-center`} style={inverse ? oat : navy}>
       <h2 className={`${H2} mx-auto max-w-[860px]`}>Give the searches near you an answer on your site.</h2>
       <div className={`${BODY} mx-auto mt-6 max-w-[560px]`}>{sub}</div>
       <div className="mt-10"><a href={CREATE_URL} className={PRIMARY}>Build your first page free</a></div>
