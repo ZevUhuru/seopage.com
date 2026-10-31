@@ -44,6 +44,18 @@ export const PRODUCT = {
 /** Zev's booking page. Managed is sold on a call, not through checkout. */
 export const BOOK_CALL_URL = "https://cal.com/zev-uhuru-49mkft/15min";
 
+/**
+ * The positioning, in one place (decided 2026-10-31): SEO landing pages for local businesses,
+ * built every month. The homepage title and description, the site's default metadata and social
+ * cards, the footer and the homepage schema all read these. "SEO Landing Pages" stays first in the
+ * title (the primary keyword; don't swap the term without Zev). No AI-citation claim (single pages
+ * don't get cited; sites do) and no ranking promise.
+ */
+export const TAGLINE = "SEO landing pages for local businesses, built every month.";
+export const SITE_TITLE = "SEO Landing Pages for Local Businesses, Built Every Month | SEOPage";
+export const SITE_DESCRIPTION = `SEO landing pages for local service businesses, picked from your own Search Console. Our AI SEO agents research and write each page and score it on ten checks; you approve it. $149 a month, opening soon, or one page for ${PRICE_LABEL}.`;
+export const SOCIAL_DESCRIPTION = "SEO landing pages for local service businesses, picked from your own Search Console and built every month. You approve every page.";
+
 /** seopage.com's own Google Analytics 4 property (the marketing site, not any customer's).
  *  Loaded by app/layout.tsx on the production deploy only. */
 export const GA_MEASUREMENT_ID = "G-JD7VKJQKNW";

@@ -98,7 +98,8 @@ function TradeBar({ trade, base }: { trade: Trade; base: string }) {
         {TRADES.map((t) => (
           <Link key={t.key} href={`${base}?trade=${t.key}#story`} scroll={false} aria-current={t.key === trade ? "true" : undefined} className={`inline-flex h-10 items-center rounded-full px-4 text-[14.5px] font-semibold ${t.key === trade ? "bg-[var(--o-text)] text-[var(--o-bg)]" : "border border-[var(--o-edge-strong)] text-[var(--o-text)] hover:border-[var(--o-text)]"}`}>{t.name}</Link>
         ))}
-        <span className="ml-1 text-[13.5px] text-[var(--o-muted)]">Every business and number below is a sample.</span>
+        {/* Coverage, Identity and Opportunities are still prototypes in the app: one quiet line says so (2026-10-31) */}
+        <span className="ml-1 text-[13.5px] text-[var(--o-muted)]">The monthly plan opens soon; these are its screens, shown with a sample business.</span>
       </nav>
     </div>
   );
