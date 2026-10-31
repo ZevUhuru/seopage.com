@@ -18,11 +18,13 @@ const mono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Archivo and Newsreader are variable fonts, loaded with no weight list (one file covers every
+// weight): a weight list makes the bundler's Google Fonts loader fail some builds. See components/home/fonts.ts.
+
 // Serious, professional grotesque for display — not rounded or playful.
 const display = Archivo({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
 });
 
 // The page's one soft voice. Newsreader is a reading serif with a low-contrast
@@ -30,7 +32,6 @@ const display = Archivo({
 const serif = Newsreader({
   variable: "--font-serif",
   subsets: ["latin"],
-  weight: ["300", "400", "600"],
   style: ["normal", "italic"],
 });
 
