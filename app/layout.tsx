@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
-import { PRICE_LABEL } from "@/lib/config";
+import { GA_MEASUREMENT_ID, PRICE_LABEL } from "@/lib/config";
+
+// Google Analytics runs on the production deploy only, so local dev and Vercel previews stay out of the numbers
+const ANALYTICS = process.env.VERCEL_ENV === "production";
 
 const sans = Geist({
   variable: "--font-sans",
@@ -96,7 +100,21 @@ export default function RootLayout({
       lang="en"
       className={`${sans.variable} ${display.variable} ${mono.variable} ${serif.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-bg text-ink">{children}</body>
+      <body className="min-h-full bg-bg text-ink">
+        {children}
+        {/* The Google tag (gtag.js), loaded after the page is interactive so it never slows the first paint */}
+        {ANALYTICS && (
+          <>
+            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_MEASUREMENT_ID}');`}
+            </Script>
+          </>
+        )}
+      </body>
     </html>
   );
 }
