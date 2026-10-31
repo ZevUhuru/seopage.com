@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
-import { COPIES, OatHome, TONES } from "@/components/oat/home";
+import { tradeOf } from "@/components/oat/showcase";
+import { StoryHome } from "@/components/oat/story";
 import { HOME_SCHEMA } from "@/lib/homeContent";
 import { PRICE_LABEL } from "@/lib/config";
 
-/* The homepage: the Oat page (components/oat/home.tsx) with the checklist copy, picked in
-   /prototypes/oat and /prototypes/oat-copy (seopage.com #53). The dark Nora page it replaced is
-   components/home/HomePage.tsx, still used by the older prototypes. */
+/* The homepage: the story page (components/oat/story.tsx), picked as S4 in /prototypes/app-showcase.
+   It shows the app to trade owners, one of their questions per section. ?trade=hvac|plumbing|roofing
+   picks whose sample app the page shows (HVAC by default); the canonical stays /. The Oat page it
+   replaced (OatHome in components/oat/home.tsx) still renders /prototypes/oat. */
 
 export const metadata: Metadata = {
   // Primary keyword ("SEO landing page") front-loaded; see git history for
@@ -18,14 +20,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const OAT = TONES.find((t) => t.key === "oat") ?? TONES[0];
-const CHECKLIST = COPIES.find((c) => c.key === "b") ?? COPIES[0];
-
-export default function Home() {
+export default async function Home({ searchParams }: { searchParams: Promise<{ trade?: string }> }) {
+  const trade = tradeOf((await searchParams).trade).key;
   return (
     <>
       <JsonLd data={HOME_SCHEMA} />
-      <OatHome tone={OAT} copy={CHECKLIST} />
+      <StoryHome trade={trade} base="/" />
     </>
   );
 }

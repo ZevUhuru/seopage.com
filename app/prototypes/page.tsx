@@ -10,6 +10,7 @@ import { PARENT_PLACEMENTS } from "./_lib/parent";
 import { ESY_LOGO_PLACEMENTS } from "./_lib/esy-logo";
 import { HEROES } from "./_lib/hero";
 import { PRICING } from "./_lib/pricing";
+import { SHOWCASE_TAKES } from "@/components/oat/showcase";
 
 export default async function ProtoHome() {
   const [lead] = await getArticles();
@@ -184,6 +185,21 @@ export default async function ProtoHome() {
         ))}
       </ul>
       <Link href="/prototypes/esy-logo" className="mt-6 inline-flex h-11 items-center rounded-full bg-[#3D6BFF] px-5 text-[14.5px] font-semibold text-white hover:bg-[#5A82FF]">See all three</Link>
+
+      <h2 className="nh-display mt-24 text-[clamp(40px,5vw,64px)] leading-none">The app, on the homepage</h2>
+      <p className="mt-4 max-w-[620px] text-[17px] leading-[1.55] text-[#C9D0E2]">
+        The hero shows the app&apos;s Overview instead of the builder, and three ways to show the rest of the app to HVAC, plumbing and roofing owners (2026-10-30).
+      </p>
+      <ul className="mt-10 grid gap-5 md:grid-cols-3">
+        {SHOWCASE_TAKES.map((t) => (
+          <li key={t.key}>
+            <Link href={`/prototypes/app-showcase/${t.key}`} className="flex h-full flex-col gap-3 rounded-[24px] border border-white/12 bg-[#0A0F1E] p-7 hover:border-white/40">
+              <span className="nh-display text-[30px] leading-none tracking-[-0.03em]">{t.name}</span>
+              <span className="text-[16px] text-[#A0A9C0]">{t.note}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }

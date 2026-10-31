@@ -153,14 +153,18 @@ export function SiteHeader({ dark = false, extra }: { dark?: boolean; extra?: Re
   );
 }
 
-/* The whole homepage for one ground and one copy take, with the picker the route passes in. */
-export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; picker?: ReactNode }) {
+/* The whole homepage for one ground and one copy take, with the picker the route passes in.
+   The app-showcase prototype (/prototypes/app-showcase) swaps the hero's builder for a picture of
+   the app (`heroShot`, with its caption) and adds its sections under the N1 question (`showcase`). */
+export type HeroShot = { shot: ReactNode; caption: ReactNode };
+export function OatHome({ tone: t, copy: c, picker, heroShot, showcase }: { tone: Tone; copy: Copy; picker?: ReactNode; heroShot?: HeroShot; showcase?: ReactNode }) {
   return (
     <div className={`${OAT_FONTS} min-h-screen font-[family-name:var(--o-body)] text-[var(--o-text)]`} style={toneStyle(t)}>
       <PersonalizeProvider>
-        <Hero tone={t} sub={c.hero} />
+        <Hero tone={t} sub={c.hero} heroShot={heroShot} />
         <Question body={c.n1} />
       </PersonalizeProvider>
+      {showcase}
       <HowAMonthWorks intro={c.month} />
       <Builder body={c.builder} />
       <Offer />
@@ -172,13 +176,14 @@ export function OatHome({ tone: t, copy: c, picker }: { tone: Tone; copy: Copy; 
   );
 }
 
-/* ---------- FAQ: the homepage's ranking content, mirrored 1:1 into FAQPage schema (lib/homeContent) ---------- */
-function Faq() {
+/* ---------- FAQ: the homepage's ranking content, mirrored 1:1 into FAQPage schema (lib/homeContent) ----------
+   The story prototype passes its own objection-first list in `items`. */
+export function Faq({ items = FAQS }: { items?: { q: string; a: string }[] } = {}) {
   return (
     <section id="faq" className={`${SECTION} grid gap-12 lg:grid-cols-12 lg:gap-14`}>
       <h2 className={`${H2} lg:col-span-4`}>Fair questions.</h2>
       <div className="flex flex-col border-t border-[var(--o-edge-strong)] lg:col-span-7 lg:col-start-6">
-        {FAQS.map((f, i) => (
+        {items.map((f, i) => (
           <details key={f.q} className="nh-faq group border-b border-[var(--o-edge)]" open={i === 0}>
             <summary className="flex cursor-pointer list-none items-center justify-between gap-5 py-6 text-[19px] font-medium">
               <h3 className="font-medium">{f.q}</h3>
@@ -209,7 +214,7 @@ export function Picker({ label, items, current }: { label: string; items: { key:
 }
 
 /* ---------- Hero: the title, the form, the builder with your business in it ---------- */
-function Hero({ tone, sub }: { tone: Tone; sub: ReactNode }) {
+export function Hero({ tone, sub, heroShot }: { tone: Tone; sub: ReactNode; heroShot?: HeroShot }) {
   const glow = tone.glow ? { background: "radial-gradient(50% 45% at 50% 62%, rgba(61,107,255,.22), transparent 75%)" } : undefined;
   return (
     <section className={`relative overflow-hidden ${PAD} pt-7`} style={glow}>
@@ -229,18 +234,19 @@ function Hero({ tone, sub }: { tone: Tone; sub: ReactNode }) {
         <div className={`${BODY} oat-rise mx-auto max-w-[720px] [text-wrap:balance]`} style={{ animationDelay: "120ms" }}>{sub}</div>
         <div className="oat-rise w-full max-w-[760px] text-left" style={{ animationDelay: "220ms" }}><OatForm /></div>
       </div>
-      <p className="oat-rise mt-14 text-center text-[14px] text-[var(--o-muted)]" style={{ animationDelay: "320ms" }}>The builder, with your business in it. Type yours above and watch it change.</p>
+      <p className="oat-rise mt-14 text-center text-[14px] text-[var(--o-muted)]" style={{ animationDelay: "320ms" }}>{heroShot ? heroShot.caption : "The builder, with your business in it. Type yours above and watch it change."}</p>
       {tone.stage ? (
         /* Full-bleed navy band that starts a third of the way down the shot, with the cobalt glow behind it */
         <div className="relative -mx-6 mt-5 px-6 sm:-mx-10 sm:px-10 lg:-mx-24 lg:px-24" style={{ background: `linear-gradient(to bottom, transparent 0 140px, ${STAGE} 140px)` }}>
           <div aria-hidden className="oat-breathe pointer-events-none absolute inset-0" style={{ background: "radial-gradient(45% 40% at 50% 70%, rgba(61,107,255,.32), transparent 75%)" }} />
           <div className="oat-rise relative mx-auto max-w-[1240px]" style={{ animationDelay: "380ms" }}>
-            <ShotFrame fade={STAGE} border="rgba(10,37,64,.18)" shadow />
-            <div className="oat-float absolute -right-6 top-[30%] hidden xl:block"><OatMonth /></div>
+            <ShotFrame fade={STAGE} border="rgba(10,37,64,.18)" shadow shot={heroShot?.shot} />
+            {/* The month card floats over the builder only; the app picture fills its own frame */}
+            {!heroShot && <div className="oat-float absolute -right-6 top-[30%] hidden xl:block"><OatMonth /></div>}
           </div>
         </div>
       ) : (
-        <div className="mt-5"><ShotFrame fade="var(--o-bg)" border="var(--o-edge)" /></div>
+        <div className="mt-5"><ShotFrame fade="var(--o-bg)" border="var(--o-edge)" shot={heroShot?.shot} /></div>
       )}
     </section>
   );
@@ -264,11 +270,15 @@ const MOTION = `
   .oat-draw { animation: none; stroke-dashoffset: 0; }
 }`;
 
-function ShotFrame({ fade, border, shadow = false }: { fade: string; border: string; shadow?: boolean }) {
+function ShotFrame({ fade, border, shadow = false, shot }: { fade: string; border: string; shadow?: boolean; shot?: ReactNode }) {
   return (
     <div className="relative mx-auto max-h-[560px] max-w-[1240px] overflow-hidden rounded-t-[16px] border border-b-0 lg:max-h-[600px]" style={{ borderColor: border, boxShadow: shadow ? "0 30px 80px -20px rgba(4,6,11,.45)" : undefined }}>
-      <AppShot theme="light" className="hidden sm:block" />
-      <AppShot theme="light" device="mobile" crop={{ x: 478, w: 400 }} className="sm:hidden" />
+      {shot ?? (
+        <>
+          <AppShot theme="light" className="hidden sm:block" />
+          <AppShot theme="light" device="mobile" crop={{ x: 478, w: 400 }} className="sm:hidden" />
+        </>
+      )}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40" style={{ background: `linear-gradient(to top, ${fade}, transparent)` }} />
     </div>
   );
@@ -341,7 +351,7 @@ function Builder({ body }: { body: ReactNode }) {
 }
 
 /* ---------- The offer: the monthly plan first, Managed beside it, one page as a footnote ---------- */
-function Offer() {
+export function Offer() {
   return (
     <section className={`${SECTION}`} style={{ background: "var(--o-alt)" }}>
       <div className="flex max-w-[760px] flex-col gap-5">
@@ -373,7 +383,7 @@ function Offer() {
 
 /* ---------- Close: always Esy's Navy, so even the Oat site ends in the family's dark ---------- */
 /* The close is Esy Navy on Oat and black. On a navy page it flips to Oat so it still reads as the end. */
-function Close({ inverse = false, sub }: { inverse?: boolean; sub: ReactNode }) {
+export function Close({ inverse = false, sub }: { inverse?: boolean; sub: ReactNode }) {
   const navy = { "--o-text": "#f4f1ea", "--o-text2": "#cdd6e2", "--o-action": "#9db4ff", "--o-action-ink": "#0a2540", background: "#0a2540", color: "#f4f1ea" } as CSSProperties;
   const oat = { "--o-text": "#16130f", "--o-text2": "#3d372e", "--o-action": "#1b46d4", "--o-action-ink": "#ffffff", background: "#efece5", color: "#16130f" } as CSSProperties;
   return (
