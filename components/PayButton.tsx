@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { gaClientId } from "@/lib/track";
 
 export function PayButton({
   id,
@@ -30,7 +31,8 @@ export function PayButton({
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
+        // The GA4 visitor id, so the webhook's purchase event is credited to where they came from
+        body: JSON.stringify({ id, gaClientId: gaClientId() }),
       });
       const data = (await res.json()) as { url?: string; error?: string };
       if (!res.ok || !data.url) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { gaClientId } from "@/lib/track";
 
 /** Direct pay-first checkout: no generation id — pay now, brief after. */
 export function BuyButton({
@@ -25,7 +26,8 @@ export function BuyButton({
       const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
+        // The GA4 visitor id, so the webhook's purchase event is credited to where they came from
+        body: JSON.stringify({ gaClientId: gaClientId() }),
       });
       const data = (await res.json()) as { url?: string; error?: string };
       if (!res.ok || !data.url) {

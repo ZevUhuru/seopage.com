@@ -101,9 +101,32 @@ seopage.com's own Google Analytics 4 property is `G-JD7VKJQKNW` (`GA_MEASUREMENT
 `lib/config.ts`). `app/layout.tsx` loads the Google tag on every page, on the production deploy
 only (`VERCEL_ENV === "production"`), so local dev and Vercel previews stay out of the numbers.
 
+**Events.** `lib/events.ts` lists every event and where it goes; add an event there before
+sending it. GA4 gets a few key events only (the detailed product events belong in PostHog later):
+
+| Event | Sent from | When |
+|---|---|---|
+| `start_free` | the browser, `components/TrackClicks.tsx` | A click on any link into create.seopage.com except Sign in. Params: `location` (the section), `link_text`, `trade`. |
+| `book_call` | the browser, `components/TrackClicks.tsx` | A click on Book a call. Param: `location`. |
+| `purchase` | the server, the Stripe webhook (`lib/ga4.ts`) | A paid $199 page on this site's own checkout (`/audit`, `/on-page-seo-services`). The session id is the transaction id. |
+| `sign_up` | create.seopage.com (not yet) | An account created. Sent once create.seopage.com carries the tag. |
+
+One click listener covers the whole site, so new buttons are tracked without code: a link to
+`CREATE_URL` is `start_free`, a link to `BOOK_CALL_URL` is `book_call`. Clicks on `/prototypes`
+pages are skipped. To name a link's `location`, put `data-track="…"` on it or its section.
+
+**Setup in GA4 (once):**
+
+1. **The purchase event needs an API secret.** GA4 → Admin → Data streams → the seopage.com
+   stream → Measurement Protocol API secrets → Create. Add it to Vercel as `GA4_API_SECRET`
+   (Production). Without it, `purchase` is skipped and nothing breaks.
+2. **Mark `start_free` and `book_call` as key events** (Admin → Key events → New key event,
+   by name). `purchase` is a key event already.
+3. **The Stripe webhook must be on** (`STRIPE_WEBHOOK_SECRET`). `purchase` is sent from it, not
+   from the success page.
+
 Not set up yet:
 
-- **Events** for "Start free", "Book a call" and the trade switch. Today GA4 sees page views only.
 - **Cross-domain measurement** with create.seopage.com, so a visit that starts here and signs up
   there counts as one journey. It needs the same tag on create.seopage.com, and both domains
   listed in GA4 (Admin → Data streams → Configure tag settings → Configure your domains).

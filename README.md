@@ -53,6 +53,7 @@ All config lives in `.env.local` (gitignored). See `.env.example`.
 | `RESEND_API_KEY` | for email | Order confirmation, operator alerts, delivery email (Resend). Without it, emails are skipped and logged. |
 | `EMAIL_FROM` | for email | From address, on the Resend-verified domain. |
 | `ORDER_ALERT_TO` | for email | Inbox that receives "new paid order" alerts. |
+| `GA4_API_SECRET` | for GA4 purchases | Lets the Stripe webhook send `purchase` to GA4 (Measurement Protocol). Production only; see `docs/HOMEPAGE.md` → Analytics. |
 
 The provider call is isolated in **`lib/generate.ts`** and is the only place
 that talks to Anthropic — swap models/providers there. The price is set once in

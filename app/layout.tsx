@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { GA_MEASUREMENT_ID, PRICE_LABEL } from "@/lib/config";
+import { TrackClicks } from "@/components/TrackClicks";
 
 // Google Analytics runs on the production deploy only, so local dev and Vercel previews stay out of the numbers
 const ANALYTICS = process.env.VERCEL_ENV === "production";
@@ -112,6 +113,8 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_MEASUREMENT_ID}');`}
             </Script>
+            {/* start_free and book_call, from one click listener (lib/events.ts lists every event) */}
+            <TrackClicks />
           </>
         )}
       </body>
