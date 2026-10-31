@@ -1,6 +1,20 @@
 import { CREATE_URL, PARENT, PRICE_LABEL, PRICE_USD, PRODUCT, SOCIALS } from "@/lib/config";
 
 /**
+ * What stops the owner of a trade business from starting (2026-10-31, the story homepage).
+ * They lead the homepage FAQ, before the ranking content below. No ranking promises: the
+ * "Will it actually rank on Google?" answer in FAQS covers that question.
+ */
+export const OWNER_FAQS: { q: string; a: string }[] = [
+  { q: "I've been burned by an SEO agency. Why is this different?", a: "You see what we see. The app shows your clicks, calls and every page, straight from your own Search Console and GA4, and nothing goes live until you approve it. The plan is month to month, so it has to earn its place every month." },
+  { q: "How much of my time does it take?", a: "Reading the report and saying yes or no to each new page. Everything else, the research, the writing and the checks, is ours." },
+  { q: "What do I need to connect?", a: "Google Search Console, so we can see what people search before they find you, and GA4, so calls from search can be counted. Bing is optional. Each one connects to your site, not to us." },
+  { q: "Is AI writing any good for a trade like mine?", a: "Each page is researched for your city from live search data, written by our AI SEO agents, and scored on ten checks before you see it. Then you read it, change any section, or ask for another version." },
+  { q: "Do I own the pages?", a: "Yes. Every page is yours." },
+  { q: "Can I cancel?", a: "Yes. The plan is month to month, and you can change or cancel it any time." },
+];
+
+/**
  * Homepage FAQ: the ranking content for "SEO landing page" and its AEO/GEO
  * neighbors. Rendered visibly on the page and mirrored 1:1 into FAQPage
  * schema below, so the structured data always matches the visible text.
@@ -63,6 +77,9 @@ export const FAQS: { q: string; a: string }[] = [
   },
 ];
 
+/* The homepage's whole FAQ, in the order it shows: the owner's objections, then the ranking content */
+export const HOME_FAQS = [...OWNER_FAQS, ...FAQS];
+
 export const HOME_SCHEMA = {
   "@context": "https://schema.org",
   "@graph": [
@@ -102,7 +119,7 @@ export const HOME_SCHEMA = {
     {
       "@type": "FAQPage",
       "@id": "https://seopage.com/#faq",
-      mainEntity: FAQS.map((f) => ({
+      mainEntity: HOME_FAQS.map((f) => ({
         "@type": "Question",
         name: f.q,
         acceptedAnswer: { "@type": "Answer", text: f.a },
