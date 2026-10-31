@@ -159,7 +159,7 @@ delivered file for paid orders. See `app/admin/page.tsx`.
 | The price / delivery promise | `lib/config.ts` (`PRICE_USD`, `DELIVERY_HOURS`) |
 | The generation prompts / quality | `lib/prompts.ts` |
 | The model / provider | `lib/generate.ts` |
-| The homepage copy/design | `app/page.tsx`, `components/*`, `app/globals.css` |
+| The homepage copy/design | `components/oat/story.tsx`, `components/oat/showcase.tsx`, `lib/homeContent.ts`; read `docs/HOMEPAGE.md` first (trade-offs and open items) |
 | The money page (on-page SEO services) | `app/on-page-seo-services/page.tsx` |
 | The post-payment brief fields | `components/OrderIntakeForm.tsx`, `app/api/order/route.ts`, `lib/types.ts` (`Order`) |
 | The legacy self-serve intake | `components/IntakeForm.tsx` |
@@ -169,3 +169,4 @@ delivered file for paid orders. See `app/admin/page.tsx`.
 | Admin queue / fulfillment | `app/admin/page.tsx`, `app/api/admin/order/route.ts`, `lib/admin.ts` |
 | SEO/GEO files | `app/robots.ts`, `app/sitemap.ts`, `public/llms.txt`, `app/opengraph-image.tsx` |
 | Analytics backend | `lib/analytics.ts` |
+| Google Analytics (GA4) | `GA_MEASUREMENT_ID` in `lib/config.ts`, loaded in `app/layout.tsx` (production only); see `docs/HOMEPAGE.md` |

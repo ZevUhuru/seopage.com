@@ -44,6 +44,10 @@ export const PRODUCT = {
 /** Zev's booking page. Managed is sold on a call, not through checkout. */
 export const BOOK_CALL_URL = "https://cal.com/zev-uhuru-49mkft/15min";
 
+/** seopage.com's own Google Analytics 4 property (the marketing site, not any customer's).
+ *  Loaded by app/layout.tsx on the production deploy only. */
+export const GA_MEASUREMENT_ID = "G-JD7VKJQKNW";
+
 /** The company SEOPage is a division of. */
 export const PARENT = { name: "ESY LLC", href: "https://esy.com" } as const;
 
