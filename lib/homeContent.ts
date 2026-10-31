@@ -91,8 +91,7 @@ export const HOME_SCHEMA = {
       email: PRODUCT.supportEmail,
       sameAs: SOCIALS.map((s) => s.href),
       parentOrganization: { "@type": "Organization", name: PARENT.name, url: PARENT.href },
-      description:
-        "SEOPage builds SEO landing pages with AI: researched, written, and engineered to be cited by AI search and rank on Google. Free to preview, ready to publish in one sitting.",
+      description: `SEOPage builds SEO landing pages for local service businesses every month, picked from each owner's own Search Console, researched and written by AI SEO agents, and approved by the owner before they go live.`,
     },
     {
       "@type": "WebSite",
@@ -104,17 +103,29 @@ export const HOME_SCHEMA = {
     {
       "@type": "Service",
       "@id": "https://seopage.com/#service",
-      serviceType: "SEO landing page creation",
-      name: "SEO landing page builder",
+      serviceType: "SEO landing pages for local businesses",
+      name: "SEOPage",
       provider: { "@id": "https://seopage.com/#organization" },
-      description: `One researched and written SEO landing page built around a target keyword, engineered to be cited by AI search, and exported ready to publish.`,
-      offers: {
-        "@type": "Offer",
-        price: `${PRICE_USD}.00`,
-        priceCurrency: "USD",
-        availability: "https://schema.org/InStock",
-        url: CREATE_URL,
-      },
+      audience: { "@type": "BusinessAudience", audienceType: "Local service businesses" },
+      description: `New SEO landing pages every month, picked from the owner's own Search Console, researched and written for their city, scored on ten checks, and approved by the owner. Or one page, bought once.`,
+      // The monthly plan first (opening soon, so a pre-order), then the single page sold today
+      offers: [
+        {
+          "@type": "Offer",
+          name: "SEOPage monthly plan",
+          priceSpecification: { "@type": "UnitPriceSpecification", price: "149.00", priceCurrency: "USD", unitText: "MONTH" },
+          availability: "https://schema.org/PreOrder",
+          url: "https://seopage.com/pricing",
+        },
+        {
+          "@type": "Offer",
+          name: "One SEO landing page",
+          price: `${PRICE_USD}.00`,
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+          url: CREATE_URL,
+        },
+      ],
     },
     {
       "@type": "FAQPage",

@@ -141,7 +141,8 @@ export const PLANS: Plan[] = [
     who: "We do the work, you approve it",
     blurb: "New pages every month, picked from your own Search Console.",
     includes: [
-      "8 pages your first month, then 4 a month",
+      // No page count until Zev settles how many a plan includes (2026-10-31); limits below are planning numbers
+      "New pages every month",
       "Picked from the searches you already show up for",
       "Pages that slip get rewritten",
       "Which AI answers name you, checked weekly",
@@ -180,7 +181,7 @@ export const PLANS: Plan[] = [
     includes: [
       "Everything in SEOPage, with Google Ads",
       "One person who knows your business, and a monthly call",
-      "Up to 12 pages a month, plus rewrites of your current site",
+      "More new pages every month, plus rewrites of your current site",
       "Your Google Business Profile kept current",
       "Your Google Ads run inside the budget you set",
       "Up to 3 locations",
@@ -251,7 +252,8 @@ export function priceFor(p: Plan, billing: Billing, withAds = false) {
 
 /** The compare table, one row per limit. */
 export const COMPARE: { label: string; value: (l: Limits) => string }[] = [
-  { label: "New pages", value: (l) => (l.pagesPerMonth ? (l.pagesFirstMonth === l.pagesPerMonth ? `Up to ${l.pagesPerMonth} a month` : `${l.pagesFirstMonth} first month, then ${l.pagesPerMonth} a month`) : "1") },
+  // Monthly plans say "every month" with no count until the count is decided; the one-page buy says 1
+  { label: "New pages", value: (l) => (l.pagesPerMonth ? "Every month" : "1") },
   { label: "Images made for each page", value: (l) => (l.imagesPerPage ? `Up to ${l.imagesPerPage}` : "—") },
   { label: "Picked from your Search Console", value: (l) => yes(l.searchConsole) },
   { label: "Pages that slip get rewritten", value: (l) => yes(l.rewrites) },

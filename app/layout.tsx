@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Archivo, Newsreader } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
-import { GA_MEASUREMENT_ID, PRICE_LABEL } from "@/lib/config";
+import { GA_MEASUREMENT_ID, SITE_DESCRIPTION, SITE_TITLE, SOCIAL_DESCRIPTION } from "@/lib/config";
 import { TrackClicks } from "@/components/TrackClicks";
 
 // Google Analytics runs on the production deploy only, so local dev and Vercel previews stay out of the numbers
@@ -35,11 +35,9 @@ const serif = Newsreader({
   style: ["normal", "italic"],
 });
 
-const TITLE = "SEO Landing Pages That Get Cited by AI and Rank on Google | SEOPage";
-const DESCRIPTION = `An SEO page is a page built to win one search. Build yours with AI — researched, written, and engineered to rank on Google and get cited by ChatGPT, Perplexity, and AI Overviews. Free to preview, ${PRICE_LABEL} to publish.`;
-
-// Shared by both the OpenGraph and Twitter cards.
-const SOCIAL_DESCRIPTION = `Describe your business. Get a finished SEO page — researched, written, and engineered for Google and AI search. Free to preview, ${PRICE_LABEL} to publish.`;
+// The site's default title and description, and the social cards' text: the positioning in lib/config.ts
+const TITLE = SITE_TITLE;
+const DESCRIPTION = SITE_DESCRIPTION;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://seopage.com"),

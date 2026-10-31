@@ -1,11 +1,12 @@
 # SEOPage
 
-> SEOPage (seopage.com) builds SEO landing pages with AI. You describe your business at
-> create.seopage.com; the AI researches the searches in your market, writes the
-> page, and structures it for search engines and AI assistants. You refine it in a
-> live editor and publish one ready-to-publish HTML file. Free to preview, $199
-> to publish, one time. We also run a free, human-reviewed SEO page audit of a page you
-> already have.
+> SEOPage (seopage.com) builds SEO landing pages for local service businesses, every
+> month. It reads the owner's Google Search Console, picks the searches their site
+> doesn't answer yet, and its AI SEO agents research and write those pages for their
+> city. The owner approves every page, and a monthly report shows searches, clicks
+> and calls, page by page. The monthly plan is $149 a month, opening soon; one page
+> can be bought today for $199, free to preview. We also run a free, human-reviewed
+> SEO page audit of a page you already have.
 
 ## Definitions
 
@@ -29,6 +30,11 @@ sites, chiefly backlinks.
 
 ## Services
 
+- **SEOPage monthly plan** (https://seopage.com/pricing) — $149 a month, opening
+  soon. New pages every month, picked from your own Search Console and researched
+  for your city, each scored on ten checks and approved by you before it goes live.
+  A monthly report from Search Console and Google Analytics. Month to month; change
+  or cancel any time.
 - **SEO landing page builder** (https://create.seopage.com) — free to preview,
   $199 to publish, one time, no subscription. Exports a single self-contained HTML
   file that is yours forever. Includes live keyword research for your market, a
@@ -43,8 +49,9 @@ sites, chiefly backlinks.
 
 ## Pages
 
-- [Home — SEO pages that get cited by AI](https://seopage.com/): the offer,
-  what a finished SEO page includes, how it works, pricing, and FAQ
+- [Home — SEO landing pages for local businesses, built every month](https://seopage.com/):
+  the app (calls, coverage of every service in every town, what to build next,
+  approvals), how a month works, pricing, and FAQ
 - [SEO page audit — free, human-reviewed](https://seopage.com/audit): what an
   SEO page audit is, the full 29-point checklist we run, plus how to do an
   on-page SEO audit yourself in five steps, and a free audit request

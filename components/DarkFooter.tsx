@@ -4,7 +4,7 @@ import { EsyMark } from "./EsyMark";
 import { SocialIcons, SocialInline, SocialList } from "./SocialLinks";
 import { RankMark } from "./rank/parts";
 import { getArticles, JOURNAL_PATH } from "@/lib/articles";
-import { CREATE_URL, PARENT, PRODUCT } from "@/lib/config";
+import { CREATE_URL, PARENT, PRODUCT, TAGLINE } from "@/lib/config";
 import { VERTICALS, tradePath } from "@/lib/verticals";
 
 /**
@@ -86,7 +86,7 @@ export async function DarkFooter({
         <div className="flex flex-col gap-5 lg:col-span-3">
           <Logo tone="dark" className="text-[28px]" />
           <p className="max-w-[260px] text-[15px] leading-[1.55] text-[#A0A9C0]">
-            SEO landing pages that rank on Google and get cited by AI.
+            {TAGLINE}
           </p>
           {parent === "brand" && (
             <a href={PARENT.href} className="-mt-2 w-fit text-[14px] text-[#9DB4FF] hover:text-white">
