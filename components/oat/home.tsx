@@ -222,7 +222,8 @@ export function Hero({ tone, sub, heroShot }: { tone: Tone; sub: ReactNode; hero
       <SiteHeader dark={tone.dark} />
       <div className="mx-auto mt-16 flex max-w-[900px] flex-col items-center gap-6 text-center lg:mt-24">
         <h1 className={`${H1} oat-rise`}>
-          Build a site Google and AI can trust,{" "}
+          {/* ChatGPT, not "AI" (2026-11-02): the name owners know, for where they now search */}
+          Build a site Google and ChatGPT can trust,{" "}
           <span className="relative inline-block whitespace-nowrap">
             one page at a time.
             {/* The one hand-drawn mark in the hero, drawn in once on load */}
