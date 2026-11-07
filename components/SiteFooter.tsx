@@ -37,6 +37,12 @@ export function SiteFooter() {
               </a>
             ))}
           </span>
+          {/* The legal pages (2026-11-06). */}
+          <span className="flex gap-4 text-xs">
+            <Link href="/terms" className="hover:text-ink">Terms</Link>
+            <Link href="/privacy" className="hover:text-ink">Privacy</Link>
+            <Link href="/cookies" className="hover:text-ink">Cookies</Link>
+          </span>
           <span className="text-xs text-muted">
             © {new Date().getFullYear()} SEOPage, a division of{" "}
             <a href={PARENT.href} className="underline underline-offset-2 hover:text-ink">
