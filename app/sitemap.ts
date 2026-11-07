@@ -45,5 +45,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.9,
     },
+    // The legal pages (2026-11-06): listed so they're found, at the lowest priority.
+    ...["/terms", "/privacy", "/cookies"].map((path) => ({
+      url: `${base}${path}`,
+      lastModified,
+      changeFrequency: "yearly" as const,
+      priority: 0.2,
+    })),
   ];
 }

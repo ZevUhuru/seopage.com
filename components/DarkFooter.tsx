@@ -195,6 +195,10 @@ export async function DarkFooter({
             )}
           </span>
           <a href={`mailto:${PRODUCT.supportEmail}`} className="hover:text-white">{PRODUCT.supportEmail}</a>
+          {/* The legal pages (2026-11-06). */}
+          <Link href="/terms" className="hover:text-white">Terms</Link>
+          <Link href="/privacy" className="hover:text-white">Privacy</Link>
+          <Link href="/cookies" className="hover:text-white">Cookies</Link>
         </span>
         <span className="flex flex-wrap items-center gap-x-5 gap-y-1">
           {socials === "bar" && <SocialInline className="hover:text-white" />}
